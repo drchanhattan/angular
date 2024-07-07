@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AvoidTheCobComponent } from './components/avoid-the-cob/avoid-the-cob.component';
@@ -8,19 +9,25 @@ import { AvoidTheCobComponent } from './components/avoid-the-cob/avoid-the-cob.c
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [RouterOutlet, RouterLink, AvoidTheCobComponent, MatIconModule],
-  providers: [MatIconRegistry],
+  imports: [CommonModule, RouterOutlet, RouterLink, AvoidTheCobComponent],
 })
 export class AppComponent {
   title = 'website';
+  icons = ['corn'];
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'corn',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/corn.svg'),
-    );
+    this.registerIcons();
+  }
+
+  public registerIcons() {
+    this.icons.forEach((icon) => {
+      this.matIconRegistry.addSvgIcon(
+        icon,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`/icons/${icon}.svg`),
+      );
+    });
   }
 }

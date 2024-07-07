@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -6,21 +8,21 @@ import {
   HostListener,
   ViewChild,
 } from '@angular/core';
-import { GameObject } from './game/game-object';
-import { GameObjectBehaviour } from './game/game-object-behaviour';
+import { MatIconModule } from '@angular/material/icon';
 import { Corn } from './corn';
-import { Peas } from './peas';
 import { Canvas } from './game/canvas';
 import { Cursor } from './game/cursor';
-import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+import { GameObject } from './game/game-object';
+import { GameObjectBehaviour } from './game/game-object-behaviour';
+import { Peas } from './peas';
 
 @Component({
   selector: 'app-avoid-the-cob',
   standalone: true,
-  imports: [MatIconModule, CommonModule],
+  imports: [CommonModule, MatIconModule, HttpClientModule],
   templateUrl: './avoid-the-cob.component.html',
   styleUrls: ['./avoid-the-cob.component.scss'],
+  providers: [HttpClient],
 })
 export class AvoidTheCobComponent implements AfterViewInit {
   @ViewChild('canvas', { static: true }) public canvasEle!: ElementRef;
