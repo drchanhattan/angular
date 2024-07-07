@@ -1,23 +1,23 @@
 <!-- Canvas -->
 <div class="canvas-container">
-    <canvas #canvas></canvas>
+  <canvas #canvas></canvas>
 </div>
 
 <!-- Message -->
 <div class="message hide">
-    <strong>{{message.text}}</strong>
-    <span>{{message.subText}}</span>
+  <strong>{{ message.text }}</strong>
+  <span>{{ message.subText }}</span>
 </div>
 
 <!-- Icons -->
 <div class="icons" *ngIf="!idle">
-    <span>{{'x' + lives}}</span>
-    <mat-icon color="warn">favorite</mat-icon>
+  <span>{{ 'x' + lives }}</span>
+  <mat-icon color="warn">favorite</mat-icon>
 </div>
 
 <!-- Play Buttons -->
 <div class="play-button">
-    <button mat-mini-fab class="cob" (click)="play(true)" color="primary">
-        <mat-icon [svgIcon]="'corn'"></mat-icon>
-    </button>
+  <button mat-mini-fab class="cob" (click)="play(true)" color="primary">
+    <mat-icon svgIcon="corn"></mat-icon>
+  </button>
 </div>

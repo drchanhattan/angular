@@ -8,9 +8,8 @@ describe('AvoidTheCobComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvoidTheCobComponent ]
-    })
-    .compileComponents();
+      declarations: [AvoidTheCobComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

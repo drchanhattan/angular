@@ -16,6 +16,6 @@
 
 9. Add this script:
 
-"publish": "ng build --configuration production --output-path docs --base-href . && move docs\\browser\\* docs && rmdir /s /q docs\\browser && echo christopherchan.co.uk > docs\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
+"publish": "ng build --configuration production --output-path docs --base-href . && move docs\\browser\\\* docs && rmdir /s /q docs\\browser && echo christopherchan.co.uk > docs\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
 
 10. npm run-script publish
