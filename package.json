@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "publish": "ng build --configuration production --output-path docs --base-href . --deploy-url=https://drchanhattan.github.io/website/ && move docs\\browser\\* docs && rmdir /s /q docs\\browser && echo christopherchan.co.uk > docs\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
+    "publish": "ng build --configuration production --output-path docs --base-href . && move docs\\browser\\* docs && rmdir /s /q docs\\browser && echo christopherchan.co.uk > docs\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
   },
   "private": true,
   "dependencies": {
