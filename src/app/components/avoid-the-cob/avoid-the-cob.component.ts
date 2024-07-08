@@ -163,11 +163,11 @@ export class AvoidTheCobComponent implements AfterViewInit {
   #resetDifficulty() {
     // Reset params back to default
     this.peas.count = 10;
-    this.peas.size = 15;
+    this.peas.size = 20;
     this.peas.speed = 0.8;
 
-    this.corn.count = 30;
-    this.corn.size = 20;
+    this.corn.count = 20;
+    this.corn.size = 25;
     this.corn.speed = 0.5;
 
     this.cursor.size = 10;

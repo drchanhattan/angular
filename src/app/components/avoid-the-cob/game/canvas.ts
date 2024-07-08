@@ -47,8 +47,10 @@ export class Canvas {
   public drawParticles(context: CanvasRenderingContext2D): void {
     this.particles.forEach((object) => {
       // Draw a single particle
+      context.globalAlpha = 0.8;
       Canvas.drawObject(context, object, 0.25);
       object.move();
+      context.globalAlpha = 1;
     });
   }
 
