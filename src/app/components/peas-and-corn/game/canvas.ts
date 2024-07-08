@@ -45,13 +45,14 @@ export class Canvas {
   }
 
   public drawParticles(context: CanvasRenderingContext2D): void {
-    this.particles.forEach((object) => {
+    for (let i = 0; i < this.particles.length; i++) {
       // Draw a single particle
+      const object = this.particles[i];
       context.globalAlpha = 0.8;
       Canvas.drawObject(context, object, 0.25);
       object.move();
       context.globalAlpha = 1;
-    });
+    }
   }
 
   public particleDecay(): void {

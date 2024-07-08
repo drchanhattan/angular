@@ -196,7 +196,8 @@ export class PeasAndCornComponent implements AfterViewInit {
   }
 
   #drawCorn() {
-    this.corn.objects.forEach((object) => {
+    for (let i = 0; i < this.corn.objects.length; i++) {
+      const object = this.corn.objects[i];
       if (!object.destroyed) {
         // Draw a single Corn
         Canvas.drawObject(this.context, object);
@@ -217,11 +218,12 @@ export class PeasAndCornComponent implements AfterViewInit {
 
         object.move();
       }
-    });
+    }
   }
 
   #drawPeas() {
-    this.peas.objects.forEach((object) => {
+    for (let i = 0; i < this.peas.objects.length; i++) {
+      const object = this.peas.objects[i];
       if (!object.destroyed) {
         // Draw a single Pea
         Canvas.drawObject(this.context, object);
@@ -242,7 +244,7 @@ export class PeasAndCornComponent implements AfterViewInit {
 
         object.move();
       }
-    });
+    }
   }
 
   #detectPeaCollision(pea: GameObject) {
