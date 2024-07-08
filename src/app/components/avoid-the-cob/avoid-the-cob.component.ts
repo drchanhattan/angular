@@ -105,18 +105,18 @@ export class AvoidTheCobComponent implements AfterViewInit {
     this.canvas.h = this.screenH;
   }
 
-  animate() {
-    setInterval(() => {
-      // Clear previous frame
+  animate(): void {
+    const animateFrame = () => {
       this.context.clearRect(0, 0, this.canvas.w, this.canvas.h);
-      // Draw new frame
       if (!this.idle) {
         this.cursor.draw(this.context);
       }
       this.#drawPeas();
       this.#drawCorn();
       this.canvas.drawParticles(this.context);
-    }, 1);
+      requestAnimationFrame(animateFrame);
+    };
+    animateFrame();
   }
 
   play(newGame: boolean) {
