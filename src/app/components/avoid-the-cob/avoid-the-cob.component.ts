@@ -145,7 +145,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
 
     setTimeout(() => {
       this.play(false);
-    }, 2000);
+    }, 3000);
   }
 
   #gameOver() {
@@ -163,7 +163,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
   #resetDifficulty() {
     // Reset params back to default
     this.peas.count = 10;
-    this.peas.size = 10;
+    this.peas.size = 15;
     this.peas.speed = 0.8;
 
     this.corn.count = 30;
