@@ -9,21 +9,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Corn } from './corn';
 import { Canvas } from './game/canvas';
+import { Corn } from './game/corn';
 import { Cursor } from './game/cursor';
 import { GameObject } from './game/game-object';
 import { GameObjectBehaviour } from './game/game-object-behaviour';
-import { Peas } from './peas';
+import { Peas } from './game/peas';
 
 @Component({
-  selector: 'app-avoid-the-cob',
+  selector: 'app-peas-and-corn',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './avoid-the-cob.component.html',
-  styleUrls: ['./avoid-the-cob.component.scss'],
+  templateUrl: './peas-and-corn.component.html',
+  styleUrls: ['./peas-and-corn.component.scss'],
 })
-export class AvoidTheCobComponent implements AfterViewInit {
+export class PeasAndCornComponent implements AfterViewInit {
   @HostBinding('class') hostClasses =
     'fixed w-full h-full flex justify-center items-center bg-black';
 
