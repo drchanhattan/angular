@@ -1,23 +1,33 @@
 <!-- Canvas -->
-<div class="canvas-container">
-  <canvas #canvas></canvas>
+<div class="absolute top-0">
+  <canvas
+    #canvas
+    class="block size-full bg-black transition-all duration-300 ease-in-out"
+  ></canvas>
 </div>
 
 <!-- Message -->
-<div class="message hide">
+<div
+  class="message opacity-0 flex flex-col absolute items-center text-white leading-[7vw] text-[9vw] pointer-events-none transition-opacity duration-1000 ease-in-out"
+>
   <strong>{{ message.text }}</strong>
-  <span>{{ message.subText }}</span>
+  <span class="text-[3vw]">{{ message.subText }}</span>
 </div>
 
 <!-- Icons -->
-<div class="icons" *ngIf="!idle">
-  <span>{{ 'x' + lives }}</span>
-  <mat-icon color="warn">favorite</mat-icon>
+<div
+  *ngIf="!idle"
+  class="absolute bottom-0 right-0 mr-4 mb-2 transform scale-100 md:scale-150 pointer-events-none"
+>
+  <div class="flex items-center">
+    <span class="text-white">{{ 'x' + lives }}</span>
+    <mat-icon color="warn">favorite</mat-icon>
+  </div>
 </div>
 
 <!-- Play Buttons -->
-<div class="play-button">
+<div class="flex flex-col items-center overflow-hidden play-button">
   <button mat-mini-fab class="cob" (click)="play(true)" color="primary">
-    <mat-icon svgIcon="corn"></mat-icon>
+    <mat-icon [style.color]="'white'" svgIcon="corn"></mat-icon>
   </button>
 </div>

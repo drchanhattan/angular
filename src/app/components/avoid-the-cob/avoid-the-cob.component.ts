@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostBinding,
   HostListener,
   ViewChild,
 } from '@angular/core';
@@ -19,54 +19,53 @@ import { Peas } from './peas';
 @Component({
   selector: 'app-avoid-the-cob',
   standalone: true,
-  imports: [CommonModule, MatIconModule, HttpClientModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './avoid-the-cob.component.html',
   styleUrls: ['./avoid-the-cob.component.scss'],
-  providers: [HttpClient],
 })
 export class AvoidTheCobComponent implements AfterViewInit {
-  @ViewChild('canvas', { static: true }) public canvasEle!: ElementRef;
+  @HostBinding('class') hostClasses =
+    'fixed w-full h-full flex justify-center items-center bg-black';
 
-  public screenW = window.innerWidth;
-  public screenH = window.innerHeight;
-  public canvas = new Canvas();
+  @ViewChild('canvas', { static: true })
+  canvasEle!: ElementRef<HTMLCanvasElement>;
+  screenW = window.innerWidth;
+  screenH = window.innerHeight;
+  canvas = new Canvas();
 
   // General
-  public lives = 0;
-  public idle = true;
-  public paused = false;
-  public level!: number;
+  lives = 0;
+  idle = true;
+  paused = false;
+  level!: number;
 
   // Modifiers
-  public ghost = true;
-  public invincible = false;
+  ghost = true;
+  invincible = false;
 
   // Game Objects
-  public peas = new Peas();
-  public corn = new Corn();
+  peas = new Peas();
+  corn = new Corn();
 
   // Particles
-  private particleCount = 25;
-  private particleSpd = 0.8;
+  particleCount = 25;
+  particleSpd = 0.8;
 
-  // Cursor
-  private cursor = new Cursor();
-
-  // Context
-  private context!: CanvasRenderingContext2D;
-  public message = { text: '', subText: '' };
+  cursor = new Cursor();
+  context!: CanvasRenderingContext2D;
+  message = { text: '', subText: '' };
 
   constructor(private change: ChangeDetectorRef) {}
 
   @HostListener('window:resize', ['$event'])
-  onResize(): void {
-    window.location.reload();
+  onResize() {
+    this.setupCanvas();
   }
 
   @HostListener('document:keyup', ['$event'])
-  onKeyupHandler(event: KeyboardEvent): void {
+  onKeyupHandler(event: KeyboardEvent) {
     if (event.key === '1') {
-      this.toggleInvincibility();
+      this.#toggleInvincibility();
     }
 
     if (event.key === '2') {
@@ -82,22 +81,31 @@ export class AvoidTheCobComponent implements AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.setupCanvas();
     this.cursor.track(this.context, this.canvas);
     this.canvas.particleDecay();
     this.animate();
   }
 
-  setupCanvas(): void {
-    this.context = this.canvasEle.nativeElement.getContext('2d');
-    this.context.canvas.width = this.screenW;
-    this.context.canvas.height = this.screenH;
-    this.canvas.w = this.context.canvas.width;
-    this.canvas.h = this.context.canvas.height;
+  setupCanvas() {
+    const canvas = this.canvasEle.nativeElement;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+
+    this.screenW = window.innerWidth;
+    this.screenH = window.innerHeight;
+
+    canvas.width = this.screenW * devicePixelRatio;
+    canvas.height = this.screenH * devicePixelRatio;
+
+    this.context = canvas.getContext('2d')!;
+    this.context.scale(devicePixelRatio, devicePixelRatio);
+
+    this.canvas.w = this.screenW;
+    this.canvas.h = this.screenH;
   }
 
-  animate(): void {
+  animate() {
     setInterval(() => {
       // Clear previous frame
       this.context.clearRect(0, 0, this.canvas.w, this.canvas.h);
@@ -105,52 +113,54 @@ export class AvoidTheCobComponent implements AfterViewInit {
       if (!this.idle) {
         this.cursor.draw(this.context);
       }
-      this.drawCorn();
-      this.drawPeas();
+      this.#drawPeas();
+      this.#drawCorn();
       this.canvas.drawParticles(this.context);
     }, 1);
   }
 
-  public play(newGame: boolean): void {
-    newGame ? this.resetDifficulty() : this.increaseDifficulty();
+  play(newGame: boolean) {
+    newGame ? this.#resetDifficulty() : this.#increaseDifficulty();
     this.change.detectChanges();
-    this.corn.createNewCorn(newGame, this.cursor, this.canvas);
-    this.peas.createNewPeas(this.canvas);
+
+    this.peas.createNewPeas(this.canvas.w, this.canvas.h);
+    this.corn.createNewCorn(this.canvas.w, this.canvas.h);
+
     this.paused = false;
-    this.giveTemporaryImmunity(1500);
+    this.#temporaryImmunity(1500);
   }
 
-  private pause(duration: number): void {
+  #pause(duration: number) {
     this.paused = true;
     this.change.detectChanges();
-    this.displayMessage(duration);
+    this.#displayMessage(duration);
   }
 
-  private LevelUp(): void {
+  #LevelUp() {
     this.ghost = true;
     this.level = this.level + 1;
     this.message.text = 'Level ' + this.level;
     this.message.subText = this.level % 2 ? '' : '+ 1 life';
-    this.pause(1000);
+    this.#pause(1000);
 
     setTimeout(() => {
       this.play(false);
     }, 2000);
   }
 
-  private gameOver(): void {
+  #gameOver() {
     this.idle = true;
     this.message.text = 'Game Over';
     this.message.subText = 'You reached level ' + this.level;
-    this.pause(3000);
+    this.#pause(3000);
 
     // Show buttons and cursor
     setTimeout(() => {
-      this.displayButtons(false);
+      this.#displayButtons(false);
     }, 4000);
   }
 
-  private resetDifficulty(): void {
+  #resetDifficulty() {
     // Reset params back to default
     this.peas.count = 10;
     this.peas.size = 10;
@@ -167,10 +177,10 @@ export class AvoidTheCobComponent implements AfterViewInit {
     this.idle = false;
     this.message = { text: '', subText: '' };
 
-    this.displayButtons(true);
+    this.#displayButtons(true);
   }
 
-  private increaseDifficulty(): void {
+  #increaseDifficulty() {
     // Increase difficulty settings
     this.peas.count = 10;
     this.corn.count = this.corn.count * 1.1;
@@ -185,7 +195,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
     this.lives = this.level % 2 ? this.lives : this.lives + 1;
   }
 
-  private drawCorn(): void {
+  #drawCorn() {
     this.corn.objects.forEach((object) => {
       if (!object.destroyed) {
         // Draw a single Corn
@@ -194,7 +204,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
         // Check for collision
         if (!this.paused) {
           this.canvas.wallCollision(object);
-          this.cornCollision(object);
+          this.#detectCornCollision(object);
         } else {
           // Apply Gravity if objects are not alive
           object.applyForce(false, 2.5);
@@ -210,7 +220,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
     });
   }
 
-  private drawPeas(): void {
+  #drawPeas() {
     this.peas.objects.forEach((object) => {
       if (!object.destroyed) {
         // Draw a single Pea
@@ -219,7 +229,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
         // Check for collision
         if (!this.paused) {
           this.canvas.wallCollision(object);
-          this.peaCollision(object);
+          this.#detectPeaCollision(object);
         } else {
           // Apply Gravity if objects are not alive
           object.applyForce(false, 2.5);
@@ -235,7 +245,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
     });
   }
 
-  private peaCollision(pea: GameObject): void {
+  #detectPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor)) {
       pea.destroyed = true;
       this.canvas.createParticles(pea, this.particleCount, this.particleSpd);
@@ -243,12 +253,12 @@ export class AvoidTheCobComponent implements AfterViewInit {
       this.change.detectChanges();
 
       if (this.peas.count === 0) {
-        this.LevelUp();
+        this.#LevelUp();
       }
     }
   }
 
-  private cornCollision(corn: GameObject): void {
+  #detectCornCollision(corn: GameObject) {
     if (!this.ghost && corn.detectCollision(this.cursor)) {
       corn.destroyed = true;
       this.canvas.createParticles(corn, this.particleCount, this.particleSpd);
@@ -256,35 +266,35 @@ export class AvoidTheCobComponent implements AfterViewInit {
       if (!this.invincible) {
         this.lives = this.lives - 1;
         this.change.detectChanges();
-        this.flashColour('flash-red', 1000);
-        this.giveTemporaryImmunity(500);
+        this.#flashColour('bg-red-900', 500);
+        this.#temporaryImmunity(500);
       }
 
       if (this.lives === 0) {
-        this.gameOver();
+        this.#gameOver();
       }
     }
   }
 
-  private flashColour(className: string, duration: number): void {
+  #flashColour(color: string, duration: number) {
     const canvasClass = this.canvasEle.nativeElement.classList;
 
     // Flash Colour
-    canvasClass.add(className);
+    canvasClass.toggle(color);
 
     // Remove Colour
     setTimeout(() => {
-      canvasClass.remove(className);
+      canvasClass.toggle(color);
     }, duration);
   }
 
-  private toggleInvincibility(): void {
+  #toggleInvincibility() {
     this.cursor.history = [];
     this.cursor.trail = !this.cursor.trail;
     this.invincible = !this.invincible;
   }
 
-  private giveTemporaryImmunity(duration: number): void {
+  #temporaryImmunity(duration: number) {
     this.ghost = true;
 
     setTimeout(() => {
@@ -292,29 +302,29 @@ export class AvoidTheCobComponent implements AfterViewInit {
     }, duration);
   }
 
-  private displayMessage(duration: number): void {
+  #displayMessage(duration: number) {
     const messageClass =
       document.getElementsByClassName('message')[0].classList;
 
     // Show Message
-    messageClass.remove('hide');
+    messageClass.toggle('opacity-0');
     // Hide Message
     setTimeout(() => {
-      messageClass.add('hide');
+      messageClass.toggle('opacity-0');
     }, duration);
   }
 
-  private displayButtons(hide: boolean): void {
+  #displayButtons(hide: boolean) {
     const canvasClass = this.canvasEle.nativeElement.classList;
     const playButtonClass =
       document.getElementsByClassName('play-button')[0].classList;
 
     if (hide) {
-      canvasClass.add('hide-cursor');
-      playButtonClass.add('shrink');
+      canvasClass.toggle('cursor-none');
+      playButtonClass.toggle('shrink');
     } else {
-      canvasClass.remove('hide-cursor');
-      playButtonClass.remove('shrink');
+      canvasClass.toggle('cursor-none');
+      playButtonClass.toggle('shrink');
     }
   }
 }

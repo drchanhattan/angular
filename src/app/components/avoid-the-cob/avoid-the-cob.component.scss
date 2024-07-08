@@ -1,79 +1,7 @@
-$pea-green: #54ff58;
-$red-flash: #4b0200;
-
 :host {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: gray;
-
-  .canvas-container {
-    top: 0;
-    position: absolute;
-
-    canvas {
-      transition: #00000085 0.75s ease;
-
-      &.flash-red {
-        transition: #00000085 0s ease;
-        background: $red-flash;
-      }
-
-      &.hide-cursor {
-        cursor: none;
-      }
-    }
-  }
-
-  // Message
-  .message {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    align-items: center;
-    color: whitesmoke;
-    line-height: 7vw;
-    font-size: 9vw;
-    pointer-events: none;
-    opacity: 1;
-    transition: 1s ease;
-
-    span {
-      font-size: 3vw;
-    }
-  }
-
-  // Icons
-  .icons {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    transform: scale(2);
-    pointer-events: none;
-    transition: 1s ease;
-    opacity: 0.7;
-
-    span {
-      color: whitesmoke;
-    }
-
-    mat-icon {
-      &.pea {
-        color: $pea-green;
-      }
-    }
-  }
-
   // Play Button
   .play-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     transition: width 1s ease-in-out;
-    overflow: hidden;
 
     &.shrink {
       button {
