@@ -1,33 +1,37 @@
 <!-- Canvas -->
-<div class="absolute top-0">
-  <canvas
-    #canvas
-    class="block size-full bg-black transition-all duration-300 ease-in-out"
-  ></canvas>
-</div>
-
-<!-- Message -->
-<div
-  class="message opacity-0 flex flex-col absolute items-center text-white leading-[7vw] text-[9vw] pointer-events-none transition-opacity duration-1000 ease-in-out"
->
-  <strong>{{ message.text }}</strong>
-  <span class="text-[3vw]">{{ message.subText }}</span>
-</div>
+<canvas #canvas class="block size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
 <!-- Icons -->
-<div
-  *ngIf="!idle"
-  class="absolute bottom-0 right-0 mr-4 mb-2 transform scale-100 md:scale-150 pointer-events-none"
->
+<div *ngIf="!idle" class="absolute bottom-0 right-0 mr-4 mb-2 transform scale-100 md:scale-150 pointer-events-none">
   <div class="flex items-center">
     <span class="text-white mr-1">{{ 'x' + lives }}</span>
     <mat-icon color="warn">favorite</mat-icon>
   </div>
 </div>
 
-<!-- Play Buttons -->
-<div class="flex flex-col items-center overflow-hidden play-button">
-  <button mat-mini-fab class="cob" (click)="play(true)" color="primary">
-    <mat-icon [style.color]="'white'" svgIcon="corn"></mat-icon>
-  </button>
+<!-- Message -->
+<div
+  class="message opacity-0 flex flex-col absolute items-center text-white leading-[6vw] text-[9vw] pointer-events-none transition-opacity duration-1000 ease-in-out"
+>
+  <strong>{{ message.text }}</strong>
+  <span class="text-[4vw]">{{ message.subText }}</span>
+</div>
+
+<!-- Menu -->
+<div class="menu flex absolute items-center text-white transition-all duration-1000 ease-in-out">
+  <mat-icon class="!w-40 !h-40" svgIcon="corn"></mat-icon>
+
+  <div class="flex flex-col items-start ml-10">
+    <button (click)="play(true)" class="text-xl hover:text-[#ffc107] mb-4">
+      <span>Play</span>
+    </button>
+
+    <button class="text-xl hover:text-[#ffc107] mb-4">
+      <span>Settings</span>
+    </button>
+
+    <button class="text-xl hover:text-[#ffc107]">
+      <span>Leaderboard</span>
+    </button>
+  </div>
 </div>

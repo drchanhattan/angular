@@ -21,11 +21,9 @@ import { Peas } from './game/peas';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './peas-and-corn.component.html',
-  styleUrls: ['./peas-and-corn.component.scss'],
 })
 export class PeasAndCornComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses =
-    'fixed w-full h-full flex justify-center items-center bg-black';
+  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black';
 
   @ViewChild('canvas', { static: true })
   canvasEle!: ElementRef<HTMLCanvasElement>;
@@ -69,15 +67,11 @@ export class PeasAndCornComponent implements AfterViewInit {
     }
 
     if (event.key === '2') {
-      this.peas.objects.forEach((pea) =>
-        pea.toggleBehaviour(GameObjectBehaviour.Follow),
-      );
+      this.peas.objects.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Follow));
     }
 
     if (event.key === '3') {
-      this.corn.objects.forEach((corn) =>
-        corn.toggleBehaviour(GameObjectBehaviour.Repel),
-      );
+      this.corn.objects.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
     }
   }
 
@@ -156,7 +150,7 @@ export class PeasAndCornComponent implements AfterViewInit {
 
     // Show buttons and cursor
     setTimeout(() => {
-      this.#displayButtons(false);
+      this.#displayMenu(false);
     }, 4000);
   }
 
@@ -177,7 +171,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     this.idle = false;
     this.message = { text: '', subText: '' };
 
-    this.#displayButtons(true);
+    this.#displayMenu(true);
   }
 
   #increaseDifficulty() {
@@ -305,8 +299,7 @@ export class PeasAndCornComponent implements AfterViewInit {
   }
 
   #displayMessage(duration: number) {
-    const messageClass =
-      document.getElementsByClassName('message')[0].classList;
+    const messageClass = document.getElementsByClassName('message')[0].classList;
 
     // Show Message
     messageClass.toggle('opacity-0');
@@ -316,17 +309,18 @@ export class PeasAndCornComponent implements AfterViewInit {
     }, duration);
   }
 
-  #displayButtons(hide: boolean) {
+  #displayMenu(hide: boolean) {
     const canvasClass = this.canvasEle.nativeElement.classList;
-    const playButtonClass =
-      document.getElementsByClassName('play-button')[0].classList;
+    const menu = document.getElementsByClassName('menu')[0].classList;
 
     if (hide) {
       canvasClass.toggle('cursor-none');
-      playButtonClass.toggle('shrink');
+      menu.toggle('opacity-0');
+      menu.toggle('pointer-events-none');
     } else {
       canvasClass.toggle('cursor-none');
-      playButtonClass.toggle('shrink');
+      menu.toggle('opacity-0');
+      menu.toggle('pointer-events-none');
     }
   }
 }
