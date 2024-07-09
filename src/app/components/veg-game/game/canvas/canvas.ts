@@ -29,10 +29,8 @@ export class Canvas {
 
   particleDecay(): void {
     const currentTime = new Date().getTime();
-    this.particles.forEach((p, i) => {
-      if (currentTime - p.timestamp.getTime() > 5000) {
-        this.particles.splice(i, 1);
-      }
+    this.particles = this.particles.filter((p) => {
+      return currentTime - p.timestamp.getTime() <= 2000;
     });
   }
 
@@ -54,7 +52,10 @@ export class Canvas {
     }
   }
 
-  createParticles(object: GameObject, count: number, speed: number): void {
+  createParticles(object: GameObject): void {
+    const count = 25;
+    const speed = 1;
+    const currentTime = new Date();
     for (let i = 0; i < count; i++) {
       const p = new GameObject();
       p.x = object.x;
@@ -63,7 +64,7 @@ export class Canvas {
       p.size = object.size;
       p.shape = object.shape;
       p.colour = object.colour;
-      p.timestamp = new Date();
+      p.timestamp = new Date(currentTime.getTime() + i * 50);
 
       this.particles.push(p);
     }

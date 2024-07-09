@@ -36,6 +36,28 @@ export class Cursor extends GameObject {
     } as GameObject);
   }
 
+  magnetise(vegtable: GameObject, radiusMultiplier: number, canvas: Canvas, speed: number, repel = false): void {
+    const obj = Object.assign({}, this);
+    obj.size = obj.size * radiusMultiplier;
+
+    if (vegtable.detectCollision(obj)) {
+      let dx = this.x - vegtable.x;
+      let dy = this.y - vegtable.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      dx /= distance;
+      dy /= distance;
+      dx *= speed;
+      dy *= speed;
+
+      if (!vegtable.detectWallCollisionX(canvas.w)) {
+        !repel ? vegtable.applyForce(true, dx) : vegtable.applyForce(true, -dx);
+      }
+      if (!vegtable.detectWallCollisionY(canvas.h)) {
+        !repel ? vegtable.applyForce(false, dy) : vegtable.applyForce(false, -dy);
+      }
+    }
+  }
+
   #drawTrail(context: CanvasRenderingContext2D, canvas: Canvas) {
     // Draw Trail
     this.history.forEach((old) => {

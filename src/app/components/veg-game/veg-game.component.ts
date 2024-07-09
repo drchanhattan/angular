@@ -41,8 +41,6 @@ export class VegGameComponent implements AfterViewInit {
   level!: number;
   ghost = true;
   invincible = false;
-  particleCount = 25;
-  particleSpd = 0.8;
   message = { text: '', subText: '' };
 
   constructor(private change: ChangeDetectorRef) {}
@@ -204,7 +202,7 @@ export class VegGameComponent implements AfterViewInit {
 
         // Repel
         if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
-          corn.follow(this.cursor, 10, this.canvas, 2, true);
+          this.cursor.magnetise(corn, 10, this.canvas, 2, true);
         }
 
         corn.move();
@@ -227,9 +225,9 @@ export class VegGameComponent implements AfterViewInit {
           pea.applyForce(false, 2.5);
         }
 
-        // Follow
-        if (pea.behaviourEquals(GameObjectBehaviour.Follow)) {
-          pea.follow(this.cursor, 30, this.canvas, 1);
+        // Magnetise
+        if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
+          this.cursor.magnetise(pea, 30, this.canvas, 1);
         }
 
         pea.move();
@@ -240,7 +238,7 @@ export class VegGameComponent implements AfterViewInit {
   #detectPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor)) {
       pea.destroyed = true;
-      this.canvas.createParticles(pea, this.particleCount, this.particleSpd);
+      this.canvas.createParticles(pea);
       this.peaService.count = this.peaService.count - 1;
       this.change.detectChanges();
 
@@ -253,7 +251,7 @@ export class VegGameComponent implements AfterViewInit {
   #detectCornCollision(corn: GameObject) {
     if (!this.ghost && corn.detectCollision(this.cursor)) {
       corn.destroyed = true;
-      this.canvas.createParticles(corn, this.particleCount, this.particleSpd);
+      this.canvas.createParticles(corn);
 
       if (!this.invincible) {
         this.lives = this.lives - 1;
@@ -287,7 +285,7 @@ export class VegGameComponent implements AfterViewInit {
   }
 
   #togglePeaMagnet() {
-    this.peaService.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Follow));
+    this.peaService.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Magnetise));
   }
 
   #toggleCornRepel() {

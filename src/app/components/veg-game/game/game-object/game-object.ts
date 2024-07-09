@@ -1,4 +1,3 @@
-import { Canvas } from '../canvas/canvas';
 import { GameObjectBehaviour } from './game-object-behaviour';
 import { GameObjectShape } from './game-object-shape';
 
@@ -83,34 +82,6 @@ export class GameObject {
 
   public applyForce(x: boolean, force: number): void {
     x ? (this.x = this.x + force) : (this.y = this.y + force);
-  }
-
-  public follow(object: GameObject, radiusMultiplier: number, canvas: Canvas, speed: number, repel = false): void {
-    const obj = Object.assign({}, object);
-    obj.size = obj.size * radiusMultiplier;
-
-    if (this.detectCollision(obj)) {
-      // Vector from object to follow coordinate
-      let dx = object.x - this.x;
-      let dy = object.y - this.y;
-
-      // Unit vector in the same direction
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      dx /= distance;
-      dy /= distance;
-
-      // Speed-pixel vector in the same direction
-      dx *= speed;
-      dy *= speed;
-
-      // Apply Force
-      if (!this.detectWallCollisionX(canvas.w)) {
-        !repel ? this.applyForce(true, dx) : this.applyForce(true, -dx);
-      }
-      if (!this.detectWallCollisionY(canvas.h)) {
-        !repel ? this.applyForce(false, dy) : this.applyForce(false, -dy);
-      }
-    }
   }
 
   public behaviourEquals(behaviour: GameObjectBehaviour): boolean {
