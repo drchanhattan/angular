@@ -12,12 +12,23 @@ export class Cursor extends GameObject {
   init(service: CanvasService): void {
     this.canvasService = service;
 
-    document.addEventListener('mousemove', (event) => {
+    const updatePosition = (x: number, y: number) => {
       const rect = this.canvasService.context.canvas.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
-      const y = ((event.clientY - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
-      this.x = Math.min(Math.max(0, x), this.canvasService.screenW);
-      this.y = Math.min(Math.max(0, y), this.canvasService.screenH);
+      const newX = ((x - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
+      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
+      this.x = Math.min(Math.max(0, newX), this.canvasService.screenW);
+      this.y = Math.min(Math.max(0, newY), this.canvasService.screenH);
+    };
+
+    document.addEventListener('mousemove', (event) => {
+      updatePosition(event.clientX, event.clientY);
+    });
+
+    document.addEventListener('touchmove', (event) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        updatePosition(touch.clientX, touch.clientY);
+      }
     });
 
     // Only keep the last 20 elements in history
