@@ -1,6 +1,6 @@
-import { GameObjectShape } from './game-object-shape';
-import { GameObjectBehaviour } from './game-object-behaviour';
 import { Canvas } from './canvas';
+import { GameObjectBehaviour } from './game-object-behaviour';
+import { GameObjectShape } from './game-object-shape';
 
 export class GameObject {
   public x!: number;
@@ -11,6 +11,7 @@ export class GameObject {
   public colour!: string;
   public behaviour!: GameObjectBehaviour;
   public shape!: GameObjectShape;
+  public timestamp!: Date;
   public destroyed = false;
 
   public detectWallCollisionX(canvasW: number): boolean {
@@ -84,13 +85,7 @@ export class GameObject {
     x ? (this.x = this.x + force) : (this.y = this.y + force);
   }
 
-  public follow(
-    object: GameObject,
-    radiusMultiplier: number,
-    canvas: Canvas,
-    speed: number,
-    repel = false,
-  ): void {
+  public follow(object: GameObject, radiusMultiplier: number, canvas: Canvas, speed: number, repel = false): void {
     const obj = Object.assign({}, object);
     obj.size = obj.size * radiusMultiplier;
 
@@ -123,8 +118,6 @@ export class GameObject {
   }
 
   public toggleBehaviour(behaviour: GameObjectBehaviour): void {
-    this.behaviour = !this.behaviourEquals(behaviour)
-      ? behaviour
-      : GameObjectBehaviour.Default;
+    this.behaviour = !this.behaviourEquals(behaviour) ? behaviour : GameObjectBehaviour.Default;
   }
 }

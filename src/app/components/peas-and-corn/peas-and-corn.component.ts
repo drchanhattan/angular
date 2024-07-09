@@ -85,21 +85,17 @@ export class PeasAndCornComponent implements AfterViewInit {
   setupCanvas() {
     const canvas = this.canvasEle.nativeElement;
     const devicePixelRatio = window.devicePixelRatio || 1;
-
     this.screenW = window.innerWidth;
     this.screenH = window.innerHeight;
-
     canvas.width = this.screenW * devicePixelRatio;
     canvas.height = this.screenH * devicePixelRatio;
-
     this.context = canvas.getContext('2d')!;
     this.context.scale(devicePixelRatio, devicePixelRatio);
-
     this.canvas.w = this.screenW;
     this.canvas.h = this.screenH;
   }
 
-  animate(): void {
+  animate() {
     const animateFrame = () => {
       this.context.clearRect(0, 0, this.canvas.w, this.canvas.h);
       if (!this.idle) {
@@ -127,7 +123,7 @@ export class PeasAndCornComponent implements AfterViewInit {
   #pause(duration: number) {
     this.paused = true;
     this.change.detectChanges();
-    this.#displayMessage(duration);
+    this.#showMessage(duration);
   }
 
   #LevelUp() {
@@ -148,9 +144,8 @@ export class PeasAndCornComponent implements AfterViewInit {
     this.message.subText = 'You reached level ' + this.level;
     this.#pause(3000);
 
-    // Show buttons and cursor
     setTimeout(() => {
-      this.#displayMenu(false);
+      this.#toggleMenu(false);
     }, 4000);
   }
 
@@ -171,7 +166,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     this.idle = false;
     this.message = { text: '', subText: '' };
 
-    this.#displayMenu(true);
+    this.#toggleMenu(true);
   }
 
   #increaseDifficulty() {
@@ -262,7 +257,7 @@ export class PeasAndCornComponent implements AfterViewInit {
       if (!this.invincible) {
         this.lives = this.lives - 1;
         this.change.detectChanges();
-        this.#flashColour('bg-red-900', 500);
+        this.#flash('bg-red-900', 500);
         this.#temporaryImmunity(500);
       }
 
@@ -272,7 +267,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     }
   }
 
-  #flashColour(color: string, duration: number) {
+  #flash(color: string, duration: number) {
     const canvasClass = this.canvasEle.nativeElement.classList;
 
     // Flash Colour
@@ -298,7 +293,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     }, duration);
   }
 
-  #displayMessage(duration: number) {
+  #showMessage(duration: number) {
     const messageClass = document.getElementsByClassName('message')[0].classList;
 
     // Show Message
@@ -309,7 +304,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     }, duration);
   }
 
-  #displayMenu(hide: boolean) {
+  #toggleMenu(hide: boolean) {
     const canvasClass = this.canvasEle.nativeElement.classList;
     const menu = document.getElementsByClassName('menu')[0].classList;
 

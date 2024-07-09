@@ -41,12 +41,14 @@ export class Canvas {
   }
 
   public particleDecay(): void {
-    // Particle decay
     setInterval(() => {
-      if (this.particles.length) {
-        this.particles.splice(0, Math.ceil(this.particles.length * 0.2));
+      const currentTime = new Date().getTime();
+      for (let i = 0; i < this.particles.length; i++) {
+        if (currentTime - this.particles[i].timestamp.getTime() > 5000) {
+          this.particles.splice(i, 1);
+        }
       }
-    }, 10000);
+    }, 100);
   }
 
   public wallCollision(object: GameObject): void {
@@ -76,6 +78,7 @@ export class Canvas {
       p.size = object.size;
       p.shape = object.shape;
       p.colour = object.colour;
+      p.timestamp = new Date();
 
       this.particles.push(p);
     }
