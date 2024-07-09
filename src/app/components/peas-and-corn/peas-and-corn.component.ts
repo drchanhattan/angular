@@ -27,8 +27,8 @@ export class PeasAndCornComponent implements AfterViewInit {
 
   @ViewChild('canvas', { static: true })
   canvasEle!: ElementRef<HTMLCanvasElement>;
-  screenW = window.innerWidth;
-  screenH = window.innerHeight;
+  screenW: any;
+  screenH: any;
   canvas = new Canvas();
 
   // General
@@ -84,8 +84,8 @@ export class PeasAndCornComponent implements AfterViewInit {
   setupCanvas() {
     const canvas = this.canvasEle.nativeElement;
     const devicePixelRatio = 1;
-    this.screenW = window.innerWidth;
-    this.screenH = window.innerHeight;
+    this.screenW = 500;
+    this.screenH = 500;
     canvas.width = this.screenW * devicePixelRatio;
     canvas.height = this.screenH * devicePixelRatio;
     this.context = canvas.getContext('2d')!;
