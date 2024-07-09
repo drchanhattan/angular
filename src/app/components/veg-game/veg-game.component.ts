@@ -9,54 +9,49 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Canvas } from './game/canvas';
-import { Corn } from './game/corn';
-import { Cursor } from './game/cursor';
-import { GameObject } from './game/game-object';
-import { GameObjectBehaviour } from './game/game-object-behaviour';
-import { Peas } from './game/peas';
+import { Canvas } from './game/canvas/canvas';
+import { Cursor } from './game/cursor/cursor';
+import { GameObject } from './game/game-object/game-object';
+import { GameObjectBehaviour } from './game/game-object/game-object-behaviour';
+import { CornService } from './game/vegetables/corn-service';
+import { PeaService } from './game/vegetables/pea-service';
 
 @Component({
-  selector: 'app-peas-and-corn',
+  selector: 'app-veg-game',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './peas-and-corn.component.html',
+  templateUrl: './veg-game.component.html',
 })
-export class PeasAndCornComponent implements AfterViewInit {
+export class VegGameComponent implements AfterViewInit {
   @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black';
 
   @ViewChild('canvas', { static: true })
   canvasEle!: ElementRef<HTMLCanvasElement>;
-  screenW: any;
-  screenH: any;
+  screenW!: number;
+  screenH!: number;
+  context!: CanvasRenderingContext2D;
   canvas = new Canvas();
+  peaService = new PeaService();
+  cornService = new CornService();
+  cursor = new Cursor();
 
-  // General
   lives = 0;
   idle = true;
   paused = false;
   level!: number;
-
-  // Modifiers
   ghost = true;
   invincible = false;
-
-  // Game Objects
-  peas = new Peas();
-  corn = new Corn();
-
-  // Particles
   particleCount = 25;
   particleSpd = 0.8;
-
-  cursor = new Cursor();
-  context!: CanvasRenderingContext2D;
   message = { text: '', subText: '' };
 
   constructor(private change: ChangeDetectorRef) {}
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    if (!this.idle) {
+      this.#gameOver();
+    }
     this.setupCanvas();
   }
 
@@ -67,11 +62,11 @@ export class PeasAndCornComponent implements AfterViewInit {
     }
 
     if (event.key === '2') {
-      this.peas.objects.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Follow));
+      this.#togglePeaMagnet();
     }
 
     if (event.key === '3') {
-      this.corn.objects.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
+      this.#toggleCornRepel();
     }
   }
 
@@ -83,9 +78,9 @@ export class PeasAndCornComponent implements AfterViewInit {
 
   setupCanvas() {
     const canvas = this.canvasEle.nativeElement;
-    const devicePixelRatio = 1;
-    this.screenW = 500;
-    this.screenH = 500;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    this.screenW = window.innerWidth;
+    this.screenH = window.innerHeight;
     canvas.width = this.screenW * devicePixelRatio;
     canvas.height = this.screenH * devicePixelRatio;
     this.context = canvas.getContext('2d')!;
@@ -98,7 +93,7 @@ export class PeasAndCornComponent implements AfterViewInit {
     const animateFrame = () => {
       this.context.clearRect(0, 0, this.canvas.w, this.canvas.h);
       if (!this.idle) {
-        this.cursor.draw(this.context);
+        this.cursor.draw(this.context, this.canvas);
       }
       this.#drawPeas();
       this.#drawCorn();
@@ -109,11 +104,17 @@ export class PeasAndCornComponent implements AfterViewInit {
   }
 
   play(newGame: boolean) {
-    newGame ? this.#resetDifficulty() : this.#increaseDifficulty();
+    if (newGame) {
+      this.#resetDifficulty();
+      this.#toggleMenu(true);
+    } else {
+      this.#increaseDifficulty();
+    }
+
     this.change.detectChanges();
 
-    this.peas.createNewPeas(this.canvas.w, this.canvas.h);
-    this.corn.createNewCorn(this.canvas.w, this.canvas.h);
+    this.peaService.createNewPeas(this.canvas.w, this.canvas.h);
+    this.cornService.createNewCorn(this.canvas.w, this.canvas.h);
 
     this.paused = false;
     this.#temporaryImmunity(1500);
@@ -150,13 +151,13 @@ export class PeasAndCornComponent implements AfterViewInit {
 
   #resetDifficulty() {
     // Reset params back to default
-    this.peas.count = 10;
-    this.peas.size = 20;
-    this.peas.speed = 0.8;
+    this.peaService.count = 10;
+    this.peaService.size = 20;
+    this.peaService.speed = 0.8;
 
-    this.corn.count = 20;
-    this.corn.size = 25;
-    this.corn.speed = 0.5;
+    this.cornService.count = 20;
+    this.cornService.size = 25;
+    this.cornService.speed = 0.5;
 
     this.cursor.size = 10;
 
@@ -164,19 +165,17 @@ export class PeasAndCornComponent implements AfterViewInit {
     this.level = 1;
     this.idle = false;
     this.message = { text: '', subText: '' };
-
-    this.#toggleMenu(true);
   }
 
   #increaseDifficulty() {
     // Increase difficulty settings
-    this.peas.count = 10;
-    this.corn.count = this.corn.count * 1.1;
-    this.peas.speed = this.peas.speed * 1.03;
-    this.corn.speed = this.corn.speed * 1.01;
+    this.peaService.count = 10;
+    this.cornService.count = this.cornService.count * 1.1;
+    this.peaService.speed = this.peaService.speed * 1.03;
+    this.cornService.speed = this.cornService.speed * 1.01;
 
-    this.peas.size = this.peas.size * 0.99;
-    this.corn.size = this.corn.size * 0.99;
+    this.peaService.size = this.peaService.size * 0.99;
+    this.cornService.size = this.cornService.size * 0.99;
     this.cursor.size = this.cursor.size * 0.99;
 
     // Add additional life every 2 levels
@@ -189,65 +188,63 @@ export class PeasAndCornComponent implements AfterViewInit {
   }
 
   #drawCorn() {
-    for (let i = 0; i < this.corn.objects.length; i++) {
-      const object = this.corn.objects[i];
-      if (!object.destroyed) {
+    this.cornService.corns.forEach((corn) => {
+      if (!corn.destroyed) {
         // Draw a single Corn
-        Canvas.drawObject(this.context, object);
+        this.canvas.drawObject(this.context, corn);
 
         // Check for collision
         if (!this.paused) {
-          this.canvas.wallCollision(object);
-          this.#detectCornCollision(object);
+          this.canvas.wallCollision(corn);
+          this.#detectCornCollision(corn);
         } else {
           // Apply Gravity if objects are not alive
-          object.applyForce(false, 2.5);
+          corn.applyForce(false, 2.5);
         }
 
         // Repel
-        if (object.behaviourEquals(GameObjectBehaviour.Repel)) {
-          object.follow(this.cursor, 10, this.canvas, 2, true);
+        if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
+          corn.follow(this.cursor, 10, this.canvas, 2, true);
         }
 
-        object.move();
+        corn.move();
       }
-    }
+    });
   }
 
   #drawPeas() {
-    for (let i = 0; i < this.peas.objects.length; i++) {
-      const object = this.peas.objects[i];
-      if (!object.destroyed) {
+    this.peaService.peas.forEach((pea) => {
+      if (!pea.destroyed) {
         // Draw a single Pea
-        Canvas.drawObject(this.context, object);
+        this.canvas.drawObject(this.context, pea);
 
         // Check for collision
         if (!this.paused) {
-          this.canvas.wallCollision(object);
-          this.#detectPeaCollision(object);
+          this.canvas.wallCollision(pea);
+          this.#detectPeaCollision(pea);
         } else {
           // Apply Gravity if objects are not alive
-          object.applyForce(false, 2.5);
+          pea.applyForce(false, 2.5);
         }
 
         // Follow
-        if (object.behaviourEquals(GameObjectBehaviour.Follow)) {
-          object.follow(this.cursor, 30, this.canvas, 1);
+        if (pea.behaviourEquals(GameObjectBehaviour.Follow)) {
+          pea.follow(this.cursor, 30, this.canvas, 1);
         }
 
-        object.move();
+        pea.move();
       }
-    }
+    });
   }
 
   #detectPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor)) {
       pea.destroyed = true;
       this.canvas.createParticles(pea, this.particleCount, this.particleSpd);
-      this.peas.count = this.peas.count - 1;
+      this.peaService.count = this.peaService.count - 1;
       this.change.detectChanges();
 
-      if (this.peas.count === 0) {
+      if (this.peaService.count === 0) {
         this.#LevelUp();
       }
     }
@@ -287,6 +284,14 @@ export class PeasAndCornComponent implements AfterViewInit {
     this.cursor.history = [];
     this.cursor.trail = !this.cursor.trail;
     this.invincible = !this.invincible;
+  }
+
+  #togglePeaMagnet() {
+    this.peaService.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Follow));
+  }
+
+  #toggleCornRepel() {
+    this.cornService.corns.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
   }
 
   #temporaryImmunity(duration: number) {

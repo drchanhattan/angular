@@ -1,4 +1,4 @@
-import { Canvas } from './canvas';
+import { Canvas } from '../canvas/canvas';
 import { GameObjectBehaviour } from './game-object-behaviour';
 import { GameObjectShape } from './game-object-shape';
 
