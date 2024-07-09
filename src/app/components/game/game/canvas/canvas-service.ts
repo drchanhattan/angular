@@ -1,10 +1,22 @@
+import { ElementRef } from '@angular/core';
 import { GameObject } from '../game-object/game-object';
 import { GameObjectShape } from '../game-object/game-object-shape';
 
-export class Canvas {
-  w!: number;
-  h!: number;
+export class CanvasService {
+  context!: CanvasRenderingContext2D;
+  canvasEle!: ElementRef<HTMLCanvasElement>;
+  screenW = window.innerWidth;
+  screenH = window.innerHeight;
   particles: GameObject[] = [];
+
+  initCanvas(canvasEle: ElementRef<HTMLCanvasElement>) {
+    this.canvasEle = canvasEle;
+    const canvas = this.canvasEle.nativeElement;
+    canvas.width = this.screenW * devicePixelRatio;
+    canvas.height = this.screenH * devicePixelRatio;
+    this.context = canvas.getContext('2d')!;
+    this.context.scale(devicePixelRatio, devicePixelRatio);
+  }
 
   drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1): void {
     context.fillStyle = object.colour;
@@ -35,16 +47,16 @@ export class Canvas {
   }
 
   wallCollision(object: GameObject): void {
-    if (object.detectWallCollisionX(this.w)) {
-      const centreX = this.w / 2;
+    if (object.detectWallCollisionX(this.screenW)) {
+      const centreX = this.screenW / 2;
       const sign = Math.sign(object.deltaX);
       if ((object.x < centreX && sign === -1) || (object.x > centreX && sign === 1)) {
         object.reverseDirection(true);
       }
     }
 
-    if (object.detectWallCollisionY(this.h)) {
-      const centreY = this.h / 2;
+    if (object.detectWallCollisionY(this.screenH)) {
+      const centreY = this.screenH / 2;
       const sign = Math.sign(object.deltaY);
       if ((object.y < centreY && sign === -1) || (object.y > centreY && sign === 1)) {
         object.reverseDirection(false);
@@ -68,6 +80,15 @@ export class Canvas {
 
       this.particles.push(p);
     }
+  }
+
+  flash(color: string, duration: number) {
+    const canvasClass = this.canvasEle.nativeElement.classList;
+    canvasClass.toggle(color);
+
+    setTimeout(() => {
+      canvasClass.toggle(color);
+    }, duration);
   }
 
   #drawSquare(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {

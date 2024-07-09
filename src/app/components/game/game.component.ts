@@ -9,10 +9,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Canvas } from './game/canvas/canvas';
-import { Cursor } from './game/cursor/cursor';
+import { CanvasService } from './game/canvas/canvas-service';
+import { Cursor as CursorService } from './game/cursor/cursor-service';
 import { GameObject } from './game/game-object/game-object';
 import { GameObjectBehaviour } from './game/game-object/game-object-behaviour';
+import { GameSettings } from './game/game-settings/game-settings';
 import { CornService } from './game/vegetables/corn-service';
 import { PeaService } from './game/vegetables/pea-service';
 
@@ -24,33 +25,23 @@ import { PeaService } from './game/vegetables/pea-service';
 })
 export class GameComponent implements AfterViewInit {
   @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
+  @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
-  @ViewChild('canvas', { static: true })
-  canvasEle!: ElementRef<HTMLCanvasElement>;
-  screenW!: number;
-  screenH!: number;
-  context!: CanvasRenderingContext2D;
-  canvas = new Canvas();
+  devicePixelRatio = window.devicePixelRatio || 1;
+
+  canvasService = new CanvasService();
   peaService = new PeaService();
   cornService = new CornService();
-  cursor = new Cursor();
+  cursorService = new CursorService();
+  settings = new GameSettings();
 
-  lives = 0;
-  idle = true;
-  paused = false;
-  level!: number;
-  ghost = true;
-  invincible = false;
-  message!: { text: string; subText: string };
+  message = { text: '', subText: '' };
 
   constructor(private change: ChangeDetectorRef) {}
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (!this.idle) {
-      this.#gameOver();
-    }
-    this.setupCanvas();
+    window.location.reload();
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -69,29 +60,16 @@ export class GameComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.setupCanvas();
-    this.cursor.track(this.context, this.canvas);
+    this.canvasService.initCanvas(this.canvasEle);
+    this.cursorService.initCursor(this.canvasService);
     this.animate();
-  }
-
-  setupCanvas() {
-    const canvas = this.canvasEle.nativeElement;
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    this.screenW = window.innerWidth;
-    this.screenH = window.innerHeight;
-    canvas.width = this.screenW * devicePixelRatio;
-    canvas.height = this.screenH * devicePixelRatio;
-    this.context = canvas.getContext('2d')!;
-    this.context.scale(devicePixelRatio, devicePixelRatio);
-    this.canvas.w = this.screenW;
-    this.canvas.h = this.screenH;
   }
 
   animate() {
     const animateFrame = () => {
-      this.context.clearRect(0, 0, this.canvas.w, this.canvas.h);
-      if (!this.idle) {
-        this.cursor.draw(this.context, this.canvas);
+      this.canvasService.context.clearRect(0, 0, this.canvasService.screenW, this.canvasService.screenH);
+      if (!this.settings.showMenu) {
+        this.cursorService.draw(this.canvasService.context, this.canvasService);
       }
       this.#drawPeas();
       this.#drawCorn();
@@ -104,33 +82,32 @@ export class GameComponent implements AfterViewInit {
   play(newGame: boolean) {
     if (newGame) {
       this.#resetDifficulty();
-      this.#toggleMenu(true);
+      this.settings.toggleMenu();
+      this.cursorService.toggle();
     } else {
       this.#increaseDifficulty();
     }
 
     this.change.detectChanges();
 
-    this.peaService.createNewPeas(this.canvas.w, this.canvas.h);
-    this.cornService.createNewCorn(this.canvas.w, this.canvas.h);
+    this.peaService.createNewPeas(this.canvasService.screenW, this.canvasService.screenH);
+    this.cornService.createNewCorn(this.canvasService.screenW, this.canvasService.screenH);
 
-    this.paused = false;
+    this.settings.unpause();
     this.#temporaryImmunity(1500);
   }
 
-  #pause(duration: number) {
-    this.paused = true;
+  #pause() {
+    this.settings.paused = true;
     this.change.detectChanges();
-    this.#showMessage(duration);
   }
 
   #LevelUp() {
-    this.ghost = true;
-    this.level = this.level + 1;
-    this.lives = this.level % 2 ? this.lives : this.lives + 1;
-    this.message.text = 'Level ' + this.level;
-    this.message.subText = this.level % 2 ? '' : '+ 1';
-    this.#pause(1000);
+    this.settings.ghost = true;
+    this.settings.level = this.settings.level + 1;
+    this.settings.lives = this.settings.level % 2 ? this.settings.lives : this.settings.lives + 1;
+    this.#pause();
+    this.#showMessage('Level ' + this.settings.level, this.settings.level % 2 ? '' : '+ 1', 1000);
 
     setTimeout(() => {
       this.play(false);
@@ -138,31 +115,31 @@ export class GameComponent implements AfterViewInit {
   }
 
   #gameOver() {
-    this.idle = true;
-    this.message.text = 'Game Over';
-    this.message.subText = 'You reached level ' + this.level;
-    this.#pause(3000);
+    this.#pause();
+    this.#showMessage('Game Over', 'You reached level ' + this.settings.level, 3000);
 
     setTimeout(() => {
-      this.#toggleMenu(false);
+      this.settings.toggleMenu();
+      this.cursorService.toggle();
     }, 4000);
   }
 
   #resetDifficulty() {
-    this.peaService.count = 10;
-    this.peaService.size = 30;
-    this.peaService.speed = 2 * (this.screenW / this.screenH);
+    const zoomLevel = window.outerWidth / window.innerWidth;
+    const multiplier = devicePixelRatio * zoomLevel;
 
-    this.cornService.count = 20;
-    this.cornService.size = 40;
-    this.cornService.speed = 1.5 * (this.screenW / this.screenH);
+    this.peaService.size = Math.round((multiplier ^ 50) * 0.5);
+    this.peaService.count = Math.round(this.peaService.size / multiplier);
+    this.peaService.speed = Math.round(this.peaService.size / multiplier) * 0.2;
 
-    this.cursor.size = 10;
+    this.cornService.size = Math.round((multiplier ^ 50) * 0.8);
+    this.cornService.count = Math.round(this.cornService.size / multiplier);
+    this.cornService.speed = Math.round(this.cornService.size / multiplier) * 0.2;
 
-    this.lives = 3;
-    this.level = 1;
-    this.idle = false;
-    this.message = { text: '', subText: '' };
+    this.cursorService.size = Math.round((multiplier ^ 50) * 0.3);
+
+    this.settings.lives = 3;
+    this.settings.level = 1;
   }
 
   #increaseDifficulty() {
@@ -174,32 +151,32 @@ export class GameComponent implements AfterViewInit {
 
     this.peaService.size = this.peaService.size * 0.99;
     this.cornService.size = this.cornService.size * 0.99;
-    this.cursor.size = this.cursor.size * 0.99;
+    this.cursorService.size = this.cursorService.size * 0.99;
   }
 
   #drawParticles() {
-    this.canvas.drawParticles(this.context);
-    this.canvas.particleDecay();
+    this.canvasService.drawParticles(this.canvasService.context);
+    this.canvasService.particleDecay();
   }
 
   #drawCorn() {
     this.cornService.corns.forEach((corn) => {
       if (!corn.destroyed) {
         // Draw a single Corn
-        this.canvas.drawObject(this.context, corn);
+        this.canvasService.drawObject(this.canvasService.context, corn);
 
         // Check for collision
-        if (!this.paused) {
-          this.canvas.wallCollision(corn);
+        if (!this.settings.paused) {
+          this.canvasService.wallCollision(corn);
           this.#detectCornCollision(corn);
         } else {
           // Apply Gravity if objects are not alive
-          corn.applyForce(false, 5);
+          corn.applyForce(false, 8);
         }
 
         // Repel
         if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
-          this.cursor.magnetise(corn, 10, this.canvas, 2, true);
+          this.cursorService.magnetise(corn, 10, this.canvasService.screenW, this.canvasService.screenH, 2, true);
         }
 
         corn.move();
@@ -211,20 +188,20 @@ export class GameComponent implements AfterViewInit {
     this.peaService.peas.forEach((pea) => {
       if (!pea.destroyed) {
         // Draw a single Pea
-        this.canvas.drawObject(this.context, pea);
+        this.canvasService.drawObject(this.canvasService.context, pea);
 
         // Check for collision
-        if (!this.paused) {
-          this.canvas.wallCollision(pea);
+        if (!this.settings.paused) {
+          this.canvasService.wallCollision(pea);
           this.#detectPeaCollision(pea);
         } else {
           // Apply Gravity if objects are not alive
-          pea.applyForce(false, 5);
+          pea.applyForce(false, 8);
         }
 
         // Magnetise
         if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
-          this.cursor.magnetise(pea, 30, this.canvas, 1);
+          this.cursorService.magnetise(pea, 30, this.canvasService.screenW, this.canvasService.screenH, 1);
         }
 
         pea.move();
@@ -233,9 +210,9 @@ export class GameComponent implements AfterViewInit {
   }
 
   #detectPeaCollision(pea: GameObject) {
-    if (pea.detectCollision(this.cursor)) {
+    if (pea.detectCollision(this.cursorService)) {
       pea.destroyed = true;
-      this.canvas.createParticles(pea);
+      this.canvasService.createParticles(pea);
       this.peaService.count = this.peaService.count - 1;
       this.change.detectChanges();
 
@@ -246,39 +223,27 @@ export class GameComponent implements AfterViewInit {
   }
 
   #detectCornCollision(corn: GameObject) {
-    if (!this.ghost && corn.detectCollision(this.cursor)) {
+    if (!this.settings.ghost && corn.detectCollision(this.cursorService)) {
       corn.destroyed = true;
-      this.canvas.createParticles(corn);
+      this.canvasService.createParticles(corn);
 
-      if (!this.invincible) {
-        this.lives = this.lives - 1;
+      if (!this.settings.invincible) {
+        this.settings.lives = this.settings.lives - 1;
         this.change.detectChanges();
-        this.#flash('bg-red-900', 500);
+        this.canvasService.flash('bg-red-900', 500);
         this.#temporaryImmunity(500);
       }
 
-      if (this.lives === 0) {
+      if (this.settings.lives === 0) {
         this.#gameOver();
       }
     }
   }
 
-  #flash(color: string, duration: number) {
-    const canvasClass = this.canvasEle.nativeElement.classList;
-
-    // Flash Colour
-    canvasClass.toggle(color);
-
-    // Remove Colour
-    setTimeout(() => {
-      canvasClass.toggle(color);
-    }, duration);
-  }
-
   #toggleInvincibility() {
-    this.cursor.history = [];
-    this.cursor.trail = !this.cursor.trail;
-    this.invincible = !this.invincible;
+    this.cursorService.history = [];
+    this.cursorService.trail = !this.cursorService.trail;
+    this.settings.invincible = !this.settings.invincible;
   }
 
   #togglePeaMagnet() {
@@ -290,36 +255,21 @@ export class GameComponent implements AfterViewInit {
   }
 
   #temporaryImmunity(duration: number) {
-    this.ghost = true;
+    this.settings.ghost = true;
 
     setTimeout(() => {
-      this.ghost = false;
+      this.settings.ghost = false;
     }, duration);
   }
 
-  #showMessage(duration: number) {
+  #showMessage(text: string, subText: string, duration: number) {
+    this.message.text = text;
+    this.message.subText = subText;
     const messageClass = document.getElementsByClassName('message')[0].classList;
 
-    // Show Message
     messageClass.toggle('opacity-0');
-    // Hide Message
     setTimeout(() => {
       messageClass.toggle('opacity-0');
     }, duration);
-  }
-
-  #toggleMenu(hide: boolean) {
-    const canvasClass = this.canvasEle.nativeElement.classList;
-    const menu = document.getElementsByClassName('menu')[0].classList;
-
-    if (hide) {
-      canvasClass.toggle('cursor-none');
-      menu.toggle('opacity-0');
-      menu.toggle('pointer-events-none');
-    } else {
-      canvasClass.toggle('cursor-none');
-      menu.toggle('opacity-0');
-      menu.toggle('pointer-events-none');
-    }
   }
 }

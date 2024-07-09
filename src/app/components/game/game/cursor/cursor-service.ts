@@ -1,19 +1,22 @@
+import { CanvasService } from '../canvas/canvas-service';
 import { GameObject } from '../game-object/game-object';
 import { GameObjectShape } from '../game-object/game-object-shape';
-import { Canvas } from './../canvas/canvas';
 
 export class Cursor extends GameObject {
   override colour = '#F5F5F5';
+  canvasService!: CanvasService;
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
-  track(context: CanvasRenderingContext2D, canvas: Canvas): void {
+  initCursor(service: CanvasService): void {
+    this.canvasService = service;
+
     document.addEventListener('mousemove', (event) => {
-      const rect = context.canvas.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / (rect.right - rect.left)) * canvas.w;
-      const y = ((event.clientY - rect.top) / (rect.bottom - rect.top)) * canvas.h;
-      this.x = Math.min(Math.max(0, x), canvas.w);
-      this.y = Math.min(Math.max(0, y), canvas.h);
+      const rect = this.canvasService.context.canvas.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
+      const y = ((event.clientY - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
+      this.x = Math.min(Math.max(0, x), this.canvasService.screenW);
+      this.y = Math.min(Math.max(0, y), this.canvasService.screenH);
     });
 
     // Only keep the last 20 elements in history
@@ -22,7 +25,7 @@ export class Cursor extends GameObject {
     }, 150);
   }
 
-  draw(context: CanvasRenderingContext2D, canvas: Canvas): void {
+  draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
     if (this.trail) {
       this.#drawTrail(context, canvas);
     }
@@ -36,7 +39,19 @@ export class Cursor extends GameObject {
     } as GameObject);
   }
 
-  magnetise(vegtable: GameObject, radiusMultiplier: number, canvas: Canvas, speed: number, repel = false): void {
+  toggle() {
+    const canvasClass = this.canvasService.canvasEle.nativeElement.classList;
+    canvasClass.toggle('cursor-none');
+  }
+
+  magnetise(
+    vegtable: GameObject,
+    radiusMultiplier: number,
+    screenW: number,
+    screenH: number,
+    speed: number,
+    repel = false,
+  ): void {
     const obj = Object.assign({}, this);
     obj.size = obj.size * radiusMultiplier;
 
@@ -49,16 +64,16 @@ export class Cursor extends GameObject {
       dx *= speed;
       dy *= speed;
 
-      if (!vegtable.detectWallCollisionX(canvas.w)) {
+      if (!vegtable.detectWallCollisionX(screenW)) {
         !repel ? vegtable.applyForce(true, dx) : vegtable.applyForce(true, -dx);
       }
-      if (!vegtable.detectWallCollisionY(canvas.h)) {
+      if (!vegtable.detectWallCollisionY(screenH)) {
         !repel ? vegtable.applyForce(false, dy) : vegtable.applyForce(false, -dy);
       }
     }
   }
 
-  #drawTrail(context: CanvasRenderingContext2D, canvas: Canvas) {
+  #drawTrail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     // Draw Trail
     this.history.forEach((old) => {
       context.globalAlpha = 0.1;

@@ -1,10 +1,10 @@
 <!-- Canvas -->
 <canvas #canvas class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
-<!-- Icons -->
-<div *ngIf="!idle" class="absolute bottom-0 right-0 mr-4 mb-2 transform pointer-events-none">
+<!-- Lives -->
+<div *ngIf="!settings.paused" class="absolute bottom-0 right-0 mr-4 mb-2 transform pointer-events-none">
   <div class="flex items-center text-white">
-    <span class="mr-1 text-5xl">{{ 'x' + lives }}</span>
+    <span class="mr-1 text-5xl">{{ 'x' + settings.lives }}</span>
     <mat-icon class="!size-full text-5xl" color="warn">favorite</mat-icon>
   </div>
 </div>
@@ -22,8 +22,10 @@
 </div>
 
 <!-- Menu -->
-<div class="menu flex absolute items-center text-white transition-all duration-1000 ease-in-out">
-  <mat-icon class="!size-full text-9xl" svgIcon="corn"></mat-icon>
+<div
+  class="menu flex absolute size-full justify-center items-center text-white transition-all duration-1000 ease-in-out"
+>
+  <mat-icon class="!size-56" svgIcon="corn"></mat-icon>
 
   <div class="flex flex-col items-start ml-12">
     <button (click)="play(true)" class="text-4xl hover:text-[#ffc107] mb-10">
@@ -38,4 +40,6 @@
       <span>Leaderboard</span>
     </button>
   </div>
+
+  <span class="absolute right-0 bottom-0 mr-4 mb-4">Avoid the Mob 2.0</span>
 </div>
