@@ -78,7 +78,6 @@ export class PeasAndCornComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.setupCanvas();
     this.cursor.track(this.context, this.canvas);
-    this.canvas.particleDecay();
     this.animate();
   }
 
@@ -104,6 +103,7 @@ export class PeasAndCornComponent implements AfterViewInit {
       this.#drawPeas();
       this.#drawCorn();
       this.canvas.drawParticles(this.context);
+      this.canvas.particleDecay();
       requestAnimationFrame(animateFrame);
     };
     animateFrame();
