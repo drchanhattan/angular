@@ -83,7 +83,7 @@ export class PeasAndCornComponent implements AfterViewInit {
 
   setupCanvas() {
     const canvas = this.canvasEle.nativeElement;
-    const devicePixelRatio = window.devicePixelRatio || 1;
+    const devicePixelRatio = 1;
     this.screenW = window.innerWidth;
     this.screenH = window.innerHeight;
     canvas.width = this.screenW * devicePixelRatio;
@@ -102,8 +102,7 @@ export class PeasAndCornComponent implements AfterViewInit {
       }
       this.#drawPeas();
       this.#drawCorn();
-      this.canvas.drawParticles(this.context);
-      this.canvas.particleDecay();
+      this.#drawParticles();
       requestAnimationFrame(animateFrame);
     };
     animateFrame();
@@ -182,6 +181,11 @@ export class PeasAndCornComponent implements AfterViewInit {
 
     // Add additional life every 2 levels
     this.lives = this.level % 2 ? this.lives : this.lives + 1;
+  }
+
+  #drawParticles() {
+    this.canvas.drawParticles(this.context);
+    this.canvas.particleDecay();
   }
 
   #drawCorn() {
