@@ -24,29 +24,18 @@ export class Cursor extends GameObject {
       updatePosition(event.clientX, event.clientY);
     });
 
-    document.addEventListener(
-      'touchmove',
-      (event) => {
-        if (event.touches.length > 0) {
-          const touch = event.touches[0];
-          updatePosition(touch.clientX, touch.clientY);
+    const touchHandler = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        updatePosition(touch.clientX, touch.clientY);
+        if (event.target === this.canvasService.context.canvas) {
+          event.preventDefault();
         }
-        event.preventDefault();
-      },
-      { passive: false },
-    );
+      }
+    };
 
-    document.addEventListener(
-      'touchstart',
-      (event) => {
-        if (event.touches.length > 0) {
-          const touch = event.touches[0];
-          updatePosition(touch.clientX, touch.clientY);
-        }
-        event.preventDefault();
-      },
-      { passive: false },
-    );
+    document.addEventListener('touchmove', touchHandler, { passive: false });
+    document.addEventListener('touchstart', touchHandler, { passive: false });
 
     // Only keep the last 20 elements in history
     setInterval(() => {
