@@ -23,7 +23,7 @@ import { PeaService } from './game/vegetables/pea-service';
   templateUrl: './veg-game.component.html',
 })
 export class VegGameComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black';
+  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
 
   @ViewChild('canvas', { static: true })
   canvasEle!: ElementRef<HTMLCanvasElement>;
@@ -41,7 +41,7 @@ export class VegGameComponent implements AfterViewInit {
   level!: number;
   ghost = true;
   invincible = false;
-  message = { text: '', subText: '' };
+  message!: { text: string; subText: string };
 
   constructor(private change: ChangeDetectorRef) {}
 
@@ -127,8 +127,9 @@ export class VegGameComponent implements AfterViewInit {
   #LevelUp() {
     this.ghost = true;
     this.level = this.level + 1;
+    this.lives = this.level % 2 ? this.lives : this.lives + 1;
     this.message.text = 'Level ' + this.level;
-    this.message.subText = this.level % 2 ? '' : '+ 1 life';
+    this.message.subText = this.level % 2 ? '' : '+ 1';
     this.#pause(1000);
 
     setTimeout(() => {
@@ -150,11 +151,11 @@ export class VegGameComponent implements AfterViewInit {
   #resetDifficulty() {
     // Reset params back to default
     this.peaService.count = 10;
-    this.peaService.size = 20;
+    this.peaService.size = 30;
     this.peaService.speed = 0.8;
 
     this.cornService.count = 20;
-    this.cornService.size = 25;
+    this.cornService.size = 40;
     this.cornService.speed = 0.5;
 
     this.cursor.size = 10;
@@ -175,9 +176,6 @@ export class VegGameComponent implements AfterViewInit {
     this.peaService.size = this.peaService.size * 0.99;
     this.cornService.size = this.cornService.size * 0.99;
     this.cursor.size = this.cursor.size * 0.99;
-
-    // Add additional life every 2 levels
-    this.lives = this.level % 2 ? this.lives : this.lives + 1;
   }
 
   #drawParticles() {

@@ -2,19 +2,23 @@
 <canvas #canvas class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
 <!-- Icons -->
-<div *ngIf="!idle" class="absolute bottom-0 right-0 mr-4 mb-2 transform scale-100 md:scale-150 pointer-events-none">
-  <div class="flex items-center">
-    <span class="text-white mr-1">{{ 'x' + lives }}</span>
-    <mat-icon color="warn">favorite</mat-icon>
+<div *ngIf="!idle" class="absolute bottom-0 right-0 mr-4 mb-2 transform pointer-events-none">
+  <div class="flex items-center text-white">
+    <span class="mr-1 text-5xl">{{ 'x' + lives }}</span>
+    <mat-icon class="!size-full text-5xl" color="warn">favorite</mat-icon>
   </div>
 </div>
 
 <!-- Message -->
 <div
-  class="message opacity-0 flex flex-col absolute items-center text-white leading-[6vw] text-[9vw] pointer-events-none transition-opacity duration-1000 ease-in-out"
+  *ngIf="message"
+  class="message opacity-0 flex flex-col absolute justify-center items-center text-white pointer-events-none transition-opacity duration-1000 ease-in-out"
 >
-  <strong>{{ message.text }}</strong>
-  <span class="text-[4vw]">{{ message.subText }}</span>
+  <strong class="text-9xl">{{ message.text }}</strong>
+  <div class="flex justify-center items-center">
+    <span class="mr-1 text-5xl">{{ message.subText }}</span>
+    <mat-icon class="!size-full text-5xl" *ngIf="message.subText === '+ 1'" color="warn">favorite</mat-icon>
+  </div>
 </div>
 
 <!-- Menu -->
