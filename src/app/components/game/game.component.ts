@@ -219,7 +219,7 @@ export class GameComponent implements AfterViewInit {
           this.#detectPeaCollision(pea);
         } else {
           // Apply Gravity if objects are not alive
-          pea.applyForce(false, 2.5);
+          pea.applyForce(false, 5);
         }
 
         // Magnetise
