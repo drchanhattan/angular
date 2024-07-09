@@ -149,14 +149,13 @@ export class VegGameComponent implements AfterViewInit {
   }
 
   #resetDifficulty() {
-    // Reset params back to default
     this.peaService.count = 10;
     this.peaService.size = 30;
-    this.peaService.speed = window.devicePixelRatio * 0.8;
+    this.peaService.speed = 2 * (this.screenW / this.screenH);
 
     this.cornService.count = 20;
     this.cornService.size = 40;
-    this.cornService.speed = window.devicePixelRatio * 0.5;
+    this.cornService.speed = 1.5 * (this.screenW / this.screenH);
 
     this.cursor.size = 10;
 
