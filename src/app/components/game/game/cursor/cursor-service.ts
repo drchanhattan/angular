@@ -45,24 +45,25 @@ export class Cursor extends GameObject {
     canvasClass.toggle('cursor-none');
   }
 
-  magnetise(vegtable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
+  magnetise(vegetable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
     const obj = Object.assign({}, this);
     obj.size = obj.size * radiusMultiplier;
 
-    if (vegtable.detectCollision(obj)) {
-      let dx = this.x - vegtable.x;
-      let dy = this.y - vegtable.y;
+    if (vegetable.detectCollision(obj)) {
+      let dx = this.x - vegetable.x;
+      let dy = this.y - vegetable.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       dx /= distance;
       dy /= distance;
       dx *= speed;
       dy *= speed;
 
-      if (!vegtable.detectWallCollisionX(this.canvasService.screenW)) {
-        !repel ? vegtable.applyForce(true, dx) : vegtable.applyForce(true, -dx);
+      if (!vegetable.detectWallCollisionX(this.canvasService.screenW)) {
+        repel ? vegetable.applyForce(true, -dx) : vegetable.applyForce(true, dx);
       }
-      if (!vegtable.detectWallCollisionY(this.canvasService.screenH)) {
-        !repel ? vegtable.applyForce(false, dy) : vegtable.applyForce(false, -dy);
+
+      if (!vegetable.detectWallCollisionY(this.canvasService.screenH)) {
+        repel ? vegetable.applyForce(false, -dy) : vegetable.applyForce(false, dy);
       }
     }
   }
