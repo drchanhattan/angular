@@ -41,14 +41,16 @@ export class Canvas {
   }
 
   public particleDecay(): void {
-    setInterval(() => {
+    const animateFrame = () => {
       const currentTime = new Date().getTime();
       for (let i = 0; i < this.particles.length; i++) {
         if (currentTime - this.particles[i].timestamp.getTime() > 5000) {
           this.particles.splice(i, 1);
         }
       }
-    }, 100);
+      requestAnimationFrame(animateFrame);
+    };
+    animateFrame();
   }
 
   public wallCollision(object: GameObject): void {
