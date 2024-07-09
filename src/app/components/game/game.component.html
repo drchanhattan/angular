@@ -11,13 +11,12 @@
 
 <!-- Message -->
 <div
-  *ngIf="message"
   class="message opacity-0 flex flex-col absolute justify-center items-center text-white pointer-events-none transition-opacity duration-1000 ease-in-out"
 >
-  <strong class="text-9xl">{{ message.text }}</strong>
+  <strong class="text-9xl">{{ messageService.text }}</strong>
   <div class="flex justify-center items-center">
-    <span class="mr-1 text-5xl">{{ message.subText }}</span>
-    <mat-icon class="!size-full text-5xl" *ngIf="message.subText === '+ 1'" color="warn">favorite</mat-icon>
+    <span class="mr-1 text-5xl">{{ messageService.subText }}</span>
+    <mat-icon class="!size-full text-5xl" *ngIf="messageService.subText === '+ 1'" color="warn">favorite</mat-icon>
   </div>
 </div>
 
@@ -37,7 +36,7 @@
     </button>
 
     <button class="text-4xl hover:text-[#ffc107] mb-10">
-      <span>Leaderboard</span>
+      <span>High Scores</span>
     </button>
   </div>
 

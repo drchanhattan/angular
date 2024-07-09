@@ -9,7 +9,7 @@ export class CanvasService {
   screenH = window.innerHeight;
   particles: GameObject[] = [];
 
-  initCanvas(canvasEle: ElementRef<HTMLCanvasElement>) {
+  init(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
     const canvas = this.canvasEle.nativeElement;
     canvas.width = this.screenW * devicePixelRatio;

@@ -1,8 +1,8 @@
 export class GameSettings {
+  level = 0;
   lives = 0;
   paused = true;
   showMenu = true;
-  level = 0;
   ghost = true;
   invincible = false;
 
@@ -12,6 +12,11 @@ export class GameSettings {
 
   unpause() {
     this.paused = false;
+  }
+
+  reset() {
+    this.level = 1;
+    this.lives = 3;
   }
 
   toggleMenu() {

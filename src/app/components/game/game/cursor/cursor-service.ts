@@ -3,12 +3,13 @@ import { GameObject } from '../game-object/game-object';
 import { GameObjectShape } from '../game-object/game-object-shape';
 
 export class Cursor extends GameObject {
+  scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
   override colour = '#F5F5F5';
   canvasService!: CanvasService;
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
-  initCursor(service: CanvasService): void {
+  init(service: CanvasService): void {
     this.canvasService = service;
 
     document.addEventListener('mousemove', (event) => {
@@ -71,6 +72,14 @@ export class Cursor extends GameObject {
         !repel ? vegtable.applyForce(false, dy) : vegtable.applyForce(false, -dy);
       }
     }
+  }
+
+  levelUp() {
+    this.size = this.size * 0.99;
+  }
+
+  reset() {
+    this.size = Math.round((this.scale ^ 50) * 0.3);
   }
 
   #drawTrail(context: CanvasRenderingContext2D, canvas: CanvasService) {
