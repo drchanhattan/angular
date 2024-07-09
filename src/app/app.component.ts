@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { VegGameComponent } from './components/veg-game/veg-game.component';
+import { GameComponent } from './components/game/game.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [CommonModule, RouterOutlet, RouterLink, VegGameComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, GameComponent],
 })
 export class AppComponent {
   title = 'website';

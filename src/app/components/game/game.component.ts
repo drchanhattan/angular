@@ -17,12 +17,12 @@ import { CornService } from './game/vegetables/corn-service';
 import { PeaService } from './game/vegetables/pea-service';
 
 @Component({
-  selector: 'app-veg-game',
+  selector: 'app-game',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './veg-game.component.html',
+  templateUrl: './game.component.html',
 })
-export class VegGameComponent implements AfterViewInit {
+export class GameComponent implements AfterViewInit {
   @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
 
   @ViewChild('canvas', { static: true })
