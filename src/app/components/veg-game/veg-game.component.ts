@@ -194,7 +194,7 @@ export class VegGameComponent implements AfterViewInit {
           this.#detectCornCollision(corn);
         } else {
           // Apply Gravity if objects are not alive
-          corn.applyForce(false, 2.5);
+          corn.applyForce(false, 5);
         }
 
         // Repel
