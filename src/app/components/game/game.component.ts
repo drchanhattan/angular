@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CanvasService } from './game/canvas/canvas-service';
 import { Cursor as CursorService } from './game/cursor/cursor-service';
@@ -35,8 +27,6 @@ export class GameComponent implements AfterViewInit {
   settings = new GameSettings();
   messageService = new MessageService();
 
-  constructor(private change: ChangeDetectorRef) {}
-
   @HostListener('window:resize', ['$event'])
   onResize() {
     window.location.reload();
@@ -45,15 +35,15 @@ export class GameComponent implements AfterViewInit {
   @HostListener('document:keyup', ['$event'])
   onKeyupHandler(event: KeyboardEvent) {
     if (event.key === '1') {
-      this.toggleInvincibility();
+      this.invincible();
     }
 
     if (event.key === '2') {
-      this.togglePeaMagnet();
+      this.peaService.magnetise();
     }
 
     if (event.key === '3') {
-      this.toggleCornRepel();
+      this.cornService.repel();
     }
   }
 
@@ -86,18 +76,15 @@ export class GameComponent implements AfterViewInit {
       this.increaseDifficulty();
     }
 
-    this.change.detectChanges();
-
     this.peaService.createNewPeas(this.canvasService.screenW, this.canvasService.screenH);
     this.cornService.createNewCorn(this.canvasService.screenW, this.canvasService.screenH);
 
     this.settings.unpause();
-    this.temporaryImmunity(1500);
+    this.settings.immune(1500);
   }
 
   pause() {
     this.settings.paused = true;
-    this.change.detectChanges();
   }
 
   LevelUp() {
@@ -157,7 +144,7 @@ export class GameComponent implements AfterViewInit {
 
         // Repel
         if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
-          this.cursorService.magnetise(corn, 10, this.canvasService.screenW, this.canvasService.screenH, 2, true);
+          this.cursorService.magnetise(corn, 10, 2, true);
         }
 
         corn.move();
@@ -168,7 +155,6 @@ export class GameComponent implements AfterViewInit {
   drawPeas() {
     this.peaService.peas.forEach((pea) => {
       if (!pea.destroyed) {
-        // Draw a single Pea
         this.canvasService.drawObject(this.canvasService.context, pea);
 
         // Check for collision
@@ -182,7 +168,7 @@ export class GameComponent implements AfterViewInit {
 
         // Magnetise
         if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
-          this.cursorService.magnetise(pea, 30, this.canvasService.screenW, this.canvasService.screenH, 1);
+          this.cursorService.magnetise(pea, 30, 4, false);
         }
 
         pea.move();
@@ -195,7 +181,6 @@ export class GameComponent implements AfterViewInit {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
       this.peaService.count = this.peaService.count - 1;
-      this.change.detectChanges();
 
       if (this.peaService.count === 0) {
         this.LevelUp();
@@ -210,9 +195,8 @@ export class GameComponent implements AfterViewInit {
 
       if (!this.settings.invincible) {
         this.settings.lives = this.settings.lives - 1;
-        this.change.detectChanges();
         this.canvasService.flash('bg-red-900', 500);
-        this.temporaryImmunity(500);
+        this.settings.immune(500);
       }
 
       if (this.settings.lives === 0) {
@@ -221,25 +205,9 @@ export class GameComponent implements AfterViewInit {
     }
   }
 
-  toggleInvincibility() {
-    this.cursorService.history = [];
-    this.cursorService.trail = !this.cursorService.trail;
-    this.settings.invincible = !this.settings.invincible;
-  }
-
-  togglePeaMagnet() {
-    this.peaService.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Magnetise));
-  }
-
-  toggleCornRepel() {
-    this.cornService.corns.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
-  }
-
-  temporaryImmunity(duration: number) {
-    this.settings.ghost = true;
-
-    setTimeout(() => {
-      this.settings.ghost = false;
-    }, duration);
+  invincible() {
+    this.cursorService.resetHistory();
+    this.cursorService.toggleTrail();
+    this.settings.toggleInvincible();
   }
 }

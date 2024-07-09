@@ -1,4 +1,5 @@
 import { GameObject } from '../game-object/game-object';
+import { GameObjectBehaviour } from '../game-object/game-object-behaviour';
 import { GameObjectShape } from '../game-object/game-object-shape';
 
 export class PeaService {
@@ -34,5 +35,9 @@ export class PeaService {
     this.size = Math.round((this.scale ^ 50) * 0.5);
     this.count = Math.round(this.size / this.scale);
     this.speed = Math.round(this.size / this.scale) * 0.2;
+  }
+
+  magnetise() {
+    this.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Magnetise));
   }
 }

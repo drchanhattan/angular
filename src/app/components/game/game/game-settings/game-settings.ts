@@ -19,10 +19,22 @@ export class GameSettings {
     this.lives = 3;
   }
 
+  immune(duration: number) {
+    this.ghost = true;
+
+    setTimeout(() => {
+      this.ghost = false;
+    }, duration);
+  }
+
   toggleMenu() {
     this.showMenu = !this.showMenu;
     const menu = document.getElementsByClassName('menu')[0].classList;
     menu.toggle('opacity-0');
     menu.toggle('pointer-events-none');
+  }
+
+  toggleInvincible() {
+    this.invincible = !this.invincible;
   }
 }

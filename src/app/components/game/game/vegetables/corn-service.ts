@@ -1,4 +1,5 @@
 import { GameObject } from '../game-object/game-object';
+import { GameObjectBehaviour } from '../game-object/game-object-behaviour';
 import { GameObjectShape } from '../game-object/game-object-shape';
 
 export class CornService {
@@ -34,5 +35,9 @@ export class CornService {
     this.size = Math.round((this.scale ^ 50) * 0.8);
     this.count = Math.round(this.size / this.scale);
     this.speed = Math.round(this.size / this.scale) * 0.2;
+  }
+
+  repel() {
+    this.corns.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
   }
 }

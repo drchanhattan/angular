@@ -45,14 +45,7 @@ export class Cursor extends GameObject {
     canvasClass.toggle('cursor-none');
   }
 
-  magnetise(
-    vegtable: GameObject,
-    radiusMultiplier: number,
-    screenW: number,
-    screenH: number,
-    speed: number,
-    repel = false,
-  ): void {
+  magnetise(vegtable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
     const obj = Object.assign({}, this);
     obj.size = obj.size * radiusMultiplier;
 
@@ -65,10 +58,10 @@ export class Cursor extends GameObject {
       dx *= speed;
       dy *= speed;
 
-      if (!vegtable.detectWallCollisionX(screenW)) {
+      if (!vegtable.detectWallCollisionX(this.canvasService.screenW)) {
         !repel ? vegtable.applyForce(true, dx) : vegtable.applyForce(true, -dx);
       }
-      if (!vegtable.detectWallCollisionY(screenH)) {
+      if (!vegtable.detectWallCollisionY(this.canvasService.screenH)) {
         !repel ? vegtable.applyForce(false, dy) : vegtable.applyForce(false, -dy);
       }
     }
@@ -80,6 +73,14 @@ export class Cursor extends GameObject {
 
   reset() {
     this.size = Math.round((this.scale ^ 50) * 0.3);
+  }
+
+  resetHistory() {
+    this.history = [];
+  }
+
+  toggleTrail() {
+    this.trail = !this.trail;
   }
 
   #drawTrail(context: CanvasRenderingContext2D, canvas: CanvasService) {
