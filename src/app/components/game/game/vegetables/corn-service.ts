@@ -38,8 +38,6 @@ export class CornService {
   }
 
   repel() {
-    this.corns.forEach((corn) =>
-      corn.toggleBehaviour(GameObjectBehaviour.Repel),
-    );
+    this.corns.forEach((corn) => corn.toggleBehaviour(GameObjectBehaviour.Repel));
   }
 }

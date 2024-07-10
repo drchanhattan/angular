@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CanvasService } from './game/canvas/canvas-service';
 import { Cursor as CursorService } from './game/cursor/cursor-service';
@@ -24,8 +17,7 @@ import { PeaService } from './game/vegetables/pea-service';
   templateUrl: './game.component.html',
 })
 export class GameComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses =
-    'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
+  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
   @ViewChild('canvas', { static: true })
   canvasEle!: ElementRef<HTMLCanvasElement>;
 
@@ -43,16 +35,16 @@ export class GameComponent implements AfterViewInit {
 
   @HostListener('document:keyup', ['$event'])
   onKeyupHandler(event: KeyboardEvent) {
-    if (event.key === '1') {
-      this.invincible();
-    }
-
-    if (event.key === '2') {
-      this.peaService.magnetise();
-    }
-
-    if (event.key === '3') {
-      this.cornService.repel();
+    switch (event.key) {
+      case '1':
+        this.invincible();
+        break;
+      case '2':
+        this.peaService.magnetise();
+        break;
+      case '3':
+        this.cornService.repel();
+        break;
     }
   }
 
@@ -64,12 +56,7 @@ export class GameComponent implements AfterViewInit {
 
   animate() {
     const animateFrame = () => {
-      this.canvasService.context.clearRect(
-        0,
-        0,
-        this.canvasService.screenW,
-        this.canvasService.screenH,
-      );
+      this.canvasService.context.clearRect(0, 0, this.canvasService.screenW, this.canvasService.screenH);
       if (!this.settings.showMenu) {
         this.cursorService.draw(this.canvasService.context, this.canvasService);
       }
@@ -90,14 +77,8 @@ export class GameComponent implements AfterViewInit {
       this.increaseDifficulty();
     }
 
-    this.peaService.createNewPeas(
-      this.canvasService.screenW,
-      this.canvasService.screenH,
-    );
-    this.cornService.createNewCorn(
-      this.canvasService.screenW,
-      this.canvasService.screenH,
-    );
+    this.peaService.createNewPeas(this.canvasService.screenW, this.canvasService.screenH);
+    this.cornService.createNewCorn(this.canvasService.screenW, this.canvasService.screenH);
 
     this.settings.unpause();
     this.settings.immune(1500);
@@ -106,14 +87,9 @@ export class GameComponent implements AfterViewInit {
   LevelUp() {
     this.settings.ghost = true;
     this.settings.level = this.settings.level + 1;
-    this.settings.lives =
-      this.settings.level % 2 ? this.settings.lives : this.settings.lives + 1;
+    this.settings.lives = this.settings.level % 2 ? this.settings.lives : this.settings.lives + 1;
     this.settings.pause();
-    this.messageService.showMessage(
-      'Level ' + this.settings.level,
-      this.settings.level % 2 ? '' : '+ 1',
-      1000,
-    );
+    this.messageService.showMessage('Level ' + this.settings.level, this.settings.level % 2 ? '' : '+ 1', 1000);
 
     setTimeout(() => {
       this.play(false);
@@ -122,11 +98,7 @@ export class GameComponent implements AfterViewInit {
 
   gameOver() {
     this.settings.pause();
-    this.messageService.showMessage(
-      'Game Over',
-      'You reached level ' + this.settings.level,
-      3000,
-    );
+    this.messageService.showMessage('Game Over', 'You reached level ' + this.settings.level, 3000);
 
     setTimeout(() => {
       this.settings.toggleMenu();

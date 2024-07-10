@@ -38,8 +38,6 @@ export class PeaService {
   }
 
   magnetise() {
-    this.peas.forEach((pea) =>
-      pea.toggleBehaviour(GameObjectBehaviour.Magnetise),
-    );
+    this.peas.forEach((pea) => pea.toggleBehaviour(GameObjectBehaviour.Magnetise));
   }
 }

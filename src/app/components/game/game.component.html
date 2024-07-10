@@ -1,12 +1,8 @@
 <!-- Canvas -->
-<canvas
-  #canvas
-  class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
+<canvas #canvas class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
 <!-- Lives -->
-<div
-  *ngIf="!settings.paused"
-  class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-4 transform">
+<div *ngIf="!settings.paused" class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-4 transform">
   <div class="flex items-center text-white">
     <span class="mr-1 text-5xl">{{ 'x' + settings.lives }}</span>
     <mat-icon class="!size-full text-5xl" color="warn">favorite</mat-icon>
@@ -19,10 +15,7 @@
   <strong class="text-5xl md:text-9xl">{{ messageService.text }}</strong>
   <div class="flex items-center justify-center">
     <span class="mr-1 text-2xl md:text-5xl">{{ messageService.subText }}</span>
-    <mat-icon
-      class="!size-full text-2xl md:text-5xl"
-      *ngIf="messageService.subText === '+ 1'"
-      color="warn">
+    <mat-icon class="!size-full text-2xl md:text-5xl" *ngIf="messageService.subText === '+ 1'" color="warn">
       favorite
     </mat-icon>
   </div>
@@ -32,9 +25,7 @@
 <div
   class="menu absolute flex size-full items-center justify-center text-white transition-all duration-1000 ease-in-out">
   <div class="flex flex-col items-center">
-    <mat-icon
-      class="!size-64 motion-safe:animate-bounce"
-      svgIcon="corn"></mat-icon>
+    <mat-icon class="!size-64 motion-safe:animate-bounce" svgIcon="corn"></mat-icon>
 
     <button (click)="play(true)" class="mb-4 text-4xl hover:text-[#ffc107]">
       <span>Play</span>

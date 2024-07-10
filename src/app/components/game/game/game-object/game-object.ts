@@ -89,8 +89,6 @@ export class GameObject {
   }
 
   toggleBehaviour(behaviour: GameObjectBehaviour): void {
-    this.behaviour = !this.behaviourEquals(behaviour)
-      ? behaviour
-      : GameObjectBehaviour.Default;
+    this.behaviour = !this.behaviourEquals(behaviour) ? behaviour : GameObjectBehaviour.Default;
   }
 }
