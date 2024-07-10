@@ -72,7 +72,7 @@ export class GameService {
   private increaseDifficulty() {
     this.peaService.levelUp();
     this.cornService.levelUp();
-    this.cursor.levelUp();
+    this.cursor.shrink();
   }
 
   pause() {

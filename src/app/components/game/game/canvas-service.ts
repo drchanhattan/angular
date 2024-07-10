@@ -2,13 +2,13 @@ import { ElementRef } from '@angular/core';
 import { GameObject, GameObjectShape } from './game-object';
 
 export class CanvasService {
-  context!: CanvasRenderingContext2D;
   canvasEle!: ElementRef<HTMLCanvasElement>;
+  context!: CanvasRenderingContext2D;
+  particles: GameObject[] = [];
   screenW = window.innerWidth;
   screenH = window.innerHeight;
-  particles: GameObject[] = [];
 
-  init(canvasEle: ElementRef<HTMLCanvasElement>) {
+  setup(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
     const canvas = this.canvasEle.nativeElement;
     canvas.width = this.screenW * devicePixelRatio;

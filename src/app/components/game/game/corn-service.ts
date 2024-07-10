@@ -2,11 +2,11 @@ import { GameObject, GameObjectBehaviour, GameObjectShape } from './game-object'
 
 export class CornService {
   scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
-  public color = '#ffc107';
-  public corns: GameObject[] = [];
-  public count!: number;
-  public size!: number;
-  public speed!: number;
+  color = '#ffc107';
+  corns: GameObject[] = [];
+  count!: number;
+  size!: number;
+  speed!: number;
 
   createNewCorn(canvasW: number, canvasH: number): void {
     for (let i = 0; i < this.count; i++) {

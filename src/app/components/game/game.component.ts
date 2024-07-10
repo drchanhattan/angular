@@ -50,8 +50,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.canvasService.init(this.canvasEle);
-    this.cursor.init(this.canvasService);
+    this.canvasService.setup(this.canvasEle);
     this.animate();
   }
 

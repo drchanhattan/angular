@@ -1,16 +1,18 @@
+import { Injectable } from '@angular/core';
 import { CanvasService } from './canvas-service';
 import { GameObject, GameObjectShape } from './game-object';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class GameCursor extends GameObject {
   scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
   override colour = '#F5F5F5';
-  canvasService!: CanvasService;
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
-  init(service: CanvasService): void {
-    this.canvasService = service;
-
+  constructor(private canvasService: CanvasService) {
+    super();
     const updatePosition = (x: number, y: number) => {
       const rect = this.canvasService.context.canvas.getBoundingClientRect();
       const newX = ((x - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
@@ -44,7 +46,7 @@ export class GameCursor extends GameObject {
 
   draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
     if (this.trail) {
-      this.#drawTrail(context, canvas);
+      this.#trail(context, canvas);
     }
 
     canvas.drawObject(context, {
@@ -84,7 +86,7 @@ export class GameCursor extends GameObject {
     }
   }
 
-  levelUp() {
+  shrink() {
     this.size = this.size * 0.99;
   }
 
@@ -100,8 +102,7 @@ export class GameCursor extends GameObject {
     this.trail = !this.trail;
   }
 
-  #drawTrail(context: CanvasRenderingContext2D, canvas: CanvasService) {
-    // Draw Trail
+  #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     this.history.forEach((old) => {
       context.globalAlpha = 0.1;
       canvas.drawObject(context, {
