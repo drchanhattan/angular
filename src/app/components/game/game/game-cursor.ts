@@ -1,8 +1,7 @@
-import { CanvasService } from '../canvas/canvas-service';
-import { GameObject } from '../game-object/game-object';
-import { GameObjectShape } from '../game-object/game-object-shape';
+import { CanvasService } from './canvas-service';
+import { GameObject, GameObjectShape } from './game-object';
 
-export class Cursor extends GameObject {
+export class GameCursor extends GameObject {
   scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
   override colour = '#F5F5F5';
   canvasService!: CanvasService;

@@ -1,6 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { GameObject } from '../game-object/game-object';
-import { GameObjectShape } from '../game-object/game-object-shape';
+import { GameObject, GameObjectShape } from './game-object';
 
 export class CanvasService {
   context!: CanvasRenderingContext2D;

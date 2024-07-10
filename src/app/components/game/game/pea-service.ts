@@ -1,6 +1,4 @@
-import { GameObject } from '../game-object/game-object';
-import { GameObjectBehaviour } from '../game-object/game-object-behaviour';
-import { GameObjectShape } from '../game-object/game-object-shape';
+import { GameObject, GameObjectBehaviour, GameObjectShape } from './game-object';
 
 export class PeaService {
   scale = devicePixelRatio * (window.outerWidth / window.innerWidth);

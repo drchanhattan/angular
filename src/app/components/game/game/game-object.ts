@@ -1,5 +1,13 @@
-import { GameObjectBehaviour } from './game-object-behaviour';
-import { GameObjectShape } from './game-object-shape';
+export enum GameObjectBehaviour {
+  Default = 1,
+  Magnetise = 2,
+  Repel = 2,
+}
+
+export enum GameObjectShape {
+  Rect = 1,
+  Arc = 2,
+}
 
 export class GameObject {
   x!: number;
