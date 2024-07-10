@@ -2,10 +2,12 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve",
-    "git-build": "ng build --configuration production --output-path github-pages --base-href .",
-    "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
-    "publish": "npm run-script git-build && move github-pages\\browser\\* github-pages && rmdir /s /q github-pages\\browser && echo christopherchan.co.uk > github-pages\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
+    ".1": "ng build --configuration production --output-path docs --base-href .",
+    ".2": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
+    ".3": "echo christopherchan.co.uk > docs\\CNAME && git add .",
+    ".4": "git commit -m \"commit\" && git push -u origin master",
+    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4",
+    "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\""
   },
   "private": true,
   "dependencies": {
