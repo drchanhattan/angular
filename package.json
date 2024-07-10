@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve",
+    "git-build": "ng build --configuration production --output-path github-pages --base-href .",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
-    "publish": "ng build --configuration production --output-path docs --base-href . && move docs\\browser\\* docs && rmdir /s /q docs\\browser && echo christopherchan.co.uk > docs\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
+    "publish": "npm run-script git-build && move github-pages\\browser\\* github-pages && rmdir /s /q github-pages\\browser && echo christopherchan.co.uk > github-pages\\CNAME && git add . && git commit -m \"commit\" && git push -u origin master"
   },
   "private": true,
   "dependencies": {
