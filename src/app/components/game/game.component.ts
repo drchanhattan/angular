@@ -57,12 +57,7 @@ export class GameComponent implements AfterViewInit {
   animate() {
     const animateFrame = () => {
       this.canvasService.context.clearRect(0, 0, this.canvasService.screenW, this.canvasService.screenH);
-      if (!this.settings.showMenu) {
-        this.cursorService.draw(this.canvasService.context, this.canvasService);
-      }
-      this.drawPeas();
-      this.drawCorn();
-      this.drawParticles();
+      this.draw();
       requestAnimationFrame(animateFrame);
     };
     animateFrame();
@@ -119,9 +114,41 @@ export class GameComponent implements AfterViewInit {
     this.cursorService.levelUp();
   }
 
-  drawParticles() {
-    this.canvasService.drawParticles(this.canvasService.context);
-    this.canvasService.particleDecay();
+  draw() {
+    this.drawCursor();
+    this.drawPeas();
+    this.drawCorn();
+    this.drawParticles();
+  }
+
+  drawCursor() {
+    if (!this.settings.showMenu) {
+      this.cursorService.draw(this.canvasService.context, this.canvasService);
+    }
+  }
+
+  drawPeas() {
+    this.peaService.peas.forEach((pea) => {
+      if (!pea.destroyed) {
+        this.canvasService.drawObject(this.canvasService.context, pea);
+
+        // Check for collision
+        if (!this.settings.paused) {
+          this.canvasService.wallCollision(pea);
+          this.detectPeaCollision(pea);
+        } else {
+          // Apply Gravity if objects are not alive
+          pea.applyForce(false, 8);
+        }
+
+        // Magnetise
+        if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
+          this.cursorService.magnetise(pea, 30, 4, false);
+        }
+
+        pea.move();
+      }
+    });
   }
 
   drawCorn() {
@@ -149,28 +176,9 @@ export class GameComponent implements AfterViewInit {
     });
   }
 
-  drawPeas() {
-    this.peaService.peas.forEach((pea) => {
-      if (!pea.destroyed) {
-        this.canvasService.drawObject(this.canvasService.context, pea);
-
-        // Check for collision
-        if (!this.settings.paused) {
-          this.canvasService.wallCollision(pea);
-          this.detectPeaCollision(pea);
-        } else {
-          // Apply Gravity if objects are not alive
-          pea.applyForce(false, 8);
-        }
-
-        // Magnetise
-        if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
-          this.cursorService.magnetise(pea, 30, 4, false);
-        }
-
-        pea.move();
-      }
-    });
+  drawParticles() {
+    this.canvasService.drawParticles(this.canvasService.context);
+    this.canvasService.particleDecay();
   }
 
   detectPeaCollision(pea: GameObject) {
