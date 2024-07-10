@@ -83,15 +83,11 @@ export class GameComponent implements AfterViewInit {
     this.settings.immune(1500);
   }
 
-  pause() {
-    this.settings.paused = true;
-  }
-
   LevelUp() {
     this.settings.ghost = true;
     this.settings.level = this.settings.level + 1;
     this.settings.lives = this.settings.level % 2 ? this.settings.lives : this.settings.lives + 1;
-    this.pause();
+    this.settings.pause();
     this.messageService.showMessage('Level ' + this.settings.level, this.settings.level % 2 ? '' : '+ 1', 1000);
 
     setTimeout(() => {
@@ -100,7 +96,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   gameOver() {
-    this.pause();
+    this.settings.pause();
     this.messageService.showMessage('Game Over', 'You reached level ' + this.settings.level, 3000);
 
     setTimeout(() => {
