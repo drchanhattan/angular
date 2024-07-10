@@ -14,8 +14,12 @@ export class Cursor extends GameObject {
 
     const updatePosition = (x: number, y: number) => {
       const rect = this.canvasService.context.canvas.getBoundingClientRect();
-      const newX = ((x - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
-      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
+      const newX =
+        ((x - rect.left) / (rect.right - rect.left)) *
+        this.canvasService.screenW;
+      const newY =
+        ((y - rect.top) / (rect.bottom - rect.top)) *
+        this.canvasService.screenH;
       this.x = Math.min(Math.max(0, newX), this.canvasService.screenW);
       this.y = Math.min(Math.max(0, newY), this.canvasService.screenH);
     };
@@ -62,7 +66,12 @@ export class Cursor extends GameObject {
     canvasClass.toggle('cursor-none');
   }
 
-  magnetise(vegetable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
+  magnetise(
+    vegetable: GameObject,
+    radiusMultiplier: number,
+    speed: number,
+    repel: boolean,
+  ): void {
     const obj = Object.assign({}, this);
     obj.size = obj.size * radiusMultiplier;
 
@@ -76,11 +85,15 @@ export class Cursor extends GameObject {
       dy *= speed;
 
       if (!vegetable.detectWallCollisionX(this.canvasService.screenW)) {
-        repel ? vegetable.applyForce(true, -dx) : vegetable.applyForce(true, dx);
+        repel
+          ? vegetable.applyForce(true, -dx)
+          : vegetable.applyForce(true, dx);
       }
 
       if (!vegetable.detectWallCollisionY(this.canvasService.screenH)) {
-        repel ? vegetable.applyForce(false, -dy) : vegetable.applyForce(false, dy);
+        repel
+          ? vegetable.applyForce(false, -dy)
+          : vegetable.applyForce(false, dy);
       }
     }
   }

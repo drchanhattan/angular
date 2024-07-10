@@ -18,7 +18,11 @@ export class CanvasService {
     this.context.scale(devicePixelRatio, devicePixelRatio);
   }
 
-  drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1): void {
+  drawObject(
+    context: CanvasRenderingContext2D,
+    object: GameObject,
+    sizeMultiplier = 1,
+  ): void {
     context.fillStyle = object.colour;
     context.beginPath();
 
@@ -50,7 +54,10 @@ export class CanvasService {
     if (object.detectWallCollisionX(this.screenW)) {
       const centreX = this.screenW / 2;
       const sign = Math.sign(object.deltaX);
-      if ((object.x < centreX && sign === -1) || (object.x > centreX && sign === 1)) {
+      if (
+        (object.x < centreX && sign === -1) ||
+        (object.x > centreX && sign === 1)
+      ) {
         object.reverseDirection(true);
       }
     }
@@ -58,7 +65,10 @@ export class CanvasService {
     if (object.detectWallCollisionY(this.screenH)) {
       const centreY = this.screenH / 2;
       const sign = Math.sign(object.deltaY);
-      if ((object.y < centreY && sign === -1) || (object.y > centreY && sign === 1)) {
+      if (
+        (object.y < centreY && sign === -1) ||
+        (object.y > centreY && sign === 1)
+      ) {
         object.reverseDirection(false);
       }
     }
@@ -91,13 +101,32 @@ export class CanvasService {
     }, duration);
   }
 
-  #drawSquare(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
+  #drawSquare(
+    context: CanvasRenderingContext2D,
+    object: GameObject,
+    sizeMultiplier: number,
+  ) {
     const drawX = object.x - object.size / 2;
     const drawY = object.y - object.size / 2;
-    context.fillRect(drawX, drawY, object.size * sizeMultiplier, object.size * sizeMultiplier);
+    context.fillRect(
+      drawX,
+      drawY,
+      object.size * sizeMultiplier,
+      object.size * sizeMultiplier,
+    );
   }
 
-  #drawCircle(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
-    context.arc(object.x, object.y, object.size * sizeMultiplier, 0, 2 * Math.PI);
+  #drawCircle(
+    context: CanvasRenderingContext2D,
+    object: GameObject,
+    sizeMultiplier: number,
+  ) {
+    context.arc(
+      object.x,
+      object.y,
+      object.size * sizeMultiplier,
+      0,
+      2 * Math.PI,
+    );
   }
 }

@@ -24,7 +24,10 @@ export class AppComponent {
 
   public registerIcons() {
     this.icons.forEach((icon) => {
-      this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
+      this.matIconRegistry.addSvgIcon(
+        icon,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`),
+      );
     });
   }
 }
