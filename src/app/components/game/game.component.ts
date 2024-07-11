@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { GameService } from './game-service';
-import { CanvasService } from './game/canvas-service';
-import { GameCursor } from './game/game-cursor';
-import { GameObject } from './game/game-object/game-object';
-import { GameObjectBehaviour } from './game/game-object/game-object-behaviour';
-import { TextService } from './game/text-service';
+import { GameCursor } from './models/game-object/game-cursor';
+import { GameObject } from './models/game-object/game-object';
+import { GameObjectBehaviour } from './models/game-object/game-object-behaviour';
+import { CanvasService } from './services/canvas-service';
+import { GameService } from './services/game-service';
+import { TextService } from './services/text-service';
 
 @Component({
   selector: 'app-game',

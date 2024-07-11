@@ -1,8 +1,8 @@
-import { GameObject } from './game-object/game-object';
-import { GameObjectBehaviour } from './game-object/game-object-behaviour';
-import { GameObjectSettings } from './game-object/game-object-setttings';
+import { GameObject } from './game-object';
+import { GameObjectBehaviour } from './game-object-behaviour';
+import { GameObjectSettings } from './game-object-setttings';
 
-export class VegetableGroup {
+export class GameObjectGroup {
   settings: GameObjectSettings;
   count: number;
   objects: GameObject[] = [];
@@ -12,7 +12,7 @@ export class VegetableGroup {
     this.settings = settings;
   }
 
-  createVegetables() {
+  createObjects() {
     for (let i = 0; i < this.count; i++) {
       const xSpawn = Math.random() * window.innerWidth;
       const ySpawn = Math.random() * window.innerHeight;

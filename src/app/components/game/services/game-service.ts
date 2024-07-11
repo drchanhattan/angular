@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanvasService } from './game/canvas-service';
-import { scaledCount, scaledSize, scaledSpeed } from './game/device-scale';
-import { GameCursor } from './game/game-cursor';
-import { GameObjectSettings } from './game/game-object/game-object-setttings';
-import { GameObjectShape } from './game/game-object/game-object-shape';
-import { TextService } from './game/text-service';
-import { VegetableGroup } from './game/vegetable-group';
+import { scaledCount, scaledSize, scaledSpeed } from '../models/device-scale/device-scale';
+import { GameCursor } from '../models/game-object/game-cursor';
+import { GameObjectGroup } from '../models/game-object/game-object-group';
+import { GameObjectSettings } from '../models/game-object/game-object-setttings';
+import { GameObjectShape } from '../models/game-object/game-object-shape';
+import { TextService } from './text-service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +16,8 @@ export class GameService {
   showMenu = true;
   ghost = true;
   invincible = false;
-  peas!: VegetableGroup;
-  corn!: VegetableGroup;
+  peas!: GameObjectGroup;
+  corn!: GameObjectGroup;
   peaCount = scaledCount(scaledSize(8), 3);
   defaultPea: GameObjectSettings = {
     color: '#54ff58',
@@ -35,12 +34,11 @@ export class GameService {
   };
 
   constructor(
-    private canvasService: CanvasService,
     private cursor: GameCursor,
     private textService: TextService,
   ) {
-    this.peas = new VegetableGroup(this.peaCount, this.defaultPea);
-    this.corn = new VegetableGroup(this.cornCount, this.defaultCorn);
+    this.peas = new GameObjectGroup(this.peaCount, this.defaultPea);
+    this.corn = new GameObjectGroup(this.cornCount, this.defaultCorn);
   }
 
   play(newGame: boolean) {
@@ -52,8 +50,8 @@ export class GameService {
       this.increaseDifficulty();
     }
 
-    this.peas.createVegetables();
-    this.corn.createVegetables();
+    this.peas.createObjects();
+    this.corn.createObjects();
 
     this.unpause();
     this.immune(1500);

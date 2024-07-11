@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { GameService } from './components/game/game-service';
 import { GameComponent } from './components/game/game.component';
-import { CanvasService } from './components/game/game/canvas-service';
-import { GameCursor } from './components/game/game/game-cursor';
-import { TextService } from './components/game/game/text-service';
+import { GameCursor } from './components/game/models/game-object/game-cursor';
+import { CanvasService } from './components/game/services/canvas-service';
+import { GameService } from './components/game/services/game-service';
+import { TextService } from './components/game/services/text-service';
 
 @Component({
   selector: 'app-root',
