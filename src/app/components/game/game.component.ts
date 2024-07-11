@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { GameService } from './game-service';
 import { CanvasService } from './game/canvas-service';
 import { CornService } from './game/corn-service';
-import { GameCursor as CursorService } from './game/game-cursor';
+import { GameCursor } from './game/game-cursor';
 import { GameObject, GameObjectBehaviour } from './game/game-object';
 import { MessageService } from './game/message-service';
 import { PeaService } from './game/pea-service';
@@ -25,7 +25,7 @@ export class GameComponent implements AfterViewInit {
     public canvasService: CanvasService,
     public peaService: PeaService,
     public cornService: CornService,
-    public cursor: CursorService,
+    public cursor: GameCursor,
     public messageService: MessageService,
   ) {}
 
