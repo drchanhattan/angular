@@ -117,7 +117,7 @@ export class GameComponent implements AfterViewInit {
 
         // Repel
         if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
-          this.cursor.magnetise(corn, 10, 2, true);
+          this.cursor.magnetise(corn, 20, 5, true);
         }
 
         corn.move();

@@ -84,9 +84,11 @@ export class CanvasService {
   flash(color: string, duration: number) {
     const canvasClass = this.canvasEle.nativeElement.classList;
     canvasClass.toggle(color);
+    canvasClass.toggle('animate-jiggle');
 
     setTimeout(() => {
       canvasClass.toggle(color);
+      canvasClass.toggle('animate-jiggle');
     }, duration);
   }
 

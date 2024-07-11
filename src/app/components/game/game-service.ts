@@ -45,11 +45,11 @@ export class GameService {
     this.level = this.level + 1;
     this.lives = this.level % 2 ? this.lives : this.lives + 1;
     this.pause();
-    this.messageService.showMessage('Level ' + this.level, this.level % 2 ? '' : '+ 1', 1000);
+    this.messageService.showMessage('Level ' + this.level, this.level % 2 ? '' : '+ 1', 2000);
 
     setTimeout(() => {
       this.play(false);
-    }, 3000);
+    }, 3500);
   }
 
   gameOver() {

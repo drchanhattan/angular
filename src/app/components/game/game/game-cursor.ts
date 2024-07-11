@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanvasService } from './canvas-service';
+import { scaledSize } from './device-scale';
 import { GameObject, GameObjectShape } from './game-object';
 
 @Injectable({
@@ -91,7 +92,7 @@ export class GameCursor extends GameObject {
   }
 
   reset() {
-    this.size = Math.round((this.scale ^ 50) * 0.3);
+    this.size = scaledSize(8);
   }
 
   resetHistory() {

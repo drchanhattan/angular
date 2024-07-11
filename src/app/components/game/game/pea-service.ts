@@ -1,7 +1,7 @@
+import { scaledCount, scaledSize, scaledSpeed } from './device-scale';
 import { GameObject, GameObjectBehaviour, GameObjectShape } from './game-object';
 
 export class PeaService {
-  scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
   color = '#54ff58';
   peas: GameObject[] = [];
   count!: number;
@@ -24,15 +24,15 @@ export class PeaService {
   }
 
   levelUp() {
-    this.count = Math.round(this.size / this.scale);
     this.size = this.size * 0.99;
+    this.count = scaledCount(this.size, 3);
     this.speed = this.speed * 1.03;
   }
 
   reset() {
-    this.size = Math.round((this.scale ^ 50) * 0.5);
-    this.count = Math.round(this.size / this.scale);
-    this.speed = Math.round(this.size / this.scale) * 0.2;
+    this.size = scaledSize(8);
+    this.count = scaledCount(this.size, 3);
+    this.speed = scaledSpeed(this.size, 0.2);
   }
 
   magnetise() {

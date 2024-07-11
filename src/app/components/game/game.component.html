@@ -12,7 +12,7 @@
 <!-- Message -->
 <div
   class="message pointer-events-none absolute flex flex-col items-center justify-center text-white opacity-0 transition-opacity duration-1000 ease-in-out">
-  <strong class="text-5xl md:text-9xl">{{ messageService.text }}</strong>
+  <strong class="mb-4 text-5xl md:text-9xl">{{ messageService.text }}</strong>
   <div class="flex items-center justify-center">
     <span class="mr-1 text-2xl md:text-5xl">{{ messageService.subText }}</span>
     <mat-icon class="!size-full text-2xl md:text-5xl" *ngIf="messageService.subText === '+ 1'" color="warn">
@@ -25,17 +25,17 @@
 <div
   class="menu absolute flex size-full items-center justify-center text-white transition-all duration-1000 ease-in-out">
   <div class="flex flex-col items-center">
-    <mat-icon class="!size-64 motion-safe:animate-bounce" svgIcon="corn"></mat-icon>
+    <mat-icon class="mb-8 !size-64 animate-float" svgIcon="corn"></mat-icon>
 
-    <button (click)="gameService.play(true)" class="mb-4 text-4xl hover:text-[#ffc107]">
+    <button (click)="gameService.play(true)" class="mb-4 text-3xl hover:animate-fast-pulse hover:text-[#ffc107]">
       <span>Play</span>
     </button>
 
-    <button class="mb-4 text-4xl hover:text-[#ffc107]">
+    <button class="mb-4 text-3xl hover:animate-fast-pulse hover:text-[#ffc107]">
       <span>Settings</span>
     </button>
 
-    <button class="mb-4 text-4xl hover:text-[#ffc107]">
+    <button class="mb-4 text-3xl hover:animate-fast-pulse hover:text-[#ffc107]">
       <span>Back</span>
     </button>
   </div>
