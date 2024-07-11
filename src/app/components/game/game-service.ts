@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanvasService } from './game/canvas-service';
 import { scaledCount, scaledSize, scaledSpeed } from './game/device-scale';
 import { GameCursor } from './game/game-cursor';
-import { GameObjectSettings, GameObjectShape } from './game/game-object';
+import { GameObjectSettings } from './game/game-object/game-object-setttings';
+import { GameObjectShape } from './game/game-object/game-object-shape';
 import { TextService } from './game/text-service';
 import { VegetableGroup } from './game/vegetable-group';
 

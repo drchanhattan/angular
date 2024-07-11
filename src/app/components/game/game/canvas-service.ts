@@ -1,5 +1,7 @@
 import { ElementRef } from '@angular/core';
-import { GameObject, GameObjectSettings, GameObjectShape } from './game-object';
+import { GameObject } from './game-object/game-object';
+import { GameObjectSettings } from './game-object/game-object-setttings';
+import { GameObjectShape } from './game-object/game-object-shape';
 
 export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;

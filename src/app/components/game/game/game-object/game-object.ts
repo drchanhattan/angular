@@ -1,27 +1,6 @@
-export enum GameObjectBehaviour {
-  Default = 1,
-  Magnetise = 2,
-  Repel = 2,
-}
-
-export enum GameObjectShape {
-  Rect = 1,
-  Arc = 2,
-}
-
-export class GameObjectSettings {
-  color: string;
-  size: number;
-  shape: GameObjectShape;
-  speed: number;
-
-  constructor(color: string, size: number, shape: GameObjectShape, speed: number) {
-    this.color = color;
-    this.size = size;
-    this.shape = shape;
-    this.speed = speed;
-  }
-}
+import { GameObjectBehaviour } from './game-object-behaviour';
+import { GameObjectSettings } from './game-object-setttings';
+import { GameObjectShape } from './game-object-shape';
 
 export class GameObject {
   x: number;

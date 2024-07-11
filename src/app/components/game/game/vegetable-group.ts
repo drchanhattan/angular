@@ -1,4 +1,6 @@
-import { GameObject, GameObjectBehaviour, GameObjectSettings } from './game-object';
+import { GameObject } from './game-object/game-object';
+import { GameObjectBehaviour } from './game-object/game-object-behaviour';
+import { GameObjectSettings } from './game-object/game-object-setttings';
 
 export class VegetableGroup {
   settings: GameObjectSettings;
@@ -38,4 +40,3 @@ export class VegetableGroup {
     this.objects.forEach((objects) => objects.toggleBehaviour(GameObjectBehaviour.Repel));
   }
 }
-export { GameObjectSettings };

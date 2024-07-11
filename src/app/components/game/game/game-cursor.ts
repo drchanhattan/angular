@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanvasService } from './canvas-service';
 import { scaledSize } from './device-scale';
-import { GameObject, GameObjectSettings, GameObjectShape } from './game-object';
+import { GameObject } from './game-object/game-object';
+import { GameObjectSettings } from './game-object/game-object-setttings';
+import { GameObjectShape } from './game-object/game-object-shape';
 
 @Injectable({
   providedIn: 'root',

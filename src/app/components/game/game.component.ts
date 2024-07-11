@@ -4,7 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { GameService } from './game-service';
 import { CanvasService } from './game/canvas-service';
 import { GameCursor } from './game/game-cursor';
-import { GameObject, GameObjectBehaviour } from './game/game-object';
+import { GameObject } from './game/game-object/game-object';
+import { GameObjectBehaviour } from './game/game-object/game-object-behaviour';
 import { TextService } from './game/text-service';
 
 @Component({
