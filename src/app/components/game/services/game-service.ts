@@ -16,39 +16,43 @@ export class GameService {
   showMenu = true;
   ghost = true;
   invincible = false;
-  peas!: GameObjectGroup;
-  corn!: GameObjectGroup;
-  peaCount = scaledCount(scaledSize(8), 3);
-  defaultPea: GameObjectSettings = {
-    color: '#54ff58',
-    size: scaledSize(8),
-    speed: scaledSpeed(scaledSize(8), 0.2),
-    shape: GameObjectShape.Arc,
-  };
-  cornCount = scaledCount(scaledSize(12), 6);
-  defaultCorn: GameObjectSettings = {
-    color: '#ffc107',
-    size: scaledSize(12),
-    speed: scaledSpeed(scaledSize(12), 0.2),
-    shape: GameObjectShape.Rect,
-  };
+  peas: GameObjectGroup;
+  corn: GameObjectGroup;
 
   constructor(
     private cursor: GameCursor,
     private textService: TextService,
   ) {
-    this.peas = new GameObjectGroup(this.peaCount, this.defaultPea);
-    this.corn = new GameObjectGroup(this.cornCount, this.defaultCorn);
+    this.peas = new GameObjectGroup(this.defaultPea.count, this.defaultPea.settings);
+    this.corn = new GameObjectGroup(this.defaultCorn.count, this.defaultCorn.settings);
+  }
+
+  get defaultPea(): { count: number; settings: GameObjectSettings } {
+    return {
+      count: scaledCount(scaledSize(8), 3),
+      settings: {
+        color: '#54ff58',
+        size: scaledSize(8),
+        speed: scaledSpeed(scaledSize(8), 0.2),
+        shape: GameObjectShape.Arc,
+      },
+    };
+  }
+
+  get defaultCorn(): { count: number; settings: GameObjectSettings } {
+    return {
+      count: scaledCount(scaledSize(12), 6),
+      settings: {
+        color: '#ffc107',
+        size: scaledSize(12),
+        speed: scaledSpeed(scaledSize(12), 0.2),
+        shape: GameObjectShape.Rect,
+      },
+    };
   }
 
   play(newGame: boolean) {
-    if (newGame) {
-      this.resetDifficulty();
-      this.toggleMenu();
-      this.cursor.toggle();
-    } else {
-      this.increaseDifficulty();
-    }
+    newGame ? this.newGame() : this.increaseDifficulty();
 
     this.peas.createObjects();
     this.corn.createObjects();
@@ -79,13 +83,17 @@ export class GameService {
     }, 4000);
   }
 
-  private resetDifficulty() {
+  private newGame() {
     this.level = 1;
     this.lives = 3;
 
+    this.peas.editSettings(this.defaultPea.settings.size, this.defaultPea.settings.speed, this.defaultPea.count);
+    this.corn.editSettings(this.defaultCorn.settings.size, this.defaultCorn.settings.speed, this.defaultCorn.count);
+
+    this.toggleMenu();
+
     this.cursor.reset();
-    this.peas.editSettings(this.defaultPea.size, this.defaultPea.speed, this.peaCount);
-    this.corn.editSettings(this.defaultCorn.size, this.defaultCorn.speed, this.cornCount);
+    this.cursor.toggle();
   }
 
   private increaseDifficulty() {
