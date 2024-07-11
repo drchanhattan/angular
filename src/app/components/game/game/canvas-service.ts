@@ -18,7 +18,7 @@ export class CanvasService {
   }
 
   drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1): void {
-    context.fillStyle = object.colour;
+    context.fillStyle = object.color;
     context.beginPath();
 
     object.shape === GameObjectShape.Rect
@@ -68,13 +68,15 @@ export class CanvasService {
     const speed = 1;
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
-      const p = new GameObject();
-      p.x = object.x;
-      p.y = object.y;
-      p.setRandomDelta(true, true, speed);
-      p.size = object.size;
-      p.shape = object.shape;
-      p.colour = object.colour;
+      const p = new GameObject(
+        object.x,
+        object.y,
+        object.size,
+        object.color,
+        object.shape,
+        (Math.random() - Math.random()) * speed,
+        (Math.random() - Math.random()) * speed,
+      );
       p.timestamp = new Date(currentTime.getTime() + i * 50);
 
       this.particles.push(p);

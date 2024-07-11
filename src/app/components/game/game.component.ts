@@ -3,11 +3,9 @@ import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewCh
 import { MatIconModule } from '@angular/material/icon';
 import { GameService } from './game-service';
 import { CanvasService } from './game/canvas-service';
-import { CornService } from './game/corn-service';
 import { GameCursor } from './game/game-cursor';
 import { GameObject, GameObjectBehaviour } from './game/game-object';
-import { MessageService } from './game/message-service';
-import { PeaService } from './game/pea-service';
+import { TextService } from './game/text-service';
 
 @Component({
   selector: 'app-game',
@@ -23,10 +21,8 @@ export class GameComponent implements AfterViewInit {
   constructor(
     public gameService: GameService,
     public canvasService: CanvasService,
-    public peaService: PeaService,
-    public cornService: CornService,
     public cursor: GameCursor,
-    public messageService: MessageService,
+    public textService: TextService,
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -41,10 +37,10 @@ export class GameComponent implements AfterViewInit {
         this.invincible();
         break;
       case '2':
-        this.peaService.magnetise();
+        this.gameService.peas.magnetise();
         break;
       case '3':
-        this.cornService.repel();
+        this.gameService.corn.repel();
         break;
     }
   }
@@ -77,7 +73,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   drawPeas() {
-    this.peaService.peas.forEach((pea: GameObject) => {
+    this.gameService.peas.objects.forEach((pea: GameObject) => {
       if (!pea.destroyed) {
         this.canvasService.drawObject(this.canvasService.context, pea);
 
@@ -101,7 +97,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   drawCorn() {
-    this.cornService.corns.forEach((corn: GameObject) => {
+    this.gameService.corn.objects.forEach((corn: GameObject) => {
       if (!corn.destroyed) {
         // Draw a single Corn
         this.canvasService.drawObject(this.canvasService.context, corn);
@@ -131,19 +127,19 @@ export class GameComponent implements AfterViewInit {
   }
 
   detectPeaCollision(pea: GameObject) {
-    if (pea.detectCollision(this.cursor)) {
+    if (pea.detectCollision(this.cursor.object)) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
-      this.peaService.count = this.peaService.count - 1;
+      this.gameService.peas.settings.count = this.gameService.peas.settings.count - 1;
 
-      if (this.peaService.count === 0) {
-        this.gameService.LevelUp();
+      if (this.gameService.peas.settings.count === 0) {
+        this.gameService.levelUp();
       }
     }
   }
 
   detectCornCollision(corn: GameObject) {
-    if (!this.gameService.ghost && corn.detectCollision(this.cursor)) {
+    if (!this.gameService.ghost && corn.detectCollision(this.cursor.object)) {
       corn.destroyed = true;
       this.canvasService.createParticles(corn);
 

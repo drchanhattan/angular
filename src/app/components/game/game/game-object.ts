@@ -10,16 +10,26 @@ export enum GameObjectShape {
 }
 
 export class GameObject {
-  x!: number;
-  y!: number;
-  deltaX = 0;
-  deltaY = 0;
-  size!: number;
-  colour!: string;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  shape: GameObjectShape;
+  deltaX: number;
+  deltaY: number;
   behaviour!: GameObjectBehaviour;
-  shape!: GameObjectShape;
   timestamp!: Date;
   destroyed = false;
+
+  constructor(x: number, y: number, size: number, color: string, shape: GameObjectShape, deltaX = 0, deltaY = 0) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.color = color;
+    this.shape = shape;
+    this.deltaX = deltaX;
+    this.deltaY = deltaY;
+  }
 
   detectWallCollisionX(canvasW: number): boolean {
     return this.x + this.size / 2 > canvasW || this.x - this.size / 2 < 0;
@@ -76,16 +86,6 @@ export class GameObject {
 
   moveY(): void {
     this.y = this.y + this.deltaY;
-  }
-
-  setRandomDelta(x: boolean, y: boolean, speedMultiplier: number): void {
-    if (x) {
-      this.deltaX = (Math.random() - Math.random()) * speedMultiplier;
-    }
-
-    if (y) {
-      this.deltaY = (Math.random() - Math.random()) * speedMultiplier;
-    }
   }
 
   applyForce(x: boolean, force: number): void {

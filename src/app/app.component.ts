@@ -6,17 +6,15 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { GameService } from './components/game/game-service';
 import { GameComponent } from './components/game/game.component';
 import { CanvasService } from './components/game/game/canvas-service';
-import { CornService } from './components/game/game/corn-service';
 import { GameCursor } from './components/game/game/game-cursor';
-import { MessageService } from './components/game/game/message-service';
-import { PeaService } from './components/game/game/pea-service';
+import { TextService } from './components/game/game/text-service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [CommonModule, RouterOutlet, RouterLink, GameComponent],
-  providers: [GameService, CanvasService, PeaService, CornService, GameCursor, MessageService, GameService],
+  providers: [GameService, CanvasService, GameCursor, TextService, GameService],
 })
 export class AppComponent {
   title = 'website';

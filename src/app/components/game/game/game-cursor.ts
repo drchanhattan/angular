@@ -6,20 +6,18 @@ import { GameObject, GameObjectShape } from './game-object';
 @Injectable({
   providedIn: 'root',
 })
-export class GameCursor extends GameObject {
-  scale = devicePixelRatio * (window.outerWidth / window.innerWidth);
-  override colour = '#F5F5F5';
+export class GameCursor {
+  object = new GameObject(0, 0, scaledSize(8), '#F5F5F5', GameObjectShape.Arc);
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
   constructor(private canvasService: CanvasService) {
-    super();
     const updatePosition = (x: number, y: number) => {
       const rect = this.canvasService.context.canvas.getBoundingClientRect();
       const newX = ((x - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
       const newY = ((y - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
-      this.x = Math.min(Math.max(0, newX), this.canvasService.screenW);
-      this.y = Math.min(Math.max(0, newY), this.canvasService.screenH);
+      this.object.x = Math.min(Math.max(0, newX), this.canvasService.screenW);
+      this.object.y = Math.min(Math.max(0, newY), this.canvasService.screenH);
     };
 
     document.addEventListener('mousemove', (event) => {
@@ -50,13 +48,7 @@ export class GameCursor extends GameObject {
       this.#trail(context, canvas);
     }
 
-    canvas.drawObject(context, {
-      x: this.x,
-      y: this.y,
-      size: this.size,
-      colour: this.colour,
-      shape: GameObjectShape.Arc,
-    } as GameObject);
+    canvas.drawObject(context, this.object);
   }
 
   toggle() {
@@ -65,12 +57,12 @@ export class GameCursor extends GameObject {
   }
 
   magnetise(vegetable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
-    const obj = Object.assign({}, this);
+    const obj = Object.assign({}, this.object);
     obj.size = obj.size * radiusMultiplier;
 
     if (vegetable.detectCollision(obj)) {
-      let dx = this.x - vegetable.x;
-      let dy = this.y - vegetable.y;
+      let dx = this.object.x - vegetable.x;
+      let dy = this.object.y - vegetable.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       dx /= distance;
       dy /= distance;
@@ -87,12 +79,12 @@ export class GameCursor extends GameObject {
     }
   }
 
-  shrink() {
-    this.size = this.size * 0.9 < 10 ? 10 : this.size * 0.9;
+  increaseDifficulty() {
+    this.object.size = Math.max(this.object.size * 0.9, 10);
   }
 
   reset() {
-    this.size = scaledSize(8);
+    this.object.size = scaledSize(8);
   }
 
   resetHistory() {
@@ -106,15 +98,9 @@ export class GameCursor extends GameObject {
   #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     this.history.forEach((old) => {
       context.globalAlpha = 0.1;
-      canvas.drawObject(context, {
-        x: old.x,
-        y: old.y,
-        size: this.size,
-        colour: this.colour,
-        shape: GameObjectShape.Arc,
-      } as GameObject);
+      canvas.drawObject(context, new GameObject(old.x, old.y, this.object.size, this.object.color, this.object.shape));
       context.globalAlpha = 1;
     });
-    this.history.push({ x: this.x, y: this.y });
+    this.history.push({ x: this.object.x, y: this.object.y });
   }
 }

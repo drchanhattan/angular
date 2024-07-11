@@ -9,13 +9,13 @@
   </div>
 </div>
 
-<!-- Message -->
+<!-- Text -->
 <div
-  class="message pointer-events-none absolute flex flex-col items-center justify-center text-white opacity-0 transition-opacity duration-1000 ease-in-out">
-  <strong class="mb-4 text-5xl md:text-9xl">{{ messageService.text }}</strong>
+  class="text pointer-events-none absolute flex flex-col items-center justify-center text-white opacity-0 transition-opacity duration-1000 ease-in-out">
+  <strong class="mb-4 text-5xl md:text-9xl">{{ textService.text }}</strong>
   <div class="flex items-center justify-center">
-    <span class="mr-1 text-2xl md:text-5xl">{{ messageService.subText }}</span>
-    <mat-icon class="!size-full text-2xl md:text-5xl" *ngIf="messageService.subText === '+ 1'" color="warn">
+    <span class="mr-1 text-2xl md:text-5xl">{{ textService.subText }}</span>
+    <mat-icon class="!size-full text-2xl md:text-5xl" *ngIf="textService.subText === '+ 1'" color="warn">
       favorite
     </mat-icon>
   </div>
