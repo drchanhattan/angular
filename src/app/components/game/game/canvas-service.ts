@@ -68,15 +68,7 @@ export class CanvasService {
     const speed = 1;
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
-      const p = new GameObject(
-        object.x,
-        object.y,
-        object.size,
-        object.color,
-        object.shape,
-        (Math.random() - Math.random()) * speed,
-        (Math.random() - Math.random()) * speed,
-      );
+      const p = new GameObject(object.x, object.y, object.size, object.color, object.shape, speed);
       p.timestamp = new Date(currentTime.getTime() + i * 50);
 
       this.particles.push(p);

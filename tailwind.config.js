@@ -6,7 +6,7 @@ module.exports = {
       animation: {
         'fast-pulse': 'pulse 1s infinite',
         float: 'float 1s ease-in-out infinite',
-        jiggle: 'jiggle 0.5s',
+        jiggle: 'jiggle 0.45s',
       },
       keyframes: {
         float: {

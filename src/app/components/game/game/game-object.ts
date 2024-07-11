@@ -21,14 +21,14 @@ export class GameObject {
   timestamp!: Date;
   destroyed = false;
 
-  constructor(x: number, y: number, size: number, color: string, shape: GameObjectShape, deltaX = 0, deltaY = 0) {
+  constructor(x: number, y: number, size: number, color: string, shape: GameObjectShape, speed: number) {
     this.x = x;
     this.y = y;
     this.size = size;
     this.color = color;
     this.shape = shape;
-    this.deltaX = deltaX;
-    this.deltaY = deltaY;
+    this.deltaX = speed ? (Math.random() - Math.random()) * speed : 0;
+    this.deltaY = speed ? (Math.random() - Math.random()) * speed : 0;
   }
 
   detectWallCollisionX(canvasW: number): boolean {

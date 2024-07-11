@@ -26,8 +26,7 @@ export class VegetableGroup {
         this.settings.size,
         this.settings.color,
         this.settings.shape,
-        (Math.random() - Math.random()) * this.settings.speed,
-        (Math.random() - Math.random()) * this.settings.speed,
+        this.settings.speed,
       );
     }
   }
