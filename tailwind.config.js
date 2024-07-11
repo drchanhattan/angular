@@ -22,19 +22,22 @@ module.exports = {
         },
         jiggle: {
           '0%': {
-            transform: 'rotate(-3deg)',
+            transform: 'rotate(0deg)',
           },
-          '25%': {
+          '20%': {
             transform: 'rotate(3deg)',
           },
-          '50%': {
+          '40%': {
             transform: 'rotate(-3deg)',
           },
-          '75%': {
+          '60%': {
             transform: 'rotate(3deg)',
+          },
+          '80%': {
+            transform: 'rotate(-3deg)',
           },
           '100%': {
-            transform: 'rotate(-3deg)',
+            transform: 'rotate(0deg)',
           },
         },
       },

@@ -88,7 +88,7 @@ export class GameCursor extends GameObject {
   }
 
   shrink() {
-    this.size = this.size * 0.99;
+    this.size = this.size * 0.9 < 10 ? 10 : this.size * 0.9;
   }
 
   reset() {

@@ -24,7 +24,7 @@ export class PeaService {
   }
 
   levelUp() {
-    this.size = this.size * 0.99;
+    this.size = this.size * 0.9 < 10 ? 10 : this.size * 0.9;
     this.count = scaledCount(this.size, 3);
     this.speed = this.speed * 1.03;
   }

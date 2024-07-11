@@ -25,7 +25,7 @@ export class CornService {
   }
 
   levelUp() {
-    this.size = this.size * 0.99;
+    this.size = this.size * 0.9 < 20 ? 20 : this.size * 0.9;
     this.count = this.count * 1.1;
     this.speed = this.speed * 1.01;
   }
