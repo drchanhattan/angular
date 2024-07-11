@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { GameObject, GameObjectShape } from './game-object';
+import { GameObject, GameObjectSettings, GameObjectShape } from './game-object';
 
 export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;
@@ -68,10 +68,10 @@ export class CanvasService {
     const speed = 1;
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
-      const p = new GameObject(object.x, object.y, object.size, object.color, object.shape, speed);
-      p.timestamp = new Date(currentTime.getTime() + i * 50);
-
-      this.particles.push(p);
+      const settings = new GameObjectSettings(object.color, object.size, object.shape, speed);
+      const particle = new GameObject(object.x, object.y, settings);
+      particle.timestamp = new Date(currentTime.getTime() + i * 50);
+      this.particles.push(particle);
     }
   }
 

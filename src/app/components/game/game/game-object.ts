@@ -9,6 +9,20 @@ export enum GameObjectShape {
   Arc = 2,
 }
 
+export class GameObjectSettings {
+  color: string;
+  size: number;
+  shape: GameObjectShape;
+  speed: number;
+
+  constructor(color: string, size: number, shape: GameObjectShape, speed: number) {
+    this.color = color;
+    this.size = size;
+    this.shape = shape;
+    this.speed = speed;
+  }
+}
+
 export class GameObject {
   x: number;
   y: number;
@@ -21,14 +35,14 @@ export class GameObject {
   timestamp!: Date;
   destroyed = false;
 
-  constructor(x: number, y: number, size: number, color: string, shape: GameObjectShape, speed: number) {
+  constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
     this.y = y;
-    this.size = size;
-    this.color = color;
-    this.shape = shape;
-    this.deltaX = speed ? (Math.random() - Math.random()) * speed : 0;
-    this.deltaY = speed ? (Math.random() - Math.random()) * speed : 0;
+    this.size = settings.size;
+    this.color = settings.color;
+    this.shape = settings.shape;
+    this.deltaX = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
+    this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
   }
 
   detectWallCollisionX(canvasW: number): boolean {

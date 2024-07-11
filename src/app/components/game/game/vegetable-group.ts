@@ -1,40 +1,33 @@
-import { GameObject, GameObjectBehaviour, GameObjectShape } from './game-object';
-
-export interface VegetableSettings {
-  color: string;
-  size: number;
-  count: number;
-  speed: number;
-  shape: GameObjectShape;
-}
+import { GameObject, GameObjectBehaviour, GameObjectSettings } from './game-object';
 
 export class VegetableGroup {
-  settings: VegetableSettings;
+  settings: GameObjectSettings;
+  count: number;
   objects: GameObject[] = [];
 
-  constructor(settings: VegetableSettings) {
+  constructor(count: number, settings: GameObjectSettings) {
+    this.count = count;
     this.settings = settings;
   }
 
   createVegetables() {
-    for (let i = 0; i < this.settings.count; i++) {
+    for (let i = 0; i < this.count; i++) {
       const xSpawn = Math.random() * window.innerWidth;
       const ySpawn = Math.random() * window.innerHeight;
-      this.objects[i] = new GameObject(
-        xSpawn,
-        ySpawn,
-        this.settings.size,
+      const settings = new GameObjectSettings(
         this.settings.color,
+        this.settings.size,
         this.settings.shape,
         this.settings.speed,
       );
+      this.objects[i] = new GameObject(xSpawn, ySpawn, settings);
     }
   }
 
-  editSettings(size: number, count: number, speed: number) {
+  editSettings(size: number, speed: number, count: number) {
     this.settings.size = size;
-    this.settings.count = count;
     this.settings.speed = speed;
+    this.count = count;
   }
 
   magnetise() {
@@ -45,3 +38,4 @@ export class VegetableGroup {
     this.objects.forEach((objects) => objects.toggleBehaviour(GameObjectBehaviour.Repel));
   }
 }
+export { GameObjectSettings };

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanvasService } from './canvas-service';
 import { scaledSize } from './device-scale';
-import { GameObject, GameObjectShape } from './game-object';
+import { GameObject, GameObjectSettings, GameObjectShape } from './game-object';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameCursor {
-  object = new GameObject(0, 0, scaledSize(8), '#F5F5F5', GameObjectShape.Arc, 0);
+  settings = new GameObjectSettings('#F5F5F5', scaledSize(8), GameObjectShape.Arc, 0);
+  object = new GameObject(0, 0, this.settings);
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
@@ -97,11 +98,9 @@ export class GameCursor {
 
   #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     this.history.forEach((old) => {
+      const settings = new GameObjectSettings(this.object.color, this.object.size, this.object.shape, 0);
       context.globalAlpha = 0.1;
-      canvas.drawObject(
-        context,
-        new GameObject(old.x, old.y, this.object.size, this.object.color, this.object.shape, 0),
-      );
+      canvas.drawObject(context, new GameObject(old.x, old.y, settings));
       context.globalAlpha = 1;
     });
     this.history.push({ x: this.object.x, y: this.object.y });

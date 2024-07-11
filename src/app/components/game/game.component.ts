@@ -130,9 +130,9 @@ export class GameComponent implements AfterViewInit {
     if (pea.detectCollision(this.cursor.object)) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
-      this.gameService.peas.settings.count = this.gameService.peas.settings.count - 1;
+      this.gameService.peas.count = this.gameService.peas.count - 1;
 
-      if (this.gameService.peas.settings.count === 0) {
+      if (this.gameService.peas.count === 0) {
         this.gameService.levelUp();
       }
     }
