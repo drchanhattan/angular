@@ -40,6 +40,7 @@ export class GameComponent implements AfterViewInit {
       '1': () => this.gameService.toggleInvincibility(),
       '2': () => this.gameService.peas.setBehaviour(GameObjectBehaviour.Attract),
       '3': () => this.gameService.corn.setBehaviour(GameObjectBehaviour.Repel),
+      '4': () => this.gameService.corn.setBehaviour(GameObjectBehaviour.ConvertToPea),
     };
 
     const action = keyActions[event.key];

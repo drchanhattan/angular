@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { scaledCount, scaledSize, scaledSpeed } from '../models/device-scale/device-scale';
 import { GameCursor } from '../models/game-object/game-cursor';
 import { GameObject } from '../models/game-object/game-object';
-import { GameObjectBehaviour } from '../models/game-object/game-object-behaviour';
 import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
+import { GameObjectType } from '../models/game-object/game-object-type';
+import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { TextService } from './text-service';
 
@@ -31,15 +32,26 @@ export class GameService {
     this.corn = this.createGroup(this.defaultCornSettings());
   }
 
+  get levelComplete() {
+    return ![...this.peas.objects, ...this.corn.objects].find((object) => object.isPea && !object.destroyed);
+  }
+
   private createGroup(settings: { count: number; settings: GameObjectSettings }): GameObjectGroup {
     return new GameObjectGroup(settings.count, settings.settings);
   }
 
-  private defaultSettings(sizeFactor: number, countFactor: number, color: string, shape: GameObjectShape) {
+  private defaultSettings(
+    type: GameObjectType,
+    sizeFactor: number,
+    countFactor: number,
+    color: string,
+    shape: GameObjectShape,
+  ) {
     const size = scaledSize(sizeFactor);
     return {
       count: scaledCount(size, countFactor),
       settings: {
+        type,
         color,
         size,
         speed: scaledSpeed(size, 0.2),
@@ -49,11 +61,11 @@ export class GameService {
   }
 
   private defaultPeaSettings() {
-    return this.defaultSettings(8, 3, '#54FF58', GameObjectShape.Arc);
+    return this.defaultSettings(GameObjectType.Pea, 8, 3, '#54FF58', GameObjectShape.Arc);
   }
 
   private defaultCornSettings() {
-    return this.defaultSettings(12, 6, '#FFC107', GameObjectShape.Rect);
+    return this.defaultSettings(GameObjectType.Corn, 12, 6, '#FFC107', GameObjectShape.Rect);
   }
 
   play(newGame: boolean) {
@@ -144,46 +156,54 @@ export class GameService {
     this.invincible = !this.invincible;
   }
 
-  private setCursorMagnetism(obj: GameObject) {
+  private customObjectBehaviour(obj: GameObject) {
     const isAttracting = obj.behaviourEquals(GameObjectBehaviour.Attract);
     const isRepelling = obj.behaviourEquals(GameObjectBehaviour.Repel);
+    const convertToPeas = obj.behaviourEquals(GameObjectBehaviour.ConvertToPea);
 
-    if (isAttracting) {
-      this.cursor.magnetise(obj, 30, 4, false);
+    if (this.paused) {
+      obj.applyForce('y', 8);
+    } else if (isAttracting) {
+      this.cursor.magnetise(obj, 15, 4, false);
     } else if (isRepelling) {
       this.cursor.magnetise(obj, 20, 5, true);
+    } else if (convertToPeas) {
+      obj.type = GameObjectType.Pea;
+      obj.color = this.peas.objects[0].color;
+      obj.size = this.peas.objects[0].size;
+      obj.shape = this.peas.objects[0].shape;
     }
   }
 
-  private handleGameObject(obj: GameObject, handleCursorCollision: (obj: GameObject) => void) {
+  private handleGameObject(obj: GameObject) {
     if (!obj.destroyed) {
       this.canvasService.drawObject(this.canvasService.context, obj);
-
-      if (!this.paused) {
-        obj.handleWallCollisions();
-        handleCursorCollision(obj);
-      } else {
-        obj.applyForce('y', 8);
-      }
-
-      this.setCursorMagnetism(obj);
+      this.customObjectBehaviour(obj);
+      this.handleCollisions(obj);
       obj.move();
     }
   }
 
-  drawGameObjects(objects: GameObject[], handleCursorCollision: (obj: GameObject) => void) {
-    objects.forEach((obj) => this.handleGameObject(obj, handleCursorCollision));
+  private handleCollisions(obj: GameObject) {
+    if (!this.paused) {
+      obj.handleWallCollisions();
+
+      if (obj.isPea) {
+        this.cursorPeaCollision(obj);
+      } else if (obj.isCorn) {
+        this.cursorCornCollision(obj);
+      }
+
+      if (this.levelComplete) {
+        this.levelUp();
+      }
+    }
   }
 
   private cursorPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
-      this.peas.count--;
-
-      if (this.peas.count === 0) {
-        this.levelUp();
-      }
     }
   }
 
@@ -205,11 +225,11 @@ export class GameService {
   }
 
   drawPeas() {
-    this.drawGameObjects(this.peas.objects, this.cursorPeaCollision.bind(this));
+    this.peas.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   drawCorn() {
-    this.drawGameObjects(this.corn.objects, this.cursorCornCollision.bind(this));
+    this.corn.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   drawCursor() {

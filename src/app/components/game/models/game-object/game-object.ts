@@ -1,8 +1,10 @@
 import { GameObjectBehaviour } from './game-object-behaviour';
 import { GameObjectSettings } from './game-object-setttings';
 import { GameObjectShape } from './game-object-shape';
+import { GameObjectType } from './game-object-type';
 
 export class GameObject {
+  type: GameObjectType;
   x: number;
   y: number;
   size: number;
@@ -17,6 +19,7 @@ export class GameObject {
   constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
     this.y = y;
+    this.type = settings.type;
     this.size = settings.size;
     this.color = settings.color;
     this.shape = settings.shape;
@@ -25,6 +28,14 @@ export class GameObject {
     this.behaviour = GameObjectBehaviour.Default;
     this.timestamp = new Date();
     this.destroyed = false;
+  }
+
+  get isPea() {
+    return this.type === GameObjectType.Pea;
+  }
+
+  get isCorn() {
+    return this.type === GameObjectType.Corn;
   }
 
   detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {

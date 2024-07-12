@@ -14,7 +14,7 @@ import { TextService } from './components/game/services/text-service';
   standalone: true,
   templateUrl: './app.component.html',
   imports: [CommonModule, RouterOutlet, RouterLink, GameComponent],
-  providers: [GameService, CanvasService, GameCursor, TextService, GameService],
+  providers: [CanvasService, GameCursor, GameService, TextService],
 })
 export class AppComponent {
   title = 'website';

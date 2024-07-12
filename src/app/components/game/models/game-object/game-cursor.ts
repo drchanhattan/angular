@@ -4,6 +4,7 @@ import { scaledSize } from '../device-scale/device-scale';
 import { GameObject } from './game-object';
 import { GameObjectSettings } from './game-object-setttings';
 import { GameObjectShape } from './game-object-shape';
+import { GameObjectType } from './game-object-type';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +48,7 @@ export class GameCursor {
 
   get defaultCursor(): GameObjectSettings {
     return {
+      type: GameObjectType.Cursor,
       color: '#F5F5F5',
       size: scaledSize(6),
       speed: 0,
@@ -108,7 +110,13 @@ export class GameCursor {
 
   #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     this.history.forEach((old) => {
-      const settings = new GameObjectSettings(this.object.color, this.object.size, this.object.shape, 0);
+      const settings = new GameObjectSettings(
+        this.object.type,
+        this.object.color,
+        this.object.size,
+        this.object.shape,
+        0,
+      );
       context.globalAlpha = 0.1;
       canvas.drawObject(context, new GameObject(old.x, old.y, settings));
       context.globalAlpha = 1;

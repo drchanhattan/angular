@@ -17,6 +17,7 @@ export class GameObjectGroup {
       const xSpawn = Math.random() * window.innerWidth;
       const ySpawn = Math.random() * window.innerHeight;
       const settings = new GameObjectSettings(
+        this.settings.type,
         this.settings.color,
         this.settings.size,
         this.settings.shape,
