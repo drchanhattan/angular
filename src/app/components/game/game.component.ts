@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { GameCursor } from './models/game-object/game-cursor';
-import { GameObject } from './models/game-object/game-object';
 import { GameObjectBehaviour } from './models/game-object/game-object-behaviour';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
@@ -59,71 +58,10 @@ export class GameComponent implements AfterViewInit {
   }
 
   draw() {
-    this.drawCursor();
-    this.drawGameObjects(this.gameService.peas.objects, this.detectPeaCollision.bind(this));
-    this.drawGameObjects(this.gameService.corn.objects, this.detectCornCollision.bind(this));
+    this.gameService.drawCursor();
+    this.gameService.drawPeas();
+    this.gameService.drawCorn();
     this.canvasService.drawParticles(this.canvasService.context);
     this.canvasService.particleDecay();
-  }
-
-  drawCursor() {
-    if (!this.gameService.showMenu) {
-      this.cursor.draw(this.canvasService.context, this.canvasService);
-    }
-  }
-
-  drawGameObjects(objects: GameObject[], detectCollision: (obj: GameObject) => void) {
-    objects.forEach((obj: GameObject) => {
-      if (!obj.destroyed) {
-        this.canvasService.drawObject(this.canvasService.context, obj);
-
-        if (!this.gameService.paused) {
-          obj.detectWallCollision();
-          detectCollision(obj);
-        } else {
-          obj.applyForce(false, 8);
-        }
-
-        this.applyBehaviour(obj);
-        obj.move();
-      }
-    });
-  }
-
-  applyBehaviour(obj: GameObject) {
-    if (obj.behaviourEquals(GameObjectBehaviour.Attract)) {
-      this.cursor.magnetise(obj, 30, 4, false);
-    } else if (obj.behaviourEquals(GameObjectBehaviour.Repel)) {
-      this.cursor.magnetise(obj, 20, 5, true);
-    }
-  }
-
-  detectPeaCollision(pea: GameObject) {
-    if (pea.detectCollision(this.cursor.object)) {
-      pea.destroyed = true;
-      this.canvasService.createParticles(pea);
-      this.gameService.peas.count--;
-
-      if (this.gameService.peas.count === 0) {
-        this.gameService.levelUp();
-      }
-    }
-  }
-
-  detectCornCollision(corn: GameObject) {
-    if (!this.gameService.ghost && corn.detectCollision(this.cursor.object)) {
-      corn.destroyed = true;
-      this.canvasService.createParticles(corn);
-
-      if (!this.gameService.invincible) {
-        this.gameService.lives--;
-        this.canvasService.flash('bg-red-900', 500);
-        this.gameService.immune(500);
-      }
-
-      if (this.gameService.lives === 0) {
-        this.gameService.gameOver();
-      }
-    }
   }
 }

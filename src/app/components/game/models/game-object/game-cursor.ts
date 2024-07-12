@@ -9,8 +9,7 @@ import { GameObjectShape } from './game-object-shape';
   providedIn: 'root',
 })
 export class GameCursor {
-  settings = new GameObjectSettings('#F5F5F5', scaledSize(8), GameObjectShape.Arc, 0);
-  object = new GameObject(0, 0, this.settings);
+  object = new GameObject(0, 0, this.defaultCursor);
   history: { x: number; y: number }[] = [];
   trail!: boolean;
 
@@ -46,6 +45,15 @@ export class GameCursor {
     }, 150);
   }
 
+  get defaultCursor(): GameObjectSettings {
+    return {
+      color: '#F5F5F5',
+      size: scaledSize(6),
+      speed: 0,
+      shape: GameObjectShape.Arc,
+    };
+  }
+
   draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
     if (this.trail) {
       this.#trail(context, canvas);
@@ -72,12 +80,12 @@ export class GameCursor {
       dx *= speed;
       dy *= speed;
 
-      if (!vegetable.detectWallCollisionX(window.innerWidth)) {
-        repel ? vegetable.applyForce(true, -dx) : vegetable.applyForce(true, dx);
+      if (!vegetable.detectWallCollisionOnAxis('x', window.innerWidth)) {
+        repel ? vegetable.applyForce('x', -dx) : vegetable.applyForce('x', dx);
       }
 
-      if (!vegetable.detectWallCollisionY(window.innerHeight)) {
-        repel ? vegetable.applyForce(false, -dy) : vegetable.applyForce(false, dy);
+      if (!vegetable.detectWallCollisionOnAxis('y', window.innerHeight)) {
+        repel ? vegetable.applyForce('y', -dy) : vegetable.applyForce('y', dy);
       }
     }
   }
@@ -87,7 +95,7 @@ export class GameCursor {
   }
 
   reset() {
-    this.object.size = scaledSize(8);
+    this.object.size = this.defaultCursor.size;
   }
 
   resetHistory() {

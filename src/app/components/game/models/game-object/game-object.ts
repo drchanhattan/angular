@@ -10,9 +10,9 @@ export class GameObject {
   shape: GameObjectShape;
   deltaX: number;
   deltaY: number;
-  behaviour!: GameObjectBehaviour;
-  timestamp!: Date;
-  destroyed = false;
+  behaviour: GameObjectBehaviour;
+  timestamp: Date;
+  destroyed: boolean;
 
   constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
@@ -22,62 +22,56 @@ export class GameObject {
     this.shape = settings.shape;
     this.deltaX = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
+    this.behaviour = GameObjectBehaviour.Default;
+    this.timestamp = new Date();
+    this.destroyed = false;
   }
 
-  detectWallCollisionX(canvasW: number): boolean {
-    return this.x + this.size / 2 > canvasW || this.x - this.size / 2 < 0;
+  detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
+    const position = this[axis];
+    return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
   }
 
-  detectWallCollisionY(canvasH: number): boolean {
-    return this.y + this.size / 2 > canvasH || this.y - this.size / 2 < 0;
-  }
-
-  reverseDirection(x: boolean) {
-    x ? (this.deltaX = this.deltaX * -1) : (this.deltaY = this.deltaY * -1);
+  private reverseDirection(axis: 'x' | 'y') {
+    this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY'] *= -1;
   }
 
   detectCollision(object: GameObject): boolean {
-    if (this.shape === GameObjectShape.Rect) {
-      const distanceX = Math.abs(object.x - this.x);
-      const distanceY = Math.abs(object.y - this.y);
-      const halfSize = this.size / 2;
+    return this.shape === GameObjectShape.Rect ? this.detectRectCollision(object) : this.detectCircleCollision(object);
+  }
 
-      if (distanceX > halfSize + object.size) {
-        return false;
-      } else if (distanceY > halfSize + object.size) {
-        return false;
-      } else if (distanceX <= halfSize) {
-        return true;
-      } else if (distanceY <= halfSize) {
-        return true;
-      } else {
-        const dx = distanceX - halfSize;
-        const dy = distanceY - halfSize;
-        return dx * dx + dy * dy <= object.size * object.size;
-      }
-    } else {
-      const dx = object.x - this.x;
-      const dy = object.y - this.y;
-      const distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-      return distance <= object.size + this.size + 0.1;
+  private detectRectCollision(object: GameObject): boolean {
+    const distanceX = Math.abs(object.x - this.x);
+    const distanceY = Math.abs(object.y - this.y);
+    const halfSize = this.size / 2;
+
+    if (distanceX > halfSize + object.size || distanceY > halfSize + object.size) {
+      return false;
     }
+
+    if (distanceX <= halfSize || distanceY <= halfSize) {
+      return true;
+    }
+
+    const dx = distanceX - halfSize;
+    const dy = distanceY - halfSize;
+    return dx * dx + dy * dy <= object.size * object.size;
+  }
+
+  private detectCircleCollision(object: GameObject): boolean {
+    const dx = object.x - this.x;
+    const dy = object.y - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance <= object.size + this.size + 0.1;
   }
 
   move() {
-    this.moveX();
-    this.moveY();
+    this.x += this.deltaX;
+    this.y += this.deltaY;
   }
 
-  moveX() {
-    this.x = this.x + this.deltaX;
-  }
-
-  moveY() {
-    this.y = this.y + this.deltaY;
-  }
-
-  applyForce(x: boolean, force: number) {
-    x ? (this.x = this.x + force) : (this.y = this.y + force);
+  applyForce(axis: 'x' | 'y', force: number) {
+    this[axis] += force;
   }
 
   behaviourEquals(behaviour: GameObjectBehaviour): boolean {
@@ -85,24 +79,24 @@ export class GameObject {
   }
 
   toggleBehaviour(behaviour: GameObjectBehaviour) {
-    this.behaviour = !this.behaviourEquals(behaviour) ? behaviour : GameObjectBehaviour.Default;
+    this.behaviour = this.behaviourEquals(behaviour) ? GameObjectBehaviour.Default : behaviour;
   }
 
-  detectWallCollision() {
-    if (this.detectWallCollisionX(window.innerWidth)) {
-      const centreX = window.innerWidth / 2;
-      const sign = Math.sign(this.deltaX);
-      if ((this.x < centreX && sign === -1) || (this.x > centreX && sign === 1)) {
-        this.reverseDirection(true);
-      }
+  handleWallCollisions() {
+    if (this.detectWallCollisionOnAxis('x', window.innerWidth)) {
+      this.handleWallCollisionOnAxis('x', window.innerWidth / 2);
     }
 
-    if (this.detectWallCollisionY(window.innerHeight)) {
-      const centreY = window.innerHeight / 2;
-      const sign = Math.sign(this.deltaY);
-      if ((this.y < centreY && sign === -1) || (this.y > centreY && sign === 1)) {
-        this.reverseDirection(false);
-      }
+    if (this.detectWallCollisionOnAxis('y', window.innerHeight)) {
+      this.handleWallCollisionOnAxis('y', window.innerHeight / 2);
+    }
+  }
+
+  private handleWallCollisionOnAxis(axis: 'x' | 'y', centre: number) {
+    const sign = Math.sign(this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY']);
+    const position = this[axis];
+    if ((position < centre && sign === -1) || (position > centre && sign === 1)) {
+      this.reverseDirection(axis);
     }
   }
 }
