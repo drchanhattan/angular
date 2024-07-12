@@ -27,86 +27,90 @@ export class GameService {
     private cursor: GameCursor,
     private textService: TextService,
   ) {
-    this.peas = new GameObjectGroup(this.defaultPea.count, this.defaultPea.settings);
-    this.corn = new GameObjectGroup(this.defaultCorn.count, this.defaultCorn.settings);
+    this.peas = this.createGroup(this.defaultPeaSettings());
+    this.corn = this.createGroup(this.defaultCornSettings());
   }
 
-  get defaultPea(): { count: number; settings: GameObjectSettings } {
+  private createGroup(settings: { count: number; settings: GameObjectSettings }): GameObjectGroup {
+    return new GameObjectGroup(settings.count, settings.settings);
+  }
+
+  private defaultSettings(sizeFactor: number, countFactor: number, color: string, shape: GameObjectShape) {
+    const size = scaledSize(sizeFactor);
     return {
-      count: scaledCount(scaledSize(8), 3),
+      count: scaledCount(size, countFactor),
       settings: {
-        color: '#54FF58',
-        size: scaledSize(8),
-        speed: scaledSpeed(scaledSize(8), 0.2),
-        shape: GameObjectShape.Arc,
+        color,
+        size,
+        speed: scaledSpeed(size, 0.2),
+        shape,
       },
     };
   }
 
-  get defaultCorn(): { count: number; settings: GameObjectSettings } {
-    return {
-      count: scaledCount(scaledSize(12), 6),
-      settings: {
-        color: '#FFC107',
-        size: scaledSize(12),
-        speed: scaledSpeed(scaledSize(12), 0.2),
-        shape: GameObjectShape.Rect,
-      },
-    };
+  private defaultPeaSettings() {
+    return this.defaultSettings(8, 3, '#54FF58', GameObjectShape.Arc);
+  }
+
+  private defaultCornSettings() {
+    return this.defaultSettings(12, 6, '#FFC107', GameObjectShape.Rect);
   }
 
   play(newGame: boolean) {
-    newGame ? this.newGame() : this.increaseDifficulty();
+    if (newGame) {
+      this.startNewGame();
+    } else {
+      this.increaseDifficulty();
+    }
 
     this.peas.createObjects();
     this.corn.createObjects();
-
     this.unpause();
-    this.immune(1500);
+    this.activateImmunity(1500);
   }
 
-  private newGame() {
+  private startNewGame() {
     this.level = 1;
     this.lives = 3;
 
-    this.peas.editSettings(this.defaultPea.settings.size, this.defaultPea.settings.speed, this.defaultPea.count);
-    this.corn.editSettings(this.defaultCorn.settings.size, this.defaultCorn.settings.speed, this.defaultCorn.count);
+    this.resetGroupSettings(this.peas, this.defaultPeaSettings());
+    this.resetGroupSettings(this.corn, this.defaultCornSettings());
 
     this.toggleMenu();
-
     this.cursor.reset();
     this.cursor.toggle();
   }
 
+  private resetGroupSettings(group: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
+    group.editSettings(settings.settings.size, settings.settings.speed, settings.count);
+  }
+
   private increaseDifficulty() {
-    this.peas.editSettings(
-      Math.max(this.peas.settings.size * 0.9, 10),
-      this.peas.settings.speed * 1.03,
-      scaledCount(this.peas.settings.size, 3),
-    );
-    this.corn.editSettings(
-      Math.max(this.corn.settings.size * 0.9, 20),
-      this.corn.settings.speed * 1.05,
-      Math.min(this.corn.count * 1.1, 80),
-    );
+    this.adjustGroupSettings(this.peas, 10, this.defaultPeaSettings().count);
+    this.adjustGroupSettings(this.corn, 20, Math.min(this.corn.count * 1.1, 80));
     this.cursor.increaseDifficulty();
+  }
+
+  private adjustGroupSettings(group: GameObjectGroup, minSize: number, newCount: number) {
+    group.editSettings(Math.max(group.settings.size * 0.9, minSize), group.settings.speed * 1.02, newCount);
   }
 
   levelUp() {
     this.ghost = true;
-    this.level = this.level + 1;
-    this.lives = this.level % 2 ? this.lives : this.lives + 1;
-    this.pause();
-    this.textService.show('Level ' + this.level, this.level % 2 ? '' : '+ 1', 2000);
+    this.level++;
+    if (this.level % 2 === 0) {
+      this.lives++;
+    }
 
-    setTimeout(() => {
-      this.play(false);
-    }, 3500);
+    this.pause();
+    this.textService.show(`Level ${this.level}`, this.level % 2 === 0 ? '+ 1' : '', 2000);
+
+    setTimeout(() => this.play(false), 3500);
   }
 
   gameOver() {
     this.pause();
-    this.textService.show('Game Over', 'You reached level ' + this.level, 3000);
+    this.textService.show('Game Over', `You reached level ${this.level}`, 3000);
 
     setTimeout(() => {
       this.toggleMenu();
@@ -122,19 +126,16 @@ export class GameService {
     this.paused = false;
   }
 
-  immune(duration: number) {
+  private activateImmunity(duration: number) {
     this.ghost = true;
-
-    setTimeout(() => {
-      this.ghost = false;
-    }, duration);
+    setTimeout(() => (this.ghost = false), duration);
   }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
-    const menu = document.getElementsByClassName('menu')[0].classList;
-    menu.toggle('opacity-0');
-    menu.toggle('pointer-events-none');
+    const menuClassList = document.getElementsByClassName('menu')[0].classList;
+    menuClassList.toggle('opacity-0');
+    menuClassList.toggle('pointer-events-none');
   }
 
   toggleInvincibility() {
@@ -143,33 +144,38 @@ export class GameService {
     this.invincible = !this.invincible;
   }
 
-  setCursorMagnetism(obj: GameObject) {
-    if (obj.behaviourEquals(GameObjectBehaviour.Attract)) {
+  private setCursorMagnetism(obj: GameObject) {
+    const isAttracting = obj.behaviourEquals(GameObjectBehaviour.Attract);
+    const isRepelling = obj.behaviourEquals(GameObjectBehaviour.Repel);
+
+    if (isAttracting) {
       this.cursor.magnetise(obj, 30, 4, false);
-    } else if (obj.behaviourEquals(GameObjectBehaviour.Repel)) {
+    } else if (isRepelling) {
       this.cursor.magnetise(obj, 20, 5, true);
     }
   }
 
-  drawGameObjects(objects: GameObject[], handleCursorCollision: (obj: GameObject) => void) {
-    objects.forEach((obj: GameObject) => {
-      if (!obj.destroyed) {
-        this.canvasService.drawObject(this.canvasService.context, obj);
+  private handleGameObject(obj: GameObject, handleCursorCollision: (obj: GameObject) => void) {
+    if (!obj.destroyed) {
+      this.canvasService.drawObject(this.canvasService.context, obj);
 
-        if (!this.paused) {
-          obj.handleWallCollisions();
-          handleCursorCollision(obj);
-        } else {
-          obj.applyForce('y', 8);
-        }
-
-        this.setCursorMagnetism(obj);
-        obj.move();
+      if (!this.paused) {
+        obj.handleWallCollisions();
+        handleCursorCollision(obj);
+      } else {
+        obj.applyForce('y', 8);
       }
-    });
+
+      this.setCursorMagnetism(obj);
+      obj.move();
+    }
   }
 
-  cursorPeaCollision(pea: GameObject) {
+  drawGameObjects(objects: GameObject[], handleCursorCollision: (obj: GameObject) => void) {
+    objects.forEach((obj) => this.handleGameObject(obj, handleCursorCollision));
+  }
+
+  private cursorPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
@@ -181,7 +187,7 @@ export class GameService {
     }
   }
 
-  cursorCornCollision(corn: GameObject) {
+  private cursorCornCollision(corn: GameObject) {
     if (!this.ghost && corn.detectCollision(this.cursor.object)) {
       corn.destroyed = true;
       this.canvasService.createParticles(corn);
@@ -189,7 +195,7 @@ export class GameService {
       if (!this.invincible) {
         this.lives--;
         this.canvasService.flash('bg-red-900', 500);
-        this.immune(500);
+        this.activateImmunity(500);
       }
 
       if (this.lives === 0) {
