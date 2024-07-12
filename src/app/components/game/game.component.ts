@@ -21,9 +21,7 @@ export class GameComponent implements AfterViewInit {
     public cursor: GameCursor,
     public gameService: GameService,
     public textService: TextService,
-  ) {
-    (window.screen.orientation as any).lock('portrait');
-  }
+  ) {}
 
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);
