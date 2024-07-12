@@ -28,9 +28,9 @@ export class GameService {
     private cursor: GameCursor,
     private textService: TextService,
   ) {
-    this.peas = new GameObjectGroup(this.defaultPeaSettings().count, this.defaultPeaSettings().settings);
-    this.corn = new GameObjectGroup(this.defaultCornSettings().count, this.defaultCornSettings().settings);
-    this.powerUps = new GameObjectGroup(this.defaultPowerUpSettings().count, this.defaultPowerUpSettings().settings);
+    this.peas = new GameObjectGroup(this.defaultPeaSettings.count, this.defaultPeaSettings.settings);
+    this.corn = new GameObjectGroup(this.defaultCornSettings.count, this.defaultCornSettings.settings);
+    this.powerUps = new GameObjectGroup(this.defaultPowerUpSettings.count, this.defaultPowerUpSettings.settings);
   }
 
   // Game Initialization
@@ -48,8 +48,8 @@ export class GameService {
     this.level = 1;
     this.lives = 3;
 
-    this.resetGroupSettings(this.peas, this.defaultPeaSettings());
-    this.resetGroupSettings(this.corn, this.defaultCornSettings());
+    this.resetGroupSettings(this.peas, this.defaultPeaSettings);
+    this.resetGroupSettings(this.corn, this.defaultCornSettings);
 
     this.toggleMenu();
     this.cursor.reset();
@@ -73,8 +73,10 @@ export class GameService {
   }
 
   private increaseDifficulty() {
-    this.editGroupSettings(this.peas, 10, this.defaultPeaSettings().count);
-    this.editGroupSettings(this.corn, 20, Math.min(this.corn.count * 1.02, 80));
+    this.editGroupSettings(this.peas, 10, this.defaultPeaSettings.count);
+    console.log(this.corn.count);
+    this.editGroupSettings(this.corn, 20, Math.min(this.corn.count * 1.08, 80));
+    console.log(this.corn.count);
     this.cursor.increaseDifficulty();
 
     if (this.level % 3 === 0) {
@@ -117,19 +119,19 @@ export class GameService {
     const size = scaledSize(sizeFactor);
     return {
       count: scaledCount(size, countFactor),
-      settings: new GameObjectSettings(type, color, size, shape, scaledSpeed(size, 0.2)),
+      settings: new GameObjectSettings(type, color, size, shape, scaledSpeed(size, 0.1)),
     };
   }
 
-  private defaultPeaSettings() {
-    return this.defaultSettings(GameObjectType.Pea, 8, 3, '#54FF58', GameObjectShape.Circle);
+  get defaultPeaSettings() {
+    return this.defaultSettings(GameObjectType.Pea, 8, 2, '#54FF58', GameObjectShape.Circle);
   }
 
-  private defaultCornSettings() {
-    return this.defaultSettings(GameObjectType.Corn, 12, 6, '#FFC107', GameObjectShape.Square);
+  get defaultCornSettings() {
+    return this.defaultSettings(GameObjectType.Corn, 12, 3, '#FFC107', GameObjectShape.Square);
   }
 
-  private defaultPowerUpSettings() {
+  get defaultPowerUpSettings() {
     return this.defaultSettings(GameObjectType.PowerUp, 4, 0.5, 'blue', GameObjectShape.Circle);
   }
 

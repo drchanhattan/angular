@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { GameCursor } from './models/game-object/game-cursor';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
@@ -9,7 +10,7 @@ import { TextService } from './services/text-service';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, MatIconModule],
   templateUrl: './game.component.html',
 })
 export class GameComponent implements AfterViewInit {
