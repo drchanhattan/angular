@@ -30,6 +30,9 @@ export class GameObject {
     this.destroyed = false;
   }
 
+  // Getters
+  // ==============================
+
   get isPea() {
     return this.type === GameObjectType.Pea;
   }
@@ -42,14 +45,20 @@ export class GameObject {
     return this.type === GameObjectType.PowerUp;
   }
 
-  detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
-    const position = this[axis];
-    return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
+  // Movement and Positioning
+  // ==============================
+
+  move() {
+    this.x += this.deltaX;
+    this.y += this.deltaY;
   }
 
-  private reverseDirection(axis: 'x' | 'y') {
-    this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY'] *= -1;
+  applyForce(axis: 'x' | 'y', force: number) {
+    this[axis] += force;
   }
+
+  // Collision Detection
+  // ==============================
 
   detectCollision(object: GameObject): boolean {
     return this.shape === GameObjectShape.Square
@@ -82,22 +91,8 @@ export class GameObject {
     return distance <= object.size + this.size + 0.1;
   }
 
-  move() {
-    this.x += this.deltaX;
-    this.y += this.deltaY;
-  }
-
-  applyForce(axis: 'x' | 'y', force: number) {
-    this[axis] += force;
-  }
-
-  behaviourEquals(behaviour: GameObjectBehaviour): boolean {
-    return this.behaviour === behaviour;
-  }
-
-  toggleBehaviour(behaviour: GameObjectBehaviour) {
-    this.behaviour = this.behaviourEquals(behaviour) ? GameObjectBehaviour.Default : behaviour;
-  }
+  // Wall Collision Detection
+  // ==============================
 
   handleWallCollisions() {
     if (this.detectWallCollisionOnAxis('x', window.innerWidth)) {
@@ -109,11 +104,31 @@ export class GameObject {
     }
   }
 
+  detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
+    const position = this[axis];
+    return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
+  }
+
   private handleWallCollisionOnAxis(axis: 'x' | 'y', centre: number) {
     const sign = Math.sign(this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY']);
     const position = this[axis];
     if ((position < centre && sign === -1) || (position > centre && sign === 1)) {
       this.reverseDirection(axis);
     }
+  }
+
+  private reverseDirection(axis: 'x' | 'y') {
+    this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY'] *= -1;
+  }
+
+  // Behaviour Handling
+  // ==============================
+
+  behaviourEquals(behaviour: GameObjectBehaviour): boolean {
+    return this.behaviour === behaviour;
+  }
+
+  toggleBehaviour(behaviour: GameObjectBehaviour) {
+    this.behaviour = this.behaviourEquals(behaviour) ? GameObjectBehaviour.Default : behaviour;
   }
 }

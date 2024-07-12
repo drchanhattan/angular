@@ -58,7 +58,7 @@ export class GameCursor {
 
   draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
     if (this.invincible) {
-      this.#trail(context, canvas);
+      this.trail(context, canvas);
     }
 
     canvas.drawObject(context, this.object);
@@ -100,16 +100,16 @@ export class GameCursor {
     this.object.size = this.defaultCursor.size;
   }
 
-  resetHistory() {
-    this.history = [];
-  }
-
   setInvincibility(enabled: boolean) {
     this.resetHistory();
     this.invincible = enabled;
   }
 
-  #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
+  private resetHistory() {
+    this.history = [];
+  }
+
+  private trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
     this.history.forEach((old) => {
       const settings = new GameObjectSettings(
         this.object.type,

@@ -223,8 +223,8 @@ export class GameService {
 
   randomPowerUp() {
     const powerUps = [
-      this.powerUpInvincible.bind(this),
       this.powerUpAttract.bind(this),
+      this.powerUpInvincible.bind(this),
       this.powerUpRepel.bind(this),
       this.powerUpBlue.bind(this),
     ];

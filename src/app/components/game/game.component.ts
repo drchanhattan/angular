@@ -17,9 +17,9 @@ export class GameComponent implements AfterViewInit {
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(
-    public gameService: GameService,
     public canvasService: CanvasService,
     public cursor: GameCursor,
+    public gameService: GameService,
     public textService: TextService,
   ) {}
 
