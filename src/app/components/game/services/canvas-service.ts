@@ -7,14 +7,12 @@ export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
   particles: GameObject[] = [];
-  screenW = window.innerWidth;
-  screenH = window.innerHeight;
 
   setup(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
     const canvas = this.canvasEle.nativeElement;
-    canvas.width = this.screenW * devicePixelRatio;
-    canvas.height = this.screenH * devicePixelRatio;
+    canvas.width = window.innerWidth * devicePixelRatio;
+    canvas.height = window.innerHeight * devicePixelRatio;
     this.context = canvas.getContext('2d')!;
     this.context.scale(devicePixelRatio, devicePixelRatio);
   }
@@ -45,24 +43,6 @@ export class CanvasService {
     this.particles = this.particles.filter((p) => {
       return currentTime - p.timestamp.getTime() <= 2000;
     });
-  }
-
-  wallCollision(object: GameObject): void {
-    if (object.detectWallCollisionX(this.screenW)) {
-      const centreX = this.screenW / 2;
-      const sign = Math.sign(object.deltaX);
-      if ((object.x < centreX && sign === -1) || (object.x > centreX && sign === 1)) {
-        object.reverseDirection(true);
-      }
-    }
-
-    if (object.detectWallCollisionY(this.screenH)) {
-      const centreY = this.screenH / 2;
-      const sign = Math.sign(object.deltaY);
-      if ((object.y < centreY && sign === -1) || (object.y > centreY && sign === 1)) {
-        object.reverseDirection(false);
-      }
-    }
   }
 
   createParticles(object: GameObject): void {

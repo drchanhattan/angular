@@ -133,7 +133,9 @@ export class GameService {
     menu.toggle('pointer-events-none');
   }
 
-  toggleInvincible() {
+  toggleInvincibility() {
+    this.cursor.resetHistory();
+    this.cursor.toggleTrail();
     this.invincible = !this.invincible;
   }
 }

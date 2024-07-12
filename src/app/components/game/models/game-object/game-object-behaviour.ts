@@ -1,5 +1,5 @@
 export enum GameObjectBehaviour {
   Default = 1,
-  Magnetise = 2,
-  Repel = 2,
+  Attract = 2,
+  Repel = 3,
 }

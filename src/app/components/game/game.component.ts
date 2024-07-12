@@ -16,8 +16,7 @@ import { TextService } from './services/text-service';
 })
 export class GameComponent implements AfterViewInit {
   @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
-  @ViewChild('canvas', { static: true })
-  canvasEle!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(
     public gameService: GameService,
@@ -26,6 +25,11 @@ export class GameComponent implements AfterViewInit {
     public textService: TextService,
   ) {}
 
+  ngAfterViewInit() {
+    this.canvasService.setup(this.canvasEle);
+    this.animate();
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     window.location.reload();
@@ -33,27 +37,21 @@ export class GameComponent implements AfterViewInit {
 
   @HostListener('document:keyup', ['$event'])
   onKeyupHandler(event: KeyboardEvent) {
-    switch (event.key) {
-      case '1':
-        this.invincible();
-        break;
-      case '2':
-        this.gameService.peas.magnetise();
-        break;
-      case '3':
-        this.gameService.corn.repel();
-        break;
-    }
-  }
+    const keyActions: { [key: string]: () => void } = {
+      '1': () => this.gameService.toggleInvincibility(),
+      '2': () => this.gameService.peas.setBehaviour(GameObjectBehaviour.Attract),
+      '3': () => this.gameService.corn.setBehaviour(GameObjectBehaviour.Repel),
+    };
 
-  ngAfterViewInit() {
-    this.canvasService.setup(this.canvasEle);
-    this.animate();
+    const action = keyActions[event.key];
+    if (action) {
+      action();
+    }
   }
 
   animate() {
     const animateFrame = () => {
-      this.canvasService.context.clearRect(0, 0, this.canvasService.screenW, this.canvasService.screenH);
+      this.canvasService.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       this.draw();
       requestAnimationFrame(animateFrame);
     };
@@ -62,9 +60,10 @@ export class GameComponent implements AfterViewInit {
 
   draw() {
     this.drawCursor();
-    this.drawPeas();
-    this.drawCorn();
-    this.drawParticles();
+    this.drawGameObjects(this.gameService.peas.objects, this.detectPeaCollision.bind(this));
+    this.drawGameObjects(this.gameService.corn.objects, this.detectCornCollision.bind(this));
+    this.canvasService.drawParticles(this.canvasService.context);
+    this.canvasService.particleDecay();
   }
 
   drawCursor() {
@@ -73,65 +72,37 @@ export class GameComponent implements AfterViewInit {
     }
   }
 
-  drawPeas() {
-    this.gameService.peas.objects.forEach((pea: GameObject) => {
-      if (!pea.destroyed) {
-        this.canvasService.drawObject(this.canvasService.context, pea);
+  drawGameObjects(objects: GameObject[], detectCollision: (obj: GameObject) => void) {
+    objects.forEach((obj: GameObject) => {
+      if (!obj.destroyed) {
+        this.canvasService.drawObject(this.canvasService.context, obj);
 
-        // Check for collision
         if (!this.gameService.paused) {
-          this.canvasService.wallCollision(pea);
-          this.detectPeaCollision(pea);
+          obj.detectWallCollision();
+          detectCollision(obj);
         } else {
-          // Apply Gravity if objects are not alive
-          pea.applyForce(false, 8);
+          obj.applyForce(false, 8);
         }
 
-        // Magnetise
-        if (pea.behaviourEquals(GameObjectBehaviour.Magnetise)) {
-          this.cursor.magnetise(pea, 30, 4, false);
-        }
-
-        pea.move();
+        this.applyBehaviour(obj);
+        obj.move();
       }
     });
   }
 
-  drawCorn() {
-    this.gameService.corn.objects.forEach((corn: GameObject) => {
-      if (!corn.destroyed) {
-        // Draw a single Corn
-        this.canvasService.drawObject(this.canvasService.context, corn);
-
-        // Check for collision
-        if (!this.gameService.paused) {
-          this.canvasService.wallCollision(corn);
-          this.detectCornCollision(corn);
-        } else {
-          // Apply Gravity if objects are not alive
-          corn.applyForce(false, 8);
-        }
-
-        // Repel
-        if (corn.behaviourEquals(GameObjectBehaviour.Repel)) {
-          this.cursor.magnetise(corn, 20, 5, true);
-        }
-
-        corn.move();
-      }
-    });
-  }
-
-  drawParticles() {
-    this.canvasService.drawParticles(this.canvasService.context);
-    this.canvasService.particleDecay();
+  applyBehaviour(obj: GameObject) {
+    if (obj.behaviourEquals(GameObjectBehaviour.Attract)) {
+      this.cursor.magnetise(obj, 30, 4, false);
+    } else if (obj.behaviourEquals(GameObjectBehaviour.Repel)) {
+      this.cursor.magnetise(obj, 20, 5, true);
+    }
   }
 
   detectPeaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
-      this.gameService.peas.count = this.gameService.peas.count - 1;
+      this.gameService.peas.count--;
 
       if (this.gameService.peas.count === 0) {
         this.gameService.levelUp();
@@ -145,7 +116,7 @@ export class GameComponent implements AfterViewInit {
       this.canvasService.createParticles(corn);
 
       if (!this.gameService.invincible) {
-        this.gameService.lives = this.gameService.lives - 1;
+        this.gameService.lives--;
         this.canvasService.flash('bg-red-900', 500);
         this.gameService.immune(500);
       }
@@ -154,11 +125,5 @@ export class GameComponent implements AfterViewInit {
         this.gameService.gameOver();
       }
     }
-  }
-
-  invincible() {
-    this.cursor.resetHistory();
-    this.cursor.toggleTrail();
-    this.gameService.toggleInvincible();
   }
 }

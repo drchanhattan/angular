@@ -17,10 +17,10 @@ export class GameCursor {
   constructor(private canvasService: CanvasService) {
     const updatePosition = (x: number, y: number) => {
       const rect = this.canvasService.context.canvas.getBoundingClientRect();
-      const newX = ((x - rect.left) / (rect.right - rect.left)) * this.canvasService.screenW;
-      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * this.canvasService.screenH;
-      this.object.x = Math.min(Math.max(0, newX), this.canvasService.screenW);
-      this.object.y = Math.min(Math.max(0, newY), this.canvasService.screenH);
+      const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
+      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * window.innerHeight;
+      this.object.x = Math.min(Math.max(0, newX), window.innerWidth);
+      this.object.y = Math.min(Math.max(0, newY), window.innerHeight);
     };
 
     document.addEventListener('mousemove', (event) => {
@@ -72,11 +72,11 @@ export class GameCursor {
       dx *= speed;
       dy *= speed;
 
-      if (!vegetable.detectWallCollisionX(this.canvasService.screenW)) {
+      if (!vegetable.detectWallCollisionX(window.innerWidth)) {
         repel ? vegetable.applyForce(true, -dx) : vegetable.applyForce(true, dx);
       }
 
-      if (!vegetable.detectWallCollisionY(this.canvasService.screenH)) {
+      if (!vegetable.detectWallCollisionY(window.innerHeight)) {
         repel ? vegetable.applyForce(false, -dy) : vegetable.applyForce(false, dy);
       }
     }

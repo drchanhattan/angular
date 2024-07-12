@@ -32,11 +32,7 @@ export class GameObjectGroup {
     this.count = count;
   }
 
-  magnetise() {
-    this.objects.forEach((objects) => objects.toggleBehaviour(GameObjectBehaviour.Magnetise));
-  }
-
-  repel() {
-    this.objects.forEach((objects) => objects.toggleBehaviour(GameObjectBehaviour.Repel));
+  setBehaviour(behaviour: GameObjectBehaviour) {
+    this.objects.forEach((object) => object.toggleBehaviour(behaviour));
   }
 }
