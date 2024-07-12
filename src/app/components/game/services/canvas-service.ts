@@ -22,9 +22,11 @@ export class CanvasService {
     context.fillStyle = object.color;
     context.beginPath();
 
-    object.shape === GameObjectShape.Rect
-      ? this.#drawSquare(context, object, sizeMultiplier)
-      : this.#drawCircle(context, object, sizeMultiplier);
+    if (object.shape === GameObjectShape.Square) {
+      this.#drawSquare(context, object, sizeMultiplier);
+    } else if (object.shape === GameObjectShape.Circle) {
+      this.#drawCircle(context, object, sizeMultiplier);
+    }
 
     context.closePath();
     context.fill();
@@ -46,8 +48,7 @@ export class CanvasService {
     });
   }
 
-  createParticles(object: GameObject): void {
-    const count = 25;
+  createParticles(object: GameObject, count = 25): void {
     const speed = 1;
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
@@ -58,14 +59,14 @@ export class CanvasService {
     }
   }
 
-  flash(color: string, duration: number) {
+  flash(duration: number, color: string, animationClass?: string) {
     const canvasClass = this.canvasEle.nativeElement.classList;
     canvasClass.toggle(color);
-    canvasClass.toggle('animate-jiggle');
+    !!animationClass && canvasClass.toggle(animationClass);
 
     setTimeout(() => {
       canvasClass.toggle(color);
-      canvasClass.toggle('animate-jiggle');
+      !!animationClass && canvasClass.toggle(animationClass);
     }, duration);
   }
 

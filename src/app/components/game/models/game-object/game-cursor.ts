@@ -11,8 +11,8 @@ import { GameObjectType } from './game-object-type';
 })
 export class GameCursor {
   object = new GameObject(0, 0, this.defaultCursor);
+  invincible: boolean = false;
   history: { x: number; y: number }[] = [];
-  trail!: boolean;
 
   constructor(private canvasService: CanvasService) {
     const updatePosition = (x: number, y: number) => {
@@ -42,7 +42,7 @@ export class GameCursor {
 
     // Only keep the last 20 elements in history
     setInterval(() => {
-      this.history = this.history.slice(-20);
+      this.history = this.history.slice(-30);
     }, 150);
   }
 
@@ -52,12 +52,12 @@ export class GameCursor {
       color: '#F5F5F5',
       size: scaledSize(6),
       speed: 0,
-      shape: GameObjectShape.Arc,
+      shape: GameObjectShape.Circle,
     };
   }
 
   draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
-    if (this.trail) {
+    if (this.invincible) {
       this.#trail(context, canvas);
     }
 
@@ -104,8 +104,9 @@ export class GameCursor {
     this.history = [];
   }
 
-  toggleTrail() {
-    this.trail = !this.trail;
+  setInvincibility(enabled: boolean) {
+    this.resetHistory();
+    this.invincible = enabled;
   }
 
   #trail(context: CanvasRenderingContext2D, canvas: CanvasService) {

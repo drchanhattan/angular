@@ -38,6 +38,10 @@ export class GameObject {
     return this.type === GameObjectType.Corn;
   }
 
+  get isPowerUp() {
+    return this.type === GameObjectType.PowerUp;
+  }
+
   detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
     const position = this[axis];
     return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
@@ -48,7 +52,9 @@ export class GameObject {
   }
 
   detectCollision(object: GameObject): boolean {
-    return this.shape === GameObjectShape.Rect ? this.detectRectCollision(object) : this.detectCircleCollision(object);
+    return this.shape === GameObjectShape.Square
+      ? this.detectRectCollision(object)
+      : this.detectCircleCollision(object);
   }
 
   private detectRectCollision(object: GameObject): boolean {

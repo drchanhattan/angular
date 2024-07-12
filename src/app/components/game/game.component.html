@@ -2,7 +2,7 @@
 <canvas #canvas class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
 <!-- Lives -->
-<div *ngIf="!gameService.paused" class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-4 transform">
+<div *ngIf="!gameService.paused" class="bg- pointer-events-none absolute bottom-0 right-0 mb-2 mr-4 transform">
   <div class="flex items-center text-white">
     <span class="mr-1 text-5xl">{{ 'x' + gameService.lives }}</span>
     <mat-icon class="!size-full text-5xl" color="warn">favorite</mat-icon>
@@ -23,7 +23,7 @@
 
 <!-- Menu -->
 <div
-  class="menu absolute flex size-full items-center justify-center text-white transition-all duration-1000 ease-in-out">
+  class="menu absolute flex size-full items-center justify-center text-white transition-all duration-500 ease-in-out">
   <div class="flex flex-col items-center">
     <mat-icon class="mb-8 !size-64 animate-float" svgIcon="corn"></mat-icon>
 
@@ -32,11 +32,7 @@
     </button>
 
     <button class="mb-4 text-3xl hover:animate-fast-pulse hover:text-[#ffc107]">
-      <span>Settings</span>
-    </button>
-
-    <button class="mb-4 text-3xl hover:animate-fast-pulse hover:text-[#ffc107]">
-      <span>Back</span>
+      <span>Exit</span>
     </button>
   </div>
 </div>

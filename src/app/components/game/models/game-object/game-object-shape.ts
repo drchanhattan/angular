@@ -1,4 +1,4 @@
 export enum GameObjectShape {
-  Rect = 1,
-  Arc = 2,
+  Square = 1,
+  Circle = 2,
 }

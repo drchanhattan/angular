@@ -1,6 +1,7 @@
 export enum GameObjectType {
-  Pea = 1,
-  Corn = 2,
-  Cursor = 3,
+  Cursor = 1,
+  Pea = 2,
+  Corn = 3,
+  PowerUp = 4,
   Particle = 4,
 }

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { GameCursor } from './models/game-object/game-cursor';
-import { GameObjectBehaviour } from './models/game-object/game-object-behaviour';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
 import { TextService } from './services/text-service';
@@ -34,21 +33,6 @@ export class GameComponent implements AfterViewInit {
     window.location.reload();
   }
 
-  @HostListener('document:keyup', ['$event'])
-  onKeyupHandler(event: KeyboardEvent) {
-    const keyActions: { [key: string]: () => void } = {
-      '1': () => this.gameService.toggleInvincibility(),
-      '2': () => this.gameService.peas.setBehaviour(GameObjectBehaviour.Attract),
-      '3': () => this.gameService.corn.setBehaviour(GameObjectBehaviour.Repel),
-      '4': () => this.gameService.corn.setBehaviour(GameObjectBehaviour.ConvertToPea),
-    };
-
-    const action = keyActions[event.key];
-    if (action) {
-      action();
-    }
-  }
-
   animate() {
     const animateFrame = () => {
       this.canvasService.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -62,6 +46,7 @@ export class GameComponent implements AfterViewInit {
     this.gameService.drawCursor();
     this.gameService.drawPeas();
     this.gameService.drawCorn();
+    this.gameService.drawPowerUps();
     this.canvasService.drawParticles(this.canvasService.context);
     this.canvasService.particleDecay();
   }
