@@ -4,9 +4,10 @@
   "scripts": {
     ".1": "ng build --configuration production --output-path docs --base-href .",
     ".2": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
-    ".3": "echo christopherchan.co.uk > docs\\CNAME && git add .",
-    ".4": "git commit -m \"commit\" && git push -u origin master",
-    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4",
+    ".3": "copy docs\\index.html docs\\404.html",
+    ".4": "echo christopherchan.co.uk > docs\\CNAME && git add .",
+    ".5": "git commit -m \"commit\" && git push -u origin master",
+    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4 && npm run .5",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\""
   },
   "private": true,
