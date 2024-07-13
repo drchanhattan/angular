@@ -17,8 +17,7 @@ import { TextService } from './components/game/services/text-service';
   providers: [CanvasService, GameCursor, GameService, TextService],
 })
 export class AppComponent {
-  title = 'website';
-  icons = ['corn'];
+  svgIcons = ['corn', 'corn-mono'];
 
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -28,7 +27,7 @@ export class AppComponent {
   }
 
   public registerIcons() {
-    this.icons.forEach((icon) => {
+    this.svgIcons.forEach((icon) => {
       this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
     });
   }

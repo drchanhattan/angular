@@ -123,7 +123,7 @@ export class GameService {
   }
 
   get defaultPeaSettings() {
-    return this.defaultSettings(GameObjectType.Pea, 8, 2.5, '#54FF58', GameObjectShape.Circle);
+    return this.defaultSettings(GameObjectType.Pea, 8, 2.5, '#54DF0E', GameObjectShape.Circle);
   }
 
   get defaultCornSettings() {
@@ -131,7 +131,7 @@ export class GameService {
   }
 
   get defaultPowerUpSettings() {
-    return this.defaultSettings(GameObjectType.PowerUp, 4, 0.5, 'blue', GameObjectShape.Circle);
+    return this.defaultSettings(GameObjectType.PowerUp, 4, 0.5, '#0055FF', GameObjectShape.Circle);
   }
 
   // Object Handling
@@ -163,7 +163,7 @@ export class GameService {
       }
       if (blue) {
         obj.type = GameObjectType.Pea;
-        obj.color = 'blue';
+        obj.color = '#0055FF';
         obj.size = this.peas.objects[0].size;
         obj.shape = this.peas.objects[0].shape;
       }
