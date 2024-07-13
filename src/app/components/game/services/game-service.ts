@@ -156,10 +156,10 @@ export class GameService {
       obj.applyForce('y', 8);
     } else {
       if (attract) {
-        this.cursor.magnetise(obj, 20, 4, false);
+        this.cursor.object.magnetise(obj, 20, 4, false);
       }
       if (repel) {
-        this.cursor.magnetise(obj, 20, 5, true);
+        this.cursor.object.magnetise(obj, 20, 5, true);
       }
       if (blue) {
         obj.type = GameObjectType.Pea;
@@ -196,14 +196,16 @@ export class GameService {
   }
 
   private peaCollision(pea: GameObject) {
-    if (pea.detectCollision(this.cursor.object)) {
+    const collision = pea.detectCollision(this.cursor.object);
+    if (collision) {
       pea.destroyed = true;
       this.canvasService.createParticles(pea);
     }
   }
 
   private cornCollision(corn: GameObject) {
-    if (!this.ghost && corn.detectCollision(this.cursor.object)) {
+    const collision = corn.detectCollision(this.cursor.object);
+    if (!this.ghost && collision) {
       corn.destroyed = true;
       this.canvasService.createParticles(corn);
 
@@ -220,7 +222,8 @@ export class GameService {
   }
 
   private powerUpCollision(powerUp: GameObject) {
-    if (!this.ghost && powerUp.detectCollision(this.cursor.object)) {
+    const collision = powerUp.detectCollision(this.cursor.object);
+    if (!this.ghost && collision) {
       powerUp.destroyed = true;
       this.canvasService.createParticles(powerUp, 100);
       this.randomPowerUp();

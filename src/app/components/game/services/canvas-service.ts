@@ -51,10 +51,10 @@ export class CanvasService {
   // ==============================
 
   createParticles(object: GameObject, count = 25): void {
-    const speed = 1;
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
-      const settings = new GameObjectSettings(GameObjectType.Particle, object.color, object.size, object.shape, speed);
+      const size = object.size * (Math.random() * (1 - 0.6) + 0.6);
+      const settings = new GameObjectSettings(GameObjectType.Particle, object.color, size, object.shape, 1);
       const particle = new GameObject(object.x, object.y, settings);
       particle.timestamp = new Date(currentTime.getTime() + i * 50);
       this.particles.push(particle);

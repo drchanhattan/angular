@@ -69,29 +69,6 @@ export class GameCursor {
     canvasClass.toggle('cursor-none');
   }
 
-  magnetise(vegetable: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
-    const obj = Object.assign({}, this.object);
-    obj.size = obj.size * radiusMultiplier;
-
-    if (vegetable.detectCollision(obj)) {
-      let dx = this.object.x - vegetable.x;
-      let dy = this.object.y - vegetable.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      dx /= distance;
-      dy /= distance;
-      dx *= speed;
-      dy *= speed;
-
-      if (!vegetable.detectWallCollisionOnAxis('x', window.innerWidth)) {
-        repel ? vegetable.applyForce('x', -dx) : vegetable.applyForce('x', dx);
-      }
-
-      if (!vegetable.detectWallCollisionOnAxis('y', window.innerHeight)) {
-        repel ? vegetable.applyForce('y', -dy) : vegetable.applyForce('y', dy);
-      }
-    }
-  }
-
   increaseDifficulty() {
     this.object.size = Math.max(this.object.size * 0.9, 10);
   }
