@@ -19,6 +19,7 @@ export class GameService {
   paused = true;
   showMenu = true;
   ghost = true;
+  powerUpFrequency = 1;
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
@@ -74,18 +75,16 @@ export class GameService {
 
   private increaseDifficulty() {
     this.editGroupSettings(this.peas, 10, this.defaultPeaSettings.count);
-    console.log(this.corn.count);
     this.editGroupSettings(this.corn, 20, Math.min(this.corn.count * 1.08, 80));
-    console.log(this.corn.count);
     this.cursor.increaseDifficulty();
 
-    if (this.level % 3 === 0) {
+    if (this.level % this.powerUpFrequency === 0) {
       this.powerUps.createObjects();
     }
   }
 
   private editGroupSettings(group: GameObjectGroup, minSize: number, newCount: number) {
-    group.editSettings(Math.max(group.settings.size * 0.98, minSize), group.settings.speed * 1.01, newCount);
+    group.editSettings(Math.max(group.settings.size * 0.98, minSize), group.settings.speed * 1.005, newCount);
   }
 
   gameOver() {
@@ -124,7 +123,7 @@ export class GameService {
   }
 
   get defaultPeaSettings() {
-    return this.defaultSettings(GameObjectType.Pea, 8, 2, '#54FF58', GameObjectShape.Circle);
+    return this.defaultSettings(GameObjectType.Pea, 8, 2.5, '#54FF58', GameObjectShape.Circle);
   }
 
   get defaultCornSettings() {
@@ -148,22 +147,30 @@ export class GameService {
   }
 
   private customObjectBehaviour(obj: GameObject) {
-    const attract = obj.behaviourEquals(GameObjectBehaviour.Attract);
-    const repel = obj.behaviourEquals(GameObjectBehaviour.Repel);
-    const convertBlue = obj.behaviourEquals(GameObjectBehaviour.Blue);
+    const attract = obj.behaviourIncludes(GameObjectBehaviour.Attract);
+    const repel = obj.behaviourIncludes(GameObjectBehaviour.Repel);
+    const blue = obj.behaviourIncludes(GameObjectBehaviour.Blue);
+    const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
     if (this.paused) {
       obj.applyForce('y', 8);
-    } else if (attract) {
-      this.cursor.magnetise(obj, 20, 4, false);
-    } else if (repel) {
-      this.cursor.magnetise(obj, 20, 5, true);
-    } else if (convertBlue) {
-      obj.type = GameObjectType.Pea;
-      obj.color = 'blue';
-      obj.size = this.peas.objects[0].size;
-      obj.shape = this.peas.objects[0].shape;
-      this.cursor.magnetise(obj, 15, 4, false);
+    } else {
+      if (attract) {
+        this.cursor.magnetise(obj, 20, 4, false);
+      }
+      if (repel) {
+        this.cursor.magnetise(obj, 20, 5, true);
+      }
+      if (blue) {
+        obj.type = GameObjectType.Pea;
+        obj.color = 'blue';
+        obj.size = this.peas.objects[0].size;
+        obj.shape = this.peas.objects[0].shape;
+      }
+      if (slow) {
+        obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
+        obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
+      }
     }
   }
 
@@ -225,37 +232,41 @@ export class GameService {
 
   randomPowerUp() {
     const powerUps = [
-      this.powerUpAttract.bind(this),
-      this.powerUpInvincible.bind(this),
-      this.powerUpRepel.bind(this),
-      this.powerUpBlue.bind(this),
+      this.powerAttract.bind(this),
+      this.powerSlowCorn.bind(this),
+      this.powerInvincible.bind(this),
+      this.powerBlueCorn.bind(this),
+      this.powerRepel.bind(this),
     ];
 
-    if (this.level % 3 === 0) {
-      const powerUpIndex = (this.level / 3 - 1) % powerUps.length;
+    if (this.level % this.powerUpFrequency === 0) {
+      const powerUpIndex = (this.level / this.powerUpFrequency - 1) % powerUps.length;
       powerUps[powerUpIndex]();
+      this.peas.setBehaviour(GameObjectBehaviour.Blue);
+      this.canvasService.flash(500, 'bg-blue-800', 'animate-pulse');
     }
   }
 
-  powerUpInvincible() {
+  powerInvincible() {
     this.cursor.setInvincibility(true);
-    this.canvasService.flash(500, 'bg-violet-900', 'animate-pulse');
   }
 
-  powerUpAttract() {
+  powerAttract() {
     this.peas.setBehaviour(GameObjectBehaviour.Attract);
-    this.canvasService.flash(500, 'bg-green-800', 'animate-pulse');
   }
 
-  powerUpRepel() {
+  powerRepel() {
     this.corn.setBehaviour(GameObjectBehaviour.Repel);
-    this.canvasService.flash(500, 'bg-yellow-900', 'animate-pulse');
   }
 
-  powerUpBlue() {
+  powerBlueCorn() {
     this.corn.setBehaviour(GameObjectBehaviour.Blue);
+    this.corn.setBehaviour(GameObjectBehaviour.Attract);
     this.peas.setBehaviour(GameObjectBehaviour.Attract);
-    this.canvasService.flash(500, 'bg-blue-800', 'animate-pulse');
+  }
+
+  powerSlowCorn() {
+    this.corn.setBehaviour(GameObjectBehaviour.Slow);
   }
 
   // Draw Objects

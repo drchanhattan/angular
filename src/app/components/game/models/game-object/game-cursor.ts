@@ -40,9 +40,9 @@ export class GameCursor {
     document.addEventListener('touchmove', touchHandler, { passive: false });
     document.addEventListener('touchstart', touchHandler, { passive: false });
 
-    // Only keep the last 20 elements in history
+    // Only keep the last 40 elements in history
     setInterval(() => {
-      this.history = this.history.slice(-30);
+      this.history = this.history.slice(-40);
     }, 150);
   }
 
@@ -118,7 +118,7 @@ export class GameCursor {
         this.object.shape,
         0,
       );
-      context.globalAlpha = 0.1;
+      context.globalAlpha = 0.25;
       canvas.drawObject(context, new GameObject(old.x, old.y, settings));
       context.globalAlpha = 1;
     });

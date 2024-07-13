@@ -12,7 +12,7 @@ export class GameObject {
   shape: GameObjectShape;
   deltaX: number;
   deltaY: number;
-  behaviour: GameObjectBehaviour;
+  behaviours: GameObjectBehaviour[];
   timestamp: Date;
   destroyed: boolean;
 
@@ -25,7 +25,7 @@ export class GameObject {
     this.shape = settings.shape;
     this.deltaX = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
-    this.behaviour = GameObjectBehaviour.Default;
+    this.behaviours = [GameObjectBehaviour.Default];
     this.timestamp = new Date();
     this.destroyed = false;
   }
@@ -124,11 +124,18 @@ export class GameObject {
   // Behaviour Handling
   // ==============================
 
-  behaviourEquals(behaviour: GameObjectBehaviour): boolean {
-    return this.behaviour === behaviour;
+  behaviourIncludes(behaviour: GameObjectBehaviour): boolean {
+    return this.behaviours.includes(behaviour);
   }
 
   toggleBehaviour(behaviour: GameObjectBehaviour) {
-    this.behaviour = this.behaviourEquals(behaviour) ? GameObjectBehaviour.Default : behaviour;
+    if (this.behaviourIncludes(behaviour)) {
+      this.behaviours = this.behaviours.filter((b) => b !== behaviour);
+      if (!this.behaviours.length) {
+        this.behaviours = [GameObjectBehaviour.Default];
+      }
+    } else {
+      this.behaviours = [...this.behaviours, behaviour];
+    }
   }
 }
