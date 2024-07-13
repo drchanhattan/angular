@@ -19,7 +19,7 @@ export class GameService {
   paused = true;
   showMenu = true;
   ghost = true;
-  powerUpFrequency = 1;
+  powerUpFrequency = 3;
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
