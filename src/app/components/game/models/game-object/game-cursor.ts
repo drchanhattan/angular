@@ -13,6 +13,7 @@ export class GameCursor {
   object = new GameObject(0, 0, this.defaultCursor);
   invincible: boolean = false;
   history: { x: number; y: number }[] = [];
+  private lastTouch: { x: number; y: number } | null = null;
 
   constructor(private canvasService: CanvasService) {
     const updatePosition = (x: number, y: number) => {
@@ -30,15 +31,33 @@ export class GameCursor {
     const touchHandler = (event: TouchEvent) => {
       if (event.touches.length > 0) {
         const touch = event.touches[0];
-        updatePosition(touch.clientX, touch.clientY);
+        const touchX = touch.clientX;
+        const touchY = touch.clientY;
+
+        if (this.lastTouch) {
+          const deltaX = touchX - this.lastTouch.x;
+          const deltaY = touchY - this.lastTouch.y;
+
+          this.object.x = Math.min(Math.max(0, this.object.x + deltaX), window.innerWidth);
+          this.object.y = Math.min(Math.max(0, this.object.y + deltaY), window.innerHeight);
+        }
+
+        this.lastTouch = { x: touchX, y: touchY };
+
         if (event.target === this.canvasService.context.canvas) {
           event.preventDefault();
         }
       }
     };
 
+    const touchEndHandler = () => {
+      this.lastTouch = null;
+    };
+
     document.addEventListener('touchmove', touchHandler, { passive: false });
     document.addEventListener('touchstart', touchHandler, { passive: false });
+    document.addEventListener('touchend', touchEndHandler);
+    document.addEventListener('touchcancel', touchEndHandler);
 
     // Only keep the last 40 elements in history
     setInterval(() => {
@@ -76,6 +95,19 @@ export class GameCursor {
   setInvincibility(enabled: boolean) {
     this.resetHistory();
     this.invincible = enabled;
+  }
+
+  blink(color: string, blinks: number, interval: number) {
+    const changeColor = (color: string, delay: number | undefined) => {
+      setTimeout(() => {
+        this.object.color = color;
+      }, delay);
+    };
+
+    for (let i = 0; i < blinks; i++) {
+      changeColor(color, interval * (2 * i));
+      changeColor(this.defaultCursor.color, interval * (2 * i + 1));
+    }
   }
 
   private resetHistory() {

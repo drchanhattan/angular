@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { GameCursor } from './models/game-object/game-cursor';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
@@ -10,7 +10,7 @@ import { TextService } from './services/text-service';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, MatIconModule],
+  imports: [CommonModule, RouterLink, MatIconModule],
   templateUrl: './game.component.html',
 })
 export class GameComponent implements AfterViewInit {
@@ -22,15 +22,7 @@ export class GameComponent implements AfterViewInit {
     public cursor: GameCursor,
     public gameService: GameService,
     public textService: TextService,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {
-    this.route.queryParams.subscribe((queryParams) => {
-      if (!!queryParams['reload']) {
-        this.router.navigate(['/game']);
-      }
-    });
-  }
+  ) {}
 
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);
@@ -39,7 +31,7 @@ export class GameComponent implements AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    window.location.reload();
+    location.reload();
   }
 
   animate() {
@@ -52,10 +44,7 @@ export class GameComponent implements AfterViewInit {
   }
 
   draw() {
-    this.gameService.drawCursor();
-    this.gameService.drawPeas();
-    this.gameService.drawCorn();
-    this.gameService.drawPowerUps();
+    this.gameService.draw();
     this.canvasService.drawParticles(this.canvasService.context);
     this.canvasService.particleDecay();
   }

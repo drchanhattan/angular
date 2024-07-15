@@ -1,1 +1,2 @@
-<img src="/hero-home.jpg" class="size-full object-cover" />
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="w-full"></mat-progress-bar>
+<img [src]="hero" (load)="loaded()" class="size-full object-cover" />

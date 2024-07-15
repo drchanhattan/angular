@@ -5,19 +5,40 @@ module.exports = {
     extend: {
       animation: {
         'fast-pulse': 'pulse 1s infinite',
-        float: 'float 1s ease-in-out infinite',
-        jiggle: 'jiggle 0.5s',
+        corn: 'corn 5s infinite',
+        jiggle: 'jiggle 0.5s infinite',
       },
       keyframes: {
-        float: {
+        corn: {
           '0%': {
-            transform: 'translateY(0)',
+            transform: 'rotate(0deg) translateY(0)',
+          },
+          '20%': {
+            transform: 'rotate(0deg) translateY(-8px)',
+          },
+          '44%': {
+            transform: 'rotate(0deg) translateY(0)',
+          },
+          '46%': {
+            transform: 'rotate(2deg)',
+          },
+          '48%': {
+            transform: 'rotate(-2deg)',
           },
           '50%': {
-            transform: 'translateY(-10px)',
+            transform: 'rotate(2deg)',
+          },
+          '52%': {
+            transform: 'rotate(-2deg)',
+          },
+          '54%': {
+            transform: 'rotate(0deg) translateY(0)',
+          },
+          '80%': {
+            transform: 'rotate(0deg) translateY(-8px)',
           },
           '100%': {
-            transform: 'translateY(0)',
+            transform: 'rotate(0deg) translateY(0)',
           },
         },
         jiggle: {

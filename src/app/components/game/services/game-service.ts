@@ -23,6 +23,7 @@ export class GameService {
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
+  hearts: GameObjectGroup;
 
   constructor(
     private canvasService: CanvasService,
@@ -32,6 +33,7 @@ export class GameService {
     this.peas = new GameObjectGroup(this.defaultPeaSettings.count, this.defaultPeaSettings.settings);
     this.corn = new GameObjectGroup(this.defaultCornSettings.count, this.defaultCornSettings.settings);
     this.powerUps = new GameObjectGroup(this.defaultPowerUpSettings.count, this.defaultPowerUpSettings.settings);
+    this.hearts = new GameObjectGroup(this.defaultHeartSettings.count, this.defaultHeartSettings.settings);
   }
 
   // Game Initialization
@@ -43,6 +45,8 @@ export class GameService {
 
     this.resetGroupSettings(this.peas, this.defaultPeaSettings);
     this.resetGroupSettings(this.corn, this.defaultCornSettings);
+    this.resetGroupSettings(this.powerUps, this.defaultPowerUpSettings);
+    this.resetGroupSettings(this.hearts, this.defaultHeartSettings);
 
     this.toggleMenu();
     this.cursor.reset();
@@ -53,8 +57,9 @@ export class GameService {
   play() {
     this.peas.createObjects();
     this.corn.createObjects();
+    this.hearts.createObjects();
     this.paused = false;
-    this.activateImmunity(400);
+    this.activateImmunity(5, 1000);
   }
 
   // Level and Game State Management
@@ -64,10 +69,9 @@ export class GameService {
     this.ghost = true;
     this.cursor.setInvincibility(false);
     this.level++;
-    this.lives++;
     this.paused = true;
 
-    this.textService.show(`Level ${this.level}`, '+ 1', 2000);
+    this.textService.show(`Level ${this.level}`, this.hearts.objects[0].destroyed ? '+ 1' : '', 2000);
     this.canvasService.flash(200, 'bg-stone-400');
 
     setTimeout(() => {
@@ -80,10 +84,13 @@ export class GameService {
     this.levelUpPeas();
     this.levelUpCorn();
     this.levelUpPowerUps();
+    this.levelUpHearts();
     this.levelUpCursor();
 
     if (this.level % this.powerUpFrequency === 0) {
       this.powerUps.createObjects();
+    } else {
+      this.powerUps.objects = [];
     }
   }
 
@@ -109,9 +116,18 @@ export class GameService {
     const defaultSettings = this.defaultPowerUpSettings.settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
-    const speed = defaultSettings.speed * Math.pow(1.005, this.level);
+    const speed = defaultSettings.speed;
     const count = this.defaultPowerUpSettings.count;
     this.powerUps.editSettings(size, speed, count);
+  }
+
+  private levelUpHearts() {
+    const defaultSettings = this.defaultHeartSettings.settings;
+    const minSize = 10;
+    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
+    const speed = defaultSettings.speed;
+    const count = this.defaultHeartSettings.count;
+    this.hearts.editSettings(size, speed, count);
   }
 
   private levelUpCursor() {
@@ -125,7 +141,7 @@ export class GameService {
     return !peas && !blueCorn;
   }
 
-  gameOver() {
+  private gameOver() {
     this.paused = true;
     this.textService.show('Game Over', `You reached level ${this.level}`, 3000);
 
@@ -172,6 +188,17 @@ export class GameService {
     return {
       count: count,
       settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed),
+    };
+  }
+
+  get defaultHeartSettings() {
+    const size = scaledSize(7);
+    const count = scaledCount(size, 0.5);
+    const speed = scaledSpeed(size, 0.1);
+
+    return {
+      count: count,
+      settings: new GameObjectSettings(GameObjectType.Heart, '#BA1A1A', size, GameObjectShape.Circle, speed),
     };
   }
 
@@ -222,12 +249,16 @@ export class GameService {
     if (!this.paused) {
       obj.handleWallCollisions();
 
-      if (obj.isPea) {
-        this.peaCollision(obj);
-      } else if (obj.isCorn) {
-        this.cornCollision(obj);
-      } else if (obj.isPowerUp) {
-        this.powerUpCollision(obj);
+      if (!this.ghost) {
+        if (obj.isPea) {
+          this.peaCollision(obj);
+        } else if (obj.isCorn) {
+          this.cornCollision(obj);
+        } else if (obj.isPowerUp) {
+          this.powerUpCollision(obj);
+        } else if (obj.isHeart) {
+          this.heartCollision(obj);
+        }
       }
 
       if (this.isLevelComplete()) {
@@ -240,20 +271,20 @@ export class GameService {
     const collision = pea.detectCollision(this.cursor.object);
     if (collision) {
       pea.destroyed = true;
-      this.canvasService.createParticles(pea);
+      this.canvasService.createParticles(pea, 20);
     }
   }
 
   private cornCollision(corn: GameObject) {
     const collision = corn.detectCollision(this.cursor.object);
-    if (!this.ghost && collision) {
+    if (collision) {
       corn.destroyed = true;
       this.canvasService.createParticles(corn);
 
       if (!this.cursor.invincible) {
         this.lives--;
         this.canvasService.flash(500, 'bg-red-900', 'animate-jiggle');
-        this.activateImmunity(500);
+        this.activateImmunity(2, 500);
       }
 
       if (this.lives === 0) {
@@ -264,10 +295,21 @@ export class GameService {
 
   private powerUpCollision(powerUp: GameObject) {
     const collision = powerUp.detectCollision(this.cursor.object);
-    if (!this.ghost && collision) {
+    if (collision) {
       powerUp.destroyed = true;
       this.canvasService.createParticles(powerUp, 100);
+      this.canvasService.flash(500, 'bg-blue-800', 'animate-pulse');
       this.randomPowerUp();
+    }
+  }
+
+  private heartCollision(heart: GameObject) {
+    const collision = heart.detectCollision(this.cursor.object);
+    if (collision) {
+      heart.destroyed = true;
+      this.canvasService.createParticles(heart, 8);
+      this.lives++;
+      this.cursor.blink(heart.color, 2, 100);
     }
   }
 
@@ -277,17 +319,19 @@ export class GameService {
   randomPowerUp() {
     const powerUps = [
       this.powerAttract.bind(this),
-      this.powerSlowCorn.bind(this),
-      this.powerInvincible.bind(this),
-      this.powerBlueCorn.bind(this),
       this.powerRepel.bind(this),
+      this.powerSlowCorn.bind(this),
+      this.powerAttract.bind(this),
+      this.powerInvincible.bind(this),
+      this.powerSlowCorn.bind(this),
+      this.powerRepel.bind(this),
+      this.powerBlueCorn.bind(this),
     ];
 
     if (this.level % this.powerUpFrequency === 0) {
       const powerUpIndex = (this.level / this.powerUpFrequency - 1) % powerUps.length;
       powerUps[powerUpIndex]();
       this.peas.setBehaviour(GameObjectBehaviour.Blue);
-      this.canvasService.flash(500, 'bg-blue-800', 'animate-pulse');
     }
   }
 
@@ -316,19 +360,31 @@ export class GameService {
   // Draw Objects
   // ==============================
 
-  drawPeas() {
+  draw() {
+    this.drawPeas();
+    this.drawCorn();
+    this.drawPowerUps();
+    this.drawHearts();
+    this.drawCursor();
+  }
+
+  private drawPeas() {
     this.peas.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
-  drawCorn() {
+  private drawCorn() {
     this.corn.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
-  drawPowerUps() {
+  private drawPowerUps() {
     this.powerUps.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
-  drawCursor() {
+  private drawHearts() {
+    this.hearts.objects.forEach((obj) => this.handleGameObject(obj));
+  }
+
+  private drawCursor() {
     if (!this.showMenu) {
       this.cursor.draw(this.canvasService.context, this.canvasService);
     }
@@ -337,8 +393,9 @@ export class GameService {
   // Immunity and Menu Management
   // ==============================
 
-  activateImmunity(duration: number) {
+  activateImmunity(blinks: number, duration: number) {
     this.ghost = true;
+    this.cursor.blink('gray', blinks, duration / blinks / 2);
     setTimeout(() => (this.ghost = false), duration);
   }
 

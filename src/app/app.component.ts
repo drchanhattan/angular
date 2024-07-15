@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { GameComponent } from './components/game/game.component';
 import { GameCursor } from './components/game/models/game-object/game-cursor';
 import { CanvasService } from './components/game/services/canvas-service';
@@ -14,7 +14,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [CommonModule, RouterOutlet, RouterLink, GameComponent, ToolbarComponent],
+  imports: [CommonModule, RouterOutlet, GameComponent, ToolbarComponent],
   providers: [CanvasService, GameCursor, GameService, TextService],
 })
 export class AppComponent implements OnInit {
@@ -28,6 +28,11 @@ export class AppComponent implements OnInit {
   ) {
     this.currentRoute = this.router.url;
     this.registerIcons();
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onPopState() {
+    location.reload();
   }
 
   ngOnInit() {

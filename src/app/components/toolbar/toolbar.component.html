@@ -1,8 +1,5 @@
-<mat-toolbar class="flex items-center justify-center !bg-black !opacity-70">
-  <button routerLink="/asia" class="mx-4 text-white">Asia</button>
-  <button routerLink="/europe" class="mx-4 text-white">Europe</button>
-  <button routerLink="/oceania" class="mx-4 text-white">Oceania</button>
-  <button routerLink="/north-america" class="mx-4 text-white">North America</button>
-  <button routerLink="/south-america" class="mx-4 text-white">South America</button>
-  <button routerLink="/game" class="mx-4" [queryParams]="{ reload: true }">Game</button>
+<mat-toolbar class="flex items-center justify-center !bg-black !opacity-80">
+  <ng-container *ngFor="let link of links">
+    <button [routerLink]="link.url" class="mx-10 text-white">{{ link.label }}</button>
+  </ng-container>
 </mat-toolbar>

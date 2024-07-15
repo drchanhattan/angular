@@ -3,5 +3,6 @@ export enum GameObjectType {
   Pea = 2,
   Corn = 3,
   PowerUp = 4,
-  Particle = 4,
+  Heart = 5,
+  Particle = 6,
 }
