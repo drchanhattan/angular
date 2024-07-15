@@ -16,18 +16,37 @@ export class GameCursor {
   private lastTouch: { x: number; y: number } | null = null;
 
   constructor(private canvasService: CanvasService) {
-    const updatePosition = (x: number, y: number) => {
-      const rect = this.canvasService.context.canvas.getBoundingClientRect();
-      const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
-      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * window.innerHeight;
-      this.object.x = Math.min(Math.max(0, newX), window.innerWidth);
-      this.object.y = Math.min(Math.max(0, newY), window.innerHeight);
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    isTouchDevice ? this.handleTouch() : this.handleMouse();
+
+    this.storeHistory();
+  }
+
+  get defaultCursor(): GameObjectSettings {
+    return {
+      type: GameObjectType.Cursor,
+      color: '#F5F5F5',
+      size: scaledSize(7),
+      speed: 0,
+      shape: GameObjectShape.Circle,
     };
+  }
 
+  private updatePosition(x: number, y: number) {
+    const rect = this.canvasService.context.canvas.getBoundingClientRect();
+    const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
+    const newY = ((y - rect.top) / (rect.bottom - rect.top)) * window.innerHeight;
+    this.object.x = Math.min(Math.max(0, newX), window.innerWidth);
+    this.object.y = Math.min(Math.max(0, newY), window.innerHeight);
+  }
+
+  private handleMouse() {
     document.addEventListener('mousemove', (event) => {
-      updatePosition(event.clientX, event.clientY);
+      this.updatePosition(event.clientX, event.clientY);
     });
+  }
 
+  private handleTouch() {
     const touchHandler = (event: TouchEvent) => {
       if (event.touches.length > 0) {
         const touch = event.touches[0];
@@ -58,21 +77,12 @@ export class GameCursor {
     document.addEventListener('touchstart', touchHandler, { passive: false });
     document.addEventListener('touchend', touchEndHandler);
     document.addEventListener('touchcancel', touchEndHandler);
+  }
 
-    // Only keep the last 40 elements in history
+  private storeHistory() {
     setInterval(() => {
       this.history = this.history.slice(-40);
     }, 150);
-  }
-
-  get defaultCursor(): GameObjectSettings {
-    return {
-      type: GameObjectType.Cursor,
-      color: '#F5F5F5',
-      size: scaledSize(7),
-      speed: 0,
-      shape: GameObjectShape.Circle,
-    };
   }
 
   draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
