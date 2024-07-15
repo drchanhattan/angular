@@ -54,7 +54,7 @@ export class GameService {
     this.play();
   }
 
-  play() {
+  private play() {
     this.peas.createObjects();
     this.corn.createObjects();
     this.hearts.createObjects();
@@ -65,7 +65,7 @@ export class GameService {
   // Level and Game State Management
   // ==============================
 
-  levelComplete() {
+  private levelComplete() {
     this.ghost = true;
     this.cursor.setInvincibility(false);
     this.level++;
@@ -316,7 +316,7 @@ export class GameService {
   // Power Ups
   // ==============================
 
-  randomPowerUp() {
+  private randomPowerUp() {
     const powerUps = [
       this.powerAttract.bind(this),
       this.powerRepel.bind(this),
@@ -335,25 +335,25 @@ export class GameService {
     }
   }
 
-  powerInvincible() {
+  private powerInvincible() {
     this.cursor.setInvincibility(true);
   }
 
-  powerAttract() {
+  private powerAttract() {
     this.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 
-  powerRepel() {
+  private powerRepel() {
     this.corn.setBehaviour(GameObjectBehaviour.Repel);
   }
 
-  powerBlueCorn() {
+  private powerBlueCorn() {
     this.corn.setBehaviour(GameObjectBehaviour.Blue);
     this.corn.setBehaviour(GameObjectBehaviour.Attract);
     this.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 
-  powerSlowCorn() {
+  private powerSlowCorn() {
     this.corn.setBehaviour(GameObjectBehaviour.Slow);
   }
 
@@ -393,13 +393,13 @@ export class GameService {
   // Immunity and Menu Management
   // ==============================
 
-  activateImmunity(blinks: number, duration: number) {
+  private activateImmunity(blinks: number, duration: number) {
     this.ghost = true;
     this.cursor.blink('gray', blinks, duration / blinks / 2);
     setTimeout(() => (this.ghost = false), duration);
   }
 
-  toggleMenu() {
+  private toggleMenu() {
     this.showMenu = !this.showMenu;
     const menuClassList = document.getElementsByClassName('menu')[0].classList;
     menuClassList.toggle('opacity-0');
