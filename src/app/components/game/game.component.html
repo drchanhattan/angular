@@ -2,7 +2,7 @@
 <canvas #canvas class="flex size-full bg-black transition-all duration-300 ease-in-out"></canvas>
 
 <!-- Lives -->
-<div *ngIf="gameService.lives > 0" class="bg- pointer-events-none absolute right-0 top-0 mr-4 mt-2 transform">
+<div *ngIf="gameService.lives > 0" class="bg- pointer-events-none absolute right-0 top-0 mr-4 mt-4 transform">
   <div class="flex items-center text-white">
     <span class="mr-1 text-3xl md:text-5xl">{{ gameService.lives }}</span>
     <mat-icon class="!size-full text-3xl md:text-5xl" color="warn">favorite</mat-icon>
@@ -24,7 +24,7 @@
 <!-- Menu -->
 <div
   class="menu absolute flex size-full flex-col items-center justify-center text-white transition-all duration-500 ease-in-out">
-  <mat-icon class="my-24 !size-40 animate-corn lg:!size-64" svgIcon="corn"></mat-icon>
+  <mat-icon class="animate-corn my-24 !size-40 lg:!size-64" svgIcon="corn"></mat-icon>
 
   <div class="flex flex-col items-center">
     <button (click)="gameService.newGame()" class="mb-4 text-3xl hover:text-[#FFC107]">
