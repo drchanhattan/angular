@@ -395,7 +395,7 @@ export class GameService {
 
   private activateImmunity(blinks: number, duration: number) {
     this.ghost = true;
-    this.cursor.blink('gray', blinks, duration / blinks / 2);
+    this.cursor.blink('#353535', blinks, duration / blinks / 2);
     setTimeout(() => (this.ghost = false), duration);
   }
 
