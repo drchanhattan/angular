@@ -88,7 +88,21 @@ export class CanvasService {
   private drawSquare(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
     const drawX = object.x - object.size / 2;
     const drawY = object.y - object.size / 2;
-    context.fillRect(drawX, drawY, object.size * sizeMultiplier, object.size * sizeMultiplier);
+    const size = object.size * sizeMultiplier;
+    const cornerRadius = size / 3;
+
+    context.beginPath();
+    context.moveTo(drawX + cornerRadius, drawY);
+    context.lineTo(drawX + size - cornerRadius, drawY);
+    context.quadraticCurveTo(drawX + size, drawY, drawX + size, drawY + cornerRadius);
+    context.lineTo(drawX + size, drawY + size - cornerRadius);
+    context.quadraticCurveTo(drawX + size, drawY + size, drawX + size - cornerRadius, drawY + size);
+    context.lineTo(drawX + cornerRadius, drawY + size);
+    context.quadraticCurveTo(drawX, drawY + size, drawX, drawY + size - cornerRadius);
+    context.lineTo(drawX, drawY + cornerRadius);
+    context.quadraticCurveTo(drawX, drawY, drawX + cornerRadius, drawY);
+    context.closePath();
+    context.fill();
   }
 
   private drawCircle(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {

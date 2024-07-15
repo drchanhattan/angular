@@ -30,7 +30,7 @@ export class GameObjectGroup {
   editSettings(size: number, speed: number, count: number) {
     this.settings.size = size;
     this.settings.speed = speed;
-    this.count = count;
+    this.count = Math.round(count);
   }
 
   setBehaviour(behaviour: GameObjectBehaviour) {

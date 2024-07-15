@@ -45,6 +45,10 @@ export class GameObject {
     return this.type === GameObjectType.PowerUp;
   }
 
+  get isWithinViewport() {
+    return this.x >= 0 && this.x <= window.innerWidth && this.y >= 0 && this.y <= window.innerHeight;
+  }
+
   // Movement and Positioning
   // ==============================
 

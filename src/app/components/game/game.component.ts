@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { GameCursor } from './models/game-object/game-cursor';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
@@ -22,7 +22,15 @@ export class GameComponent implements AfterViewInit {
     public cursor: GameCursor,
     public gameService: GameService,
     public textService: TextService,
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.route.queryParams.subscribe((queryParams) => {
+      if (!!queryParams['reload']) {
+        this.router.navigate(['/game']);
+      }
+    });
+  }
 
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);

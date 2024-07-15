@@ -14,8 +14,8 @@ import { TextService } from './text-service';
   providedIn: 'root',
 })
 export class GameService {
-  level = 0;
-  lives = 0;
+  level!: number;
+  lives!: number;
   paused = true;
   showMenu = true;
   ghost = true;
@@ -37,15 +37,7 @@ export class GameService {
   // Game Initialization
   // ==============================
 
-  play(newGame: boolean) {
-    newGame ? this.startNewGame() : this.increaseDifficulty();
-    this.peas.createObjects();
-    this.corn.createObjects();
-    this.paused = false;
-    this.activateImmunity(400);
-  }
-
-  private startNewGame() {
+  newGame() {
     this.level = 1;
     this.lives = 3;
 
@@ -55,12 +47,20 @@ export class GameService {
     this.toggleMenu();
     this.cursor.reset();
     this.cursor.toggle();
+    this.play();
+  }
+
+  play() {
+    this.peas.createObjects();
+    this.corn.createObjects();
+    this.paused = false;
+    this.activateImmunity(400);
   }
 
   // Level and Game State Management
   // ==============================
 
-  levelUp() {
+  levelComplete() {
     this.ghost = true;
     this.cursor.setInvincibility(false);
     this.level++;
@@ -70,21 +70,59 @@ export class GameService {
     this.textService.show(`Level ${this.level}`, '+ 1', 2000);
     this.canvasService.flash(200, 'bg-stone-400');
 
-    setTimeout(() => this.play(false), 3500);
+    setTimeout(() => {
+      this.levelUp();
+      this.play();
+    }, 3500);
   }
 
-  private increaseDifficulty() {
-    this.editGroupSettings(this.peas, 10, this.defaultPeaSettings.count);
-    this.editGroupSettings(this.corn, 20, Math.min(this.corn.count * 1.08, 80));
-    this.cursor.increaseDifficulty();
+  private levelUp() {
+    this.levelUpPeas();
+    this.levelUpCorn();
+    this.levelUpPowerUps();
+    this.levelUpCursor();
 
     if (this.level % this.powerUpFrequency === 0) {
       this.powerUps.createObjects();
     }
   }
 
-  private editGroupSettings(group: GameObjectGroup, minSize: number, newCount: number) {
-    group.editSettings(Math.max(group.settings.size * 0.98, minSize), group.settings.speed * 1.005, newCount);
+  private levelUpPeas() {
+    const defaultSettings = this.defaultPeaSettings.settings;
+    const minSize = 10;
+    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
+    const speed = defaultSettings.speed * Math.pow(1.005, this.level);
+    const count = this.defaultPeaSettings.count;
+    this.peas.editSettings(size, speed, count);
+  }
+
+  private levelUpCorn() {
+    const defaultSettings = this.defaultCornSettings.settings;
+    const minSize = 20;
+    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
+    const speed = defaultSettings.speed * Math.pow(1.002, this.level);
+    const count = Math.min(this.defaultCornSettings.count * Math.pow(1.05, this.level));
+    this.corn.editSettings(size, speed, count);
+  }
+
+  private levelUpPowerUps() {
+    const defaultSettings = this.defaultPowerUpSettings.settings;
+    const minSize = 10;
+    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
+    const speed = defaultSettings.speed * Math.pow(1.005, this.level);
+    const count = this.defaultPowerUpSettings.count;
+    this.powerUps.editSettings(size, speed, count);
+  }
+
+  private levelUpCursor() {
+    const minSize = 10;
+    this.cursor.object.size = Math.max(this.cursor.defaultCursor.size * Math.pow(0.98, this.level), minSize);
+  }
+
+  private isLevelComplete() {
+    const peas = this.peas.objects.some((pea) => !pea.destroyed && pea.isWithinViewport);
+    const blueCorn = this.corn.objects.some((corn) => corn.isPea && !corn.destroyed && corn.isWithinViewport);
+    return !peas && !blueCorn;
   }
 
   gameOver() {
@@ -97,10 +135,6 @@ export class GameService {
     }, 4000);
   }
 
-  get levelComplete() {
-    return ![...this.peas.objects, ...this.corn.objects].find((object) => object.isPea && !object.destroyed);
-  }
-
   // Object Group Settings
   // ==============================
 
@@ -108,30 +142,37 @@ export class GameService {
     group.editSettings(settings.settings.size, settings.settings.speed, settings.count);
   }
 
-  private defaultSettings(
-    type: GameObjectType,
-    sizeFactor: number,
-    countFactor: number,
-    color: string,
-    shape: GameObjectShape,
-  ) {
-    const size = scaledSize(sizeFactor);
+  get defaultPeaSettings() {
+    const size = scaledSize(7);
+    const count = scaledCount(size, 2.5);
+    const speed = scaledSpeed(size, 0.1);
+
     return {
-      count: scaledCount(size, countFactor),
-      settings: new GameObjectSettings(type, color, size, shape, scaledSpeed(size, 0.1)),
+      count: count,
+      settings: new GameObjectSettings(GameObjectType.Pea, '#54DF0E', size, GameObjectShape.Circle, speed),
     };
   }
 
-  get defaultPeaSettings() {
-    return this.defaultSettings(GameObjectType.Pea, 8, 2.5, '#54DF0E', GameObjectShape.Circle);
-  }
-
   get defaultCornSettings() {
-    return this.defaultSettings(GameObjectType.Corn, 12, 3, '#FFC107', GameObjectShape.Square);
+    const size = scaledSize(12);
+    const count = scaledCount(size, 3);
+    const speed = scaledSpeed(size, 0.1);
+
+    return {
+      count: count,
+      settings: new GameObjectSettings(GameObjectType.Corn, '#FFC107', size, GameObjectShape.Square, speed),
+    };
   }
 
   get defaultPowerUpSettings() {
-    return this.defaultSettings(GameObjectType.PowerUp, 4, 0.5, '#0055FF', GameObjectShape.Circle);
+    const size = scaledSize(7);
+    const count = scaledCount(size, 0.5);
+    const speed = size;
+
+    return {
+      count: count,
+      settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed),
+    };
   }
 
   // Object Handling
@@ -165,7 +206,7 @@ export class GameService {
         obj.type = GameObjectType.Pea;
         obj.color = '#0055FF';
         obj.size = this.peas.objects[0].size;
-        obj.shape = this.peas.objects[0].shape;
+        obj.shape = GameObjectShape.Circle;
       }
       if (slow) {
         obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
@@ -189,8 +230,8 @@ export class GameService {
         this.powerUpCollision(obj);
       }
 
-      if (this.levelComplete) {
-        this.levelUp();
+      if (this.isLevelComplete()) {
+        this.levelComplete();
       }
     }
   }

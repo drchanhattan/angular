@@ -50,7 +50,7 @@ export class GameCursor {
     return {
       type: GameObjectType.Cursor,
       color: '#F5F5F5',
-      size: scaledSize(6),
+      size: scaledSize(7),
       speed: 0,
       shape: GameObjectShape.Circle,
     };
@@ -67,10 +67,6 @@ export class GameCursor {
   toggle() {
     const canvasClass = this.canvasService.canvasEle.nativeElement.classList;
     canvasClass.toggle('cursor-none');
-  }
-
-  increaseDifficulty() {
-    this.object.size = Math.max(this.object.size * 0.9, 10);
   }
 
   reset() {
