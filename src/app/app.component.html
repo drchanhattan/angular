@@ -1,2 +1,16 @@
-<app-toolbar *ngIf="currentRoute !== '/game'" class="absolute left-0 top-0 w-full"></app-toolbar>
-<router-outlet></router-outlet>
+<mat-drawer-container>
+  <mat-drawer #drawer mode="over">
+    <ng-container [ngTemplateOutlet]="burger"></ng-container>
+    <app-nav *ngIf="currentRoute !== '/game'" (navigated)="drawer.toggle()"></app-nav>
+  </mat-drawer>
+
+  <ng-container *ngIf="!drawer.opened" [ngTemplateOutlet]="burger"></ng-container>
+
+  <router-outlet></router-outlet>
+</mat-drawer-container>
+
+<ng-template #burger>
+  <button mat-icon-button (click)="drawer.toggle()" class="absolute">
+    <mat-icon>menu</mat-icon>
+  </button>
+</ng-template>
