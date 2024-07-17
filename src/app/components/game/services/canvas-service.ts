@@ -1,16 +1,30 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { ThemeSelectorService } from '../../theme-selector/theme-selector-service';
+import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
   particles: GameObject[] = [];
 
+  backgroundColor$ = this.themeService.currentTheme$.pipe(
+    map((theme) => (theme === 'dark-theme' ? GameColors.Black : GameColors.Gray)),
+  );
+  textColor$ = this.themeService.currentTheme$.pipe(
+    map((theme) => (theme === 'dark-theme' ? `text-[${GameColors.White}]` : `text-[${GameColors.Black}]`)),
+  );
+
   // Setup
   // ==============================
+  constructor(private themeService: ThemeSelectorService) {}
 
   setup(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
@@ -64,7 +78,9 @@ export class CanvasService {
   particleDecay(): void {
     const currentTime = new Date().getTime();
     this.particles = this.particles.filter((p) => {
-      return currentTime - p.timestamp.getTime() <= 2000;
+      const isOnScreen =
+        p.x >= 0 && p.x <= this.canvasEle.nativeElement.width && p.y >= 0 && p.y <= this.canvasEle.nativeElement.height;
+      return isOnScreen && currentTime - p.timestamp.getTime() <= 2000;
     });
   }
 
@@ -73,11 +89,13 @@ export class CanvasService {
 
   flash(duration: number, color: string, animationClass?: string) {
     const canvasClass = this.canvasEle.nativeElement.classList;
-    canvasClass.toggle(color);
+    const canvasStyles = this.canvasEle.nativeElement.style;
+    canvasStyles.backgroundColor = color;
+
     if (animationClass) canvasClass.toggle(animationClass);
 
     setTimeout(() => {
-      canvasClass.toggle(color);
+      canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
       if (animationClass) canvasClass.toggle(animationClass);
     }, duration);
   }

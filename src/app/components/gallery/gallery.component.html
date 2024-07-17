@@ -1,1 +1,10 @@
-<img [src]="hero" class="size-full object-cover" />
+<img [src]="hero" class="h-[100vh] w-[100vw] object-cover" />
+
+@for (group of photos; track group) {
+  <div data-aos="fade-up" class="my-8 text-6xl font-bold">{{ group.header }}</div>
+  <div class="w-[75vw] columns-3 gap-16">
+    @for (url of group.urls; track url) {
+      <img data-src="{{ url }}" data-aos="fade-up" class="lozad mb-8 rounded-lg" />
+    }
+  </div>
+}

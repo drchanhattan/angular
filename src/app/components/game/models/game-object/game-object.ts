@@ -65,7 +65,13 @@ export class GameObject {
     this[axis] += force;
   }
 
-  magnetise(object: GameObject, radiusMultiplier: number, speed: number, repel: boolean): void {
+  magnetise(
+    object: GameObject,
+    radiusMultiplier: number,
+    speed: number,
+    repel: boolean,
+    collisionEnabled = true,
+  ): void {
     const obj = Object.assign({}, this);
     obj.size = obj.size * radiusMultiplier;
 
@@ -78,11 +84,11 @@ export class GameObject {
       dx *= speed;
       dy *= speed;
 
-      if (!object.detectWallCollisionOnAxis('x', window.innerWidth)) {
+      if (!object.detectWallCollisionOnAxis('x', window.innerWidth) || !collisionEnabled) {
         repel ? object.applyForce('x', -dx) : object.applyForce('x', dx);
       }
 
-      if (!object.detectWallCollisionOnAxis('y', window.innerHeight)) {
+      if (!object.detectWallCollisionOnAxis('y', window.innerHeight) || !collisionEnabled) {
         repel ? object.applyForce('y', -dy) : object.applyForce('y', dy);
       }
     }

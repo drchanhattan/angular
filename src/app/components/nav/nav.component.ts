@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
+  @HostBinding('class') hostClasses = 'justify-left flex flex-col items-start';
   @Output() navigated = new EventEmitter();
 
   links = [
@@ -21,4 +22,14 @@ export class NavComponent {
     { url: '/south-america', label: 'South America' },
     { url: '/game', label: 'Game' },
   ];
+
+  constructor(private router: Router) {}
+
+  navigate(path: string) {
+    this.navigated.emit();
+
+    this.router.navigate([path]).then(() => {
+      window.location.reload();
+    });
+  }
 }

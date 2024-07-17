@@ -2,13 +2,13 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
+    "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
     ".1": "ng build --configuration production --output-path docs --base-href .",
     ".2": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
     ".3": "copy docs\\index.html docs\\404.html",
     ".4": "echo christopherchan.co.uk > docs\\CNAME && git add .",
     ".5": "git commit -m \"commit\" && git push -u origin master",
-    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4 && npm run .5",
-    "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\""
+    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4 && npm run .5"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "aos": "^2.3.4",
+    "lozad": "^1.16.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "typescript": "^5.4.5",
@@ -31,7 +33,9 @@
     "@angular-devkit/build-angular": "^18.0.7",
     "@angular/cli": "^18.0.7",
     "@angular/compiler-cli": "^18.0.0",
+    "@types/aos": "^3.0.7",
     "@types/jasmine": "~5.1.0",
+    "@types/lozad": "^1.16.4",
     "autoprefixer": "^10.4.19",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

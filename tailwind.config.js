@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'fast-pulse': 'pulse 1s infinite',
         corn: 'corn 5s infinite',
         jiggle: 'jiggle 0.5s infinite',
       },

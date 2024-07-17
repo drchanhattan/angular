@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Input } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input } from '@angular/core';
+
+import lozad from 'lozad';
 
 @Component({
   selector: 'app-gallery',
@@ -7,7 +9,17 @@ import { Component, HostBinding, Input } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './gallery.component.html',
 })
-export class GalleryComponent {
-  @HostBinding('class') hostClasses = 'flex !size-full';
-  @Input() hero: string | undefined;
+export class GalleryComponent implements AfterViewInit {
+  @HostBinding('class') hostClasses = 'flex flex-col !size-full items-center justify-center';
+  @Input() hero?: string;
+  @Input() photos?: { header: string; urls: string[] }[];
+
+  ngAfterViewInit() {
+    this.lozad();
+  }
+
+  private lozad() {
+    const observer = lozad();
+    observer.observe();
+  }
 }

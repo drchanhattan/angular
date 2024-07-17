@@ -8,5 +8,5 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   imports: [GalleryComponent],
 })
 export class HomeComponent {
-  @HostBinding('class') hostClasses = '';
+  @HostBinding('class') hostClasses = '!size-full';
 }

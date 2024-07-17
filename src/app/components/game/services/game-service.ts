@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ThemeSelectorService } from '../../theme-selector/theme-selector-service';
 import { scaledCount, scaledSize, scaledSpeed } from '../models/device-scale/device-scale';
-import { GameCursor } from '../models/game-object/game-cursor';
+import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
@@ -8,6 +9,7 @@ import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
+import { CursorService } from './cursor.service';
 import { TextService } from './text-service';
 
 @Injectable({
@@ -26,8 +28,9 @@ export class GameService {
   hearts: GameObjectGroup;
 
   constructor(
+    public themeService: ThemeSelectorService,
     private canvasService: CanvasService,
-    private cursor: GameCursor,
+    private cursor: CursorService,
     private textService: TextService,
   ) {
     this.peas = new GameObjectGroup(this.defaultPeaSettings.count, this.defaultPeaSettings.settings);
@@ -59,7 +62,7 @@ export class GameService {
     this.corn.createObjects();
     this.hearts.createObjects();
     this.paused = false;
-    this.activateImmunity(5, 1000);
+    this.activateImmunity(2, 1500);
   }
 
   // Level and Game State Management
@@ -71,13 +74,12 @@ export class GameService {
     this.level++;
     this.paused = true;
 
-    this.textService.show(`Level ${this.level}`, this.hearts.objects[0].destroyed ? '+ 1' : '', 2000);
-    this.canvasService.flash(200, 'bg-stone-400');
+    this.textService.show(`Level ${this.level}`, this.hearts.objects[0].destroyed ? '+ 1' : '', 3500);
 
     setTimeout(() => {
       this.levelUp();
       this.play();
-    }, 3500);
+    }, 4000);
   }
 
   private levelUp() {
@@ -165,7 +167,7 @@ export class GameService {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Pea, '#54DF0E', size, GameObjectShape.Circle, speed),
+      settings: new GameObjectSettings(GameObjectType.Pea, GameColors.Green, size, GameObjectShape.Circle, speed),
     };
   }
 
@@ -176,7 +178,7 @@ export class GameService {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, '#FFC107', size, GameObjectShape.Square, speed),
+      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed),
     };
   }
 
@@ -198,7 +200,7 @@ export class GameService {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Heart, '#BA1A1A', size, GameObjectShape.Circle, speed),
+      settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed),
     };
   }
 
@@ -221,7 +223,8 @@ export class GameService {
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
     if (this.paused) {
-      obj.applyForce('y', 8);
+      this.cursor.object.magnetise(obj, 500, 8, true, false);
+      this.canvasService.createParticles(obj, 1);
     } else {
       if (attract) {
         this.cursor.object.magnetise(obj, 20, 4, false);
@@ -283,8 +286,8 @@ export class GameService {
 
       if (!this.cursor.invincible) {
         this.lives--;
-        this.canvasService.flash(500, 'bg-red-900', 'animate-jiggle');
-        this.activateImmunity(2, 500);
+        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
+        this.activateImmunity(0, 500);
       }
 
       if (this.lives === 0) {
@@ -298,7 +301,7 @@ export class GameService {
     if (collision) {
       powerUp.destroyed = true;
       this.canvasService.createParticles(powerUp, 100);
-      this.canvasService.flash(500, 'bg-blue-800', 'animate-pulse');
+      this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
       this.randomPowerUp();
     }
   }
@@ -395,7 +398,8 @@ export class GameService {
 
   private activateImmunity(blinks: number, duration: number) {
     this.ghost = true;
-    this.cursor.blink('#353535', blinks, duration / blinks / 2);
+    const blinkColor = this.themeService.isDark ? '#666666' : '#B7C9D9';
+    this.cursor.blink(blinkColor, blinks, duration / blinks / 2);
     setTimeout(() => (this.ghost = false), duration);
   }
 

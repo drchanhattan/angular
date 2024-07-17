@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { GameCursor } from './models/game-object/game-cursor';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
 import { TextService } from './services/text-service';
@@ -14,12 +13,11 @@ import { TextService } from './services/text-service';
   templateUrl: './game.component.html',
 })
 export class GameComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center bg-black text-nowrap';
+  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center text-nowrap';
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(
     public canvasService: CanvasService,
-    public cursor: GameCursor,
     public gameService: GameService,
     public textService: TextService,
   ) {}
@@ -35,12 +33,16 @@ export class GameComponent implements AfterViewInit {
   }
 
   animate() {
+    const context = this.canvasService.context;
+    const canvas = this.canvasService.canvasEle.nativeElement;
+
     const animateFrame = () => {
-      this.canvasService.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      context.clearRect(0, 0, canvas.width, canvas.height);
       this.draw();
       requestAnimationFrame(animateFrame);
     };
-    animateFrame();
+
+    requestAnimationFrame(animateFrame);
   }
 
   draw() {

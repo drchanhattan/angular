@@ -1,16 +1,21 @@
-<mat-drawer-container>
-  <mat-drawer #drawer mode="over">
-    <ng-container [ngTemplateOutlet]="burger"></ng-container>
-    <app-nav *ngIf="currentRoute !== '/game'" (navigated)="drawer.toggle()"></app-nav>
-  </mat-drawer>
+<app-theme-selector class="fixed right-0 top-0 z-50 m-6"></app-theme-selector>
 
-  <ng-container *ngIf="!drawer.opened" [ngTemplateOutlet]="burger"></ng-container>
+<button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()" class="fixed left-0 top-0 z-50 m-6">
+  <mat-icon color="primary">menu</mat-icon>
+</button>
 
-  <router-outlet></router-outlet>
-</mat-drawer-container>
+<mat-sidenav-container>
+  <mat-sidenav #drawer mode="over" [autoFocus]="false" [fixedInViewport]="true">
+    <div class="flex flex-col">
+      <button mat-icon-button class="m-6 flex flex-1 self-end" (click)="drawer.toggle()">
+        <mat-icon color="primary">close</mat-icon>
+      </button>
 
-<ng-template #burger>
-  <button mat-icon-button (click)="drawer.toggle()" class="absolute">
-    <mat-icon>menu</mat-icon>
-  </button>
-</ng-template>
+      <app-nav (navigated)="drawer.toggle()"></app-nav>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="!overflow-hidden">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

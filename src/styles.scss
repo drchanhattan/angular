@@ -7,15 +7,29 @@
 @tailwind components;
 @tailwind utilities;
 
+$light-theme: m3-theme.$light-theme;
+$dark-theme: m3-theme.$dark-theme;
+
+@include mat.color-variants-backwards-compatibility($light-theme);
+@include mat.color-variants-backwards-compatibility($dark-theme);
+
 html,
 body {
   height: 100%;
 }
 
 html {
-  @include mat.core-theme(m3-theme.$dark-theme);
-  @include mat.button-theme(m3-theme.$dark-theme);
-  @include mat.all-component-themes(m3-theme.$dark-theme);
+  &.light-theme {
+    @include mat.core-color($light-theme);
+    @include mat.button-color($light-theme);
+    @include mat.all-component-colors($light-theme);
+  }
+
+  &.dark-theme {
+    @include mat.core-color($dark-theme);
+    @include mat.button-color($dark-theme);
+    @include mat.all-component-colors($dark-theme);
+  }
 }
 
 body {

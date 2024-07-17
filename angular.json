@@ -30,22 +30,39 @@
               },
               {
                 "glob": "**/*",
-                "input": "public/heroes"
-              },
-              {
-                "glob": "**/*",
                 "input": "public/icons"
               },
               {
                 "glob": "**/*",
-                "input": "public/photos"
+                "input": "public/photos/asia"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/photos/europe"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/photos/heroes"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/photos/north-america"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/photos/oceania"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/photos/south-america"
               }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/aos/dist/aos.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/aos/dist/aos.js"]
           },
           "configurations": {
             "production": {
@@ -98,10 +115,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.scss"
-            ],
+            "styles": ["@angular/material/prebuilt-themes/azure-blue.css", "src/styles.scss"],
             "scripts": []
           }
         }

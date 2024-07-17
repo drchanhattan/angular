@@ -1,5 +1,3 @@
-<div *ngFor="let link of links" class="flex flex-col items-center justify-center">
-  <button (click)="navigated.emit()" [routerLink]="link.url" class="my-10 text-white">
-    {{ link.label }}
-  </button>
-</div>
+<button *ngFor="let link of links" (click)="navigate(link.url)" class="mb-16 ml-20">
+  {{ link.label }}
+</button>
