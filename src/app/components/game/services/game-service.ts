@@ -286,7 +286,7 @@ export class GameService {
 
       if (!this.cursor.invincible) {
         this.lives--;
-        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
+        this.canvasService.flash(500, '#7F1D1D');
         this.activateImmunity(0, 500);
       }
 
