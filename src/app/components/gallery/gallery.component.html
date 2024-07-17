@@ -2,7 +2,7 @@
 
 @for (group of photos; track group) {
   <div data-aos="fade-up" class="my-8 text-6xl font-bold">{{ group.header }}</div>
-  <div class="w-[75vw] columns-3 gap-16">
+  <div class="w-[75vw] columns-1 gap-16 lg:columns-3">
     @for (url of group.urls; track url) {
       <img data-src="{{ url }}" data-aos="fade-up" class="lozad mb-8 rounded-lg" />
     }
