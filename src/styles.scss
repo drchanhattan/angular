@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'InkFree';
-  src: url('../public/ink-free.ttf') format('ttf');
+  src: url('/ink-free.ttf') format('ttf');
 }
 
 $light-theme: m3-theme.$light-theme;
