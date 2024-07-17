@@ -92,11 +92,11 @@ export class CanvasService {
     const canvasStyles = this.canvasEle.nativeElement.style;
     canvasStyles.backgroundColor = color;
 
-    if (animationClass) canvasClass.toggle(animationClass);
+    // if (animationClass) canvasClass.toggle(animationClass);
 
     setTimeout(() => {
       canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
-      if (animationClass) canvasClass.toggle(animationClass);
+      // if (animationClass) canvasClass.toggle(animationClass);
     }, duration);
   }
 

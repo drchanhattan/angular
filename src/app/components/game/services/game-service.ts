@@ -62,7 +62,7 @@ export class GameService {
     this.corn.createObjects();
     this.hearts.createObjects();
     this.paused = false;
-    this.activateImmunity(2, 1500);
+    this.activateImmunity(1000);
   }
 
   // Level and Game State Management
@@ -287,7 +287,7 @@ export class GameService {
       if (!this.cursor.invincible) {
         this.lives--;
         this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
-        this.activateImmunity(0, 500);
+        this.activateImmunity(500);
       }
 
       if (this.lives === 0) {
@@ -396,10 +396,8 @@ export class GameService {
   // Immunity and Menu Management
   // ==============================
 
-  private activateImmunity(blinks: number, duration: number) {
+  private activateImmunity(duration: number) {
     this.ghost = true;
-    const blinkColor = this.themeService.isDark ? '#666666' : '#B7C9D9';
-    this.cursor.blink(blinkColor, blinks, duration / blinks / 2);
     setTimeout(() => (this.ghost = false), duration);
   }
 
