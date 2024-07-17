@@ -95,7 +95,7 @@ export class CanvasService {
     if (animationClass) canvasClass.toggle(animationClass);
 
     setTimeout(() => {
-      // canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
+      canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
       if (animationClass) canvasClass.toggle(animationClass);
     }, duration);
   }
