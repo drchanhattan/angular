@@ -27,11 +27,11 @@
   class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-in-out"
   [ngStyle]="{ color: yellow }">
   <div class="flex flex-1">
-    <img src="corn.svg" class="hover:animate-jiggle1 m-auto max-h-[75vh]" />
+    <img src="corn.svg" class="m-auto max-h-[75vh] hover:animate-jiggle1" />
   </div>
 
   <div class="mb-20 flex items-center justify-end">
-    <button (click)="gameService.newGame()" [class]="'font-ink mr-20 text-5xl hover:text-[#F5F5F5]'">
+    <button (click)="gameService.newGame()" [class]="'mr-20 font-ink text-5xl hover:text-[#F5F5F5]'">
       <span>Play</span>
     </button>
 
