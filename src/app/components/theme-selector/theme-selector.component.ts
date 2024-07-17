@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ThemeSelectorService } from './theme-selector-service';
@@ -10,8 +10,6 @@ import { ThemeSelectorService } from './theme-selector-service';
   templateUrl: './theme-selector.component.html',
 })
 export class ThemeSelectorComponent {
-  @HostBinding('class') hostClasses = '';
-
   constructor(public service: ThemeSelectorService) {}
 
   setTheme(theme: 'light-theme' | 'dark-theme') {

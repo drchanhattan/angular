@@ -1,11 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { ThemeSelectorService } from '../../theme-selector/theme-selector-service';
-import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
-import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
-import { GameObjectType } from '../models/game-object/game-object-type';
 
 @Injectable({
   providedIn: 'root',
@@ -13,18 +8,9 @@ import { GameObjectType } from '../models/game-object/game-object-type';
 export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
-  particles: GameObject[] = [];
-
-  backgroundColor$ = this.themeService.currentTheme$.pipe(
-    map((theme) => (theme === 'dark-theme' ? GameColors.Black : GameColors.Gray)),
-  );
-  textColor$ = this.themeService.currentTheme$.pipe(
-    map((theme) => (theme === 'dark-theme' ? `text-[${GameColors.White}]` : `text-[${GameColors.Black}]`)),
-  );
 
   // Setup
   // ==============================
-  constructor(private themeService: ThemeSelectorService) {}
 
   setup(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
@@ -52,38 +38,6 @@ export class CanvasService {
     context.fill();
   }
 
-  drawParticles(context: CanvasRenderingContext2D): void {
-    this.particles.forEach((p) => {
-      context.globalAlpha = 0.8;
-      this.drawObject(context, p, 0.25);
-      p.move();
-      context.globalAlpha = 1;
-    });
-  }
-
-  // Particle Management
-  // ==============================
-
-  createParticles(object: GameObject, count = 25): void {
-    const currentTime = new Date();
-    for (let i = 0; i < count; i++) {
-      const size = object.size * (Math.random() * (1 - 0.6) + 0.6);
-      const settings = new GameObjectSettings(GameObjectType.Particle, object.color, size, object.shape, 1);
-      const particle = new GameObject(object.x, object.y, settings);
-      particle.timestamp = new Date(currentTime.getTime() + i * 50);
-      this.particles.push(particle);
-    }
-  }
-
-  particleDecay(): void {
-    const currentTime = new Date().getTime();
-    this.particles = this.particles.filter((p) => {
-      const isOnScreen =
-        p.x >= 0 && p.x <= this.canvasEle.nativeElement.width && p.y >= 0 && p.y <= this.canvasEle.nativeElement.height;
-      return isOnScreen && currentTime - p.timestamp.getTime() <= 2000;
-    });
-  }
-
   // Flashing Effects
   // ==============================
 
@@ -98,7 +52,7 @@ export class CanvasService {
     }
 
     setTimeout(() => {
-      canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
+      canvasStyles.backgroundColor = '';
       if (!isTouchDevice && animationClass) {
         canvasClass.toggle(animationClass);
       }

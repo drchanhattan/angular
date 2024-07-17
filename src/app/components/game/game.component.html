@@ -1,12 +1,9 @@
 <!-- Canvas -->
-<canvas
-  #canvas
-  class="flex size-full transition-all duration-500 ease-in-out"
-  [ngStyle]="{ 'background-color': (canvasService.backgroundColor$ | async) }"></canvas>
+<canvas #canvas class="flex size-full transition-all duration-500 ease-in-out"></canvas>
 
 <!-- Lives -->
 <div *ngIf="gameService.lives > 0" class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4 transform">
-  <div class="flex items-center" [ngClass]="canvasService.textColor$ | async">
+  <div class="flex items-center" [ngStyle]="{ color: white }">
     <span class="mr-1 text-3xl md:text-5xl">{{ gameService.lives }}</span>
     <mat-icon class="!size-full text-3xl text-[#BA1A1A] md:text-5xl">favorite</mat-icon>
   </div>
@@ -15,7 +12,7 @@
 <!-- Text -->
 <div
   class="text pointer-events-none absolute flex flex-col items-center justify-center opacity-0 transition-opacity duration-1000 ease-in-out"
-  [ngClass]="canvasService.textColor$ | async">
+  [ngStyle]="{ color: white }">
   <strong class="mb-4 text-5xl md:text-9xl">{{ textService.text }}</strong>
   <div class="flex items-center justify-center">
     <span class="mr-1 text-3xl md:text-5xl">{{ textService.subText }}</span>
@@ -28,19 +25,19 @@
 <!-- Menu -->
 <div
   class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-in-out"
-  [ngClass]="canvasService.textColor$ | async">
-  <mat-icon class="my-24 !size-40 animate-corn lg:!size-64" svgIcon="corn"></mat-icon>
+  [ngStyle]="{ color: yellow }">
+  <img src="corn.svg" class="h-[75vh] hover:animate-jiggle1" />
 
-  <div class="flex flex-col items-center">
-    <button (click)="gameService.newGame()" class="mb-4 text-3xl hover:text-[#FFC107]">
+  <div class="flex items-center">
+    <button (click)="gameService.newGame()" [class]="'mr-20 font-ink text-5xl hover:text-[#F5F5F5]'">
       <span>Play</span>
     </button>
 
-    <button class="mb-4 text-3xl hover:text-[#FFC107]">
+    <button class="font-ink text-5xl hover:text-[#F5F5F5]">
       <span routerLink="" [state]="{ reload: true }">Exit</span>
     </button>
   </div>
 </div>
 
 <!-- Background Mask -->
-<div class="absolute -z-10 size-full bg-black"></div>
+<div class="custom-background absolute -z-10 size-full" [ngStyle]="{ 'background-color': black }"></div>

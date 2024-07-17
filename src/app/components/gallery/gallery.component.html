@@ -1,10 +1,15 @@
-<img [src]="hero" class="h-[100vh] w-[100vw] object-cover" />
+<img data-src="{{ hero }}" data-aos="zoom-out" data-aos-duration="2000" class="mb-8 h-[100vh] w-[100vw] object-cover" />
 
 @for (group of photos; track group) {
-  <div data-aos="fade-up" class="my-8 text-6xl font-bold">{{ group.header }}</div>
+  <div
+    data-aos="fade-up"
+    data-aos-duration="8000"
+    class="mb-16 mt-8 flex h-36 w-full items-center justify-center text-6xl font-bold">
+    {{ group.header }}
+  </div>
   <div class="w-[75vw] columns-1 gap-16 lg:columns-3">
     @for (url of group.urls; track url) {
-      <img data-src="{{ url }}" data-aos="fade-up" class="lozad mb-8 rounded-lg" />
+      <img data-src="{{ url }}" data-aos="fade-up" data-aos-duration="8000" class="lozad mb-16 rounded-lg" />
     }
   </div>
 }

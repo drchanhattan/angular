@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ThemeSelectorService } from '../../theme-selector/theme-selector-service';
-import { scaledCount, scaledSize, scaledSpeed } from '../models/device-scale/device-scale';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
+import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
@@ -10,6 +9,7 @@ import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
+import { ParticleService } from './particle-service';
 import { TextService } from './text-service';
 
 @Injectable({
@@ -28,15 +28,15 @@ export class GameService {
   hearts: GameObjectGroup;
 
   constructor(
-    public themeService: ThemeSelectorService,
     private canvasService: CanvasService,
     private cursor: CursorService,
     private textService: TextService,
+    private particleService: ParticleService,
   ) {
-    this.peas = new GameObjectGroup(this.defaultPeaSettings.count, this.defaultPeaSettings.settings);
-    this.corn = new GameObjectGroup(this.defaultCornSettings.count, this.defaultCornSettings.settings);
-    this.powerUps = new GameObjectGroup(this.defaultPowerUpSettings.count, this.defaultPowerUpSettings.settings);
-    this.hearts = new GameObjectGroup(this.defaultHeartSettings.count, this.defaultHeartSettings.settings);
+    this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
+    this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
+    this.powerUps = new GameObjectGroup(GameObjectDefaults.powerUp().count, GameObjectDefaults.powerUp().settings);
+    this.hearts = new GameObjectGroup(GameObjectDefaults.heart().count, GameObjectDefaults.heart().settings);
   }
 
   // Game Initialization
@@ -45,16 +45,18 @@ export class GameService {
   newGame() {
     this.level = 1;
     this.lives = 3;
-
-    this.resetGroupSettings(this.peas, this.defaultPeaSettings);
-    this.resetGroupSettings(this.corn, this.defaultCornSettings);
-    this.resetGroupSettings(this.powerUps, this.defaultPowerUpSettings);
-    this.resetGroupSettings(this.hearts, this.defaultHeartSettings);
-
+    this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
+    this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
+    this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
+    this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
     this.toggleMenu();
     this.cursor.reset();
     this.cursor.toggle();
-    this.play();
+    this.textService.show(`Level ${this.level}`, '', 2500);
+
+    setTimeout(() => {
+      this.play();
+    }, 3000);
   }
 
   private play() {
@@ -62,6 +64,7 @@ export class GameService {
     this.corn.createObjects();
     this.hearts.createObjects();
     this.paused = false;
+    this.cursor.blink(GameColors.Gray, 4, 125);
     this.activateImmunity(1000);
   }
 
@@ -97,44 +100,44 @@ export class GameService {
   }
 
   private levelUpPeas() {
-    const defaultSettings = this.defaultPeaSettings.settings;
+    const defaultSettings = GameObjectDefaults.pea().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.005, this.level);
-    const count = this.defaultPeaSettings.count;
+    const count = GameObjectDefaults.pea().count;
     this.peas.editSettings(size, speed, count);
   }
 
   private levelUpCorn() {
-    const defaultSettings = this.defaultCornSettings.settings;
+    const defaultSettings = GameObjectDefaults.corn().settings;
     const minSize = 20;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.002, this.level);
-    const count = Math.min(this.defaultCornSettings.count * Math.pow(1.05, this.level));
+    const count = Math.min(GameObjectDefaults.corn().count * Math.pow(1.05, this.level));
     this.corn.editSettings(size, speed, count);
   }
 
   private levelUpPowerUps() {
-    const defaultSettings = this.defaultPowerUpSettings.settings;
+    const defaultSettings = GameObjectDefaults.powerUp().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed;
-    const count = this.defaultPowerUpSettings.count;
+    const count = GameObjectDefaults.powerUp().count;
     this.powerUps.editSettings(size, speed, count);
   }
 
   private levelUpHearts() {
-    const defaultSettings = this.defaultHeartSettings.settings;
+    const defaultSettings = GameObjectDefaults.heart().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed;
-    const count = this.defaultHeartSettings.count;
+    const count = GameObjectDefaults.heart().count;
     this.hearts.editSettings(size, speed, count);
   }
 
   private levelUpCursor() {
     const minSize = 10;
-    this.cursor.object.size = Math.max(this.cursor.defaultCursor.size * Math.pow(0.98, this.level), minSize);
+    this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
   }
 
   private isLevelComplete() {
@@ -153,55 +156,8 @@ export class GameService {
     }, 4000);
   }
 
-  // Object Group Settings
-  // ==============================
-
-  private resetGroupSettings(group: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
-    group.editSettings(settings.settings.size, settings.settings.speed, settings.count);
-  }
-
-  get defaultPeaSettings() {
-    const size = scaledSize(7);
-    const count = scaledCount(size, 2.5);
-    const speed = scaledSpeed(size, 0.1);
-
-    return {
-      count: count,
-      settings: new GameObjectSettings(GameObjectType.Pea, GameColors.Green, size, GameObjectShape.Circle, speed),
-    };
-  }
-
-  get defaultCornSettings() {
-    const size = scaledSize(12);
-    const count = scaledCount(size, 3);
-    const speed = scaledSpeed(size, 0.1);
-
-    return {
-      count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed),
-    };
-  }
-
-  get defaultPowerUpSettings() {
-    const size = scaledSize(7);
-    const count = scaledCount(size, 0.5);
-    const speed = size;
-
-    return {
-      count: count,
-      settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed),
-    };
-  }
-
-  get defaultHeartSettings() {
-    const size = scaledSize(7);
-    const count = scaledCount(size, 0.5);
-    const speed = scaledSpeed(size, 0.1);
-
-    return {
-      count: count,
-      settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed),
-    };
+  resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
+    objectGroup.editSettings(settings.settings.size, settings.settings.speed, settings.count);
   }
 
   // Object Handling
@@ -224,10 +180,10 @@ export class GameService {
 
     if (this.paused) {
       this.cursor.object.magnetise(obj, 500, 8, true, false);
-      this.canvasService.createParticles(obj, 1);
+      this.particleService.create(obj, 1);
     } else {
       if (attract) {
-        this.cursor.object.magnetise(obj, 20, 4, false);
+        this.cursor.object.magnetise(obj, 25, 4, false);
       }
       if (repel) {
         this.cursor.object.magnetise(obj, 20, 5, true);
@@ -274,7 +230,7 @@ export class GameService {
     const collision = pea.detectCollision(this.cursor.object);
     if (collision) {
       pea.destroyed = true;
-      this.canvasService.createParticles(pea, 20);
+      this.particleService.create(pea, 20);
     }
   }
 
@@ -282,11 +238,11 @@ export class GameService {
     const collision = corn.detectCollision(this.cursor.object);
     if (collision) {
       corn.destroyed = true;
-      this.canvasService.createParticles(corn);
+      this.particleService.create(corn);
 
       if (!this.cursor.invincible) {
         this.lives--;
-        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
+        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle2');
         this.activateImmunity(500);
       }
 
@@ -300,7 +256,7 @@ export class GameService {
     const collision = powerUp.detectCollision(this.cursor.object);
     if (collision) {
       powerUp.destroyed = true;
-      this.canvasService.createParticles(powerUp, 100);
+      this.particleService.create(powerUp, 100);
       this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
       this.randomPowerUp();
     }
@@ -310,7 +266,7 @@ export class GameService {
     const collision = heart.detectCollision(this.cursor.object);
     if (collision) {
       heart.destroyed = true;
-      this.canvasService.createParticles(heart, 8);
+      this.particleService.create(heart, 8);
       this.lives++;
       this.cursor.blink(heart.color, 2, 100);
     }

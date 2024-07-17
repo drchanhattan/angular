@@ -1,3 +1,5 @@
-<button *ngFor="let link of links" (click)="navigate(link.url)" class="mb-16 ml-20">
-  {{ link.label }}
-</button>
+<ng-container *ngFor="let link of links">
+  <button (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
+    <span [ngClass]="{ 'text-primary': currentRoute === link.url }">{{ link.label }}</span>
+  </button>
+</ng-container>

@@ -1,17 +1,17 @@
-<app-theme-selector *ngIf="!drawer.opened" class="fixed right-0 top-0 z-10 m-6"></app-theme-selector>
-
 <button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()" class="fixed left-0 top-0 z-20 m-6">
   <mat-icon color="primary">menu</mat-icon>
 </button>
 
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" [autoFocus]="false" [fixedInViewport]="true">
-    <div class="flex flex-col">
-      <button mat-icon-button class="m-6 flex flex-1 self-end" (click)="drawer.toggle()">
+    <div class="flex h-full flex-col">
+      <button mat-icon-button class="m-6 flex self-end" (click)="drawer.toggle()">
         <mat-icon color="primary">close</mat-icon>
       </button>
 
-      <app-nav (navigated)="drawer.toggle()"></app-nav>
+      <app-nav class="mt-6 flex-1" (navigated)="drawer.toggle()"></app-nav>
+
+      <app-theme-selector class="m-6 flex justify-end self-end"></app-theme-selector>
     </div>
   </mat-sidenav>
 

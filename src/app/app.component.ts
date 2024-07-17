@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameComponent } from './components/game/game.component';
 import { CanvasService } from './components/game/services/canvas-service';
@@ -29,18 +29,13 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
   ],
   providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';
 
-  currentRoute: string;
-  svgIcons = ['corn'];
-
   constructor(
-    private router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
   ) {
-    this.currentRoute = this.router.url;
     this.registerIcons();
     this.animateOnScroll();
   }
@@ -50,17 +45,10 @@ export class AppComponent implements OnInit {
     location.reload();
   }
 
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-        window.scrollTo(0, 0);
-      }
-    });
-  }
-
   private registerIcons() {
-    this.svgIcons.forEach((icon) => {
+    const svgIcons = ['corn'];
+
+    svgIcons.forEach((icon) => {
       this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
     });
   }
@@ -68,7 +56,7 @@ export class AppComponent implements OnInit {
   private animateOnScroll() {
     document.onreadystatechange = () => {
       if (document.readyState === 'complete') {
-        AOS.init({ duration: 2000 });
+        AOS.init();
       }
     };
   }

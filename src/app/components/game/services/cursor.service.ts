@@ -1,46 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ThemeSelectorService } from '../../theme-selector/theme-selector-service';
-import { scaledSize } from '../models/device-scale/device-scale';
-import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
+import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
-import { GameObjectShape } from '../models/game-object/game-object-shape';
-import { GameObjectType } from '../models/game-object/game-object-type';
 import { CanvasService } from './canvas-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CursorService {
-  object = new GameObject(0, 0, this.defaultCursor);
+  object = new GameObject(0, 0, GameObjectDefaults.cursor());
   invincible: boolean = false;
   private history: { x: number; y: number }[] = [];
   private lastTouch: { x: number; y: number } | null = null;
-  private currentTheme!: 'light-theme' | 'dark-theme';
 
-  constructor(
-    private themeService: ThemeSelectorService,
-    private canvasService: CanvasService,
-  ) {
+  constructor(private canvasService: CanvasService) {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     isTouchDevice ? this.handleTouch() : this.handleMouse();
 
     this.storeHistory();
-
-    this.themeService.currentTheme$.subscribe((theme) => {
-      this.currentTheme = theme;
-      this.object.color = theme === 'dark-theme' ? GameColors.White : GameColors.Black;
-    });
-  }
-
-  get defaultCursor(): GameObjectSettings {
-    return {
-      type: GameObjectType.Cursor,
-      color: this.currentTheme === 'dark-theme' ? GameColors.White : GameColors.Black,
-      size: scaledSize(7),
-      speed: 0,
-      shape: GameObjectShape.Circle,
-    };
   }
 
   private updatePosition(x: number, y: number) {
@@ -110,7 +87,7 @@ export class CursorService {
   }
 
   reset() {
-    this.object.size = this.defaultCursor.size;
+    this.object.size = GameObjectDefaults.cursor().size;
   }
 
   setInvincibility(enabled: boolean) {
@@ -127,7 +104,7 @@ export class CursorService {
 
     for (let i = 0; i < blinks; i++) {
       changeColor(color, interval * (2 * i));
-      changeColor(this.defaultCursor.color, interval * (2 * i + 1));
+      changeColor(GameObjectDefaults.cursor().color, interval * (2 * i + 1));
     }
   }
 

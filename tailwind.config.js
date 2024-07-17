@@ -4,42 +4,10 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        corn: 'corn 5s infinite',
-        jiggle: 'jiggle 0.5s infinite',
+        jiggle1: 'jiggle 0.5s',
+        jiggle2: 'jiggle 0.5s infinite',
       },
       keyframes: {
-        corn: {
-          '0%': {
-            transform: 'rotate(0deg) translateY(0)',
-          },
-          '20%': {
-            transform: 'rotate(0deg) translateY(-8px)',
-          },
-          '44%': {
-            transform: 'rotate(0deg) translateY(0)',
-          },
-          '46%': {
-            transform: 'rotate(2deg)',
-          },
-          '48%': {
-            transform: 'rotate(-2deg)',
-          },
-          '50%': {
-            transform: 'rotate(2deg)',
-          },
-          '52%': {
-            transform: 'rotate(-2deg)',
-          },
-          '54%': {
-            transform: 'rotate(0deg) translateY(0)',
-          },
-          '80%': {
-            transform: 'rotate(0deg) translateY(-8px)',
-          },
-          '100%': {
-            transform: 'rotate(0deg) translateY(0)',
-          },
-        },
         jiggle: {
           '0%': {
             transform: 'rotate(0deg)',
@@ -60,6 +28,12 @@ module.exports = {
             transform: 'rotate(0deg)',
           },
         },
+      },
+      colors: {
+        primary: '#FFC107',
+      },
+      fontFamily: {
+        ink: ['"InkFree"', 'cursive'],
       },
     },
   },

@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { GameColors } from './models/game-colors/game-colors';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
+import { ParticleService } from './services/particle-service';
 import { TextService } from './services/text-service';
 
 @Component({
@@ -16,10 +18,15 @@ export class GameComponent implements AfterViewInit {
   @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center text-nowrap';
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
+  yellow = GameColors.Yellow;
+  white = GameColors.White;
+  black = GameColors.Black;
+
   constructor(
     public canvasService: CanvasService,
     public gameService: GameService,
     public textService: TextService,
+    public particleService: ParticleService,
   ) {}
 
   ngAfterViewInit() {
@@ -47,7 +54,7 @@ export class GameComponent implements AfterViewInit {
 
   draw() {
     this.gameService.draw();
-    this.canvasService.drawParticles(this.canvasService.context);
-    this.canvasService.particleDecay();
+    this.particleService.draw(this.canvasService.context);
+    this.particleService.decay();
   }
 }

@@ -12,6 +12,24 @@ export class AsiaComponent {
 
   photos: { header: string; urls: string[] }[] = [
     {
+      header: 'Hong Kong',
+      urls: ['hong-kong-1.jpg', 'hong-kong-2.jpg', 'hong-kong-3.jpg'],
+    },
+    {
+      header: 'Thailand',
+      urls: [
+        'thailand-1.jpg',
+        'thailand-2.jpg',
+        'thailand-3.jpg',
+        'thailand-4.jpg',
+        'thailand-5.jpg',
+        'thailand-6.jpg',
+        'thailand-7.jpg',
+        'thailand-8.jpg',
+        'thailand-9.jpg',
+      ],
+    },
+    {
       header: 'Cambodia',
       urls: [
         'cambodia-1.jpg',
@@ -22,6 +40,16 @@ export class AsiaComponent {
         'cambodia-6.jpg',
         'cambodia-7.jpg',
         'cambodia-8.jpg',
+      ],
+    },
+    {
+      header: 'Malaysia and Singapore',
+      urls: [
+        'malaysia-singapore-1.jpg',
+        'malaysia-singapore-2.jpg',
+        'malaysia-singapore-3.jpg',
+        'malaysia-singapore-4.jpg',
+        'malaysia-singapore-5.jpg',
       ],
     },
     {
@@ -40,16 +68,6 @@ export class AsiaComponent {
         'laos-vietnam-11.jpg',
         'laos-vietnam-12.jpg',
         'laos-vietnam-13.jpg',
-      ],
-    },
-    {
-      header: 'Malaysia and Singapore',
-      urls: [
-        'malaysia-singapore-1.jpg',
-        'malaysia-singapore-2.jpg',
-        'malaysia-singapore-3.jpg',
-        'malaysia-singapore-4.jpg',
-        'malaysia-singapore-5.jpg',
       ],
     },
   ];
