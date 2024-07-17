@@ -88,15 +88,20 @@ export class CanvasService {
   // ==============================
 
   flash(duration: number, color: string, animationClass?: string) {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     const canvasClass = this.canvasEle.nativeElement.classList;
     const canvasStyles = this.canvasEle.nativeElement.style;
     canvasStyles.backgroundColor = color;
 
-    // if (animationClass) canvasClass.toggle(animationClass);
+    if (!isTouchDevice && animationClass) {
+      canvasClass.toggle(animationClass);
+    }
 
     setTimeout(() => {
       canvasStyles.backgroundColor = this.themeService.isDark ? GameColors.Black : GameColors.White;
-      // if (animationClass) canvasClass.toggle(animationClass);
+      if (!isTouchDevice && animationClass) {
+        canvasClass.toggle(animationClass);
+      }
     }, duration);
   }
 
