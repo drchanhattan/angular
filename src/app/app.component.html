@@ -1,6 +1,6 @@
-<app-theme-selector class="fixed right-0 top-0 z-50 m-6"></app-theme-selector>
+<app-theme-selector *ngIf="!drawer.opened" class="fixed right-0 top-0 z-10 m-6"></app-theme-selector>
 
-<button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()" class="fixed left-0 top-0 z-50 m-6">
+<button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()" class="fixed left-0 top-0 z-20 m-6">
   <mat-icon color="primary">menu</mat-icon>
 </button>
 
