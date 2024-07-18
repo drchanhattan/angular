@@ -52,6 +52,7 @@ export class GameService {
     this.toggleMenu();
     this.cursor.reset();
     this.cursor.toggle();
+    this.particleService.reset();
     this.textService.show(`Level ${this.level}`, '', 2500);
 
     setTimeout(() => {
@@ -156,7 +157,7 @@ export class GameService {
     }, 4000);
   }
 
-  resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
+  private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
     objectGroup.editSettings(settings.settings.size, settings.settings.speed, settings.count);
   }
 
@@ -242,7 +243,7 @@ export class GameService {
 
       if (!this.cursor.invincible) {
         this.lives--;
-        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle2');
+        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
         this.activateImmunity(500);
       }
 

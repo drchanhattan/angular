@@ -24,21 +24,23 @@
 
 <!-- Menu -->
 <div
-  class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-in-out"
+  class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-out"
   [ngStyle]="{ color: yellow }">
   <div class="flex flex-1">
-    <img src="corn.svg" class="m-auto max-h-[75vh] hover:animate-jiggle1" />
+    <img
+      src="corn.svg"
+      (mouseover)="particleService.logoMouseOver()"
+      (mouseleave)="particleService.logoMouseLeave()"
+      class="hover:animate-jiggle m-auto max-h-[75vh]" />
   </div>
 
   <div class="mb-10 flex w-full">
-    <button
-      (click)="gameService.newGame()"
-      [class]="'ml-10 flex flex-1 items-start font-ink text-5xl hover:text-[#F5F5F5]'">
-      <span>Play</span>
+    <button (click)="gameService.newGame()" [class]="'ml-10 flex flex-1 items-start font-ink text-5xl'">
+      <span class="hover:text-[#F5F5F5]">Play</span>
     </button>
 
-    <button class="mr-10 font-ink text-5xl hover:text-[#F5F5F5]">
-      <span routerLink="" [state]="{ reload: true }">Exit</span>
+    <button class="mr-10 font-ink text-5xl">
+      <span routerLink="" class="hover:text-[#F5F5F5]">Exit</span>
     </button>
   </div>
 </div>

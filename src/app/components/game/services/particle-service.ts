@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameObject } from '../models/game-object/game-object';
+import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectType } from '../models/game-object/game-object-type';
 import { CanvasService } from './canvas-service';
@@ -9,6 +10,7 @@ import { CanvasService } from './canvas-service';
 })
 export class ParticleService {
   particles: GameObject[] = [];
+  logoHovered: boolean = false;
 
   constructor(private canvasService: CanvasService) {}
 
@@ -43,5 +45,27 @@ export class ParticleService {
       const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
       return isOnScreen && currentTime - p.timestamp.getTime() <= 2000;
     });
+  }
+
+  reset() {
+    this.particles = [];
+    this.logoHovered = false;
+  }
+
+  logoMouseOver() {
+    this.logoHovered = true;
+
+    const centre = new GameObject(window.innerWidth / 2, window.innerHeight / 2, GameObjectDefaults.corn().settings);
+    const interval = setInterval(() => {
+      if (this.logoHovered) {
+        this.create(centre, 50);
+      } else {
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+
+  logoMouseLeave() {
+    this.logoHovered = false;
   }
 }
