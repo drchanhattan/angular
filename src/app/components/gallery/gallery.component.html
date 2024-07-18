@@ -8,7 +8,7 @@
       class="mb-16 mt-8 flex h-36 w-full items-center justify-center text-center text-6xl font-bold">
       {{ group.header }}
     </div>
-    <div class="w-[95vw] columns-1 gap-16 lg:columns-3">
+    <div class="m-auto w-[95vw] columns-1 gap-16 lg:columns-3">
       @for (url of group.urls; track url) {
         <img data-src="{{ url }}" data-aos="fade-up" data-aos-duration="8000" class="lozad mb-16 rounded-lg" />
       }
