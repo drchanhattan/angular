@@ -165,7 +165,9 @@ export class GameService {
   // ==============================
 
   private handleGameObject(obj: GameObject) {
-    if (!obj.destroyed) {
+    const isOnScreen = obj.x >= 0 && obj.x <= window.innerWidth && obj.y >= 0 && obj.y <= window.innerHeight;
+
+    if (!obj.destroyed && isOnScreen) {
       this.canvasService.drawObject(this.canvasService.context, obj);
       this.customObjectBehaviour(obj);
       this.handleCollisions(obj);
@@ -180,8 +182,10 @@ export class GameService {
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
     if (this.paused) {
-      this.cursor.object.magnetise(obj, 500, 8, true, false);
-      this.particleService.create(obj, 1);
+      const gravity = 0.05;
+      this.cursor.object.magnetise(obj, 500, 7, true, false);
+      this.particleService.create(obj, 1, 0.5);
+      obj.deltaY = obj.deltaY + gravity;
     } else {
       if (attract) {
         this.cursor.object.magnetise(obj, 25, 4, false);

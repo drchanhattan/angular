@@ -4,10 +4,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
+interface Link {
+  label: string;
+  url: string;
+}
+
+interface Links {
+  label: string;
+  url: string;
+  sublinks?: Link[];
+  expanded?: boolean;
+}
+
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatIconModule, ThemeSelectorComponent],
+  imports: [CommonModule, RouterLink, ThemeSelectorComponent, MatIconModule],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
@@ -16,14 +28,21 @@ export class NavComponent {
 
   currentRoute!: string;
 
-  links = [
-    { url: '', label: 'Home' },
-    { url: '/europe', label: 'Europe' },
-    { url: '/asia', label: 'Asia' },
-    { url: '/north-america', label: 'North America' },
-    { url: '/south-america', label: 'South America' },
-    { url: '/oceania', label: 'Oceania' },
-    { url: '/game', label: 'Avoid the Cob 2' },
+  links: Links[] = [
+    { label: 'Home', url: '/' },
+    {
+      label: 'Gallery',
+      url: '',
+      sublinks: [
+        { label: 'Europe', url: '/europe' },
+        { label: 'Asia', url: '/asia' },
+        { label: 'North America', url: '/north-america' },
+        { label: 'South America', url: '/south-america' },
+        { label: 'Oceania', url: '/oceania' },
+      ],
+      expanded: true,
+    },
+    { label: 'Games', url: '', sublinks: [{ label: 'Avoid the Cob 2', url: '/game' }], expanded: true },
   ];
 
   constructor(private router: Router) {
@@ -41,5 +60,9 @@ export class NavComponent {
     this.router.navigate([path]).then(() => {
       window.location.reload();
     });
+  }
+
+  hasActiveSublink(links: Link[]) {
+    return links.map((link) => link.url).includes(this.currentRoute);
   }
 }

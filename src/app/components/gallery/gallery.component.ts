@@ -9,7 +9,7 @@ import lozad from 'lozad';
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'mb-20 flex !size-full flex-col items-center justify-center';
+  @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center';
   @Input() hero?: string;
   @Input() photos?: { header: string; urls: string[] }[];
 

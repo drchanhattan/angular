@@ -15,21 +15,23 @@ export class ParticleService {
   constructor(private canvasService: CanvasService) {}
 
   draw(context: CanvasRenderingContext2D): void {
+    const gravity = 0.0025;
     this.particles.forEach((p) => {
       context.globalAlpha = 0.8;
       this.canvasService.drawObject(context, p, 0.25);
+      p.deltaY = p.deltaY + gravity;
       p.move();
       context.globalAlpha = 1;
     });
   }
   // ==============================
 
-  create(object: GameObject, count = 25): void {
+  create(object: GameObject, count = 25, speed = 1): void {
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
       if (this.particles.length < 1500) {
         const size = object.size * (Math.random() * (1 - 0.6) + 0.6);
-        const settings = new GameObjectSettings(GameObjectType.Particle, object.color, size, object.shape, 1);
+        const settings = new GameObjectSettings(GameObjectType.Particle, object.color, size, object.shape, speed);
         const particle = new GameObject(object.x, object.y, settings);
         particle.timestamp = new Date(currentTime.getTime() + i * 50);
         this.particles.push(particle);
@@ -43,7 +45,7 @@ export class ParticleService {
     const currentTime = new Date().getTime();
     this.particles = this.particles.filter((p) => {
       const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
-      return isOnScreen && currentTime - p.timestamp.getTime() <= 2000;
+      return isOnScreen && currentTime - p.timestamp.getTime() <= 2500;
     });
   }
 
@@ -58,7 +60,7 @@ export class ParticleService {
     const centre = new GameObject(window.innerWidth / 2, window.innerHeight / 2, GameObjectDefaults.corn().settings);
     const interval = setInterval(() => {
       if (this.logoHovered) {
-        this.create(centre, 50);
+        this.create(centre, 50, 1.5);
       } else {
         clearInterval(interval);
       }

@@ -2,10 +2,32 @@
   <mat-icon color="primary">close</mat-icon>
 </button>
 
-<div class="mt-6 flex flex-1 flex-col">
-  <button *ngFor="let link of links" (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
-    <span [ngClass]="{ 'text-primary': currentRoute === link.url }">{{ link.label }}</span>
-  </button>
+<div class="ml-32 mt-6 flex size-full flex-1 flex-col items-start">
+  @for (link of links; track link) {
+    @if (!link.sublinks) {
+      <button (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
+        <span [ngClass]="{ 'text-primary': currentRoute === link.url }">{{ link.label }}</span>
+      </button>
+    } @else {
+      <div class="mb-6 flex items-center justify-center">
+        <span class="pointer-events-none mr-1" [ngClass]="{ 'text-primary': hasActiveSublink(link.sublinks) }">
+          {{ link.label }}
+        </span>
+        <button class="mt-2" mat-icon-button (click)="link.expanded = !link.expanded">
+          <mat-icon>{{ link.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
+        </button>
+      </div>
+      @if (link.expanded) {
+        @for (subLink of link.sublinks; track subLink) {
+          <div class="mb-8 ml-6 flex flex-col">
+            <button (click)="navigate(subLink.url)" class="" [disabled]="currentRoute === subLink.url">
+              <span [ngClass]="{ 'text-primary': currentRoute === subLink.url }">{{ subLink.label }}</span>
+            </button>
+          </div>
+        }
+      }
+    }
+  }
 </div>
 
 <app-theme-selector class="m-6 flex justify-end self-end"></app-theme-selector>

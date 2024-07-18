@@ -8,7 +8,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   imports: [GalleryComponent],
 })
 export class NorthAmericaComponent {
-  @HostBinding('class') hostClasses = '!size-full';
+  @HostBinding('class') hostClasses = '';
 
   photos: { header: string; urls: string[] }[] = [
     {
