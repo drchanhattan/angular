@@ -37,11 +37,10 @@ export class AppComponent {
   }
 
   private registerIcons() {
-    const svgIcons = ['corn'];
-
-    svgIcons.forEach((icon) => {
-      this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
-    });
+    // const svgIcons = [];
+    // svgIcons.forEach((icon) => {
+    //   this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
+    // });
   }
 
   private animateOnScroll() {

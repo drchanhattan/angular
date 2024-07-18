@@ -30,6 +30,10 @@
               },
               {
                 "glob": "**/*",
+                "input": "public/game"
+              },
+              {
+                "glob": "**/*",
                 "input": "public/icons"
               },
               {

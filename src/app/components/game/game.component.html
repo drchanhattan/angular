@@ -26,12 +26,13 @@
 <div
   class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-out"
   [ngStyle]="{ color: yellow }">
-  <div class="flex flex-1">
+  <div class="relative flex flex-1">
+    <img src="corn-text.svg" class="absolute inset-0 m-auto max-h-[75vh]" />
     <img
       src="corn.svg"
       (mouseover)="particleService.logoMouseOver()"
       (mouseleave)="particleService.logoMouseLeave()"
-      class="m-auto max-h-[75vh] hover:animate-jiggle" />
+      class="relative inset-0 m-auto max-h-[75vh] hover:animate-jiggle" />
   </div>
 
   <div class="mb-10 flex w-full">
