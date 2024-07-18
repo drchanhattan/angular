@@ -12,21 +12,12 @@ import { GameService } from './components/game/services/game-service';
 import { TextService } from './components/game/services/text-service';
 import { NavComponent } from './components/nav/nav.component';
 import { ThemeSelectorService } from './components/theme-selector/theme-selector-service';
-import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    GameComponent,
-    NavComponent,
-    MatIconModule,
-    MatSidenavModule,
-    ThemeSelectorComponent,
-  ],
+  imports: [CommonModule, RouterOutlet, GameComponent, NavComponent, MatIconModule, MatSidenavModule],
   providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService],
 })
 export class AppComponent {

@@ -4,15 +4,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" [autoFocus]="false" [fixedInViewport]="true">
-    <div class="flex h-full flex-col">
-      <button mat-icon-button class="m-6 flex self-end" (click)="drawer.toggle()">
-        <mat-icon color="primary">close</mat-icon>
-      </button>
-
-      <app-nav class="mt-6 flex-1" (navigated)="drawer.toggle()"></app-nav>
-
-      <app-theme-selector class="m-6 flex justify-end self-end"></app-theme-selector>
-    </div>
+    <app-nav (toggleDrawer)="drawer.toggle()"></app-nav>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">

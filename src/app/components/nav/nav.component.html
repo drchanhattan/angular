@@ -1,5 +1,11 @@
-<ng-container *ngFor="let link of links">
-  <button (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
+<button mat-icon-button class="m-6 flex self-end" (click)="toggleDrawer.emit()">
+  <mat-icon color="primary">close</mat-icon>
+</button>
+
+<div class="mt-6 flex flex-1 flex-col">
+  <button *ngFor="let link of links" (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
     <span [ngClass]="{ 'text-primary': currentRoute === link.url }">{{ link.label }}</span>
   </button>
-</ng-container>
+</div>
+
+<app-theme-selector class="m-6 flex justify-end self-end"></app-theme-selector>

@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatToolbarModule],
+  imports: [CommonModule, RouterLink, MatIconModule, ThemeSelectorComponent],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
-  @HostBinding('class') hostClasses = 'flex flex-col items-center';
-  @Output() navigated = new EventEmitter();
+  @HostBinding('class') hostClasses = 'h-full flex flex-col items-center';
+  @Output() toggleDrawer = new EventEmitter();
 
   currentRoute!: string;
 
@@ -35,7 +36,7 @@ export class NavComponent {
   }
 
   navigate(path: string) {
-    this.navigated.emit();
+    this.toggleDrawer.emit();
 
     this.router.navigate([path]).then(() => {
       window.location.reload();
