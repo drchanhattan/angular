@@ -33,7 +33,7 @@ module.exports = {
         primary: '#FFC107',
       },
       fontFamily: {
-        ink: ['"InkFree"', 'cursive'],
+        ink: ['InkFree', 'cursive'],
       },
     },
   },
