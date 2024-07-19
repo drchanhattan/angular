@@ -14,16 +14,19 @@ const envVariables = {
 // Define the path to the environment file
 const envFilePath = path.join(__dirname, 'src/environments/environment.ts');
 
-// Read the file
-let fileContent = fs.readFileSync(envFilePath, 'utf8');
+try {
+  // Read the file
+  let fileContent = fs.readFileSync(envFilePath, 'utf8');
 
-// Replace the placeholders
-for (const [key, value] of Object.entries(envVariables)) {
-  const regex = new RegExp(`\\$\\{${key}\\}`, 'g');
-  fileContent = fileContent.replace(regex, value);
+  // Replace the placeholders
+  for (const [key, value] of Object.entries(envVariables)) {
+    const regex = new RegExp(`\\$\\{${key}\\}`, 'g');
+    fileContent = fileContent.replace(regex, value || '');
+  }
+
+  // Write the modified file back
+  fs.writeFileSync(envFilePath, fileContent, 'utf8');
+  console.log('Environment variables have been replaced.');
+} catch (error) {
+  console.error('Error processing environment file:', error.message);
 }
-
-// Write the modified file back
-fs.writeFileSync(envFilePath, fileContent, 'utf8');
-
-console.log('Environment variables have been replaced.');
