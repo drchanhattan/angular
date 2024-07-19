@@ -12,7 +12,7 @@ const envVariables = {
 };
 
 // Define the path to the environment file
-const envFilePath = path.join(__dirname, 'src/environments/environment.prod.ts');
+const envFilePath = path.join(__dirname, 'src/environments/environment.ts');
 
 // Read the file
 let fileContent = fs.readFileSync(envFilePath, 'utf8');
@@ -27,4 +27,3 @@ for (const [key, value] of Object.entries(envVariables)) {
 fs.writeFileSync(envFilePath, fileContent, 'utf8');
 
 console.log('Environment variables have been replaced.');
-console.log(process.env['FIREBASE_PROJECT_ID']);
