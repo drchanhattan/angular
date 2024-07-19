@@ -40,7 +40,7 @@ export class GameComponent {
       ...englishRecommendedTransformers,
     });
     if (name && matcher.hasMatch(name)) {
-      console.log('The input text contains profanities.');
+      console.log('The input text contains profanity');
     }
 
     if (event.key === 'Enter' && name?.length) {
