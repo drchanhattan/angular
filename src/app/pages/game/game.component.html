@@ -1,0 +1,9 @@
+<div *ngIf="disabled$ | async" class="absolute flex size-full flex-col items-center justify-center bg-game-black">
+  <span class="mb-8 font-ink text-5xl text-primary">Name</span>
+  <input
+    class="border-none bg-transparent font-ink text-5xl text-white outline-none"
+    [formControl]="firebaseService.playerName"
+    (keydown)="enterName($event)" />
+</div>
+
+<app-avoid-the-cob *ngIf="!(disabled$ | async)"></app-avoid-the-cob>

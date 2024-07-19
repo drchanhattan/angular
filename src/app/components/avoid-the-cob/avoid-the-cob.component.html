@@ -3,7 +3,7 @@
 
 <!-- Lives -->
 <div *ngIf="gameService.lives > 0" class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4 transform">
-  <div class="flex items-center" [ngStyle]="{ color: white }">
+  <div class="flex items-center text-game-white">
     <span class="mr-1 text-3xl md:text-5xl">{{ gameService.lives }}</span>
     <mat-icon class="!size-full text-3xl text-[#BA1A1A] md:text-5xl">favorite</mat-icon>
   </div>
@@ -11,8 +11,7 @@
 
 <!-- Text -->
 <div
-  class="text pointer-events-none absolute flex flex-col items-center justify-center opacity-0 transition-opacity duration-1000 ease-in-out"
-  [ngStyle]="{ color: white }">
+  class="text pointer-events-none absolute flex flex-col items-center justify-center text-game-white opacity-0 transition-opacity duration-1000 ease-in-out">
   <strong class="mb-4 text-5xl md:text-9xl">{{ textService.text }}</strong>
   <div class="flex items-center justify-center">
     <span class="mr-1 text-3xl md:text-5xl">{{ textService.subText }}</span>
@@ -24,8 +23,7 @@
 
 <!-- Menu -->
 <div
-  class="menu absolute flex size-full flex-col items-center justify-center transition-all duration-500 ease-out"
-  [ngStyle]="{ color: yellow }">
+  class="menu absolute flex size-full flex-col items-center justify-center text-primary transition-all duration-500 ease-in-out">
   <div class="relative flex flex-1">
     <img src="corn-text.svg" class="absolute inset-0 m-auto max-h-[75vh]" />
     <img
@@ -35,16 +33,18 @@
       class="relative inset-0 m-auto max-h-[75vh] hover:animate-jiggle" />
   </div>
 
-  <div class="mb-10 flex w-full">
-    <button (click)="gameService.newGame()" [class]="'ml-10 flex flex-1 items-start font-ink text-5xl'">
-      <span class="hover:text-[#F5F5F5]">Play</span>
-    </button>
+  <button (click)="gameService.newGame()" class="absolute bottom-0 left-0 m-8 text-5xl">
+    <span class="hover:text-[#F5F5F5]">Play</span>
+  </button>
 
-    <button class="mr-10 font-ink text-5xl">
-      <span routerLink="" class="hover:text-[#F5F5F5]">Exit</span>
-    </button>
-  </div>
+  <button (click)="gameService.newGame()" class="absolute right-0 top-0 m-8 text-5xl">
+    <span class="hover:text-[#F5F5F5]">Scores</span>
+  </button>
+
+  <button [routerLink]="" class="absolute bottom-0 right-0 m-8 text-5xl">
+    <span class="hover:text-[#F5F5F5]">Exit</span>
+  </button>
 </div>
 
 <!-- Background Mask -->
-<div class="custom-background absolute -z-10 size-full" [ngStyle]="{ 'background-color': black }"></div>
+<div class="absolute -z-10 size-full bg-game-black"></div>

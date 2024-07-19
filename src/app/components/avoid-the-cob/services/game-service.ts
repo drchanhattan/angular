@@ -9,6 +9,7 @@ import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
+import { FirebaseService } from './firebase.service';
 import { ParticleService } from './particle-service';
 import { TextService } from './text-service';
 
@@ -32,6 +33,7 @@ export class GameService {
     private cursor: CursorService,
     private textService: TextService,
     private particleService: ParticleService,
+    private firebaseService: FirebaseService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
     this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
@@ -148,13 +150,15 @@ export class GameService {
   }
 
   private gameOver() {
+    this.firebaseService.saveScore(this.level);
+
     this.paused = true;
-    this.textService.show('Game Over', `You reached level ${this.level}`, 3000);
+    this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
       this.toggleMenu();
       this.cursor.toggle();
-    }, 4000);
+    }, 6000);
   }
 
   private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
@@ -165,9 +169,7 @@ export class GameService {
   // ==============================
 
   private handleGameObject(obj: GameObject) {
-    const isOnScreen = obj.x >= 0 && obj.x <= window.innerWidth && obj.y >= 0 && obj.y <= window.innerHeight;
-
-    if (!obj.destroyed && isOnScreen) {
+    if (!obj.destroyed) {
       this.canvasService.drawObject(this.canvasService.context, obj);
       this.customObjectBehaviour(obj);
       this.handleCollisions(obj);
@@ -239,7 +241,7 @@ export class GameService {
     }
   }
 
-  private cornCollision(corn: GameObject) {
+  private async cornCollision(corn: GameObject) {
     const collision = corn.detectCollision(this.cursor.object);
     if (collision) {
       corn.destroyed = true;

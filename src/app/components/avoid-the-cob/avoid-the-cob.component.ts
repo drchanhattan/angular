@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { GameColors } from './models/game-colors/game-colors';
@@ -9,13 +9,13 @@ import { ParticleService } from './services/particle-service';
 import { TextService } from './services/text-service';
 
 @Component({
-  selector: 'app-game',
+  selector: 'app-avoid-the-cob',
   standalone: true,
   imports: [CommonModule, RouterLink, MatIconModule],
-  templateUrl: './game.component.html',
+  templateUrl: './avoid-the-cob.component.html',
 })
-export class GameComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'fixed w-full h-full flex justify-center items-center text-nowrap';
+export class AvoidTheCobComponent implements AfterViewInit {
+  @HostBinding('class') hostClasses = 'absolue w-full h-full flex justify-center items-center text-nowrap font-ink';
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   yellow = GameColors.Yellow;
@@ -32,11 +32,6 @@ export class GameComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);
     this.animate();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    location.reload();
   }
 
   animate() {

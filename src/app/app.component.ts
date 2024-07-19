@@ -5,20 +5,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
-import { GameComponent } from './components/game/game.component';
-import { CanvasService } from './components/game/services/canvas-service';
-import { CursorService } from './components/game/services/cursor.service';
-import { GameService } from './components/game/services/game-service';
-import { TextService } from './components/game/services/text-service';
+import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
+import { CursorService } from './components/avoid-the-cob/services/cursor.service';
+import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
+import { GameService } from './components/avoid-the-cob/services/game-service';
+import { TextService } from './components/avoid-the-cob/services/text-service';
 import { NavComponent } from './components/nav/nav.component';
 import { ThemeSelectorService } from './components/theme-selector/theme-selector-service';
+import { GameComponent } from './pages/game/game.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [CommonModule, RouterOutlet, GameComponent, NavComponent, MatIconModule, MatSidenavModule],
-  providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService],
+  providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService, FirebaseService],
 })
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';
