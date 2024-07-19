@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyDE9GTT8cIKR7s__QX1kHIG5hc2rvSdrGE',
+    apiKey: '',
     authDomain: 'avoid-the-cob.firebaseapp.com',
     projectId: 'avoid-the-cob',
     storageBucket: 'avoid-the-cob.appspot.com',
