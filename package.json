@@ -2,6 +2,7 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
+    "build": "ng build --configuration production",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
     ".1": "ng build --configuration production --output-path docs --base-href .",
     ".2": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
