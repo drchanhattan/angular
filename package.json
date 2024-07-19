@@ -2,14 +2,14 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
-    "build": "ng build --configuration production",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
-    ".1": "ng build --configuration production --output-path docs --base-href .",
-    ".2": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
-    ".3": "copy docs\\index.html docs\\404.html",
-    ".4": "echo christopherchan.co.uk > docs\\CNAME && git add .",
-    ".5": "git commit -m \"commit\" && git push -u origin master",
-    "publish": "npm run .1 && npm run .2 && npm run .3 && npm run .4 && npm run .5"
+    "build": "ng build --configuration production --output-path docs --base-href .",
+    "docs": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
+    "404": "copy docs\\index.html docs\\404.html",
+    "cname": "echo christopherchan.co.uk > docs\\CNAME && git add .",
+    "commit": "git commit -m \"commit\"",
+    "push": "git push -u origin master",
+    "upload": "npm run prettier && npm run build && npm run docs && npm run 404 && npm run cname && npm run commit && npm run push"
   },
   "private": true,
   "dependencies": {
@@ -40,7 +40,6 @@
     "@types/aos": "^3.0.7",
     "@types/jasmine": "~5.1.0",
     "@types/lozad": "^1.16.4",
-    "@types/node": "^20.14.11",
     "autoprefixer": "^10.4.19",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

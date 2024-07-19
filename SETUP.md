@@ -4,4 +4,4 @@
 4. git add .
 5. git commit -m "change"
 6. git push -u origin master
-7. npm run publish
+7. npm run upload
