@@ -2,7 +2,7 @@ name: Deploy Angular Project to GitHub Pages
 'on':
   push:
     branches:
-      - main
+      - master
 jobs:
   deploy:
     name: Build and Deploy
