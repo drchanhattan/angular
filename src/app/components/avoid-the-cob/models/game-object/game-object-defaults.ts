@@ -39,22 +39,20 @@ export class GameObjectDefaults {
 
   static powerUp() {
     const size = scaledSize(7);
-    const count = scaledCount(size, 0.5);
     const speed = scaledSize(5);
 
     return {
-      count: count,
+      count: 1,
       settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed),
     };
   }
 
   static heart() {
     const size = scaledSize(7);
-    const count = scaledCount(size, 0.5);
     const speed = scaledSpeed(size, 0.1);
 
     return {
-      count: count,
+      count: 1,
       settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed),
     };
   }
