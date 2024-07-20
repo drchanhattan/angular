@@ -11,10 +11,9 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
 export class GameComponent {
   @HostBinding('class') hostClasses = '';
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    const activeElement = document.activeElement as HTMLElement;
-    if (!(activeElement instanceof HTMLInputElement)) {
+  @HostListener('window:resize') onResize() {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (!isTouchDevice) {
       location.reload();
     }
   }
