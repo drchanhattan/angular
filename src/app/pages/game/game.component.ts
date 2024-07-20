@@ -9,7 +9,7 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   templateUrl: './game.component.html',
 })
 export class GameComponent {
-  @HostBinding('class') hostClasses = 'flex w-[100vw] h-[100vh]';
+  @HostBinding('class') hostClasses = '';
 
   @HostListener('window:resize', ['$event'])
   onResize() {
