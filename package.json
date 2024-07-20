@@ -9,7 +9,7 @@
     "cname": "echo christopherchan.co.uk > docs\\CNAME && git add .",
     "commit": "git commit -m \"commit\"",
     "push": "git push -u origin master",
-    "upload": "npm run prettier && npm run build && npm run docs && npm run 404 && npm run cname && npm run commit && npm run push"
+    "upload": "npm run build && npm run docs && npm run 404 && npm run cname && npm run commit && npm run push"
   },
   "private": true,
   "dependencies": {
