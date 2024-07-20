@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 interface Link {
@@ -44,11 +45,9 @@ export class NavComponent {
   ];
 
   constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-        window.scrollTo(0, 0);
-      }
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
+      this.currentRoute = event.url;
+      window.scrollTo(0, 0);
     });
   }
 

@@ -1,16 +1,19 @@
-<img data-src="{{ hero }}" data-aos="zoom-out" data-aos-duration="2000" class="h-[100vh] w-[100vw] object-cover" />
+<div *ngIf="!heroLoaded" class="flex h-[100vh] w-[100vw] items-center justify-center">
+  <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+</div>
+
+<img [src]="hero" class="h-[100vh] w-[100vw] object-cover" (load)="this.heroLoaded = true" />
 
 <div *ngIf="photos" class="mb-20 mt-8 w-full">
   @for (group of photos; track group) {
     <div
       data-aos="fade-up"
-      data-aos-duration="8000"
       class="mb-16 mt-8 flex h-36 w-full items-center justify-center text-center text-6xl font-bold">
       {{ group.header }}
     </div>
     <div class="m-auto w-4/5 columns-1 gap-16 lg:columns-3">
-      @for (url of group.urls; track url) {
-        <img data-src="{{ url }}" data-aos="fade-up" data-aos-duration="8000" class="lozad mb-16 rounded-lg" />
+      @for (url of group.urls; track $index) {
+        <img class="mb-16 rounded-lg" data-src="{{ url }}" data-aos="fade-up" loading="lazy" (load)="animate()" />
       }
     </div>
   }
