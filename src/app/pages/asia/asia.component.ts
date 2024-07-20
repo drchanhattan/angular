@@ -4,8 +4,8 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 @Component({
   selector: 'app-asia',
   standalone: true,
-  templateUrl: './asia.component.html',
   imports: [GalleryComponent],
+  templateUrl: './asia.component.html',
 })
 export class AsiaComponent {
   @HostBinding('class') hostClasses = '!size-full';

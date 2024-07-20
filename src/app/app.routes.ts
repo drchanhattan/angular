@@ -8,8 +8,8 @@ import { OceaniaComponent } from './pages/oceania/oceania.component';
 import { SouthAmericaComponent } from './pages/south-america/south-america.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'europe', component: EuropeComponent },
   { path: 'asia', component: AsiaComponent },
   { path: 'north-america', component: NorthAmericaComponent },

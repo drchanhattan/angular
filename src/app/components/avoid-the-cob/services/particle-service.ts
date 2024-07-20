@@ -10,9 +10,11 @@ import { CanvasService } from './canvas-service';
 })
 export class ParticleService {
   particles: GameObject[] = [];
-  logoHovered: boolean = false;
+  menuParticles: boolean = false;
 
-  constructor(private canvasService: CanvasService) {}
+  constructor(private canvasService: CanvasService) {
+    this.showMenuParticles();
+  }
 
   draw(context: CanvasRenderingContext2D): void {
     const gravity = 0.0025;
@@ -49,25 +51,18 @@ export class ParticleService {
     });
   }
 
-  reset() {
-    this.particles = [];
-    this.logoHovered = false;
+  showMenuParticles() {
+    if (!this.menuParticles) {
+      this.menuParticles = true;
+
+      const centre = new GameObject(window.innerWidth / 2, window.innerHeight / 2, GameObjectDefaults.corn().settings);
+      const interval = setInterval(() => {
+        this.menuParticles ? this.create(centre, 30, 2) : clearInterval(interval);
+      }, 500);
+    }
   }
 
-  logoMouseOver() {
-    this.logoHovered = true;
-
-    const centre = new GameObject(window.innerWidth / 2, window.innerHeight / 2, GameObjectDefaults.corn().settings);
-    const interval = setInterval(() => {
-      if (this.logoHovered) {
-        this.create(centre, 50, 1.5);
-      } else {
-        clearInterval(interval);
-      }
-    }, 500);
-  }
-
-  logoMouseLeave() {
-    this.logoHovered = false;
+  hideMenuParticles() {
+    this.menuParticles = false;
   }
 }

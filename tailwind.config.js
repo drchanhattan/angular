@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        jiggle: 'jiggle 0.5s infinite',
+        jiggle: 'jiggle 0.5s',
       },
       keyframes: {
         jiggle: {

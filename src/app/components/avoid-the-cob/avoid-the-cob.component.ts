@@ -1,32 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { GameColors } from './models/game-colors/game-colors';
+import { Router, RouterLink } from '@angular/router';
 import { CanvasService } from './services/canvas-service';
+import { FirebaseService } from './services/firebase.service';
 import { GameService } from './services/game-service';
+import { NameService } from './services/name-service';
 import { ParticleService } from './services/particle-service';
 import { TextService } from './services/text-service';
 
 @Component({
   selector: 'app-avoid-the-cob',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatIconModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, MatIconModule],
   templateUrl: './avoid-the-cob.component.html',
 })
 export class AvoidTheCobComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'absolue w-full h-full flex justify-center items-center text-nowrap font-ink';
+  @HostBinding('class') hostClasses =
+    'w-full h-full flex justify-center items-center text-nowrap font-ink bg-game-black';
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
-  yellow = GameColors.Yellow;
-  white = GameColors.White;
-  black = GameColors.Black;
-
   constructor(
+    private router: Router,
     public canvasService: CanvasService,
     public gameService: GameService,
     public textService: TextService,
     public particleService: ParticleService,
+    public firebaseService: FirebaseService,
+    public nameService: NameService,
   ) {}
 
   ngAfterViewInit() {
@@ -51,5 +53,9 @@ export class AvoidTheCobComponent implements AfterViewInit {
     this.gameService.draw();
     this.particleService.draw(this.canvasService.context);
     this.particleService.decay();
+  }
+
+  exit() {
+    this.router.navigate(['/home']).then(() => window.location.reload());
   }
 }

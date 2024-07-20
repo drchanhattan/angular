@@ -10,6 +10,7 @@ import { GameObjectBehaviour } from './../models/game-object/game-object-behavio
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
 import { FirebaseService } from './firebase.service';
+import { NameService } from './name-service';
 import { ParticleService } from './particle-service';
 import { TextService } from './text-service';
 
@@ -20,13 +21,13 @@ export class GameService {
   level!: number;
   lives!: number;
   paused = true;
-  showMenu = true;
   ghost = true;
   powerUpFrequency = 3;
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
   hearts: GameObjectGroup;
+  scores: { playerName: string; score: number }[] = [];
 
   constructor(
     private canvasService: CanvasService,
@@ -34,6 +35,7 @@ export class GameService {
     private textService: TextService,
     private particleService: ParticleService,
     private firebaseService: FirebaseService,
+    private nameService: NameService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
     this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
@@ -44,25 +46,34 @@ export class GameService {
   // Game Initialization
   // ==============================
 
-  newGame() {
+  play() {
+    if (!!window.localStorage.getItem('playerName')) {
+      this.hideMenu();
+      this.hideNamePrompt();
+      this.newGame();
+    } else {
+      this.hideMenu();
+      this.showNamePrompt();
+    }
+  }
+
+  private newGame() {
     this.level = 1;
     this.lives = 3;
     this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
     this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
     this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
     this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
-    this.toggleMenu();
     this.cursor.reset();
     this.cursor.toggle();
-    this.particleService.reset();
     this.textService.show(`Level ${this.level}`, '', 2500);
 
     setTimeout(() => {
-      this.play();
+      this.start();
     }, 3000);
   }
 
-  private play() {
+  private start() {
     this.peas.createObjects();
     this.corn.createObjects();
     this.hearts.createObjects();
@@ -84,7 +95,7 @@ export class GameService {
 
     setTimeout(() => {
       this.levelUp();
-      this.play();
+      this.start();
     }, 4000);
   }
 
@@ -156,7 +167,7 @@ export class GameService {
     this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
-      this.toggleMenu();
+      this.showMenu();
       this.cursor.toggle();
     }, 6000);
   }
@@ -351,7 +362,7 @@ export class GameService {
   }
 
   private drawCursor() {
-    if (!this.showMenu) {
+    if (!this.paused) {
       this.cursor.draw(this.canvasService.context, this.canvasService);
     }
   }
@@ -364,10 +375,43 @@ export class GameService {
     setTimeout(() => (this.ghost = false), duration);
   }
 
-  private toggleMenu() {
-    this.showMenu = !this.showMenu;
-    const menuClassList = document.getElementsByClassName('menu')[0].classList;
-    menuClassList.toggle('opacity-0');
-    menuClassList.toggle('pointer-events-none');
+  hideMenu() {
+    this.particleService.hideMenuParticles();
+    const menuClassList = document.getElementsByClassName('MENU')[0].classList;
+    menuClassList.add('opacity-0');
+    menuClassList.add('pointer-events-none');
+  }
+
+  showMenu() {
+    this.particleService.showMenuParticles();
+    const menuClassList = document.getElementsByClassName('MENU')[0].classList;
+    menuClassList.remove('opacity-0');
+    menuClassList.remove('pointer-events-none');
+  }
+
+  hideNamePrompt() {
+    const menuClassList = document.getElementsByClassName('NAME')[0].classList;
+    menuClassList.add('opacity-0');
+    menuClassList.add('pointer-events-none');
+  }
+
+  showNamePrompt() {
+    const menuClassList = document.getElementsByClassName('NAME')[0].classList;
+    menuClassList.remove('opacity-0');
+    menuClassList.remove('pointer-events-none');
+  }
+
+  hideScores() {
+    const menuClassList = document.getElementsByClassName('SCORES')[0].classList;
+    menuClassList.add('opacity-0');
+    menuClassList.add('pointer-events-none');
+  }
+
+  async showScores() {
+    const menuClassList = document.getElementsByClassName('SCORES')[0].classList;
+    menuClassList.remove('opacity-0');
+    menuClassList.remove('pointer-events-none');
+    const allScores = await this.firebaseService.getAllScores();
+    this.scores = allScores.slice(0, 10);
   }
 }

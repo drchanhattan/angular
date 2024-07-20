@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, HostListener } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DomSanitizer } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
@@ -17,18 +16,15 @@ import { GameComponent } from './pages/game/game.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  templateUrl: './app.component.html',
   imports: [CommonModule, RouterOutlet, GameComponent, NavComponent, MatIconModule, MatSidenavModule],
+  templateUrl: './app.component.html',
   providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService, FirebaseService],
 })
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';
 
-  constructor(
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-  ) {
-    this.registerIcons();
+  constructor() {
+    // this.registerIcons();
     this.animateOnScroll();
   }
 

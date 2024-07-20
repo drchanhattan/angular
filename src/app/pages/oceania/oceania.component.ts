@@ -4,8 +4,8 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 @Component({
   selector: 'app-oceania',
   standalone: true,
-  templateUrl: './oceania.component.html',
   imports: [GalleryComponent],
+  templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
   @HostBinding('class') hostClasses = '';

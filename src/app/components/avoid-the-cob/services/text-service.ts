@@ -5,7 +5,7 @@ export class TextService {
   show(text: string, subText: string, duration: number) {
     this.text = text;
     this.subText = subText;
-    const textClass = document.getElementsByClassName('text')[0].classList;
+    const textClass = document.getElementsByClassName('TEXT')[0].classList;
 
     textClass.toggle('opacity-0');
     setTimeout(() => {

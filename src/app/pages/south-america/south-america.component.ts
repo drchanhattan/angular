@@ -4,8 +4,8 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 @Component({
   selector: 'app-south-america',
   standalone: true,
-  templateUrl: './south-america.component.html',
   imports: [GalleryComponent],
+  templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
   @HostBinding('class') hostClasses = '';

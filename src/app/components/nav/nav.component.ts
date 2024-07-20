@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 interface Link {
@@ -19,17 +19,15 @@ interface Links {
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, ThemeSelectorComponent, MatIconModule],
+  imports: [CommonModule, ThemeSelectorComponent, MatIconModule],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
   @HostBinding('class') hostClasses = 'h-full flex flex-col items-center';
   @Output() toggleDrawer = new EventEmitter();
-
   currentRoute!: string;
-
   links: Links[] = [
-    { label: 'Home', url: '/' },
+    { label: 'Home', url: '/home' },
     {
       label: 'Gallery',
       url: '',
@@ -56,10 +54,7 @@ export class NavComponent {
 
   navigate(path: string) {
     this.toggleDrawer.emit();
-
-    this.router.navigate([path]).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate([path]).then(() => window.location.reload());
   }
 
   hasActiveSublink(links: Link[]) {
