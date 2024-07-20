@@ -24,7 +24,7 @@
 <!-- Menu -->
 <div
   class="MENU absolute flex size-full flex-col items-center justify-center text-primary transition-opacity duration-500 ease-in-out">
-  <div class="relative flex flex-1">
+  <div class="relative mb-10 flex flex-1">
     <img src="corn-text.svg" class="absolute inset-0 m-auto max-h-[75vh]" />
     <img src="corn.svg" class="relative inset-0 m-auto max-h-[75vh] hover:animate-jiggle" />
   </div>
@@ -45,8 +45,10 @@
 <!-- Name Prompt -->
 <div
   class="NAME pointer-events-none absolute flex size-full flex-col items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out">
+  <img src="corn-jr.svg" class="mb-12 max-h-[50%] hover:animate-jiggle" />
+
   <input
-    class="max-w-[60%] border-b-2 border-primary bg-transparent pb-10 text-center font-ink text-5xl uppercase text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
+    class="mb-20 max-w-[60%] border-b-2 border-primary bg-transparent pb-6 text-center font-ink text-5xl text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
     [formControl]="nameService.name"
     placeholder="Name"
     [maxlength]="25" />
@@ -62,7 +64,7 @@
     class="absolute bottom-0 right-0 m-8 text-5xl text-primary"
     (click)="nameService.saveName(); gameService.play()"
     [disabled]="!nameService.name.value?.length">
-    <span class="hover:text-game-white">Play</span>
+    <span class="hover:text-game-white">Enter</span>
   </button>
 
   <span *ngIf="nameService.name.hasError('profanity')" class="absolute bottom-0 right-0 m-8 text-5xl text-game-white">
