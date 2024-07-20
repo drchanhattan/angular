@@ -13,6 +13,9 @@ export class GameComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    location.reload();
+    const activeElement = document.activeElement as HTMLElement;
+    if (!(activeElement instanceof HTMLInputElement)) {
+      location.reload();
+    }
   }
 }
