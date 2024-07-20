@@ -27,7 +27,7 @@ export class GameService {
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
   hearts: GameObjectGroup;
-  scores: { playerName: string; score: number }[] = [];
+  scores: { name: string; score: number }[] = [];
 
   constructor(
     private canvasService: CanvasService,
@@ -47,7 +47,7 @@ export class GameService {
   // ==============================
 
   play() {
-    if (!!window.localStorage.getItem('playerName')) {
+    if (!!window.localStorage.getItem('name')) {
       this.hideMenu();
       this.hideNamePrompt();
       this.newGame();
@@ -411,7 +411,6 @@ export class GameService {
     const menuClassList = document.getElementsByClassName('SCORES')[0].classList;
     menuClassList.remove('opacity-0');
     menuClassList.remove('pointer-events-none');
-    const allScores = await this.firebaseService.getAllScores();
-    this.scores = allScores.slice(0, 10);
+    this.scores = await this.firebaseService.getAllScores();
   }
 }

@@ -47,7 +47,7 @@
   class="NAME pointer-events-none absolute flex size-full flex-col items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out">
   <input
     class="max-w-[60%] border-b-2 border-primary bg-transparent pb-10 text-center font-ink text-5xl uppercase text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
-    [formControl]="nameService.playerName"
+    [formControl]="nameService.name"
     placeholder="Name"
     [maxlength]="25" />
 
@@ -58,16 +58,14 @@
   </button>
 
   <button
-    *ngIf="nameService.playerName.valid"
+    *ngIf="nameService.name.valid"
     class="absolute bottom-0 right-0 m-8 text-5xl text-primary"
     (click)="nameService.saveName(); gameService.play()"
-    [disabled]="!nameService.playerName.value?.length">
+    [disabled]="!nameService.name.value?.length">
     <span class="hover:text-game-white">Play</span>
   </button>
 
-  <span
-    *ngIf="nameService.playerName.hasError('profanity')"
-    class="absolute bottom-0 right-0 m-8 text-5xl text-game-white">
+  <span *ngIf="nameService.name.hasError('profanity')" class="absolute bottom-0 right-0 m-8 text-5xl text-game-white">
     LOL...
   </span>
 </div>
@@ -77,7 +75,7 @@
   class="SCORES pointer-events-none absolute flex h-full w-full flex-col items-center justify-center bg-game-black font-ink opacity-0">
   @for (score of gameService.scores; track score) {
     <div class="mb-4 flex w-1/2 justify-between text-3xl">
-      <span class="text-game-white">{{ score.playerName }}</span>
+      <span class="text-game-white">{{ score.name }}</span>
       <span class="text-primary">{{ score.score }}</span>
     </div>
   }

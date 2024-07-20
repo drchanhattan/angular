@@ -6,19 +6,19 @@ import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'o
   providedIn: 'root',
 })
 export class NameService {
-  playerName = new FormControl<string>('', [Validators.required, this.profanityValidator()]);
+  name = new FormControl<string>('', [Validators.required, this.profanityValidator()]);
 
   constructor() {
-    const name = window.localStorage.getItem('playerName');
+    const name = window.localStorage.getItem('name');
 
     if (name) {
-      this.playerName.setValue(name);
+      this.name.setValue(name);
     }
   }
 
   saveName() {
-    if (this.playerName.value && this.playerName.valid) {
-      window.localStorage.setItem('playerName', this.playerName.value.toUpperCase());
+    if (this.name.value && this.name.valid) {
+      window.localStorage.setItem('name', this.name.value.toUpperCase());
     }
   }
 
