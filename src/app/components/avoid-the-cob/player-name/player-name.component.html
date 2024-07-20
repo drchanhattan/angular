@@ -1,0 +1,30 @@
+<!-- Corn Jr SVG -->
+<img src="corn-jr.svg" class="mb-12 max-h-[50%] hover:animate-jiggle" />
+
+<!-- Name Input -->
+<input
+  class="mb-20 max-w-[60%] border-b-2 border-primary bg-transparent pb-6 text-center font-ink text-5xl text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
+  [formControl]="playerNameService.name"
+  placeholder="Name"
+  [maxlength]="25" />
+
+<!-- Back Button -->
+<button (click)="back()" class="absolute bottom-0 left-0 m-8 text-5xl text-primary">
+  <span class="hover:text-game-white">Back</span>
+</button>
+
+<!-- Enter Button -->
+<button
+  *ngIf="playerNameService.name.valid"
+  class="absolute bottom-0 right-0 m-8 text-5xl text-primary"
+  (click)="enterName()"
+  [disabled]="!playerNameService.name.value?.length">
+  <span class="hover:text-game-white">Enter</span>
+</button>
+
+<!-- Profanity Indicator -->
+<span
+  *ngIf="playerNameService.name.hasError('profanity')"
+  class="absolute bottom-0 right-0 m-8 text-5xl text-game-white">
+  LOL...
+</span>

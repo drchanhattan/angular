@@ -1,0 +1,16 @@
+<div class="relative mb-10 flex flex-1">
+  <img src="corn-text.svg" class="absolute inset-0 m-auto max-h-[75vh]" />
+  <img src="corn.svg" class="relative inset-0 m-auto max-h-[75vh] hover:animate-jiggle" />
+</div>
+
+<button (click)="gameService.play()" class="absolute bottom-0 left-0 m-8 text-5xl">
+  <span class="hover:text-game-white">Play</span>
+</button>
+
+<button (click)="scoreboardService.show()" class="absolute right-0 top-0 m-8 text-5xl">
+  <span class="hover:text-game-white">Top 10</span>
+</button>
+
+<button (click)="exit()" class="absolute bottom-0 right-0 m-8 text-5xl">
+  <span class="hover:text-game-white">Exit</span>
+</button>

@@ -4,11 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
+import { GameTextService } from './components/avoid-the-cob/game-text/game-text-service';
+import { MainMenuService } from './components/avoid-the-cob/main-menu/main-menu-service';
+import { FirebaseService } from './components/avoid-the-cob/scoreboard/firebase.service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
 import { CursorService } from './components/avoid-the-cob/services/cursor.service';
-import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
 import { GameService } from './components/avoid-the-cob/services/game-service';
-import { TextService } from './components/avoid-the-cob/services/text-service';
 import { NavComponent } from './components/nav/nav.component';
 import { ThemeSelectorService } from './components/theme-selector/theme-selector-service';
 import { GameComponent } from './pages/game/game.component';
@@ -18,7 +19,15 @@ import { GameComponent } from './pages/game/game.component';
   standalone: true,
   imports: [CommonModule, RouterOutlet, GameComponent, NavComponent, MatIconModule, MatSidenavModule],
   templateUrl: './app.component.html',
-  providers: [CanvasService, CursorService, GameService, TextService, ThemeSelectorService, FirebaseService],
+  providers: [
+    CanvasService,
+    CursorService,
+    FirebaseService,
+    GameService,
+    GameTextService,
+    MainMenuService,
+    ThemeSelectorService,
+  ],
 })
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';

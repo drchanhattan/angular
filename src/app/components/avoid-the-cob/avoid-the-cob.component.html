@@ -10,78 +10,13 @@
 </div>
 
 <!-- Text -->
-<div
-  class="TEXT pointer-events-none absolute flex flex-col items-center justify-center text-game-white opacity-0 transition-opacity duration-1000 ease-in-out">
-  <strong class="mb-4 text-5xl md:text-9xl">{{ textService.text }}</strong>
-  <div class="flex items-center justify-center">
-    <span class="mr-1 text-3xl md:text-5xl">{{ textService.subText }}</span>
-    <mat-icon class="!size-full text-3xl text-game-red md:text-5xl" *ngIf="textService.subText === '+ 1'">
-      favorite
-    </mat-icon>
-  </div>
-</div>
+<app-game-text class="pointer-events-none opacity-0 transition-opacity duration-1000 ease-in-out"></app-game-text>
 
 <!-- Menu -->
-<div
-  class="MENU absolute flex size-full flex-col items-center justify-center text-primary transition-opacity duration-500 ease-in-out">
-  <div class="relative mb-10 flex flex-1">
-    <img src="corn-text.svg" class="absolute inset-0 m-auto max-h-[75vh]" />
-    <img src="corn.svg" class="relative inset-0 m-auto max-h-[75vh] hover:animate-jiggle" />
-  </div>
-
-  <button (click)="gameService.play()" class="absolute bottom-0 left-0 m-8 text-5xl">
-    <span class="hover:text-game-white">Play</span>
-  </button>
-
-  <button (click)="gameService.showScores()" class="absolute right-0 top-0 m-8 text-5xl">
-    <span class="hover:text-game-white">Top 10</span>
-  </button>
-
-  <button (click)="exit()" class="absolute bottom-0 right-0 m-8 text-5xl">
-    <span class="hover:text-game-white">Exit</span>
-  </button>
-</div>
+<app-main-menu class="transition-opacity duration-500 ease-in-out"></app-main-menu>
 
 <!-- Name Prompt -->
-<div
-  class="NAME pointer-events-none absolute flex size-full flex-col items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out">
-  <img src="corn-jr.svg" class="mb-12 max-h-[50%] hover:animate-jiggle" />
-
-  <input
-    class="mb-20 max-w-[60%] border-b-2 border-primary bg-transparent pb-6 text-center font-ink text-5xl text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
-    [formControl]="nameService.name"
-    placeholder="Name"
-    [maxlength]="25" />
-
-  <button
-    (click)="gameService.hideNamePrompt(); gameService.showMenu()"
-    class="absolute bottom-0 left-0 m-8 text-5xl text-primary">
-    <span class="hover:text-game-white">Back</span>
-  </button>
-
-  <button
-    *ngIf="nameService.name.valid"
-    class="absolute bottom-0 right-0 m-8 text-5xl text-primary"
-    (click)="nameService.saveName(); gameService.play()"
-    [disabled]="!nameService.name.value?.length">
-    <span class="hover:text-game-white">Enter</span>
-  </button>
-
-  <span *ngIf="nameService.name.hasError('profanity')" class="absolute bottom-0 right-0 m-8 text-5xl text-game-white">
-    LOL...
-  </span>
-</div>
+<app-player-name class="pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></app-player-name>
 
 <!-- Scores -->
-<div
-  class="SCORES pointer-events-none absolute flex h-full w-full flex-col items-center justify-center bg-game-black font-ink opacity-0">
-  @for (score of gameService.scores; track score) {
-    <div class="mb-4 flex w-1/2 justify-between text-3xl">
-      <span class="text-game-white">{{ score.name }}</span>
-      <span class="text-primary">{{ score.score }}</span>
-    </div>
-  }
-  <button (click)="gameService.hideScores()" class="absolute bottom-0 left-0 m-8 text-5xl text-primary">
-    <span class="hover:text-game-white">Back</span>
-  </button>
-</div>
+<app-scoreboard class="pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></app-scoreboard>

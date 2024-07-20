@@ -5,7 +5,7 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, AvoidTheCobComponent],
+  imports: [AvoidTheCobComponent, CommonModule],
   templateUrl: './game.component.html',
 })
 export class GameComponent {

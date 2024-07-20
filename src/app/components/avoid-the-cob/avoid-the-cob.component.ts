@@ -1,19 +1,29 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { GameTextService } from './game-text/game-text-service';
+import { GameTextComponent } from './game-text/game-text.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
+import { PlayerNameService } from './player-name/player-name-service';
+import { PlayerNameComponent } from './player-name/player-name.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { CanvasService } from './services/canvas-service';
-import { FirebaseService } from './services/firebase.service';
 import { GameService } from './services/game-service';
-import { NameService } from './services/name-service';
 import { ParticleService } from './services/particle-service';
-import { TextService } from './services/text-service';
 
 @Component({
   selector: 'app-avoid-the-cob',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, MatIconModule],
+  imports: [
+    CommonModule,
+    GameTextComponent,
+    MainMenuComponent,
+    MatIconModule,
+    PlayerNameComponent,
+    RouterLink,
+    ScoreboardComponent,
+  ],
   templateUrl: './avoid-the-cob.component.html',
 })
 export class AvoidTheCobComponent implements AfterViewInit {
@@ -21,13 +31,11 @@ export class AvoidTheCobComponent implements AfterViewInit {
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(
-    private router: Router,
     public canvasService: CanvasService,
     public gameService: GameService,
-    public textService: TextService,
+    public nameService: PlayerNameService,
     public particleService: ParticleService,
-    public firebaseService: FirebaseService,
-    public nameService: NameService,
+    public textService: GameTextService,
   ) {}
 
   ngAfterViewInit() {
@@ -52,9 +60,5 @@ export class AvoidTheCobComponent implements AfterViewInit {
     this.gameService.draw();
     this.particleService.draw(this.canvasService.context);
     this.particleService.decay();
-  }
-
-  exit() {
-    this.router.navigate(['/home']).then(() => window.location.reload());
   }
 }

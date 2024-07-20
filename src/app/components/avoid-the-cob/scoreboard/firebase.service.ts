@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { NameService } from './name-service';
+import { PlayerNameService } from '../player-name/player-name-service';
+import { Score } from './score';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class FirebaseService {
   private firestore: Firestore = inject(Firestore);
   private scoresDocRef = doc(this.firestore, 'gameData/highScores');
 
-  constructor(private nameService: NameService) {}
+  constructor(private nameService: PlayerNameService) {}
 
   async saveScore(score: number): Promise<void> {
     const name = this.nameService.name.value?.toUpperCase();
@@ -39,7 +40,7 @@ export class FirebaseService {
     }
   }
 
-  async getAllScores(): Promise<{ name: string; score: number }[]> {
+  async getAllScores(): Promise<Score[]> {
     try {
       const docSnapshot = await getDoc(this.scoresDocRef);
       if (docSnapshot.exists()) {
@@ -53,10 +54,11 @@ export class FirebaseService {
     }
   }
 
-  private sortAndLimitScores(scores: { name: string; score: number }[]): void {
+  private sortAndLimitScores(scores: Score[]): void {
     scores.sort((a, b) => b.score - a.score);
     if (scores.length > 10) {
       scores.length = 10;
     }
   }
 }
+export { Score };

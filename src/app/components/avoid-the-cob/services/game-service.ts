@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { GameTextService } from '../game-text/game-text-service';
+import { MainMenuService } from '../main-menu/main-menu-service';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -6,13 +8,11 @@ import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
+import { FirebaseService } from '../scoreboard/firebase.service';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
-import { FirebaseService } from './firebase.service';
-import { NameService } from './name-service';
 import { ParticleService } from './particle-service';
-import { TextService } from './text-service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,15 +27,14 @@ export class GameService {
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
   hearts: GameObjectGroup;
-  scores: { name: string; score: number }[] = [];
 
   constructor(
     private canvasService: CanvasService,
     private cursor: CursorService,
-    private textService: TextService,
-    private particleService: ParticleService,
     private firebaseService: FirebaseService,
-    private nameService: NameService,
+    private mainMenuService: MainMenuService,
+    private particleService: ParticleService,
+    private textService: GameTextService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
     this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
@@ -48,11 +47,13 @@ export class GameService {
 
   play() {
     if (!!window.localStorage.getItem('name')) {
-      this.hideMenu();
+      this.particleService.hideMenuParticles();
+      this.mainMenuService.hide();
       this.hideNamePrompt();
       this.newGame();
     } else {
-      this.hideMenu();
+      this.particleService.hideMenuParticles();
+      this.mainMenuService.hide();
       this.showNamePrompt();
     }
   }
@@ -173,7 +174,7 @@ export class GameService {
     this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
-      this.showMenu();
+      this.mainMenuService.show();
       this.cursor.toggle();
     }, 6000);
   }
@@ -381,42 +382,15 @@ export class GameService {
     setTimeout(() => (this.ghost = false), duration);
   }
 
-  hideMenu() {
-    this.particleService.hideMenuParticles();
-    const menuClassList = document.getElementsByClassName('MENU')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
-  }
-
-  showMenu() {
-    this.particleService.showMenuParticles();
-    const menuClassList = document.getElementsByClassName('MENU')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
-  }
-
   hideNamePrompt() {
-    const menuClassList = document.getElementsByClassName('NAME')[0].classList;
+    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
     menuClassList.add('opacity-0');
     menuClassList.add('pointer-events-none');
   }
 
   showNamePrompt() {
-    const menuClassList = document.getElementsByClassName('NAME')[0].classList;
+    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
     menuClassList.remove('opacity-0');
     menuClassList.remove('pointer-events-none');
-  }
-
-  hideScores() {
-    const menuClassList = document.getElementsByClassName('SCORES')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
-  }
-
-  async showScores() {
-    const menuClassList = document.getElementsByClassName('SCORES')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
-    this.scores = await this.firebaseService.getAllScores();
   }
 }

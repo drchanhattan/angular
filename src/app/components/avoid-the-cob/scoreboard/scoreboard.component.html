@@ -1,0 +1,9 @@
+@for (score of scoreboardService.scores; track score) {
+  <div class="mb-4 flex w-1/2 justify-between text-3xl">
+    <span class="text-game-white">{{ score.name }}</span>
+    <span class="text-primary">{{ score.score }}</span>
+  </div>
+}
+<button (click)="scoreboardService.hide()" class="absolute bottom-0 left-0 m-8 text-5xl text-primary">
+  <span class="hover:text-game-white">Back</span>
+</button>

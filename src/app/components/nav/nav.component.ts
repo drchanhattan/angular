@@ -20,7 +20,7 @@ interface Links {
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, ThemeSelectorComponent, MatIconModule],
+  imports: [CommonModule, MatIconModule, ThemeSelectorComponent],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {

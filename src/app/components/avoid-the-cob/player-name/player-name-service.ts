@@ -5,7 +5,7 @@ import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'o
 @Injectable({
   providedIn: 'root',
 })
-export class NameService {
+export class PlayerNameService {
   name = new FormControl<string>('', [Validators.required, this.profanityValidator()]);
 
   constructor() {
