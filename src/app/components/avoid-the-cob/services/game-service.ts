@@ -8,6 +8,7 @@ import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
+import { PlayerNameService } from '../player-name/player-name-service';
 import { FirebaseService } from '../scoreboard/firebase.service';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
@@ -34,6 +35,7 @@ export class GameService {
     private firebaseService: FirebaseService,
     private mainMenuService: MainMenuService,
     private particleService: ParticleService,
+    private playerNameService: PlayerNameService,
     private textService: GameTextService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
@@ -47,14 +49,12 @@ export class GameService {
 
   play() {
     if (!!window.localStorage.getItem('name')) {
-      this.particleService.hideMenuParticles();
       this.mainMenuService.hide();
-      this.hideNamePrompt();
+      this.playerNameService.hide();
       this.newGame();
     } else {
-      this.particleService.hideMenuParticles();
       this.mainMenuService.hide();
-      this.showNamePrompt();
+      this.playerNameService.show();
     }
   }
 
@@ -90,9 +90,7 @@ export class GameService {
     this.cursor.setInvincibility(false);
     this.level++;
     this.paused = true;
-
-    const heart = this.hearts.objects[0];
-    this.textService.show(`Level ${this.level}`, !!heart && heart.destroyed ? '+ 1' : '', 3500);
+    this.levelUpText();
 
     setTimeout(() => {
       this.levelUp();
@@ -106,6 +104,12 @@ export class GameService {
     this.levelUpPowerUps();
     this.levelUpHearts();
     this.levelUpCursor();
+  }
+
+  private levelUpText() {
+    const heart = this.hearts.objects[0];
+    const subText = !!heart && heart.isDestroyed ? '+ 1' : '';
+    this.textService.show(`Level ${this.level}`, subText, 3500);
   }
 
   private levelUpPeas() {
@@ -133,12 +137,7 @@ export class GameService {
     const speed = defaultSettings.speed;
     const count = GameObjectDefaults.powerUp().count;
     this.powerUps.editSettings(size, speed, count);
-
-    if (this.level % this.powerUpFrequency === 0) {
-      this.powerUps.createObjects();
-    } else {
-      this.powerUps.objects = [];
-    }
+    this.level % this.powerUpFrequency === 0 ? this.powerUps.createObjects() : this.powerUps.destroyObjects();
   }
 
   private levelUpHearts() {
@@ -148,12 +147,7 @@ export class GameService {
     const speed = defaultSettings.speed;
     const count = GameObjectDefaults.heart().count;
     this.hearts.editSettings(size, speed, count);
-
-    if (this.level % this.powerUpFrequency === 0) {
-      this.hearts.objects = [];
-    } else {
-      this.hearts.createObjects();
-    }
+    this.level % this.powerUpFrequency === 0 ? this.hearts.destroyObjects() : this.hearts.createObjects();
   }
 
   private levelUpCursor() {
@@ -162,15 +156,14 @@ export class GameService {
   }
 
   private isLevelComplete() {
-    const peas = this.peas.objects.some((pea) => !pea.destroyed && pea.isWithinViewport);
-    const blueCorn = this.corn.objects.some((corn) => corn.isPea && !corn.destroyed && corn.isWithinViewport);
+    const peas = this.peas.objects.some((pea) => !pea.isDestroyed && pea.isWithinViewport);
+    const blueCorn = this.corn.objects.some((corn) => corn.isPea && !corn.isDestroyed && corn.isWithinViewport);
     return !peas && !blueCorn;
   }
 
   private gameOver() {
-    this.firebaseService.saveScore(this.level);
-
     this.paused = true;
+    this.firebaseService.saveScore(this.level);
     this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
@@ -187,7 +180,7 @@ export class GameService {
   // ==============================
 
   private handleGameObject(obj: GameObject) {
-    if (!obj.destroyed) {
+    if (!obj.isDestroyed) {
       this.canvasService.drawObject(this.canvasService.context, obj);
       this.customObjectBehaviour(obj);
       this.handleCollisions(obj);
@@ -252,17 +245,15 @@ export class GameService {
   }
 
   private peaCollision(pea: GameObject) {
-    const collision = pea.detectCollision(this.cursor.object);
-    if (collision) {
-      pea.destroyed = true;
+    if (pea.detectCollision(this.cursor.object)) {
+      pea.destroy();
       this.particleService.create(pea, 20);
     }
   }
 
   private async cornCollision(corn: GameObject) {
-    const collision = corn.detectCollision(this.cursor.object);
-    if (collision) {
-      corn.destroyed = true;
+    if (corn.detectCollision(this.cursor.object)) {
+      corn.destroy();
       this.particleService.create(corn);
 
       if (!this.cursor.invincible) {
@@ -278,9 +269,8 @@ export class GameService {
   }
 
   private powerUpCollision(powerUp: GameObject) {
-    const collision = powerUp.detectCollision(this.cursor.object);
-    if (collision) {
-      powerUp.destroyed = true;
+    if (powerUp.detectCollision(this.cursor.object)) {
+      powerUp.destroy();
       this.particleService.create(powerUp, 100);
       this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
       this.randomPowerUp();
@@ -288,9 +278,8 @@ export class GameService {
   }
 
   private heartCollision(heart: GameObject) {
-    const collision = heart.detectCollision(this.cursor.object);
-    if (collision) {
-      heart.destroyed = true;
+    if (heart.detectCollision(this.cursor.object)) {
+      heart.destroy();
       this.particleService.create(heart, 8);
       this.lives++;
       this.cursor.blink(heart.color, 2, 100);
@@ -380,17 +369,5 @@ export class GameService {
   private activateImmunity(duration: number) {
     this.ghost = true;
     setTimeout(() => (this.ghost = false), duration);
-  }
-
-  hideNamePrompt() {
-    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
-  }
-
-  showNamePrompt() {
-    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
   }
 }

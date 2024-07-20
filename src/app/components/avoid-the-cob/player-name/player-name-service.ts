@@ -32,4 +32,16 @@ export class PlayerNameService {
       return containsProfanity ? { profanity: true } : null;
     };
   }
+
+  hide() {
+    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
+    menuClassList.add('opacity-0');
+    menuClassList.add('pointer-events-none');
+  }
+
+  show() {
+    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
+    menuClassList.remove('opacity-0');
+    menuClassList.remove('pointer-events-none');
+  }
 }

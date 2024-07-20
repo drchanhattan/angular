@@ -36,4 +36,8 @@ export class GameObjectGroup {
   setBehaviour(behaviour: GameObjectBehaviour) {
     this.objects.forEach((object) => object.toggleBehaviour(behaviour));
   }
+
+  destroyObjects() {
+    this.objects = [];
+  }
 }

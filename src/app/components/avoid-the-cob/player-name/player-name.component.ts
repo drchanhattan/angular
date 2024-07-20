@@ -18,12 +18,12 @@ export class PlayerNameComponent {
 
   constructor(
     private gameService: GameService,
-    public playerNameService: PlayerNameService,
     private mainMenuService: MainMenuService,
+    public playerNameService: PlayerNameService,
   ) {}
 
   back() {
-    this.gameService.hideNamePrompt();
+    this.playerNameService.hide();
     this.mainMenuService.show();
   }
 

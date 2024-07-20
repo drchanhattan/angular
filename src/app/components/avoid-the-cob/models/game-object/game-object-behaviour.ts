@@ -4,4 +4,5 @@ export enum GameObjectBehaviour {
   Repel = 3,
   Blue = 4,
   Slow = 5,
+  Destroyed = 6,
 }
