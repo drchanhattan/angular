@@ -17,7 +17,7 @@ import { TextService } from './services/text-service';
   templateUrl: './avoid-the-cob.component.html',
 })
 export class AvoidTheCobComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'flex justify-center items-center text-nowrap font-ink bg-game-black';
+  @HostBinding('class') hostClasses = 'flex size-full justify-center items-center text-nowrap font-ink bg-game-black';
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(

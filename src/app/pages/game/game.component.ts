@@ -9,7 +9,7 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   templateUrl: './game.component.html',
 })
 export class GameComponent {
-  @HostBinding('class') hostClasses = '';
+  @HostBinding('class') hostClasses = 'flex size-full';
 
   @HostListener('window:resize') onResize() {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
