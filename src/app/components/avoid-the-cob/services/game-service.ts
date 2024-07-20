@@ -76,7 +76,6 @@ export class GameService {
   private start() {
     this.peas.createObjects();
     this.corn.createObjects();
-    this.hearts.createObjects();
     this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.activateImmunity(1000);
@@ -91,7 +90,8 @@ export class GameService {
     this.level++;
     this.paused = true;
 
-    this.textService.show(`Level ${this.level}`, this.hearts.objects[0].destroyed ? '+ 1' : '', 3500);
+    const heart = this.hearts.objects[0];
+    this.textService.show(`Level ${this.level}`, !!heart && heart.destroyed ? '+ 1' : '', 3500);
 
     setTimeout(() => {
       this.levelUp();
@@ -105,12 +105,6 @@ export class GameService {
     this.levelUpPowerUps();
     this.levelUpHearts();
     this.levelUpCursor();
-
-    if (this.level % this.powerUpFrequency === 0) {
-      this.powerUps.createObjects();
-    } else {
-      this.powerUps.objects = [];
-    }
   }
 
   private levelUpPeas() {
@@ -138,6 +132,12 @@ export class GameService {
     const speed = defaultSettings.speed;
     const count = GameObjectDefaults.powerUp().count;
     this.powerUps.editSettings(size, speed, count);
+
+    if (this.level % this.powerUpFrequency === 0) {
+      this.powerUps.createObjects();
+    } else {
+      this.powerUps.objects = [];
+    }
   }
 
   private levelUpHearts() {
@@ -147,6 +147,12 @@ export class GameService {
     const speed = defaultSettings.speed;
     const count = GameObjectDefaults.heart().count;
     this.hearts.editSettings(size, speed, count);
+
+    if (this.level % this.powerUpFrequency === 0) {
+      this.hearts.objects = [];
+    } else {
+      this.hearts.createObjects();
+    }
   }
 
   private levelUpCursor() {
@@ -294,18 +300,18 @@ export class GameService {
   // ==============================
 
   private randomPowerUp() {
-    const powerUps = [
-      this.powerAttract.bind(this),
-      this.powerRepel.bind(this),
-      this.powerSlowCorn.bind(this),
-      this.powerAttract.bind(this),
-      this.powerInvincible.bind(this),
-      this.powerSlowCorn.bind(this),
-      this.powerRepel.bind(this),
-      this.powerBlueCorn.bind(this),
-    ];
-
     if (this.level % this.powerUpFrequency === 0) {
+      const powerUps = [
+        this.powerAttract.bind(this),
+        this.powerRepel.bind(this),
+        this.powerSlowCorn.bind(this),
+        this.powerAttract.bind(this),
+        this.powerInvincible.bind(this),
+        this.powerSlowCorn.bind(this),
+        this.powerRepel.bind(this),
+        this.powerBlueCorn.bind(this),
+      ];
+
       const powerUpIndex = (this.level / this.powerUpFrequency - 1) % powerUps.length;
       powerUps[powerUpIndex]();
       this.peas.setBehaviour(GameObjectBehaviour.Blue);
