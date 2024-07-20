@@ -8,7 +8,7 @@ export class MainMenuService {
   constructor(private particleService: ParticleService) {}
 
   hide() {
-    this.particleService.showMenuParticles();
+    this.particleService.hideMenuParticles();
     const menuClassList = document.getElementsByTagName('app-main-menu')[0].classList;
     menuClassList.add('opacity-0');
     menuClassList.add('pointer-events-none');
