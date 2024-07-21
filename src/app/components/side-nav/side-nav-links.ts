@@ -3,14 +3,14 @@ export interface SideNavLink {
   url: string;
 }
 
-export interface SideNavLinks {
+export interface SideNavGroup {
   label: string;
   url: string;
   sublinks?: SideNavLink[];
   expanded?: boolean;
 }
 
-export const sideNavLinks: SideNavLinks[] = [
+export const sideNavLinks: SideNavGroup[] = [
   { label: 'Home', url: '/home' },
   {
     label: 'Gallery',

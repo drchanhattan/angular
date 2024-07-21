@@ -5,7 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
-import { SideNavLink, sideNavLinks } from './side-nav-links';
+import { SideNavGroup, SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
   selector: 'app-side-nav',
@@ -22,17 +22,22 @@ export class SideNavComponent {
   constructor(private router: Router) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
       this.currentRoute = event.url;
-      this.expandActiveGroup();
+      this.autoExpandActiveGroup();
       window.scrollTo(0, 0);
     });
   }
 
-  private expandActiveGroup() {
+  private autoExpandActiveGroup() {
     this.links.forEach((link) => {
       if (link.sublinks) {
         link.expanded = this.hasActiveSublink(link.sublinks);
       }
     });
+  }
+
+  expandGroup(group: SideNavGroup, button: HTMLButtonElement) {
+    group.expanded = !group.expanded;
+    button.scrollIntoView({ behavior: 'smooth' });
   }
 
   navigate(path: string) {
