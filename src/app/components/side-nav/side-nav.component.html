@@ -5,25 +5,24 @@
 <div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-[20%]">
   @for (link of links; track link) {
     @if (!link.sublinks) {
+      <!-- Link -->
       <button (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
         <span [ngClass]="{ 'text-primary': currentRoute === link.url }">{{ link.label }}</span>
       </button>
     } @else {
-      <div class="mb-6 flex items-center justify-center">
+      <!-- Link Group -->
+      <button class="mb-8 flex items-center justify-center" (click)="link.expanded = !link.expanded">
         <span class="pointer-events-none mr-1" [ngClass]="{ 'text-primary': hasActiveSublink(link.sublinks) }">
           {{ link.label }}
         </span>
-        <button class="mt-2" mat-icon-button (click)="link.expanded = !link.expanded">
-          <mat-icon>{{ link.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
-        </button>
-      </div>
+        <mat-icon>{{ link.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
+      </button>
       @if (link.expanded) {
         @for (subLink of link.sublinks; track subLink) {
-          <div class="mb-8 ml-6 flex flex-col">
-            <button (click)="navigate(subLink.url)" class="" [disabled]="currentRoute === subLink.url">
-              <span [ngClass]="{ 'text-primary': currentRoute === subLink.url }">{{ subLink.label }}</span>
-            </button>
-          </div>
+          <!-- SubLink -->
+          <button class="mb-8 ml-6" (click)="navigate(subLink.url)" [disabled]="currentRoute === subLink.url">
+            <span [ngClass]="{ 'text-primary': currentRoute === subLink.url }">{{ subLink.label }}</span>
+          </button>
         }
       }
     }

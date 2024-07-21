@@ -10,14 +10,14 @@ import { FirebaseService } from './components/avoid-the-cob/components/scoreboar
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
 import { CursorService } from './components/avoid-the-cob/services/cursor.service';
 import { GameService } from './components/avoid-the-cob/services/game-service';
-import { NavComponent } from './components/nav/nav.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ThemeSelectorService } from './components/theme-selector/theme-selector-service';
 import { GameComponent } from './pages/game/game.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, GameComponent, NavComponent, MatIconModule, MatSidenavModule],
+  imports: [CommonModule, RouterOutlet, GameComponent, SideNavComponent, MatIconModule, MatSidenavModule],
   templateUrl: './app.component.html',
   providers: [
     CanvasService,

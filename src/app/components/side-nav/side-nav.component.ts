@@ -5,50 +5,33 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
-
-interface Link {
-  label: string;
-  url: string;
-}
-
-interface Links {
-  label: string;
-  url: string;
-  sublinks?: Link[];
-  expanded?: boolean;
-}
+import { SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
-  selector: 'app-nav',
+  selector: 'app-side-nav',
   standalone: true,
   imports: [CommonModule, MatIconModule, ThemeSelectorComponent, IconButtonComponent],
-  templateUrl: './nav.component.html',
+  templateUrl: './side-nav.component.html',
 })
-export class NavComponent {
+export class SideNavComponent {
   @HostBinding('class') hostClasses = 'h-full flex flex-col items-center';
   @Output() close = new EventEmitter();
   currentRoute!: string;
-  links: Links[] = [
-    { label: 'Home', url: '/home' },
-    {
-      label: 'Gallery',
-      url: '',
-      sublinks: [
-        { label: 'Europe', url: '/europe' },
-        { label: 'Asia', url: '/asia' },
-        { label: 'North America', url: '/north-america' },
-        { label: 'South America', url: '/south-america' },
-        { label: 'Oceania', url: '/oceania' },
-      ],
-      expanded: true,
-    },
-    { label: 'Games', url: '', sublinks: [{ label: 'Avoid the Cob', url: '/game' }], expanded: true },
-  ];
+  links = sideNavLinks;
 
   constructor(private router: Router) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
       this.currentRoute = event.url;
+      this.expandActiveGroup();
       window.scrollTo(0, 0);
+    });
+  }
+
+  private expandActiveGroup() {
+    this.links.forEach((link) => {
+      if (link.sublinks) {
+        link.expanded = this.hasActiveSublink(link.sublinks);
+      }
     });
   }
 
@@ -57,7 +40,7 @@ export class NavComponent {
     this.router.navigate([path]).then(() => window.location.reload());
   }
 
-  hasActiveSublink(links: Link[]) {
+  hasActiveSublink(links: SideNavLink[]) {
     return links.map((link) => link.url).includes(this.currentRoute);
   }
 }
