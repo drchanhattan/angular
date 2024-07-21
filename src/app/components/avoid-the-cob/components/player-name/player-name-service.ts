@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
+import { ShowHideService } from '../../services/show-hide-service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'o
 export class PlayerNameService {
   name = new FormControl<string>('', [Validators.required, Validators.maxLength(20), this.profanityValidator()]);
 
-  constructor() {
+  constructor(private showHideService: ShowHideService) {
     const name = window.localStorage.getItem('name');
 
     if (name) {
@@ -34,14 +35,10 @@ export class PlayerNameService {
   }
 
   hide() {
-    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
+    this.showHideService.hide('app-player-name');
   }
 
   show() {
-    const menuClassList = document.getElementsByTagName('app-player-name')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
+    this.showHideService.show('app-player-name');
   }
 }

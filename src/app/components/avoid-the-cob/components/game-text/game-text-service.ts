@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ShowHideService } from '../../services/show-hide-service';
 
 @Injectable({
   providedIn: 'root',
@@ -6,15 +7,15 @@ import { Injectable } from '@angular/core';
 export class GameTextService {
   text: string = '';
   subtext: string = '';
+  constructor(private showHideService: ShowHideService) {}
 
   show(text: string, subtext: string, duration: number) {
     this.text = text;
     this.subtext = subtext;
-    const textClass = document.getElementsByTagName('app-game-text')[0].classList;
 
-    textClass.remove('opacity-0');
+    this.showHideService.show('app-game-text');
     setTimeout(() => {
-      textClass.add('opacity-0');
+      this.showHideService.hide('app-game-text');
     }, duration);
   }
 }

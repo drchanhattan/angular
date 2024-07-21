@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
+import { ShowHideService } from '../../services/show-hide-service';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
@@ -8,18 +9,17 @@ import { FirebaseService } from './firebase.service';
 export class ScoreboardService {
   scores: GameScore[] = [];
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private firebaseService: FirebaseService,
+    private showHideService: ShowHideService,
+  ) {}
 
   hide() {
-    const menuClassList = document.getElementsByTagName('app-scoreboard')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
+    this.showHideService.hide('app-scoreboard');
   }
 
   async show() {
-    const menuClassList = document.getElementsByTagName('app-scoreboard')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
+    this.showHideService.show('app-scoreboard');
     this.scores = await this.firebaseService.getAllScores();
   }
 }

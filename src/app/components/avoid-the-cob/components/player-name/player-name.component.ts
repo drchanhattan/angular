@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameService } from '../../services/game-service';
-import { GameMenuButtonComponent } from '../game-menu-button/game-menu-button.component';
+import { GameButtonComponent } from '../game-button/game-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
 import { PlayerNameService } from './player-name-service';
 
 @Component({
   selector: 'app-player-name',
   standalone: true,
-  imports: [CommonModule, GameMenuButtonComponent, ReactiveFormsModule],
+  imports: [CommonModule, GameButtonComponent, ReactiveFormsModule],
   templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {

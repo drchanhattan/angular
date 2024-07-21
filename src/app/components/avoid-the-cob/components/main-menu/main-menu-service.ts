@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameObject } from '../../models/game-object/game-object';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
 import { ParticleService } from '../../services/particle-service';
+import { ShowHideService } from '../../services/show-hide-service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,22 +10,21 @@ import { ParticleService } from '../../services/particle-service';
 export class MainMenuService {
   menuParticles: boolean = false;
 
-  constructor(private particleService: ParticleService) {
+  constructor(
+    private particleService: ParticleService,
+    private showHideService: ShowHideService,
+  ) {
     this.showParticles();
   }
 
   hide() {
     this.hideParticles();
-    const menuClassList = document.getElementsByTagName('app-main-menu')[0].classList;
-    menuClassList.add('opacity-0');
-    menuClassList.add('pointer-events-none');
+    this.showHideService.hide('app-main-menu');
   }
 
   show() {
     this.showParticles();
-    const menuClassList = document.getElementsByTagName('app-main-menu')[0].classList;
-    menuClassList.remove('opacity-0');
-    menuClassList.remove('pointer-events-none');
+    this.showHideService.show('app-main-menu');
   }
 
   private showParticles() {
