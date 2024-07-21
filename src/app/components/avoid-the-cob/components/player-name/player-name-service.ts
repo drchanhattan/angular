@@ -6,7 +6,7 @@ import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'o
   providedIn: 'root',
 })
 export class PlayerNameService {
-  name = new FormControl<string>('', [Validators.required, this.profanityValidator()]);
+  name = new FormControl<string>('', [Validators.required, Validators.maxLength(20), this.profanityValidator()]);
 
   constructor() {
     const name = window.localStorage.getItem('name');

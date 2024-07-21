@@ -7,7 +7,7 @@
   placeholder="Name"
   (keypress)="keyPressed($event)"
   [formControl]="playerNameService.name"
-  [maxlength]="25" />
+  [maxlength]="20" />
 
 <!-- Back Button -->
 <app-game-menu-button class="bottom-0 left-0" (click)="back()" [text]="'Back'"></app-game-menu-button>

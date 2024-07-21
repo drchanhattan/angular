@@ -8,7 +8,7 @@
 <app-game-menu-button class="bottom-0 left-0" (click)="gameService.play()" [text]="'Play'"></app-game-menu-button>
 
 <!-- Scoreboard -->
-<app-game-menu-button class="right-0 top-0" (click)="scoreboardService.show()"></app-game-menu-button>
+<app-game-menu-button class="right-0 top-0" [text]="'Top 10'" (click)="scoreboardService.show()"></app-game-menu-button>
 
 <!-- Exit -->
 <app-game-menu-button class="bottom-0 right-0" (click)="exit()" [text]="'Exit'"></app-game-menu-button>

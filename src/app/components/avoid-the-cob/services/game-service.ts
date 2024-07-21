@@ -3,6 +3,7 @@ import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
 import { FirebaseService } from '../components/scoreboard/firebase.service';
+import { ScoreboardService } from '../components/scoreboard/scoreboard-service';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -36,6 +37,7 @@ export class GameService {
     private mainMenuService: MainMenuService,
     private particleService: ParticleService,
     private playerNameService: PlayerNameService,
+    private scoreboardService: ScoreboardService,
     private textService: GameTextService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
@@ -167,7 +169,7 @@ export class GameService {
     this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
-      this.mainMenuService.show();
+      this.scoreboardService.show();
       this.cursor.show();
     }, 6000);
   }
