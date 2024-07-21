@@ -1,4 +1,4 @@
-export interface Score {
+export interface GameScore {
   name: string;
   score: number;
 }

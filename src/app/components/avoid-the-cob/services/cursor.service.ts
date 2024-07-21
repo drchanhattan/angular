@@ -81,9 +81,12 @@ export class CursorService {
     canvas.drawObject(context, this.object);
   }
 
-  toggle() {
-    const canvasClass = this.canvasService.canvasEle.nativeElement.classList;
-    canvasClass.toggle('cursor-none');
+  hide() {
+    this.canvasService.canvasEle.nativeElement.classList.add('cursor-none');
+  }
+
+  show() {
+    this.canvasService.canvasEle.nativeElement.classList.remove('cursor-none');
   }
 
   reset() {

@@ -4,6 +4,8 @@
     <span class="text-primary">{{ score.score }}</span>
   </div>
 }
-<button (click)="scoreboardService.hide()" class="absolute bottom-0 left-0 m-8 text-5xl text-primary">
-  <span class="hover:text-game-white">Back</span>
-</button>
+
+<app-game-menu-button
+  class="absolute bottom-0 left-0"
+  (click)="scoreboardService.hide()"
+  [text]="'Back'"></app-game-menu-button>

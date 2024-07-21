@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GameTextService } from '../game-text/game-text-service';
-import { MainMenuService } from '../main-menu/main-menu-service';
+import { GameTextService } from '../components/game-text/game-text-service';
+import { MainMenuService } from '../components/main-menu/main-menu-service';
+import { PlayerNameService } from '../components/player-name/player-name-service';
+import { FirebaseService } from '../components/scoreboard/firebase.service';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -8,8 +10,6 @@ import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
-import { PlayerNameService } from '../player-name/player-name-service';
-import { FirebaseService } from '../scoreboard/firebase.service';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
@@ -66,7 +66,7 @@ export class GameService {
     this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
     this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
     this.cursor.reset();
-    this.cursor.toggle();
+    this.cursor.hide();
     this.textService.show(`Level ${this.level}`, '', 2500);
 
     setTimeout(() => {
@@ -168,7 +168,7 @@ export class GameService {
 
     setTimeout(() => {
       this.mainMenuService.show();
-      this.cursor.toggle();
+      this.cursor.show();
     }, 6000);
   }
 

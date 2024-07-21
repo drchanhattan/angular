@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GameService } from '../../services/game-service';
+import { GameMenuButtonComponent } from '../game-menu-button/game-menu-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
-import { GameService } from '../services/game-service';
 import { PlayerNameService } from './player-name-service';
 
 @Component({
   selector: 'app-player-name',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, GameMenuButtonComponent, ReactiveFormsModule],
   templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {
@@ -30,5 +31,11 @@ export class PlayerNameComponent {
   enterName() {
     this.playerNameService.saveName();
     this.gameService.play();
+  }
+
+  keyPressed(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.enterName();
+    }
   }
 }

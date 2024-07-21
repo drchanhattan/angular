@@ -12,9 +12,11 @@ export class GameTextService {
     this.subText = subText;
     const textClass = document.getElementsByTagName('app-game-text')[0].classList;
 
-    textClass.toggle('opacity-0');
+    console.log(textClass);
+
+    textClass.remove('opacity-0');
     setTimeout(() => {
-      textClass.toggle('opacity-0');
+      textClass.add('opacity-0');
     }, duration);
   }
 }

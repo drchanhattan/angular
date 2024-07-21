@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-cob.component';
 
 @Component({
@@ -10,11 +10,4 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
 })
 export class GameComponent {
   @HostBinding('class') hostClasses = 'flex size-full';
-
-  @HostListener('window:resize') onResize() {
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (!isTouchDevice) {
-      location.reload();
-    }
-  }
 }

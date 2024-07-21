@@ -1,12 +1,13 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameService } from '../../services/game-service';
+import { GameMenuButtonComponent } from '../game-menu-button/game-menu-button.component';
 import { ScoreboardService } from '../scoreboard/scoreboard-service';
-import { GameService } from '../services/game-service';
 
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [],
+  imports: [GameMenuButtonComponent],
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {

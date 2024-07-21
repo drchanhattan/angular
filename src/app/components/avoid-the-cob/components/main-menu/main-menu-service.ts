@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { GameObject } from '../models/game-object/game-object';
-import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
-import { ParticleService } from '../services/particle-service';
+import { GameObject } from '../../models/game-object/game-object';
+import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
+import { ParticleService } from '../../services/particle-service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { GameTextService } from './game-text/game-text-service';
-import { GameTextComponent } from './game-text/game-text.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
-import { PlayerNameService } from './player-name/player-name-service';
-import { PlayerNameComponent } from './player-name/player-name.component';
-import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { GameTextService } from './components/game-text/game-text-service';
+import { GameTextComponent } from './components/game-text/game-text.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { PlayerNameService } from './components/player-name/player-name-service';
+import { PlayerNameComponent } from './components/player-name/player-name.component';
+import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
 import { ParticleService } from './services/particle-service';
@@ -37,6 +37,17 @@ export class AvoidTheCobComponent implements AfterViewInit {
     public particleService: ParticleService,
     public textService: GameTextService,
   ) {}
+
+  @HostListener('window:resize') onResize() {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (!isTouchDevice) {
+      location.reload();
+    }
+  }
+
+  @HostListener('window:keydown.escape', ['$event']) onKeydownHandler() {
+    location.reload();
+  }
 
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);

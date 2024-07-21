@@ -41,7 +41,7 @@ export class NavComponent {
       ],
       expanded: true,
     },
-    { label: 'Games', url: '', sublinks: [{ label: 'Avoid the Cob 2', url: '/game' }], expanded: true },
+    { label: 'Games', url: '', sublinks: [{ label: 'Avoid the Cob', url: '/game' }], expanded: true },
   ];
 
   constructor(private router: Router) {
