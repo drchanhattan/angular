@@ -15,28 +15,32 @@ export class FirebaseService {
   async saveScore(score: number): Promise<void> {
     const name = this.nameService.name.value?.toUpperCase();
 
-    if (name) {
-      try {
-        const scoresData = await this.getAllScores();
-        const existingScore = scoresData.find((s) => s.name === name);
+    if (!name) {
+      console.log('Name is not provided.');
+      return;
+    }
 
-        if (existingScore) {
-          if (score > existingScore.score) {
-            existingScore.score = score;
-            console.log('Score updated successfully!');
-          } else {
-            console.log('Existing score is higher or equal. No update made.');
-          }
-        } else {
-          scoresData.push({ name, score });
-          console.log('Score saved successfully!');
+    try {
+      const scoresData = await this.getAllScores();
+      const existingScore = scoresData.find((s) => s.name === name);
+
+      let updated = false;
+
+      if (existingScore) {
+        if (score > existingScore.score) {
+          existingScore.score = score;
+          updated = true;
         }
-
-        this.sortAndLimitScores(scoresData);
-        await setDoc(this.scoresDocRef, { highScores: scoresData });
-      } catch (e) {
-        console.error('Error saving or updating score: ', e);
+      } else {
+        scoresData.push({ name, score });
+        updated = true;
       }
+
+      if (updated) {
+        this.updateScores(scoresData);
+      }
+    } catch (e) {
+      console.error('Error saving or updating score: ', e);
     }
   }
 
@@ -54,11 +58,16 @@ export class FirebaseService {
     }
   }
 
+  private async updateScores(scores: GameScore[]) {
+    this.sortAndLimitScores(scores);
+    await setDoc(this.scoresDocRef, { highScores: scores });
+    console.log('Scores successfully updated!');
+  }
+
   private sortAndLimitScores(scores: GameScore[]): void {
     scores.sort((a, b) => b.score - a.score);
-    if (scores.length > 10) {
-      scores.length = 10;
+    if (scores.length > 20) {
+      scores.length = 20;
     }
   }
 }
-export { GameScore as Score };

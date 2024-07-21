@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FirebaseService, Score } from './firebase.service';
+import { GameScore } from '../../models/game-score/game-score';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoreboardService {
-  scores: Score[] = [];
+  scores: GameScore[] = [];
 
   constructor(private firebaseService: FirebaseService) {}
 
