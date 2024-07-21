@@ -3,6 +3,7 @@ import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 
 interface Link {
@@ -20,12 +21,12 @@ interface Links {
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ThemeSelectorComponent],
+  imports: [CommonModule, MatIconModule, ThemeSelectorComponent, IconButtonComponent],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
   @HostBinding('class') hostClasses = 'h-full flex flex-col items-center';
-  @Output() toggleDrawer = new EventEmitter();
+  @Output() close = new EventEmitter();
   currentRoute!: string;
   links: Links[] = [
     { label: 'Home', url: '/home' },
@@ -52,7 +53,7 @@ export class NavComponent {
   }
 
   navigate(path: string) {
-    this.toggleDrawer.emit();
+    this.close.emit();
     this.router.navigate([path]).then(() => window.location.reload());
   }
 

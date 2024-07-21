@@ -1,5 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { IconButtonComponent } from '../../../icon-button/icon-button.component';
 import { GameService } from '../../services/game-service';
 import { GameMenuButtonComponent } from '../game-menu-button/game-menu-button.component';
 import { ScoreboardService } from '../scoreboard/scoreboard-service';
@@ -7,7 +8,7 @@ import { ScoreboardService } from '../scoreboard/scoreboard-service';
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [GameMenuButtonComponent],
+  imports: [GameMenuButtonComponent, IconButtonComponent],
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {

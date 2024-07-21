@@ -3,19 +3,19 @@
 
 <!-- Name Input -->
 <input
-  class="mb-20 max-w-[60%] border-b-2 border-primary bg-transparent pb-6 text-center font-ink text-5xl text-primary placeholder-game-white outline-none md:text-6xl lg:text-8xl"
-  placeholder="Name"
+  class="mb-20 w-[80%] border-b-2 border-primary bg-transparent pb-6 text-center font-ink text-3xl uppercase text-primary outline-none"
+  placeholder="PLAYER NAME"
   (keypress)="keyPressed($event)"
   [formControl]="playerNameService.name"
   [maxlength]="20" />
 
 <!-- Back Button -->
-<app-game-menu-button class="bottom-0 left-0" (click)="back()" [text]="'Back'"></app-game-menu-button>
+<app-game-menu-button class="absolute bottom-0 left-0" (click)="back()" [text]="'BACK'"></app-game-menu-button>
 
 <!-- Enter Button -->
 <app-game-menu-button
   *ngIf="playerNameService.name.valid"
-  class="bottom-0 right-0"
+  class="absolute bottom-0 right-0"
   (click)="enterName()"
-  [text]="'Enter'"
-  [disabled]="!playerNameService.name.value?.length"></app-game-menu-button>
+  [text]="'ENTER'"
+  [disabled]="playerNameService.name.invalid"></app-game-menu-button>

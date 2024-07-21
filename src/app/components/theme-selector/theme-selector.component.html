@@ -1,6 +1,4 @@
-<button mat-icon-button [mat-menu-trigger-for]="themes">
-  <mat-icon color="primary">contrast</mat-icon>
-</button>
+<app-icon-button [icon]="'contrast'" [menu]="themes"></app-icon-button>
 
 <mat-menu #themes>
   <button mat-menu-item [disabled]="service.isLight" (click)="setTheme('light-theme')">

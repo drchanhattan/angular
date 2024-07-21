@@ -1,10 +1,14 @@
-<button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()" class="fixed left-0 top-0 z-20 m-6">
-  <mat-icon color="primary">menu</mat-icon>
+<button
+  *ngIf="!drawer.opened"
+  mat-icon-button
+  (click)="drawer.open()"
+  class="fixed left-0 top-0 z-20 m-8 text-5xl text-primary">
+  <mat-icon [inline]="true">menu</mat-icon>
 </button>
 
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" [autoFocus]="false" [fixedInViewport]="true">
-    <app-nav (toggleDrawer)="drawer.toggle()"></app-nav>
+    <app-nav (close)="drawer.close()"></app-nav>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">

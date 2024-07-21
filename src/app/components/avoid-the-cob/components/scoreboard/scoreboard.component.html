@@ -1,5 +1,5 @@
 <!-- Header -->
-<span class="mb-8 mt-[20%] text-5xl text-primary lg:text-7xl">Top 10</span>
+<span class="mb-8 mt-[20%] text-5xl text-primary lg:text-7xl">Highscores</span>
 
 <!-- Scores -->
 <div class="mb-[30%] flex w-full flex-col items-center overflow-scroll">
@@ -12,4 +12,7 @@
 </div>
 
 <!-- Back -->
-<app-game-menu-button class="bottom-0 left-0" (click)="scoreboardService.hide()" [text]="'Back'"></app-game-menu-button>
+<app-game-menu-button
+  class="absolute bottom-0 left-0"
+  (click)="scoreboardService.hide()"
+  [text]="'Back'"></app-game-menu-button>

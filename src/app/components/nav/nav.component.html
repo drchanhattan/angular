@@ -1,10 +1,8 @@
 <!-- Close Button -->
-<button mat-icon-button class="m-6 flex self-end" (click)="toggleDrawer.emit()">
-  <mat-icon color="primary">close</mat-icon>
-</button>
+<app-icon-button class="flex self-end" [icon]="'close'" (click)="close.emit()"></app-icon-button>
 
 <!-- Links -->
-<div class="ml-32 mt-6 flex size-full flex-1 flex-col items-start">
+<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-[20%]">
   @for (link of links; track link) {
     @if (!link.sublinks) {
       <button (click)="navigate(link.url)" class="mb-8" [disabled]="currentRoute === link.url">
@@ -33,4 +31,4 @@
 </div>
 
 <!-- Theme Selector -->
-<app-theme-selector class="m-6 flex justify-end self-end"></app-theme-selector>
+<app-theme-selector class="flex justify-end self-end"></app-theme-selector>
