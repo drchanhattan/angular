@@ -1,9 +1,12 @@
+<!-- Spinner -->
 <div *ngIf="!heroLoaded" class="flex h-[100vh] w-[100vw] items-center justify-center">
   <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
 </div>
 
+<!-- Hero -->
 <img [src]="hero" class="h-[100vh] w-[100vw] object-cover" (load)="this.heroLoaded = true" />
 
+<!-- Photos -->
 <div *ngIf="photos" class="mb-20 mt-8 w-full">
   @for (group of photos; track group) {
     <div

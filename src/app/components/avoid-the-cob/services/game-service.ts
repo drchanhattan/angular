@@ -108,8 +108,8 @@ export class GameService {
 
   private levelUpText() {
     const heart = this.hearts.objects[0];
-    const subText = !!heart && heart.isDestroyed ? '+ 1' : '';
-    this.textService.show(`Level ${this.level}`, subText, 3500);
+    const subtext = !!heart && heart.isDestroyed ? '+ 1' : '';
+    this.textService.show(`Level ${this.level}`, subtext, 3500);
   }
 
   private levelUpPeas() {

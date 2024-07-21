@@ -5,14 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class GameTextService {
   text: string = '';
-  subText: string = '';
+  subtext: string = '';
 
-  show(text: string, subText: string, duration: number) {
+  show(text: string, subtext: string, duration: number) {
     this.text = text;
-    this.subText = subText;
+    this.subtext = subtext;
     const textClass = document.getElementsByTagName('app-game-text')[0].classList;
-
-    console.log(textClass);
 
     textClass.remove('opacity-0');
     setTimeout(() => {

@@ -1,16 +1,14 @@
+<!-- Corn SVG -->
 <div class="relative mb-10 flex flex-1">
   <img src="title.svg" class="absolute inset-0 m-auto max-h-[60vh]" />
   <img src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
 </div>
 
-<app-game-menu-button
-  class="absolute bottom-0 left-0"
-  (click)="gameService.play()"
-  [text]="'Play'"></app-game-menu-button>
+<!-- Play -->
+<app-game-menu-button class="bottom-0 left-0" (click)="gameService.play()" [text]="'Play'"></app-game-menu-button>
 
-<app-game-menu-button
-  class="absolute right-0 top-0"
-  (click)="scoreboardService.show()"
-  [text]="'Top 10'"></app-game-menu-button>
+<!-- Scoreboard -->
+<app-game-menu-button class="right-0 top-0" (click)="scoreboardService.show()"></app-game-menu-button>
 
-<app-game-menu-button class="absolute bottom-0 right-0" (click)="exit()" [text]="'Exit'"></app-game-menu-button>
+<!-- Exit -->
+<app-game-menu-button class="bottom-0 right-0" (click)="exit()" [text]="'Exit'"></app-game-menu-button>

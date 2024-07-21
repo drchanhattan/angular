@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-game-menu-button',
@@ -7,6 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './game-menu-button.component.html',
 })
 export class GameMenuButtonComponent {
+  @HostBinding('class') hostClasses = 'absolute';
+
   @Input() text: string = '';
   @Input() disabled: boolean = false;
   @Output() click = new EventEmitter();
