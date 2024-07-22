@@ -6,27 +6,21 @@
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
-      <button mat-button class="mb-2" (click)="navigate(item.url)" [disabled]="currentRoute === item.url">
-        <span class="mx-1 text-xl">{{ item.label }}</span>
-      </button>
+      <app-side-nav-button
+        (click)="navigate(item.url)"
+        [active]="currentRoute === item.url"
+        [label]="item.label"></app-side-nav-button>
     } @else {
       <!-- Link Group -->
-      <button #groupButton mat-button class="mb-2" (click)="expandGroup(item, groupButton)">
-        <span class="text-xl">{{ item.label }}</span>
-        <mat-icon iconPositionEnd>{{ item.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
-      </button>
+      <app-side-nav-button [group]="item"></app-side-nav-button>
       @if (item.expanded) {
         @for (subLink of item.sublinks; track subLink) {
           <!-- SubLink -->
-          <button
-            mat-button
-            class="mb-2 ml-6"
+          <app-side-nav-button
+            class="ml-6"
             (click)="navigate(subLink.url)"
-            [disabled]="currentRoute === subLink.url">
-            <span class="mx-1 text-xl">
-              {{ subLink.label }}
-            </span>
-          </button>
+            [active]="currentRoute === subLink.url"
+            [label]="subLink.label"></app-side-nav-button>
         }
       }
     }

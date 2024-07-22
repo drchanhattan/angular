@@ -24,11 +24,13 @@ html {
   &.light-theme {
     @include mat.core-color($light-theme);
     @include mat.all-component-colors($light-theme);
+    @include mat.icon-color($dark-theme, $color-variant: tertiary);
   }
 
   &.dark-theme {
     @include mat.core-color($dark-theme);
     @include mat.all-component-colors($dark-theme);
+    @include mat.icon-color($dark-theme, $color-variant: tertiary);
   }
 }
 

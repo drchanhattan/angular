@@ -1,22 +1,25 @@
-<!-- Corn Jr SVG -->
-<img src="corn-jr.svg" class="mb-12 max-h-[50%] hover:animate-jiggle" />
+<div class="flex w-full flex-1 flex-col items-center justify-evenly">
+  <!-- Corn Jr SVG -->
+  <img src="corn-jr.svg" class="h-[50%] hover:animate-jiggle" />
 
-<!-- Name Input -->
-<input
-  #input
-  class="w-[80%] bg-transparent px-4 text-center font-ink text-4xl uppercase text-game-yellow outline-none"
-  placeholder="PLAYER NAME"
-  (keypress)="keyPressed($event)"
-  [formControl]="playerNameService.name"
-  [maxlength]="20" />
+  <!-- Name Input -->
+  <input
+    #input
+    class="w-[90%] rounded-lg border-2 border-game-white bg-transparent px-4 py-4 text-center font-ink text-3xl uppercase text-game-white outline-none"
+    placeholder="PLAYER NAME"
+    (keypress)="keyPressed($event)"
+    [formControl]="playerNameService.name"
+    [maxlength]="20" />
+</div>
 
-<!-- Back Button -->
-<app-game-button class="absolute bottom-0 left-0" (click)="back()" [text]="'BACK'"></app-game-button>
+<div class="flex w-full justify-between">
+  <!-- Back Button -->
+  <app-game-button (click)="back()" [text]="'\<-'"></app-game-button>
 
-<!-- Enter Button -->
-<app-game-button
-  *ngIf="playerNameService.name.valid"
-  class="absolute bottom-0 right-0"
-  (click)="enterName()"
-  [text]="'ENTER'"
-  [disabled]="playerNameService.name.invalid"></app-game-button>
+  <!-- Enter Button -->
+  <app-game-button
+    *ngIf="playerNameService.name.valid"
+    (click)="enterName()"
+    [text]="'->'"
+    [disabled]="playerNameService.name.invalid"></app-game-button>
+</div>

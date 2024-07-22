@@ -1,17 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
-import { SideNavGroup, SideNavLink, sideNavLinks } from './side-nav-links';
+import { SideNavButtonComponent } from './components/side-nav-button/side-nav-button.component';
+import { SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, ThemeSelectorComponent, IconButtonComponent],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    ThemeSelectorComponent,
+    IconButtonComponent,
+    SideNavButtonComponent,
+  ],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {
@@ -36,14 +44,11 @@ export class SideNavComponent {
     });
   }
 
-  expandGroup(group: SideNavGroup, button: MatButton) {
-    group.expanded = !group.expanded;
-    button._elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }
-
   navigate(path: string) {
-    this.close.emit();
-    this.router.navigate([path]).then(() => window.location.reload());
+    if (this.currentRoute !== path) {
+      this.close.emit();
+      this.router.navigate([path]).then(() => window.location.reload());
+    }
   }
 
   hasActiveSublink(links: SideNavLink[]) {

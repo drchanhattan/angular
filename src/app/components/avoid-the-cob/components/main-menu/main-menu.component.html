@@ -5,13 +5,15 @@
   [icon]="'leaderboard'"></app-icon-button>
 
 <!-- Corn SVG -->
-<div class="relative mb-[20%]">
-  <img src="title.svg" class="absolute inset-0 max-h-[60vh]" />
-  <img src="corn.svg" class="relative inset-0 max-h-[60vh] hover:animate-jiggle" />
+<div class="relative mb-[20%] flex flex-1">
+  <img src="title.svg" class="absolute inset-0 m-auto max-h-[60vh]" />
+  <img src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
 </div>
 
-<!-- Exit -->
-<app-game-button class="absolute bottom-0 left-0" (click)="exit()" [text]="'EXIT'"></app-game-button>
+<div class="flex w-full justify-between">
+  <!-- Exit -->
+  <app-game-button class="absolute bottom-0 left-0" (click)="exit()" [text]="'EXIT'"></app-game-button>
 
-<!-- Play -->
-<app-game-button class="absolute bottom-0 right-0" (click)="gameService.play()" [text]="'PLAY'"></app-game-button>
+  <!-- Play -->
+  <app-game-button class="absolute bottom-0 right-0" (click)="gameService.play()" [text]="'PLAY'"></app-game-button>
+</div>
