@@ -12,7 +12,7 @@ import { ScoreboardService } from '../scoreboard/scoreboard-service';
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {
-  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center text-primary';
+  @HostBinding('class') hostClasses = 'absolute flex flex-col size-full flex items-center justify-center';
 
   constructor(
     private router: Router,

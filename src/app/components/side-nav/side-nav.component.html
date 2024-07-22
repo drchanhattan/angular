@@ -6,22 +6,26 @@
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
-      <button (click)="navigate(item.url)" class="mb-8" [disabled]="currentRoute === item.url">
-        <span [ngClass]="{ 'text-primary': currentRoute === item.url }">{{ item.label }}</span>
+      <button mat-button class="mb-2" (click)="navigate(item.url)" [disabled]="currentRoute === item.url">
+        <span class="mx-1 text-xl">{{ item.label }}</span>
       </button>
     } @else {
       <!-- Link Group -->
-      <button #groupButton class="mb-8 flex items-center justify-center" (click)="expandGroup(item, groupButton)">
-        <span class="pointer-events-none mr-1" [ngClass]="{ 'text-primary': hasActiveSublink(item.sublinks) }">
-          {{ item.label }}
-        </span>
-        <mat-icon>{{ item.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
+      <button #groupButton mat-button class="mb-2" (click)="expandGroup(item, groupButton)">
+        <span class="text-xl">{{ item.label }}</span>
+        <mat-icon iconPositionEnd>{{ item.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}</mat-icon>
       </button>
       @if (item.expanded) {
         @for (subLink of item.sublinks; track subLink) {
           <!-- SubLink -->
-          <button class="mb-8 ml-6" (click)="navigate(subLink.url)" [disabled]="currentRoute === subLink.url">
-            <span [ngClass]="{ 'text-primary': currentRoute === subLink.url }">{{ subLink.label }}</span>
+          <button
+            mat-button
+            class="mb-2 ml-6"
+            (click)="navigate(subLink.url)"
+            [disabled]="currentRoute === subLink.url">
+            <span class="mx-1 text-xl">
+              {{ subLink.label }}
+            </span>
           </button>
         }
       }

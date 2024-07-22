@@ -1,8 +1,8 @@
 <button
   mat-icon-button
-  class="m-8 text-5xl text-primary hover:text-game-white"
+  class="m-8 !size-[2rem] !p-0 !text-[2rem] !leading-[2rem]"
   (click)="click.emit()"
   [disabled]="disabled"
   [mat-menu-trigger-for]="menu">
-  <mat-icon [inline]="true">{{ icon }}</mat-icon>
+  <mat-icon class="!size-[2rem] !text-[2rem] !leading-[2rem]">{{ icon }}</mat-icon>
 </button>

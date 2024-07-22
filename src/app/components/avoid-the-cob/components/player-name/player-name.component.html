@@ -4,12 +4,11 @@
 <!-- Name Input -->
 <input
   #input
-  class="mb-20 w-[80%] bg-transparent pb-6 text-center font-ink text-3xl uppercase text-primary outline-none"
+  class="w-[80%] bg-transparent px-4 text-center font-ink text-4xl uppercase text-game-yellow outline-none"
   placeholder="PLAYER NAME"
   (keypress)="keyPressed($event)"
   [formControl]="playerNameService.name"
-  [maxlength]="20"
-  [autofocus]="true" />
+  [maxlength]="20" />
 
 <!-- Back Button -->
 <app-game-button class="absolute bottom-0 left-0" (click)="back()" [text]="'BACK'"></app-game-button>

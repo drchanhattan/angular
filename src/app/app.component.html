@@ -1,17 +1,15 @@
 <div class="pointer-events-none fixed top-0 z-50 flex w-full justify-center">
-  <div class="flex items-center rounded-b-lg bg-primary px-2 font-ink text-xs text-game-black">
+  <div class="flex items-center rounded-b-lg bg-game-yellow px-2 font-ink text-xs text-game-black">
     <mat-icon class="mr-1 !size-fit text-xs">construction</mat-icon>
     <span>IN DEVELOPMENT</span>
   </div>
 </div>
 
-<button
+<app-icon-button
+  class="!fixed left-0 top-0 !z-20"
   *ngIf="!drawer.opened"
-  mat-icon-button
   (click)="drawer.open()"
-  class="fixed left-0 top-0 z-20 m-8 text-5xl text-primary">
-  <mat-icon [inline]="true">menu</mat-icon>
-</button>
+  [icon]="'menu'"></app-icon-button>
 
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" [autoFocus]="false" [fixedInViewport]="true">
