@@ -1,25 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
-import { SideNavButtonComponent } from './components/side-nav-button/side-nav-button.component';
+import { SideNavButtonComponent } from './side-nav-button/side-nav-button.component';
 import { SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    ThemeSelectorComponent,
-    IconButtonComponent,
-    SideNavButtonComponent,
-  ],
+  imports: [CommonModule, ThemeSelectorComponent, IconButtonComponent, SideNavButtonComponent],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {

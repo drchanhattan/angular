@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SideNavGroup } from '../../side-nav-links';
+import { SideNavGroup } from '../side-nav-links';
 
 @Component({
   selector: 'app-side-nav-button',
