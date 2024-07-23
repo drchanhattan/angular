@@ -5,12 +5,12 @@
   [icon]="'leaderboard'"></app-icon-button>
 
 <!-- Corn SVG -->
-<div class="relative mb-[20%] flex flex-1">
+<div class="relative flex flex-1">
   <img src="title.svg" class="absolute inset-0 m-auto max-h-[60vh]" />
   <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
 </div>
 
-<div class="flex w-full justify-between">
+<div class="mb-10 flex w-full justify-evenly">
   <!-- Exit -->
   <app-game-button (click)="exit()" [text]="'EXIT'"></app-game-button>
 

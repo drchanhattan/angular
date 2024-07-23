@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-game-button',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './game-button.component.html',
 })
 export class GameButtonComponent {

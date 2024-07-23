@@ -58,7 +58,8 @@ export class ParticleService {
         const rect = svg.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const centre = new GameObject(centerX, centerY, GameObjectDefaults.corn().settings);
+        const settings = GameObjectDefaults.corn().settings;
+        const centre = new GameObject(centerX, centerY, settings);
         const interval = setInterval(() => {
           show.value ? this.create(centre, 30, 2) : clearInterval(interval);
         }, 500);

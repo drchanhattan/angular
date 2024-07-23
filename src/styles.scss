@@ -29,13 +29,13 @@ html {
 
 // Buttons
 .primary-button {
-  @include mat.icon-color($dark-theme, $color-variant: primary);
+  @include mat.button-color($dark-theme, $color-variant: primary);
 }
 .secondary-button {
-  @include mat.icon-color($dark-theme, $color-variant: secondary);
+  @include mat.button-color($dark-theme, $color-variant: secondary);
 }
 .tertiary-button {
-  @include mat.icon-color($dark-theme, $color-variant: tertiary);
+  @include mat.button-color($dark-theme, $color-variant: tertiary);
 }
 
 // Icons

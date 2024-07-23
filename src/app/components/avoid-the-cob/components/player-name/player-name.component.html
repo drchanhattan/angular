@@ -1,28 +1,30 @@
-<div class="flex w-full flex-1 flex-col items-center justify-evenly">
+<div class="flex w-full flex-1 flex-col items-center justify-center">
   <!-- Corn Jr SVG -->
-  <img id="cornJrSvg" src="corn-jr.svg" class="h-[50%] hover:animate-jiggle" />
+  <img id="cornJrSvg" src="corn-jr.svg" class="mb-10 h-[40%] hover:animate-jiggle" />
 
   <!-- Name Input -->
   <div class="flex w-full flex-col items-center justify-center">
     <app-player-name-input
-      class="mb-6"
+      class="mb-4"
       (keyPressed)="keyPressed($event)"
       [control]="playerNameService.firstName"
       [placeholder]="'First Name'"></app-player-name-input>
     <app-player-name-input
+      class="mb-4"
       (keyPressed)="keyPressed($event)"
       [control]="playerNameService.lastName"
       [placeholder]="'Last Name'"></app-player-name-input>
+    <span class="text-game-yellow">This will be used to record highscores</span>
   </div>
 </div>
 
-<div class="flex w-full justify-between">
+<div class="mb-10 flex w-full justify-evenly">
   <!-- Back Button -->
-  <app-game-button (click)="back()" [text]="'\<-'"></app-game-button>
+  <app-game-button (click)="back()" [text]="'\<'"></app-game-button>
 
   <!-- Enter Button -->
   <app-game-button
-    *ngIf="playerNameService.firstName.valid && playerNameService.lastName.valid"
     (click)="enterName()"
-    [text]="'->'"></app-game-button>
+    [disabled]="playerNameService.firstName.invalid || playerNameService.lastName.invalid"
+    [text]="'>'"></app-game-button>
 </div>
