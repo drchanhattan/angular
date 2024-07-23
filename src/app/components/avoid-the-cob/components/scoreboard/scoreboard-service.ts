@@ -16,6 +16,7 @@ export class ScoreboardService {
 
   hide() {
     this.showHideService.hide('app-scoreboard');
+    this.showHideService.show('app-main-menu');
   }
 
   async show() {

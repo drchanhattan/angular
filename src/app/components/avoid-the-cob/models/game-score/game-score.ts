@@ -1,4 +1,5 @@
 export interface GameScore {
-  name: string;
+  firstName: string;
+  lastName: string;
   score: number;
 }

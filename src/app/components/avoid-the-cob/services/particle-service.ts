@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { GameObject } from '../models/game-object/game-object';
+import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectType } from '../models/game-object/game-object-type';
 import { CanvasService } from './canvas-service';
@@ -45,5 +47,22 @@ export class ParticleService {
       const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
       return isOnScreen && currentTime - p.timestamp.getTime() <= 2500;
     });
+  }
+
+  showMenuParticles(elementId: string, show: FormControl) {
+    if (!show.value) {
+      show.setValue(true);
+      const svg = document.getElementById(elementId);
+
+      if (svg) {
+        const rect = svg.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const centre = new GameObject(centerX, centerY, GameObjectDefaults.corn().settings);
+        const interval = setInterval(() => {
+          show.value ? this.create(centre, 30, 2) : clearInterval(interval);
+        }, 500);
+      }
+    }
   }
 }

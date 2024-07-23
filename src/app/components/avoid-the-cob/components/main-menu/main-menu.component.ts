@@ -4,6 +4,7 @@ import { IconButtonComponent } from '../../../icon-button/icon-button.component'
 import { GameService } from '../../services/game-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { ScoreboardService } from '../scoreboard/scoreboard-service';
+import { MainMenuService } from './main-menu-service';
 
 @Component({
   selector: 'app-main-menu',
@@ -17,6 +18,7 @@ export class MainMenuComponent {
   constructor(
     private router: Router,
     public gameService: GameService,
+    public mainMenuService: MainMenuService,
     public scoreboardService: ScoreboardService,
   ) {}
 

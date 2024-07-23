@@ -10,7 +10,7 @@ import { ScoreboardService } from './scoreboard-service';
   templateUrl: './scoreboard.component.html',
 })
 export class ScoreboardComponent {
-  @HostBinding('class') hostClasses = 'absolute flex h-full w-full flex-col items-center bg-game-black font-ink';
+  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center font-ink';
 
   constructor(
     public gameService: GameService,

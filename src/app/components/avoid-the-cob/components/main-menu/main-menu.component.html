@@ -1,19 +1,19 @@
 <!-- Scoreboard -->
 <app-icon-button
-  class="absolute right-0 top-0"
-  (click)="scoreboardService.show()"
+  class="absolute right-0 top-0 z-10"
+  (click)="mainMenuService.hide(); scoreboardService.show()"
   [icon]="'leaderboard'"></app-icon-button>
 
 <!-- Corn SVG -->
 <div class="relative mb-[20%] flex flex-1">
   <img src="title.svg" class="absolute inset-0 m-auto max-h-[60vh]" />
-  <img src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
+  <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
 </div>
 
 <div class="flex w-full justify-between">
   <!-- Exit -->
-  <app-game-button class="absolute bottom-0 left-0" (click)="exit()" [text]="'EXIT'"></app-game-button>
+  <app-game-button (click)="exit()" [text]="'EXIT'"></app-game-button>
 
   <!-- Play -->
-  <app-game-button class="absolute bottom-0 right-0" (click)="gameService.play()" [text]="'PLAY'"></app-game-button>
+  <app-game-button (click)="gameService.play()" [text]="'PLAY'"></app-game-button>
 </div>

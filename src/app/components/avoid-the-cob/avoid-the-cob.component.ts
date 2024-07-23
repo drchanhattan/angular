@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
+import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { PlayerNameService } from './components/player-name/player-name-service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
@@ -34,6 +35,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
   constructor(
     public canvasService: CanvasService,
     public gameService: GameService,
+    public mainMenuService: MainMenuService,
     public nameService: PlayerNameService,
     public particleService: ParticleService,
     public textService: GameTextService,
@@ -53,6 +55,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);
     this.animate();
+    this.mainMenuService.show();
   }
 
   animate() {

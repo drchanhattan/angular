@@ -13,16 +13,17 @@ export class FirebaseService {
   constructor(private nameService: PlayerNameService) {}
 
   async saveScore(score: number): Promise<void> {
-    const name = this.nameService.name.value?.toUpperCase();
+    const firstName = this.nameService.firstName.value?.toUpperCase();
+    const lastName = this.nameService.lastName.value?.toUpperCase();
 
-    if (!name) {
-      console.log('Name is not provided.');
+    if (!firstName || !lastName) {
+      console.log('Name not provided.');
       return;
     }
 
     try {
       const scoresData = await this.getAllScores();
-      const existingScore = scoresData.find((s) => s.name === name);
+      const existingScore = scoresData.find((s) => s.firstName === firstName && s.lastName === lastName);
 
       let updated = false;
 
@@ -32,7 +33,7 @@ export class FirebaseService {
           updated = true;
         }
       } else {
-        scoresData.push({ name, score });
+        scoresData.push({ firstName, lastName, score });
         updated = true;
       }
 
@@ -66,8 +67,5 @@ export class FirebaseService {
 
   private sortAndLimitScores(scores: GameScore[]): void {
     scores.sort((a, b) => b.score - a.score);
-    if (scores.length > 20) {
-      scores.length = 20;
-    }
   }
 }

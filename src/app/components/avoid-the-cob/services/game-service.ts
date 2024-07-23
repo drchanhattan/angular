@@ -50,7 +50,10 @@ export class GameService {
   // ==============================
 
   play() {
-    if (!!window.localStorage.getItem('name')) {
+    const firstName = window.localStorage.getItem('firstName');
+    const lastName = window.localStorage.getItem('lastName');
+
+    if (!!firstName && !!lastName) {
       this.mainMenuService.hide();
       this.playerNameService.hide();
       this.newGame();

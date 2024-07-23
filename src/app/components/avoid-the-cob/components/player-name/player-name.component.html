@@ -1,15 +1,19 @@
 <div class="flex w-full flex-1 flex-col items-center justify-evenly">
   <!-- Corn Jr SVG -->
-  <img src="corn-jr.svg" class="h-[50%] hover:animate-jiggle" />
+  <img id="cornJrSvg" src="corn-jr.svg" class="h-[50%] hover:animate-jiggle" />
 
   <!-- Name Input -->
-  <input
-    #input
-    class="w-[90%] rounded-lg border-2 border-game-white bg-transparent px-4 py-4 text-center font-ink text-3xl uppercase text-game-white outline-none"
-    placeholder="PLAYER NAME"
-    (keypress)="keyPressed($event)"
-    [formControl]="playerNameService.name"
-    [maxlength]="20" />
+  <div class="flex w-full flex-col items-center justify-center">
+    <app-player-name-input
+      class="mb-6"
+      (keyPressed)="keyPressed($event)"
+      [control]="playerNameService.firstName"
+      [placeholder]="'First Name'"></app-player-name-input>
+    <app-player-name-input
+      (keyPressed)="keyPressed($event)"
+      [control]="playerNameService.lastName"
+      [placeholder]="'Last Name'"></app-player-name-input>
+  </div>
 </div>
 
 <div class="flex w-full justify-between">
@@ -18,8 +22,7 @@
 
   <!-- Enter Button -->
   <app-game-button
-    *ngIf="playerNameService.name.valid"
+    *ngIf="playerNameService.firstName.valid && playerNameService.lastName.valid"
     (click)="enterName()"
-    [text]="'->'"
-    [disabled]="playerNameService.name.invalid"></app-game-button>
+    [text]="'->'"></app-game-button>
 </div>

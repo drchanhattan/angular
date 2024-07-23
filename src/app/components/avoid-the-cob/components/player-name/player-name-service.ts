@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
+import { ParticleService } from '../../services/particle-service';
 import { ShowHideService } from '../../services/show-hide-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerNameService {
-  name = new FormControl<string>('', [Validators.required, Validators.maxLength(20), this.profanityValidator()]);
+  firstName = new FormControl<string>('', [Validators.required, Validators.maxLength(15), this.profanityValidator()]);
+  lastName = new FormControl<string>('', [Validators.required, Validators.maxLength(15), this.profanityValidator()]);
+  showParticles = new FormControl<boolean>(false);
 
-  constructor(private showHideService: ShowHideService) {
+  constructor(
+    private particleService: ParticleService,
+    private showHideService: ShowHideService,
+  ) {
     const name = window.localStorage.getItem('name');
 
     if (name) {
-      this.name.setValue(name);
-    }
-  }
-
-  saveName() {
-    if (this.name.value && this.name.valid) {
-      window.localStorage.setItem('name', this.name.value.toUpperCase());
+      this.firstName.setValue(name);
     }
   }
 
@@ -35,10 +35,12 @@ export class PlayerNameService {
   }
 
   hide() {
+    this.showParticles.setValue(false);
     this.showHideService.hide('app-player-name');
   }
 
   show() {
+    this.particleService.showMenuParticles('cornJrSvg', this.showParticles);
     this.showHideService.show('app-player-name');
   }
 }

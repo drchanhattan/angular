@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { GameService } from '../../services/game-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
+import { PlayerNameInputComponent } from './player-name-input/player-name-input.component';
 import { PlayerNameService } from './player-name-service';
 
 @Component({
   selector: 'app-player-name',
   standalone: true,
-  imports: [CommonModule, GameButtonComponent, ReactiveFormsModule],
+  imports: [CommonModule, GameButtonComponent, PlayerNameInputComponent],
   templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {
@@ -29,8 +29,14 @@ export class PlayerNameComponent {
   }
 
   enterName() {
-    this.playerNameService.saveName();
-    this.gameService.play();
+    const firstName = this.playerNameService.firstName;
+    const lastName = this.playerNameService.lastName;
+
+    if (firstName.value && firstName.valid && lastName.value && lastName.valid) {
+      window.localStorage.setItem('firstName', firstName.value.toUpperCase());
+      window.localStorage.setItem('lastName', lastName.value.toUpperCase());
+      this.gameService.play();
+    }
   }
 
   keyPressed(event: KeyboardEvent) {

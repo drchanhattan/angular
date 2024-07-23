@@ -13,7 +13,6 @@ import { CursorService } from './components/avoid-the-cob/services/cursor.servic
 import { GameService } from './components/avoid-the-cob/services/game-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { ThemeSelectorService } from './components/theme-selector/theme-selector-service';
 import { GameComponent } from './pages/game/game.component';
 
 @Component({
@@ -30,15 +29,7 @@ import { GameComponent } from './pages/game/game.component';
     IconButtonComponent,
   ],
   templateUrl: './app.component.html',
-  providers: [
-    CanvasService,
-    CursorService,
-    FirebaseService,
-    GameService,
-    GameTextService,
-    MainMenuService,
-    ThemeSelectorService,
-  ],
+  providers: [CanvasService, CursorService, FirebaseService, GameService, GameTextService, MainMenuService],
 })
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';

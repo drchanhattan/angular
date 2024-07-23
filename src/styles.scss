@@ -21,17 +21,32 @@ body {
 }
 
 html {
-  &.light-theme {
-    @include mat.core-color($light-theme);
-    @include mat.all-component-colors($light-theme);
-    @include mat.icon-color($dark-theme, $color-variant: tertiary);
-  }
+  @include mat.core-color($dark-theme);
+  @include mat.all-component-colors($dark-theme);
+  @include mat.icon-color($dark-theme, $color-variant: primary);
+  @include mat.button-color($dark-theme, $color-variant: secondary);
+}
 
-  &.dark-theme {
-    @include mat.core-color($dark-theme);
-    @include mat.all-component-colors($dark-theme);
-    @include mat.icon-color($dark-theme, $color-variant: tertiary);
-  }
+// Buttons
+.primary-button {
+  @include mat.icon-color($dark-theme, $color-variant: primary);
+}
+.secondary-button {
+  @include mat.icon-color($dark-theme, $color-variant: secondary);
+}
+.tertiary-button {
+  @include mat.icon-color($dark-theme, $color-variant: tertiary);
+}
+
+// Icons
+.primary-icon {
+  @include mat.icon-color($dark-theme, $color-variant: primary);
+}
+.secondary-icon {
+  @include mat.icon-color($dark-theme, $color-variant: secondary);
+}
+.tertiary-icon {
+  @include mat.icon-color($dark-theme, $color-variant: tertiary);
 }
 
 body {
