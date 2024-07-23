@@ -22,6 +22,11 @@ export class MainMenuComponent {
     public scoreboardService: ScoreboardService,
   ) {}
 
+  showScoreboard() {
+    this.mainMenuService.hide();
+    this.scoreboardService.show();
+  }
+
   exit() {
     this.router.navigate(['/home']).then(() => window.location.reload());
   }

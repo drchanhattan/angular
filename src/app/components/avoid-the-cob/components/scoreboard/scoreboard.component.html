@@ -1,16 +1,14 @@
 <!-- Header -->
-<div class="flex h-full w-full flex-1 flex-col items-center justify-center overflow-y-scroll">
-  <span class="mb-12 text-4xl text-game-yellow lg:text-7xl">Highscores</span>
+<span class="mt-24 text-4xl text-game-yellow lg:text-7xl">Highscores</span>
 
-  <!-- Scores -->
-  <div class="flex h-1/2 w-full flex-col items-center">
-    @for (score of scoreboardService.scores; track score) {
-      <div class="mb-4 flex w-4/5 justify-between text-xl lg:w-1/3 lg:text-2xl">
-        <span class="text-game-white">{{ score.firstName }} {{ score.lastName }}</span>
-        <span class="text-game-yellow">{{ score.score }}</span>
-      </div>
-    }
-  </div>
+<!-- Scores -->
+<div class="my-10 flex w-full flex-1 flex-col items-center overflow-y-scroll">
+  @for (score of scoreboardService.scores; track score) {
+    <div class="mb-4 flex w-4/5 justify-between text-xl lg:w-1/3 lg:text-2xl">
+      <span class="text-game-white">{{ score.firstName }} {{ score.lastName }}</span>
+      <span class="text-game-yellow">{{ score.score }}</span>
+    </div>
+  }
 </div>
 
 <!-- Back -->

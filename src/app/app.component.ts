@@ -7,7 +7,9 @@ import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
+import { PlayerNameService } from './components/avoid-the-cob/components/player-name/player-name-service';
 import { FirebaseService } from './components/avoid-the-cob/components/scoreboard/firebase.service';
+import { ScoreboardService } from './components/avoid-the-cob/components/scoreboard/scoreboard-service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
 import { CursorService } from './components/avoid-the-cob/services/cursor.service';
 import { GameService } from './components/avoid-the-cob/services/game-service';
@@ -29,7 +31,16 @@ import { GameComponent } from './pages/game/game.component';
     IconButtonComponent,
   ],
   templateUrl: './app.component.html',
-  providers: [CanvasService, CursorService, FirebaseService, GameService, GameTextService, MainMenuService],
+  providers: [
+    CanvasService,
+    CursorService,
+    FirebaseService,
+    GameService,
+    GameTextService,
+    MainMenuService,
+    ScoreboardService,
+    PlayerNameService,
+  ],
 })
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';

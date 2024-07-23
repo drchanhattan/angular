@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
 import { ShowHideService } from '../../services/show-hide-service';
+import { MainMenuService } from '../main-menu/main-menu-service';
 import { FirebaseService } from './firebase.service';
 
 @Injectable({
@@ -11,12 +12,13 @@ export class ScoreboardService {
 
   constructor(
     private firebaseService: FirebaseService,
+    private mainMenuService: MainMenuService,
     private showHideService: ShowHideService,
   ) {}
 
   hide() {
     this.showHideService.hide('app-scoreboard');
-    this.showHideService.show('app-main-menu');
+    this.mainMenuService.show();
   }
 
   async show() {
