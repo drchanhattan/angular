@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
+import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
 import { ParticleService } from '../../services/particle-service';
 import { ShowHideService } from '../../services/show-hide-service';
 
@@ -40,7 +41,7 @@ export class PlayerNameService {
   }
 
   show() {
-    this.particleService.showMenuParticles('cornJrSvg', this.showParticles);
+    this.particleService.showMenuParticles('peaSvg', this.showParticles, GameObjectDefaults.pea().settings, 5);
     this.showHideService.show('app-player-name');
   }
 }

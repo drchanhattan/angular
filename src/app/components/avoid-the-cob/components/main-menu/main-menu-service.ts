@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
 import { ParticleService } from '../../services/particle-service';
 import { ShowHideService } from '../../services/show-hide-service';
 
@@ -20,7 +21,7 @@ export class MainMenuService {
   }
 
   show() {
-    this.particleService.showMenuParticles('cornSvg', this.showParticles);
+    this.particleService.showMenuParticles('cornSvg', this.showParticles, GameObjectDefaults.corn().settings, 30);
     this.showHideService.show('app-main-menu');
   }
 }
