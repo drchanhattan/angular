@@ -54,8 +54,8 @@ export class AvoidTheCobComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.canvasService.setup(this.canvasEle);
-    this.animate();
     this.mainMenuService.show();
+    this.animate();
   }
 
   animate() {

@@ -41,7 +41,7 @@ export class PlayerNameService {
   }
 
   show() {
-    this.particleService.showMenuParticles('peaSvg', this.showParticles, GameObjectDefaults.pea().settings, 5);
+    this.particleService.showMenuParticles('peaSvg', this.showParticles, GameObjectDefaults.pea().settings, 10);
     this.showHideService.show('app-player-name');
   }
 }
