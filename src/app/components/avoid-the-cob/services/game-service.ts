@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
-import { FirebaseService } from '../components/leaderboard/firebase.service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
@@ -14,6 +13,7 @@ import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
+import { FirebaseService } from './firebase.service';
 import { ParticleService } from './particle-service';
 
 @Injectable({
@@ -50,10 +50,9 @@ export class GameService {
   // ==============================
 
   play() {
-    const firstName = window.localStorage.getItem('firstName');
-    const lastName = window.localStorage.getItem('lastName');
+    const name = window.localStorage.getItem('name');
 
-    if (!!firstName && !!lastName) {
+    if (!!name) {
       this.mainMenuService.hide();
       this.playerNameService.hide();
       this.newGame();
@@ -200,10 +199,9 @@ export class GameService {
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
     if (this.paused) {
-      const gravity = 0.05;
       this.cursor.object.magnetise(obj, 500, 7, true, false);
       this.particleService.create(obj, 1, 0.5);
-      obj.deltaY = obj.deltaY + gravity;
+      obj.deltaY = obj.deltaY + obj.gravity;
     } else {
       if (attract) {
         this.cursor.object.magnetise(obj, 25, 4, false);

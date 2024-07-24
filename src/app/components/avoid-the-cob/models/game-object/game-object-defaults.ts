@@ -12,6 +12,7 @@ export class GameObjectDefaults {
       size: scaledSize(5),
       speed: 0,
       shape: GameObjectShape.Circle,
+      gravity: 0,
     };
   }
 
@@ -22,7 +23,7 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Pea, GameColors.Green, size, GameObjectShape.Circle, speed),
+      settings: new GameObjectSettings(GameObjectType.Pea, GameColors.Green, size, GameObjectShape.Circle, speed, 0),
     };
   }
 
@@ -33,7 +34,7 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed),
+      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed, 0),
     };
   }
 
@@ -43,7 +44,7 @@ export class GameObjectDefaults {
 
     return {
       count: 1,
-      settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed),
+      settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed, 0),
     };
   }
 
@@ -53,7 +54,7 @@ export class GameObjectDefaults {
 
     return {
       count: 1,
-      settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed),
+      settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed, 0),
     };
   }
 }

@@ -22,6 +22,7 @@ export class GameObjectGroup {
         this.settings.size,
         this.settings.shape,
         this.settings.speed,
+        this.settings.gravity,
       );
       this.objects[i] = new GameObject(xSpawn, ySpawn, settings);
     }

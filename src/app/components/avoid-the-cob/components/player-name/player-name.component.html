@@ -1,31 +1,13 @@
 <div class="flex w-full flex-1 flex-col items-center justify-center">
   <!-- Pea SVG -->
-  <img id="peaSvg" src="pea.svg" class="max-h-[40vh] hover:animate-jiggle" />
+  <img id="peaSvg" src="pea.svg" class="max-h-[35vh] animate-float" />
 
-  <div class="flex w-4/5 flex-col items-center justify-center">
-    <!-- New Player Text -->
-    <span class="mb-4 text-2xl md:text-3xl">NEW PLAYER</span>
-
-    <div class="flex flex-col sm:flex-row sm:space-x-10">
-      <!-- First Name -->
-      <app-player-name-input
-        class="mb-4"
-        (keyPressed)="keyPressed($event)"
-        [control]="playerNameService.firstName"
-        [placeholder]="'First Name'"></app-player-name-input>
-
-      <!-- LastName -->
-      <app-player-name-input
-        id="lastName"
-        class="mb-6"
-        (keyPressed)="keyPressed($event)"
-        [control]="playerNameService.lastName"
-        [placeholder]="'Last Name'"></app-player-name-input>
-    </div>
-
-    <!-- Highscores Text -->
-    <span class="text-xs md:text-sm">Your name will be used to record your highscores.</span>
-  </div>
+  <!-- Name -->
+  <app-player-name-input
+    class="w-4/5 sm:w-1/2 md:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-4/12"
+    (keyPressed)="keyPressed($event)"
+    [control]="playerNameService.name"
+    [placeholder]="'New Player'"></app-player-name-input>
 </div>
 
 <div class="mb-10 flex w-full justify-evenly sm:justify-center sm:space-x-10">
@@ -33,8 +15,5 @@
   <app-game-button (click)="back()" [text]="'BACK'"></app-game-button>
 
   <!-- Play Button -->
-  <app-game-button
-    (click)="enterName()"
-    [disabled]="playerNameService.firstName.invalid || playerNameService.lastName.invalid"
-    [text]="'PLAY'"></app-game-button>
+  <app-game-button (click)="enterName()" [disabled]="playerNameService.name.invalid" [text]="'PLAY'"></app-game-button>
 </div>

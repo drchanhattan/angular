@@ -14,23 +14,28 @@ export class ParticleService {
   constructor(private canvasService: CanvasService) {}
 
   draw(context: CanvasRenderingContext2D): void {
-    const gravity = 0.0025;
     this.particles.forEach((p) => {
       context.globalAlpha = 0.8;
       this.canvasService.drawObject(context, p, 0.25);
-      p.deltaY = p.deltaY + gravity;
+      p.deltaY = p.deltaY + p.gravity;
       p.move();
       context.globalAlpha = 1;
     });
   }
-  // ==============================
 
   create(object: GameObject, count = 25, speed = 1): void {
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
       if (this.particles.length < 1500) {
         const size = object.size * (Math.random() * (1 - 0.6) + 0.6);
-        const settings = new GameObjectSettings(GameObjectType.Particle, object.color, size, object.shape, speed);
+        const settings = new GameObjectSettings(
+          GameObjectType.Particle,
+          object.color,
+          size,
+          object.shape,
+          speed,
+          object.gravity || 0.0025,
+        );
         const particle = new GameObject(object.x, object.y, settings);
         particle.timestamp = new Date(currentTime.getTime() + i * 50);
         this.particles.push(particle);

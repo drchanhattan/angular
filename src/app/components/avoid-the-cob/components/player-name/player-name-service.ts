@@ -9,8 +9,12 @@ import { ShowHideService } from '../../services/show-hide-service';
   providedIn: 'root',
 })
 export class PlayerNameService {
-  firstName = new FormControl<string>('', [Validators.required, Validators.maxLength(15), this.profanityValidator()]);
-  lastName = new FormControl<string>('', [Validators.required, Validators.maxLength(15), this.profanityValidator()]);
+  name = new FormControl<string>('', [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.maxLength(20),
+    this.profanityValidator(),
+  ]);
   showParticles = new FormControl<boolean>(false);
 
   constructor(
@@ -20,7 +24,7 @@ export class PlayerNameService {
     const name = window.localStorage.getItem('name');
 
     if (name) {
-      this.firstName.setValue(name);
+      this.name.setValue(name);
     }
   }
 
@@ -41,7 +45,9 @@ export class PlayerNameService {
   }
 
   show() {
-    this.particleService.showMenuParticles('peaSvg', this.showParticles, GameObjectDefaults.pea().settings, 10);
+    const settings = GameObjectDefaults.powerUp().settings;
+    settings.gravity = -0.015;
+    this.particleService.showMenuParticles('peaSvg', this.showParticles, settings, 30);
     this.showHideService.show('app-player-name');
   }
 }

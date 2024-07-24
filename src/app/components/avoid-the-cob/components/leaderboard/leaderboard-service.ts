@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
+import { FirebaseService } from '../../services/firebase.service';
 import { ShowHideService } from '../../services/show-hide-service';
 import { MainMenuService } from '../main-menu/main-menu-service';
-import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',

@@ -12,6 +12,7 @@ export class GameObject {
   shape: GameObjectShape;
   deltaX: number;
   deltaY: number;
+  gravity: number;
   behaviours: GameObjectBehaviour[];
   timestamp: Date;
 
@@ -24,6 +25,7 @@ export class GameObject {
     this.shape = settings.shape;
     this.deltaX = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
+    this.gravity = settings.gravity ?? 0;
     this.behaviours = [GameObjectBehaviour.Default];
     this.timestamp = new Date();
   }

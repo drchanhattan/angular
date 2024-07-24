@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { GameScore } from '../../models/game-score/game-score';
-import { PlayerNameService } from '../player-name/player-name-service';
+import { PlayerNameService } from '../components/player-name/player-name-service';
+import { GameScore } from '../models/game-score/game-score';
 
 @Injectable({
   providedIn: 'root',
@@ -13,17 +13,16 @@ export class FirebaseService {
   constructor(private nameService: PlayerNameService) {}
 
   async saveScore(score: number): Promise<void> {
-    const firstName = this.nameService.firstName.value?.toUpperCase();
-    const lastName = this.nameService.lastName.value?.toUpperCase();
+    const name = this.nameService.name.value?.toUpperCase();
 
-    if (!firstName || !lastName) {
+    if (!name) {
       console.log('Name not provided.');
       return;
     }
 
     try {
-      const scoresData = await this.getAllScores();
-      const existingScore = scoresData.find((s) => s.firstName === firstName && s.lastName === lastName);
+      let scoresData = await this.getAllScores();
+      const existingScore = scoresData.find((s) => s.name === name);
 
       let updated = false;
 
@@ -33,7 +32,7 @@ export class FirebaseService {
           updated = true;
         }
       } else {
-        scoresData.push({ firstName, lastName, score });
+        scoresData.push({ name, score });
         updated = true;
       }
 

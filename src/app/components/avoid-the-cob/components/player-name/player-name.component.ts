@@ -29,17 +29,11 @@ export class PlayerNameComponent {
   }
 
   enterName() {
-    const firstName = this.playerNameService.firstName;
-    const lastName = this.playerNameService.lastName;
+    const name = this.playerNameService.name;
 
-    if (firstName.value && firstName.valid) {
-      if (lastName.value && lastName.valid) {
-        window.localStorage.setItem('firstName', firstName.value.toUpperCase());
-        window.localStorage.setItem('lastName', lastName.value.toUpperCase());
-        this.gameService.play();
-      } else {
-        document.getElementById('lastName')?.getElementsByTagName('input')[0]?.focus();
-      }
+    if (name.value && name.valid) {
+      window.localStorage.setItem('name', name.value.toUpperCase());
+      this.gameService.play();
     }
   }
 

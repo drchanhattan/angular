@@ -123,6 +123,7 @@ export class CursorService {
         this.object.size,
         this.object.shape,
         0,
+        this.object.gravity,
       );
       context.globalAlpha = 0.25;
       canvas.drawObject(context, new GameObject(old.x, old.y, settings));

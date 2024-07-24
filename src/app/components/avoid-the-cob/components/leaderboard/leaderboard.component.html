@@ -7,7 +7,7 @@
   style="scrollbar-width: thin">
   @for (score of leaderboardService.scores; track score) {
     <div class="mb-4 flex flex-1 justify-evenly text-xl lg:text-2xl">
-      <span class="flex-1 text-start text-game-white">{{ score.firstName }} {{ score.lastName }}</span>
+      <span class="flex-1 text-start text-game-white">{{ score.name }}</span>
       <span class="text-end text-game-yellow">{{ score.score }}</span>
     </div>
   }
