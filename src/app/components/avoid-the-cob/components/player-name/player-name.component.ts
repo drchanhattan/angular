@@ -32,10 +32,14 @@ export class PlayerNameComponent {
     const firstName = this.playerNameService.firstName;
     const lastName = this.playerNameService.lastName;
 
-    if (firstName.value && firstName.valid && lastName.value && lastName.valid) {
-      window.localStorage.setItem('firstName', firstName.value.toUpperCase());
-      window.localStorage.setItem('lastName', lastName.value.toUpperCase());
-      this.gameService.play();
+    if (firstName.value && firstName.valid) {
+      if (lastName.value && lastName.valid) {
+        window.localStorage.setItem('firstName', firstName.value.toUpperCase());
+        window.localStorage.setItem('lastName', lastName.value.toUpperCase());
+        this.gameService.play();
+      } else {
+        document.getElementById('lastName')?.getElementsByTagName('input')[0]?.focus();
+      }
     }
   }
 
