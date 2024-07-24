@@ -1,5 +1,5 @@
 <!-- Canvas -->
-<canvas #canvas class="size-full transition-all duration-500 ease-in-out"></canvas>
+<canvas #canvas class="h-[100vh] w-[100vw] overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
 <!-- Lives -->
 <div *ngIf="gameService.lives > 0" class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4 transform">
@@ -19,4 +19,4 @@
 <app-player-name class="pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></app-player-name>
 
 <!-- Scores -->
-<app-scoreboard class="pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></app-scoreboard>
+<app-leaderboard class="pointer-events-none opacity-0 transition-opacity duration-500 ease-in-out"></app-leaderboard>

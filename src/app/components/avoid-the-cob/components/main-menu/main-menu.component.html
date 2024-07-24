@@ -1,7 +1,7 @@
-<!-- Scoreboard -->
+<!-- Leaderboard -->
 <app-icon-button
   class="absolute right-0 top-0 z-10"
-  (click)="showScoreboard()"
+  (click)="showLeaderboard()"
   [icon]="'leaderboard'"></app-icon-button>
 
 <!-- Corn SVG -->
@@ -10,7 +10,7 @@
   <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[60vh] hover:animate-jiggle" />
 </div>
 
-<div class="mb-10 flex w-full justify-evenly">
+<div class="mb-10 flex w-full justify-evenly sm:justify-center sm:space-x-10">
   <!-- Exit -->
   <app-game-button (click)="exit()" [text]="'EXIT'"></app-game-button>
 

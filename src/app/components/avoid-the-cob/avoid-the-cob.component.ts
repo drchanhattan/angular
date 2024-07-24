@@ -4,11 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { PlayerNameService } from './components/player-name/player-name-service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
-import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 import { CanvasService } from './services/canvas-service';
 import { GameService } from './services/game-service';
 import { ParticleService } from './services/particle-service';
@@ -23,7 +23,7 @@ import { ParticleService } from './services/particle-service';
     MatIconModule,
     PlayerNameComponent,
     RouterLink,
-    ScoreboardComponent,
+    LeaderboardComponent,
   ],
   templateUrl: './avoid-the-cob.component.html',
 })

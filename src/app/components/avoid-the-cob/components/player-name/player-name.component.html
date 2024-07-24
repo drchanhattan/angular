@@ -1,30 +1,39 @@
 <div class="flex w-full flex-1 flex-col items-center justify-center">
   <!-- Pea SVG -->
-  <img id="peaSvg" src="pea.svg" class="my-10 max-h-[35%] hover:animate-jiggle" />
+  <img id="peaSvg" src="pea.svg" class="max-h-[40vh] hover:animate-jiggle" />
 
-  <!-- Name Input -->
   <div class="flex w-4/5 flex-col items-center justify-center">
-    <app-player-name-input
-      class="mb-4"
-      (keyPressed)="keyPressed($event)"
-      [control]="playerNameService.firstName"
-      [placeholder]="'First Name'"></app-player-name-input>
-    <app-player-name-input
-      class="mb-4"
-      (keyPressed)="keyPressed($event)"
-      [control]="playerNameService.lastName"
-      [placeholder]="'Last Name'"></app-player-name-input>
-    <span class="text-game-yellow">This will be used to record highscores</span>
+    <!-- New Player Text -->
+    <span class="mb-4 text-2xl text-game-yellow md:text-3xl">NEW PLAYER</span>
+
+    <div class="flex flex-col sm:flex-row sm:space-x-10">
+      <!-- First Name -->
+      <app-player-name-input
+        class="mb-4"
+        (keyPressed)="keyPressed($event)"
+        [control]="playerNameService.firstName"
+        [placeholder]="'First Name'"></app-player-name-input>
+
+      <!-- LastName -->
+      <app-player-name-input
+        class="mb-6"
+        (keyPressed)="keyPressed($event)"
+        [control]="playerNameService.lastName"
+        [placeholder]="'Last Name'"></app-player-name-input>
+    </div>
+
+    <!-- Highscores Text -->
+    <span class="text-xs text-game-yellow md:text-sm">Your name will be used to record your highscores.</span>
   </div>
 </div>
 
-<div class="mb-10 flex w-full justify-evenly">
+<div class="mb-10 flex w-full justify-evenly sm:justify-center sm:space-x-10">
   <!-- Back Button -->
-  <app-game-button (click)="back()" [text]="'\<'"></app-game-button>
+  <app-game-button (click)="back()" [text]="'\<-'"></app-game-button>
 
   <!-- Enter Button -->
   <app-game-button
     (click)="enterName()"
     [disabled]="playerNameService.firstName.invalid || playerNameService.lastName.invalid"
-    [text]="'>'"></app-game-button>
+    [text]="'->'"></app-game-button>
 </div>

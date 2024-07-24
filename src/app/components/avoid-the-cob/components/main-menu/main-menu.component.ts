@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
 import { GameService } from '../../services/game-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
-import { ScoreboardService } from '../scoreboard/scoreboard-service';
+import { LeaderboardService } from '../leaderboard/leaderboard-service';
 import { MainMenuService } from './main-menu-service';
 
 @Component({
@@ -19,12 +19,12 @@ export class MainMenuComponent {
     private router: Router,
     public gameService: GameService,
     public mainMenuService: MainMenuService,
-    public scoreboardService: ScoreboardService,
+    public leaderboardService: LeaderboardService,
   ) {}
 
-  showScoreboard() {
+  showLeaderboard() {
     this.mainMenuService.hide();
-    this.scoreboardService.show();
+    this.leaderboardService.show();
   }
 
   exit() {

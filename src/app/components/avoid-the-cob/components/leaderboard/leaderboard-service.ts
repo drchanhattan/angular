@@ -7,7 +7,7 @@ import { FirebaseService } from './firebase.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ScoreboardService {
+export class LeaderboardService {
   scores: GameScore[] = [];
 
   constructor(
@@ -17,12 +17,12 @@ export class ScoreboardService {
   ) {}
 
   hide() {
-    this.showHideService.hide('app-scoreboard');
+    this.showHideService.hide('app-leaderboard');
     this.mainMenuService.show();
   }
 
   async show() {
-    this.showHideService.show('app-scoreboard');
+    this.showHideService.show('app-leaderboard');
     this.scores = await this.firebaseService.getAllScores();
   }
 }

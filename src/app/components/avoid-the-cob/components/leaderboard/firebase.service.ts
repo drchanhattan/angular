@@ -67,5 +67,8 @@ export class FirebaseService {
 
   private sortAndLimitScores(scores: GameScore[]): void {
     scores.sort((a, b) => b.score - a.score);
+    if (scores.length > 20) {
+      scores.length = 20;
+    }
   }
 }

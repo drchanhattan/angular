@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
+import { FirebaseService } from '../components/leaderboard/firebase.service';
+import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
-import { FirebaseService } from '../components/scoreboard/firebase.service';
-import { ScoreboardService } from '../components/scoreboard/scoreboard-service';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -37,7 +37,7 @@ export class GameService {
     private mainMenuService: MainMenuService,
     private particleService: ParticleService,
     private playerNameService: PlayerNameService,
-    private scoreboardService: ScoreboardService,
+    private leaderboardService: LeaderboardService,
     private textService: GameTextService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
@@ -172,7 +172,7 @@ export class GameService {
     this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
 
     setTimeout(() => {
-      this.scoreboardService.show();
+      this.leaderboardService.show();
       this.cursor.show();
     }, 6000);
   }
