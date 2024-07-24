@@ -2,6 +2,6 @@
   class="rounded-lg border-2 px-4 text-4xl"
   (click)="click.emit()"
   [disabled]="disabled"
-  [ngClass]="{ 'border-game-yellow': !disabled, 'opacity-50': disabled }">
+  [ngClass]="{ 'border-game-yellow': !disabled, 'opacity-50': disabled, 'hover:text-game-yellow': !disabled }">
   <span>{{ text }}</span>
 </button>
