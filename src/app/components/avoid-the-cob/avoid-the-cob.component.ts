@@ -10,6 +10,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { PlayerNameService } from './components/player-name/player-name-service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
 import { CanvasService } from './services/canvas-service';
+import { DifficultyService } from './services/difficulty.service';
 import { GameService } from './services/game-service';
 import { ParticleService } from './services/particle-service';
 
@@ -34,6 +35,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
 
   constructor(
     public canvasService: CanvasService,
+    public difficultyService: DifficultyService,
     public gameService: GameService,
     public mainMenuService: MainMenuService,
     public nameService: PlayerNameService,

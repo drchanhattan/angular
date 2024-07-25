@@ -7,12 +7,12 @@ import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectGroup } from '../models/game-object/game-object-group';
-import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
+import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
 import { ParticleService } from './particle-service';
 
@@ -20,11 +20,8 @@ import { ParticleService } from './particle-service';
   providedIn: 'root',
 })
 export class GameService {
-  level!: number;
-  lives!: number;
   paused = true;
   ghost = true;
-  powerUpFrequency = 3;
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
@@ -33,11 +30,12 @@ export class GameService {
   constructor(
     private canvasService: CanvasService,
     private cursor: CursorService,
+    private difficultyService: DifficultyService,
     private firebaseService: FirebaseService,
+    private leaderboardService: LeaderboardService,
     private mainMenuService: MainMenuService,
     private particleService: ParticleService,
     private playerNameService: PlayerNameService,
-    private leaderboardService: LeaderboardService,
     private textService: GameTextService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
@@ -63,15 +61,15 @@ export class GameService {
   }
 
   private newGame() {
-    this.level = 1;
-    this.lives = 3;
-    this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
-    this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
-    this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
-    this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
+    this.difficultyService.resetLevel();
+    this.difficultyService.resetLives();
+    this.difficultyService.resetObjectGroup(this.peas, GameObjectDefaults.pea());
+    this.difficultyService.resetObjectGroup(this.corn, GameObjectDefaults.corn());
+    this.difficultyService.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
+    this.difficultyService.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
     this.cursor.reset();
     this.cursor.hide();
-    this.textService.show(`Level ${this.level}`, '', 2500);
+    this.textService.show(`Level ${this.difficultyService.level}`, '', 2500);
 
     setTimeout(() => {
       this.start();
@@ -89,10 +87,10 @@ export class GameService {
   // Level and Game State Management
   // ==============================
 
-  private levelComplete() {
+  private endLevel() {
     this.ghost = true;
     this.cursor.setInvincibility(false);
-    this.level++;
+    this.difficultyService.level++;
     this.paused = true;
     this.levelUpText();
 
@@ -103,81 +101,36 @@ export class GameService {
   }
 
   private levelUp() {
-    this.levelUpPeas();
-    this.levelUpCorn();
-    this.levelUpPowerUps();
-    this.levelUpHearts();
-    this.levelUpCursor();
+    this.difficultyService.levelUpPeas(this.peas);
+    this.difficultyService.levelUpCorn(this.corn);
+    this.difficultyService.levelUpPowerUps(this.powerUps);
+    this.difficultyService.levelUpHearts(this.hearts);
+    this.difficultyService.levelUpCursor();
   }
 
   private levelUpText() {
     const heart = this.hearts.objects[0];
     const subtext = !!heart && heart.isDestroyed ? '+ 1' : '';
-    this.textService.show(`Level ${this.level}`, subtext, 3500);
+    this.textService.show(`Level ${this.difficultyService.level}`, subtext, 3500);
   }
 
-  private levelUpPeas() {
-    const defaultSettings = GameObjectDefaults.pea().settings;
-    const minSize = 10;
-    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
-    const speed = defaultSettings.speed * Math.pow(1.005, this.level);
-    const count = GameObjectDefaults.pea().count;
-    this.peas.editSettings(size, speed, count);
-  }
+  private levelCompleted() {
+    const peas = this.peas.objects;
+    const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
+    const powerUps = this.powerUps.objects;
 
-  private levelUpCorn() {
-    const defaultSettings = GameObjectDefaults.corn().settings;
-    const minSize = 20;
-    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
-    const speed = defaultSettings.speed * Math.pow(1.002, this.level);
-    const count = Math.min(GameObjectDefaults.corn().count * Math.pow(1.05, this.level));
-    this.corn.editSettings(size, speed, count);
-  }
-
-  private levelUpPowerUps() {
-    const defaultSettings = GameObjectDefaults.powerUp().settings;
-    const minSize = 10;
-    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
-    const speed = defaultSettings.speed;
-    const count = GameObjectDefaults.powerUp().count;
-    this.powerUps.editSettings(size, speed, count);
-    this.level % this.powerUpFrequency === 0 ? this.powerUps.createObjects() : this.powerUps.destroyObjects();
-  }
-
-  private levelUpHearts() {
-    const defaultSettings = GameObjectDefaults.heart().settings;
-    const minSize = 10;
-    const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
-    const speed = defaultSettings.speed;
-    const count = GameObjectDefaults.heart().count;
-    this.hearts.editSettings(size, speed, count);
-    this.level % this.powerUpFrequency === 0 ? this.hearts.destroyObjects() : this.hearts.createObjects();
-  }
-
-  private levelUpCursor() {
-    const minSize = 10;
-    this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
-  }
-
-  private isLevelComplete() {
-    const peas = this.peas.objects.some((pea) => !pea.isDestroyed && pea.isWithinViewport);
-    const blueCorn = this.corn.objects.some((corn) => corn.isPea && !corn.isDestroyed && corn.isWithinViewport);
-    return !peas && !blueCorn;
+    return ![...peas, ...blueCorn, ...powerUps].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
   }
 
   private gameOver() {
     this.paused = true;
-    this.firebaseService.saveScore(this.level);
-    this.textService.show('Game Over', `You reached level ${this.level}`, 5000);
+    this.firebaseService.saveScore(this.difficultyService.level);
+    this.textService.show('Game Over', `You reached level ${this.difficultyService.level}`, 5000);
 
     setTimeout(() => {
       this.leaderboardService.show();
       this.cursor.show();
     }, 6000);
-  }
-
-  private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
-    objectGroup.editSettings(settings.settings.size, settings.settings.speed, settings.count);
   }
 
   // Object Handling
@@ -201,7 +154,7 @@ export class GameService {
     if (this.paused) {
       this.cursor.object.magnetise(obj, 500, 7, true, false);
       this.particleService.create(obj, 1, 0.5);
-      obj.deltaY = obj.deltaY + obj.gravity;
+      obj.deltaY = obj.deltaY + 0.075;
     } else {
       if (attract) {
         this.cursor.object.magnetise(obj, 25, 4, false);
@@ -241,8 +194,8 @@ export class GameService {
         }
       }
 
-      if (this.isLevelComplete()) {
-        this.levelComplete();
+      if (this.levelCompleted()) {
+        this.endLevel();
       }
     }
   }
@@ -260,12 +213,12 @@ export class GameService {
       this.particleService.create(corn);
 
       if (!this.cursor.invincible) {
-        this.lives--;
+        this.difficultyService.lives--;
         this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
         this.activateImmunity(500);
       }
 
-      if (this.lives === 0) {
+      if (this.difficultyService.lives === 0) {
         this.gameOver();
       }
     }
@@ -284,7 +237,7 @@ export class GameService {
     if (heart.detectCollision(this.cursor.object)) {
       heart.destroy();
       this.particleService.create(heart, 8);
-      this.lives++;
+      this.difficultyService.lives++;
       this.cursor.blink(heart.color, 2, 100);
     }
   }
@@ -293,7 +246,7 @@ export class GameService {
   // ==============================
 
   private randomPowerUp() {
-    if (this.level % this.powerUpFrequency === 0) {
+    if (this.difficultyService.level % this.difficultyService.powerUpFrequency === 0) {
       const powerUps = [
         this.powerAttract.bind(this),
         this.powerRepel.bind(this),
@@ -305,7 +258,8 @@ export class GameService {
         this.powerBlueCorn.bind(this),
       ];
 
-      const powerUpIndex = (this.level / this.powerUpFrequency - 1) % powerUps.length;
+      const powerUpIndex =
+        (this.difficultyService.level / this.difficultyService.powerUpFrequency - 1) % powerUps.length;
       powerUps[powerUpIndex]();
       this.peas.setBehaviour(GameObjectBehaviour.Blue);
     }
