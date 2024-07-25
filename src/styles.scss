@@ -23,8 +23,6 @@ body {
 html {
   @include mat.core-color($dark-theme);
   @include mat.all-component-colors($dark-theme);
-  @include mat.icon-color($dark-theme, $color-variant: primary);
-  @include mat.button-color($dark-theme, $color-variant: secondary);
 }
 
 // Buttons

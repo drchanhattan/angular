@@ -1,17 +1,17 @@
 <input
   #input
-  class="flex w-full rounded-lg border-2 bg-game-black bg-opacity-75 p-1 text-center font-ink text-2xl uppercase text-primary outline-none md:text-3xl lg:text-4xl"
+  class="flex w-full rounded-lg border-2 bg-game-black bg-opacity-75 p-1 text-center font-ink text-2xl uppercase text-game-cream outline-none md:text-3xl lg:text-4xl"
   [ngClass]="{
     'border-game-yellow': control.valid,
-    'border-primary': control.invalid,
+    'border-game-cream': control.invalid,
   }"
   [formControl]="control"
   [placeholder]="placeholder"
   (keypress)="keyPressed.emit($event)" />
 
-<div class="mt-4 text-xs text-primary md:text-sm">
+<div class="mt-4 text-xs text-game-green md:text-sm">
   @if (!control.value?.length) {
-    Your name will be used to record your highscores.
+    Your name will be used to record highscores.
   } @else if (control.hasError('minlength')) {
     Name must be at least 6 characters.
   } @else if (control.hasError('maxlength')) {
@@ -19,6 +19,6 @@
   } @else if (control.hasError('profanity')) {
     Ummm.. Seriously?
   } @else {
-    Looking good! Press PLAY to begin.
+    Looks good! Press PLAY to begin.
   }
 </div>

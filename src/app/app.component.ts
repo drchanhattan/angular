@@ -3,7 +3,7 @@ import { Component, HostBinding, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
@@ -45,7 +45,7 @@ import { GameComponent } from './pages/game/game.component';
 export class AppComponent {
   @HostBinding('class') hostClasses = '!size-full';
 
-  constructor() {
+  constructor(public router: Router) {
     // this.registerIcons();
     this.animateOnScroll();
   }
