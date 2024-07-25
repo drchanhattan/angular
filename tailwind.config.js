@@ -5,7 +5,7 @@ module.exports = {
       animation: {
         jiggle: 'jiggle 0.5s',
         float: 'float 2s infinite',
-        heartbeat: 'heartbeat 1.5s infinite',
+        heartbeat: 'heartbeat 0.5s infinite',
       },
       keyframes: {
         jiggle: {
@@ -41,13 +41,13 @@ module.exports = {
         },
         heartbeat: {
           '0%': {
-            transform: 'scale(1) translateY(0)',
+            transform: 'scale(1)',
           },
           '50%': {
-            transform: 'scale(1.025) translateY(-0.25rem)',
+            transform: 'scale(1.02)',
           },
           '100%': {
-            transform: 'scale(1) translateY(0)',
+            transform: 'scale(1)',
           },
         },
       },

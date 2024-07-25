@@ -1,5 +1,5 @@
 <button
-  class="rounded-lg border-2 px-4 text-4xl text-game-cream"
+  class="rounded-lg border-2 px-4 text-4xl text-game-cream hover:animate-jiggle"
   (click)="click.emit()"
   [disabled]="disabled"
   [ngClass]="{ 'border-game-yellow': !disabled, 'opacity-50': disabled, 'hover:text-game-yellow': !disabled }">
