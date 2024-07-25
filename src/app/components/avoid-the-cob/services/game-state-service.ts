@@ -23,13 +23,17 @@ export class GameStateService {
     private textService: GameTextService,
   ) {}
 
-  resetLives() {
-    this.lives = 3;
+  start() {
+    this.gameObjectService.peas.createObjects();
+    this.gameObjectService.corn.createObjects();
+    this.paused = false;
+    this.cursor.blink(GameColors.Gray, 4, 125);
+    this.cursor.disableCollision(1000);
   }
 
   gameOver() {
     this.paused = true;
-    this.firebaseService.saveScore(this.difficultyService.level);
+    this.firebaseService.save(this.difficultyService.level);
     this.textService.show('Game Over', `You reached level ${this.difficultyService.level}`, 5000);
 
     setTimeout(() => {
@@ -38,12 +42,8 @@ export class GameStateService {
     }, 6000);
   }
 
-  start() {
-    this.gameObjectService.peas.createObjects();
-    this.gameObjectService.corn.createObjects();
-    this.paused = false;
-    this.cursor.blink(GameColors.Gray, 4, 125);
-    this.cursor.activateImmunity(1000);
+  resetLives() {
+    this.lives = 3;
   }
 
   levelCleared() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
 import { OpacityService } from '../../services/opacity-service';
@@ -13,6 +13,7 @@ export class PlayerNameService {
     Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
+    this.alphaDashValidator(),
     this.profanityValidator(),
   ]);
   showParticles = new FormControl<boolean>(false);
@@ -28,15 +29,11 @@ export class PlayerNameService {
     }
   }
 
-  private profanityValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const matcher = new RegExpMatcher({
-        ...englishDataset.build(),
-        ...englishRecommendedTransformers,
-      });
-      const containsProfanity = matcher.hasMatch(control.value);
-      return containsProfanity ? { profanity: true } : null;
-    };
+  show() {
+    const settings = GameObjectDefaults.powerUp().settings;
+    settings.gravity = -0.015;
+    this.particleService.showMenuParticles('peaSvg', this.showParticles, settings, 30);
+    this.opacityService.show('app-player-name');
   }
 
   hide() {
@@ -44,10 +41,24 @@ export class PlayerNameService {
     this.opacityService.hide('app-player-name');
   }
 
-  show() {
-    const settings = GameObjectDefaults.powerUp().settings;
-    settings.gravity = -0.015;
-    this.particleService.showMenuParticles('peaSvg', this.showParticles, settings, 30);
-    this.opacityService.show('app-player-name');
+  private alphaDashValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const pattern = /^[\p{L}\- ]+$/u;
+      if (control.value && !pattern.test(control.value)) {
+        return { alphaDash: true };
+      }
+      return null;
+    };
+  }
+
+  private profanityValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const matcher = new RegExpMatcher({
+        ...englishDataset.build(),
+        ...englishRecommendedTransformers,
+      });
+      const containsProfanity = matcher.hasMatch(control.value);
+      return containsProfanity ? { profanity: true } : null;
+    };
   }
 }

@@ -3,10 +3,10 @@
 
 <!-- Scores -->
 <div
-  class="my-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty px-[10%] sm:w-3/4 sm:px-[5%] lg:w-3/5 xl:w-1/2"
+  class="my-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty px-[10%] sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12"
   style="scrollbar-width: thin">
   @for (score of leaderboardService.scores; track score) {
-    <div class="mb-4 flex flex-1 justify-evenly text-xl lg:text-2xl">
+    <div class="mb-4 flex flex-1 justify-evenly text-xl sm:text-2xl">
       <span class="flex-1 text-start text-game-white">{{ score.name }}</span>
       <span class="text-end text-game-yellow">{{ score.score }}</span>
     </div>

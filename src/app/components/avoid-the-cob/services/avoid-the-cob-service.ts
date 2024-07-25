@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { GameTextService } from './components/game-text/game-text-service';
-import { MainMenuService } from './components/main-menu/main-menu-service';
-import { PlayerNameService } from './components/player-name/player-name-service';
-import { CanvasService } from './services/canvas-service';
-import { CollisionService } from './services/collision-service';
-import { CursorService } from './services/cursor.service';
-import { DifficultyService } from './services/difficulty.service';
-import { GameObjectService } from './services/game-object-service';
-import { GameStateService } from './services/game-state-service';
-import { ParticleService } from './services/particle-service';
+import { GameTextService } from '../components/game-text/game-text-service';
+import { MainMenuService } from '../components/main-menu/main-menu-service';
+import { PlayerNameService } from '../components/player-name/player-name-service';
+import { CanvasService } from './canvas-service';
+import { CollisionService } from './collision-service';
+import { CursorService } from './cursor.service';
+import { DifficultyService } from './difficulty.service';
+import { GameObjectService } from './game-object-service';
+import { GameStateService } from './game-state-service';
+import { ParticleService } from './particle-service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,19 +27,6 @@ export class AvoidTheCobService {
     private textService: GameTextService,
   ) {}
 
-  play() {
-    const name = window.localStorage.getItem('name');
-
-    if (!!name) {
-      this.mainMenuService.hide();
-      this.playerNameService.hide();
-      this.newGame();
-    } else {
-      this.mainMenuService.hide();
-      this.playerNameService.show();
-    }
-  }
-
   draw() {
     this.gameObjectService.processGameObjects(this.gameStateService.paused, this.collisionService);
     this.particleService.draw(this.canvasService.context);
@@ -50,6 +37,19 @@ export class AvoidTheCobService {
       if (this.gameObjectService.objectsCleared()) {
         this.gameStateService.levelCleared();
       }
+    }
+  }
+
+  play() {
+    const name = window.localStorage.getItem('name');
+
+    if (!!name) {
+      this.mainMenuService.hide();
+      this.playerNameService.hide();
+      this.newGame();
+    } else {
+      this.mainMenuService.hide();
+      this.playerNameService.show();
     }
   }
 

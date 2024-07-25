@@ -16,13 +16,13 @@ export class LeaderboardService {
     private opacityService: OpacityService,
   ) {}
 
+  async show() {
+    this.opacityService.show('app-leaderboard');
+    this.scores = await this.firebaseService.get();
+  }
+
   hide() {
     this.opacityService.hide('app-leaderboard');
     this.mainMenuService.show();
-  }
-
-  async show() {
-    this.opacityService.show('app-leaderboard');
-    this.scores = await this.firebaseService.getAllScores();
   }
 }

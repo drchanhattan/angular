@@ -30,9 +30,6 @@ export class GameObject {
     this.timestamp = new Date();
   }
 
-  // Getters
-  // ==============================
-
   get isPea() {
     return this.type === GameObjectType.Pea;
   }
@@ -68,35 +65,6 @@ export class GameObject {
   applyForce(axis: 'x' | 'y', force: number) {
     this[axis] += force;
   }
-
-  // magnetise(
-  //   object: GameObject,
-  //   radiusMultiplier: number,
-  //   speed: number,
-  //   repel: boolean,
-  //   collisionEnabled = true,
-  // ): void {
-  //   const obj = Object.assign({}, this);
-  //   obj.size = obj.size * radiusMultiplier;
-
-  //   if (object.detectCollision(obj)) {
-  //     let dx = this.x - object.x;
-  //     let dy = this.y - object.y;
-  //     const distance = Math.sqrt(dx * dx + dy * dy);
-  //     dx /= distance;
-  //     dy /= distance;
-  //     dx *= speed;
-  //     dy *= speed;
-
-  //     if (!object.detectWallCollisionOnAxis('x', window.innerWidth) || !collisionEnabled) {
-  //       repel ? object.applyForce('x', -dx) : object.applyForce('x', dx);
-  //     }
-
-  //     if (!object.detectWallCollisionOnAxis('y', window.innerHeight) || !collisionEnabled) {
-  //       repel ? object.applyForce('y', -dy) : object.applyForce('y', dy);
-  //     }
-  //   }
-  // }
 
   // Collision Detection
   // ==============================

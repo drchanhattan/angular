@@ -12,7 +12,7 @@ export class FirebaseService {
 
   constructor(private nameService: PlayerNameService) {}
 
-  async saveScore(score: number): Promise<void> {
+  async save(score: number): Promise<void> {
     const name = this.nameService.name.value?.toUpperCase();
 
     if (!name) {
@@ -21,7 +21,7 @@ export class FirebaseService {
     }
 
     try {
-      let scoresData = await this.getAllScores();
+      let scoresData = await this.get();
       const existingScore = scoresData.find((s) => s.name === name);
 
       let updated = false;
@@ -32,19 +32,19 @@ export class FirebaseService {
           updated = true;
         }
       } else {
-        scoresData.push({ name, score });
+        scoresData.push({ name, score, date: new Date().getTime() });
         updated = true;
       }
 
       if (updated) {
-        this.updateScores(scoresData);
+        this.update(scoresData);
       }
     } catch (e) {
       console.error('Error saving or updating score: ', e);
     }
   }
 
-  async getAllScores(): Promise<GameScore[]> {
+  async get(): Promise<GameScore[]> {
     try {
       const docSnapshot = await getDoc(this.scoresDocRef);
       if (docSnapshot.exists()) {
@@ -58,14 +58,14 @@ export class FirebaseService {
     }
   }
 
-  private async updateScores(scores: GameScore[]) {
-    this.sortAndLimitScores(scores);
+  private async update(scores: GameScore[]) {
+    this.sortAndLimit(scores);
     await setDoc(this.scoresDocRef, { highScores: scores });
     console.log('Scores successfully updated!');
   }
 
-  private sortAndLimitScores(scores: GameScore[]): void {
-    scores.sort((a, b) => b.score - a.score);
+  private sortAndLimit(scores: GameScore[]) {
+    scores.sort((a, b) => (b.score === a.score ? a.date - b.date : b.score - a.score));
     if (scores.length > 20) {
       scores.length = 20;
     }

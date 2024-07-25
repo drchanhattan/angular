@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
-import { AvoidTheCobService } from '../../avoid-the-cob-service';
+import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { LeaderboardService } from '../leaderboard/leaderboard-service';
 import { MainMenuService } from './main-menu-service';
@@ -16,10 +16,10 @@ export class MainMenuComponent {
   @HostBinding('class') hostClasses = 'absolute flex flex-col size-full flex items-center justify-center';
 
   constructor(
-    private router: Router,
-    public gameService: AvoidTheCobService,
-    public mainMenuService: MainMenuService,
+    public avoidTheCob: AvoidTheCobService,
     public leaderboardService: LeaderboardService,
+    public mainMenuService: MainMenuService,
+    private router: Router,
   ) {}
 
   showLeaderboard() {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { AvoidTheCobService } from '../../avoid-the-cob-service';
+import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
 import { PlayerNameInputComponent } from './player-name-input/player-name-input.component';
@@ -18,7 +18,7 @@ export class PlayerNameComponent {
   @Output() nameEntered = new EventEmitter();
 
   constructor(
-    private gameService: AvoidTheCobService,
+    private avoidTheCob: AvoidTheCobService,
     private mainMenuService: MainMenuService,
     public playerNameService: PlayerNameService,
   ) {}
@@ -33,7 +33,7 @@ export class PlayerNameComponent {
 
     if (name.value && name.valid) {
       window.localStorage.setItem('name', name.value.toUpperCase());
-      this.gameService.play();
+      this.avoidTheCob.play();
     }
   }
 

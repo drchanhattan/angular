@@ -13,7 +13,7 @@ export class ParticleService {
 
   constructor(private canvasService: CanvasService) {}
 
-  draw(context: CanvasRenderingContext2D): void {
+  draw(context: CanvasRenderingContext2D) {
     this.particles.forEach((p) => {
       context.globalAlpha = 0.8;
       this.canvasService.drawObject(context, p, 0.25);
@@ -25,7 +25,7 @@ export class ParticleService {
     this.decay();
   }
 
-  create(object: GameObject, count = 25, speed = 1): void {
+  create(object: GameObject, count = 25, speed = 1) {
     const currentTime = new Date();
     for (let i = 0; i < count; i++) {
       if (this.particles.length < 1500) {
@@ -47,14 +47,6 @@ export class ParticleService {
     }
   }
 
-  private decay(): void {
-    const currentTime = new Date().getTime();
-    this.particles = this.particles.filter((p) => {
-      const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
-      return isOnScreen && currentTime - p.timestamp.getTime() <= 2500;
-    });
-  }
-
   showMenuParticles(elementId: string, show: FormControl, objSettings: GameObjectSettings, count: number) {
     if (!show.value) {
       show.setValue(true);
@@ -70,5 +62,13 @@ export class ParticleService {
         }, 500);
       }
     }
+  }
+
+  private decay() {
+    const currentTime = new Date().getTime();
+    this.particles = this.particles.filter((p) => {
+      const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
+      return isOnScreen && currentTime - p.timestamp.getTime() <= 2500;
+    });
   }
 }

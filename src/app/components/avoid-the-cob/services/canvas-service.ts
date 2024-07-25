@@ -9,9 +9,6 @@ export class CanvasService {
   canvasEle!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
 
-  // Setup
-  // ==============================
-
   setup(canvasEle: ElementRef<HTMLCanvasElement>) {
     this.canvasEle = canvasEle;
     const canvas = this.canvasEle.nativeElement;
@@ -21,10 +18,7 @@ export class CanvasService {
     this.context.scale(devicePixelRatio, devicePixelRatio);
   }
 
-  // Drawing Objects
-  // ==============================
-
-  drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1): void {
+  drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1) {
     context.fillStyle = object.color;
     context.beginPath();
 
@@ -37,9 +31,6 @@ export class CanvasService {
     context.closePath();
     context.fill();
   }
-
-  // Flashing Effects
-  // ==============================
 
   flash(duration: number, color: string, animationClass?: string) {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
@@ -58,9 +49,6 @@ export class CanvasService {
       }
     }, duration);
   }
-
-  // Draw shape
-  // ==============================
 
   private drawSquare(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
     const drawX = object.x - object.size / 2;

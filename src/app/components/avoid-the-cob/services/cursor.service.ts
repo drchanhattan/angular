@@ -21,6 +21,49 @@ export class CursorService {
     this.storeHistory();
   }
 
+  draw() {
+    if (this.invincible) {
+      this.trail();
+    }
+
+    this.canvasService.drawObject(this.canvasService.context, this.object);
+  }
+
+  show() {
+    this.canvasService.canvasEle.nativeElement.classList.remove('cursor-none');
+  }
+
+  hide() {
+    this.canvasService.canvasEle.nativeElement.classList.add('cursor-none');
+  }
+
+  reset() {
+    this.object.size = GameObjectDefaults.cursor().size;
+  }
+
+  disableCollision(duration: number) {
+    this.collisionEnabled = false;
+    setTimeout(() => (this.collisionEnabled = true), duration);
+  }
+
+  setInvincibility(enabled: boolean) {
+    this.resetHistory();
+    this.invincible = enabled;
+  }
+
+  blink(color: string, blinks: number, interval: number) {
+    const changeColor = (color: string, delay: number | undefined) => {
+      setTimeout(() => {
+        this.object.color = color;
+      }, delay);
+    };
+
+    for (let i = 0; i < blinks; i++) {
+      changeColor(color, interval * (2 * i));
+      changeColor(GameObjectDefaults.cursor().color, interval * (2 * i + 1));
+    }
+  }
+
   private updatePosition(x: number, y: number) {
     const rect = this.canvasService.context.canvas.getBoundingClientRect();
     const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
@@ -74,57 +117,14 @@ export class CursorService {
     }, 150);
   }
 
-  draw(): void {
-    const canvas = this.canvasService;
-    const context = this.canvasService.context;
-
-    if (this.invincible) {
-      this.trail(context, canvas);
-    }
-
-    canvas.drawObject(context, this.object);
-  }
-
-  activateImmunity(duration: number) {
-    this.collisionEnabled = false;
-    setTimeout(() => (this.collisionEnabled = true), duration);
-  }
-
-  hide() {
-    this.canvasService.canvasEle.nativeElement.classList.add('cursor-none');
-  }
-
-  show() {
-    this.canvasService.canvasEle.nativeElement.classList.remove('cursor-none');
-  }
-
-  reset() {
-    this.object.size = GameObjectDefaults.cursor().size;
-  }
-
-  setInvincibility(enabled: boolean) {
-    this.resetHistory();
-    this.invincible = enabled;
-  }
-
-  blink(color: string, blinks: number, interval: number) {
-    const changeColor = (color: string, delay: number | undefined) => {
-      setTimeout(() => {
-        this.object.color = color;
-      }, delay);
-    };
-
-    for (let i = 0; i < blinks; i++) {
-      changeColor(color, interval * (2 * i));
-      changeColor(GameObjectDefaults.cursor().color, interval * (2 * i + 1));
-    }
-  }
-
   private resetHistory() {
     this.history = [];
   }
 
-  private trail(context: CanvasRenderingContext2D, canvas: CanvasService) {
+  private trail() {
+    const canvas = this.canvasService;
+    const context = this.canvasService.context;
+
     this.history.forEach((old) => {
       const settings = new GameObjectSettings(
         this.object.type,

@@ -31,10 +31,6 @@ export class GameObjectService {
     this.hearts = new GameObjectGroup(GameObjectDefaults.heart().count, GameObjectDefaults.heart().settings);
   }
 
-  private allObjects() {
-    return [...this.peas.objects, ...this.corn.objects, ...this.powerUps.objects, ...this.hearts.objects];
-  }
-
   processGameObjects(paused: boolean, collisionService: CollisionService) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
@@ -54,6 +50,14 @@ export class GameObjectService {
     });
   }
 
+  objectsCleared() {
+    const peas = this.peas.objects;
+    const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
+    const powerUps = this.powerUps.objects;
+
+    return ![...peas, ...blueCorn, ...powerUps].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
+  }
+
   reset() {
     this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
     this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
@@ -63,6 +67,10 @@ export class GameObjectService {
 
   private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
     objectGroup.editSettings(settings.settings.size, settings.settings.speed, settings.count);
+  }
+
+  private allObjects() {
+    return [...this.peas.objects, ...this.corn.objects, ...this.powerUps.objects, ...this.hearts.objects];
   }
 
   private customObjectBehaviour(obj: GameObject) {
@@ -89,21 +97,13 @@ export class GameObjectService {
     }
   }
 
-  objectsCleared() {
-    const peas = this.peas.objects;
-    const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
-    const powerUps = this.powerUps.objects;
-
-    return ![...peas, ...blueCorn, ...powerUps].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
-  }
-
   private magnetise(
     object: GameObject,
     radiusMultiplier: number,
     speed: number,
     repel: boolean,
     collisionEnabled = true,
-  ): void {
+  ) {
     const obj = Object.assign({}, this.cursor.object);
     obj.size = obj.size * radiusMultiplier;
 
