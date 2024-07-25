@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ShowHideService {
+export class CollisionService {
   hide(elementTag: string) {
     const classList = document.getElementsByTagName(elementTag)[0].classList;
     classList.add('opacity-0');

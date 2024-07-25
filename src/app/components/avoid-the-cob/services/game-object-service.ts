@@ -6,7 +6,7 @@ import { GameObjectSettings } from '../models/game-object/game-object-setttings'
 @Injectable({
   providedIn: 'root',
 })
-export class ObjectService {
+export class GameObjectService {
   peas: GameObjectGroup;
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;

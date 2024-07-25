@@ -12,7 +12,7 @@ import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
-import { ObjectService } from './object-service';
+import { GameObjectService } from './game-object-service';
 import { ParticleService } from './particle-service';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class GameService {
     private firebaseService: FirebaseService,
     private leaderboardService: LeaderboardService,
     private mainMenuService: MainMenuService,
-    private objectService: ObjectService,
+    private objectService: GameObjectService,
     private particleService: ParticleService,
     private playerNameService: PlayerNameService,
     private textService: GameTextService,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { CursorService } from './cursor.service';
-import { ObjectService } from './object-service';
+import { GameObjectService } from './game-object-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class DifficultyService {
 
   constructor(
     private cursor: CursorService,
-    private objectService: ObjectService,
+    private objectService: GameObjectService,
   ) {}
 
   resetLevel() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
 import { FirebaseService } from '../../services/firebase.service';
-import { ShowHideService } from '../../services/show-hide-service';
+import { OpacityService } from '../../services/opacity-service';
 import { MainMenuService } from '../main-menu/main-menu-service';
 
 @Injectable({
@@ -13,16 +13,16 @@ export class LeaderboardService {
   constructor(
     private firebaseService: FirebaseService,
     private mainMenuService: MainMenuService,
-    private showHideService: ShowHideService,
+    private opacityService: OpacityService,
   ) {}
 
   hide() {
-    this.showHideService.hide('app-leaderboard');
+    this.opacityService.hide('app-leaderboard');
     this.mainMenuService.show();
   }
 
   async show() {
-    this.showHideService.show('app-leaderboard');
+    this.opacityService.show('app-leaderboard');
     this.scores = await this.firebaseService.getAllScores();
   }
 }

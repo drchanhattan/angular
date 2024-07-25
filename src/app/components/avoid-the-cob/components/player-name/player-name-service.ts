@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
+import { OpacityService } from '../../services/opacity-service';
 import { ParticleService } from '../../services/particle-service';
-import { ShowHideService } from '../../services/show-hide-service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class PlayerNameService {
 
   constructor(
     private particleService: ParticleService,
-    private showHideService: ShowHideService,
+    private opacityService: OpacityService,
   ) {
     const name = window.localStorage.getItem('name');
 
@@ -41,13 +41,13 @@ export class PlayerNameService {
 
   hide() {
     this.showParticles.setValue(false);
-    this.showHideService.hide('app-player-name');
+    this.opacityService.hide('app-player-name');
   }
 
   show() {
     const settings = GameObjectDefaults.powerUp().settings;
     settings.gravity = -0.015;
     this.particleService.showMenuParticles('peaSvg', this.showParticles, settings, 30);
-    this.showHideService.show('app-player-name');
+    this.opacityService.show('app-player-name');
   }
 }
