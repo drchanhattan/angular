@@ -21,6 +21,8 @@ export class ParticleService {
       p.move();
       context.globalAlpha = 1;
     });
+
+    this.decay();
   }
 
   create(object: GameObject, count = 25, speed = 1): void {
@@ -45,7 +47,7 @@ export class ParticleService {
     }
   }
 
-  decay(): void {
+  private decay(): void {
     const currentTime = new Date().getTime();
     this.particles = this.particles.filter((p) => {
       const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;

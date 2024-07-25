@@ -8,42 +8,46 @@ import { GameObjectService } from './game-object-service';
 })
 export class DifficultyService {
   level!: number;
-  lives!: number;
   powerUpFrequency = 3;
 
   constructor(
     private cursor: CursorService,
-    private objectService: GameObjectService,
+    private gameObjectService: GameObjectService,
   ) {}
+
+  increase() {
+    this.level++;
+    this.levelUpPeas();
+    this.levelUpCorn();
+    this.levelUpPowerUps();
+    this.levelUpHearts();
+    this.levelUpCursor();
+  }
 
   resetLevel() {
     this.level = 1;
   }
 
-  resetLives() {
-    this.lives = 3;
-  }
-
-  levelUpPeas() {
+  private levelUpPeas() {
     const defaultSettings = GameObjectDefaults.pea().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.005, this.level);
     const count = GameObjectDefaults.pea().count;
-    this.objectService.peas.editSettings(size, speed, count);
+    this.gameObjectService.peas.editSettings(size, speed, count);
   }
 
-  levelUpCorn() {
+  private levelUpCorn() {
     const defaultSettings = GameObjectDefaults.corn().settings;
     const minSize = 20;
     const size = Math.max(defaultSettings.size * Math.pow(0.99, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.001, this.level);
     const count = Math.min(GameObjectDefaults.corn().count * Math.pow(1.06, this.level));
-    this.objectService.corn.editSettings(size, speed, count);
+    this.gameObjectService.corn.editSettings(size, speed, count);
   }
 
-  levelUpPowerUps() {
-    const powerUps = this.objectService.powerUps;
+  private levelUpPowerUps() {
+    const powerUps = this.gameObjectService.powerUps;
     const defaultSettings = GameObjectDefaults.powerUp().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
@@ -53,8 +57,8 @@ export class DifficultyService {
     this.level % this.powerUpFrequency === 0 ? powerUps.createObjects() : powerUps.destroyObjects();
   }
 
-  levelUpHearts() {
-    const hearts = this.objectService.hearts;
+  private levelUpHearts() {
+    const hearts = this.gameObjectService.hearts;
     const defaultSettings = GameObjectDefaults.heart().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
@@ -64,7 +68,7 @@ export class DifficultyService {
     this.level % this.powerUpFrequency === 0 ? hearts.destroyObjects() : hearts.createObjects();
   }
 
-  levelUpCursor() {
+  private levelUpCursor() {
     const minSize = 10;
     this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
   }

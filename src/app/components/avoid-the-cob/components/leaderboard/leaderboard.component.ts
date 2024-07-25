@@ -1,5 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
-import { GameService } from '../../services/game-service';
+import { AvoidTheCobService } from '../../avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { LeaderboardService } from './leaderboard-service';
 
@@ -13,7 +13,7 @@ export class LeaderboardComponent {
   @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center font-ink';
 
   constructor(
-    public gameService: GameService,
+    public gameService: AvoidTheCobService,
     public leaderboardService: LeaderboardService,
   ) {}
 }

@@ -10,6 +10,7 @@ import { CanvasService } from './canvas-service';
 export class CursorService {
   object = new GameObject(0, 0, GameObjectDefaults.cursor());
   invincible: boolean = false;
+  collisionEnabled: boolean = true;
   private history: { x: number; y: number }[] = [];
   private lastTouch: { x: number; y: number } | null = null;
 
@@ -73,12 +74,20 @@ export class CursorService {
     }, 150);
   }
 
-  draw(context: CanvasRenderingContext2D, canvas: CanvasService): void {
+  draw(): void {
+    const canvas = this.canvasService;
+    const context = this.canvasService.context;
+
     if (this.invincible) {
       this.trail(context, canvas);
     }
 
     canvas.drawObject(context, this.object);
+  }
+
+  activateImmunity(duration: number) {
+    this.collisionEnabled = false;
+    setTimeout(() => (this.collisionEnabled = true), duration);
   }
 
   hide() {

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { AvoidTheCobService } from './avoid-the-cob-service';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -11,7 +12,7 @@ import { PlayerNameService } from './components/player-name/player-name-service'
 import { PlayerNameComponent } from './components/player-name/player-name.component';
 import { CanvasService } from './services/canvas-service';
 import { DifficultyService } from './services/difficulty.service';
-import { GameService } from './services/game-service';
+import { GameStateService } from './services/game-state-service';
 import { ParticleService } from './services/particle-service';
 
 @Component({
@@ -34,9 +35,10 @@ export class AvoidTheCobComponent implements AfterViewInit {
   @ViewChild('canvas', { static: true }) canvasEle!: ElementRef<HTMLCanvasElement>;
 
   constructor(
+    public avoidTheCobService: AvoidTheCobService,
     public canvasService: CanvasService,
     public difficultyService: DifficultyService,
-    public gameService: GameService,
+    public gameStateService: GameStateService,
     public mainMenuService: MainMenuService,
     public nameService: PlayerNameService,
     public particleService: ParticleService,
@@ -74,8 +76,6 @@ export class AvoidTheCobComponent implements AfterViewInit {
   }
 
   draw() {
-    this.gameService.draw();
-    this.particleService.draw(this.canvasService.context);
-    this.particleService.decay();
+    this.avoidTheCobService.draw();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
-import { GameService } from '../../services/game-service';
+import { AvoidTheCobService } from '../../avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { LeaderboardService } from '../leaderboard/leaderboard-service';
 import { MainMenuService } from './main-menu-service';
@@ -17,7 +17,7 @@ export class MainMenuComponent {
 
   constructor(
     private router: Router,
-    public gameService: GameService,
+    public gameService: AvoidTheCobService,
     public mainMenuService: MainMenuService,
     public leaderboardService: LeaderboardService,
   ) {}

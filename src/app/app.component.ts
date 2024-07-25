@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
+import { AvoidTheCobService } from './components/avoid-the-cob/avoid-the-cob-service';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
@@ -15,7 +16,8 @@ import { CursorService } from './components/avoid-the-cob/services/cursor.servic
 import { DifficultyService } from './components/avoid-the-cob/services/difficulty.service';
 import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
 import { GameObjectService } from './components/avoid-the-cob/services/game-object-service';
-import { GameService } from './components/avoid-the-cob/services/game-service';
+import { GameStateService } from './components/avoid-the-cob/services/game-state-service';
+import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { GameComponent } from './pages/game/game.component';
@@ -39,13 +41,15 @@ import { GameComponent } from './pages/game/game.component';
     CursorService,
     CollisionService,
     DifficultyService,
+    GameStateService,
     FirebaseService,
-    GameService,
+    AvoidTheCobService,
     GameTextService,
     LeaderboardService,
     MainMenuService,
     GameObjectService,
     PlayerNameService,
+    PowerUpService,
   ],
 })
 export class AppComponent {

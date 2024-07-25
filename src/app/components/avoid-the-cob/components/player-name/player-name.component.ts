@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { GameService } from '../../services/game-service';
+import { AvoidTheCobService } from '../../avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
 import { PlayerNameInputComponent } from './player-name-input/player-name-input.component';
@@ -18,7 +18,7 @@ export class PlayerNameComponent {
   @Output() nameEntered = new EventEmitter();
 
   constructor(
-    private gameService: GameService,
+    private gameService: AvoidTheCobService,
     private mainMenuService: MainMenuService,
     public playerNameService: PlayerNameService,
   ) {}
