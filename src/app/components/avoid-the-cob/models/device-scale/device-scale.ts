@@ -16,5 +16,5 @@ export const scaledCount = (size: number, multiplier: number) => {
 };
 
 export const scaledSpeed = (size: number, multiplier: number) => {
-  return Math.round(size / scale()) * 0.2;
+  return Math.round(size / scale()) * 0.15;
 };
