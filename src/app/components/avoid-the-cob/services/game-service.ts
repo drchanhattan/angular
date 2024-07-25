@@ -5,8 +5,6 @@ import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
 import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
-import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
-import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
 import { GameObjectBehaviour } from './../models/game-object/game-object-behaviour';
@@ -14,6 +12,7 @@ import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
+import { ObjectService } from './object-service';
 import { ParticleService } from './particle-service';
 
 @Injectable({
@@ -22,10 +21,6 @@ import { ParticleService } from './particle-service';
 export class GameService {
   paused = true;
   ghost = true;
-  peas: GameObjectGroup;
-  corn: GameObjectGroup;
-  powerUps: GameObjectGroup;
-  hearts: GameObjectGroup;
 
   constructor(
     private canvasService: CanvasService,
@@ -34,15 +29,11 @@ export class GameService {
     private firebaseService: FirebaseService,
     private leaderboardService: LeaderboardService,
     private mainMenuService: MainMenuService,
+    private objectService: ObjectService,
     private particleService: ParticleService,
     private playerNameService: PlayerNameService,
     private textService: GameTextService,
-  ) {
-    this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
-    this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
-    this.powerUps = new GameObjectGroup(GameObjectDefaults.powerUp().count, GameObjectDefaults.powerUp().settings);
-    this.hearts = new GameObjectGroup(GameObjectDefaults.heart().count, GameObjectDefaults.heart().settings);
-  }
+  ) {}
 
   // Game Initialization
   // ==============================
@@ -63,10 +54,7 @@ export class GameService {
   private newGame() {
     this.difficultyService.resetLevel();
     this.difficultyService.resetLives();
-    this.difficultyService.resetObjectGroup(this.peas, GameObjectDefaults.pea());
-    this.difficultyService.resetObjectGroup(this.corn, GameObjectDefaults.corn());
-    this.difficultyService.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
-    this.difficultyService.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
+    this.objectService.reset();
     this.cursor.reset();
     this.cursor.hide();
     this.textService.show(`Level ${this.difficultyService.level}`, '', 2500);
@@ -77,8 +65,8 @@ export class GameService {
   }
 
   private start() {
-    this.peas.createObjects();
-    this.corn.createObjects();
+    this.objectService.peas.createObjects();
+    this.objectService.corn.createObjects();
     this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.activateImmunity(1000);
@@ -101,23 +89,23 @@ export class GameService {
   }
 
   private levelUp() {
-    this.difficultyService.levelUpPeas(this.peas);
-    this.difficultyService.levelUpCorn(this.corn);
-    this.difficultyService.levelUpPowerUps(this.powerUps);
-    this.difficultyService.levelUpHearts(this.hearts);
+    this.difficultyService.levelUpPeas();
+    this.difficultyService.levelUpCorn();
+    this.difficultyService.levelUpPowerUps();
+    this.difficultyService.levelUpHearts();
     this.difficultyService.levelUpCursor();
   }
 
   private levelUpText() {
-    const heart = this.hearts.objects[0];
-    const subtext = !!heart && heart.isDestroyed ? '+ 1' : '';
+    const collectedHearts = this.objectService.hearts.objects.filter((heart) => heart.isDestroyed).length;
+    const subtext = collectedHearts ? `+ ${collectedHearts}` : '';
     this.textService.show(`Level ${this.difficultyService.level}`, subtext, 3500);
   }
 
   private levelCompleted() {
-    const peas = this.peas.objects;
-    const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
-    const powerUps = this.powerUps.objects;
+    const peas = this.objectService.peas.objects;
+    const blueCorn = this.objectService.corn.objects.filter((corn) => corn.isPea);
+    const powerUps = this.objectService.powerUps.objects;
 
     return ![...peas, ...blueCorn, ...powerUps].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
   }
@@ -165,7 +153,7 @@ export class GameService {
       if (blue) {
         obj.type = GameObjectType.Pea;
         obj.color = '#0055FF';
-        obj.size = this.peas.objects[0].size;
+        obj.size = this.objectService.peas.objects[0].size;
         obj.shape = GameObjectShape.Circle;
       }
       if (slow) {
@@ -261,7 +249,7 @@ export class GameService {
       const powerUpIndex =
         (this.difficultyService.level / this.difficultyService.powerUpFrequency - 1) % powerUps.length;
       powerUps[powerUpIndex]();
-      this.peas.setBehaviour(GameObjectBehaviour.Blue);
+      this.objectService.peas.setBehaviour(GameObjectBehaviour.Blue);
     }
   }
 
@@ -270,21 +258,21 @@ export class GameService {
   }
 
   private powerAttract() {
-    this.peas.setBehaviour(GameObjectBehaviour.Attract);
+    this.objectService.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 
   private powerRepel() {
-    this.corn.setBehaviour(GameObjectBehaviour.Repel);
+    this.objectService.corn.setBehaviour(GameObjectBehaviour.Repel);
   }
 
   private powerBlueCorn() {
-    this.corn.setBehaviour(GameObjectBehaviour.Blue);
-    this.corn.setBehaviour(GameObjectBehaviour.Attract);
-    this.peas.setBehaviour(GameObjectBehaviour.Attract);
+    this.objectService.corn.setBehaviour(GameObjectBehaviour.Blue);
+    this.objectService.corn.setBehaviour(GameObjectBehaviour.Attract);
+    this.objectService.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 
   private powerSlowCorn() {
-    this.corn.setBehaviour(GameObjectBehaviour.Slow);
+    this.objectService.corn.setBehaviour(GameObjectBehaviour.Slow);
   }
 
   // Draw Objects
@@ -299,19 +287,19 @@ export class GameService {
   }
 
   private drawPeas() {
-    this.peas.objects.forEach((obj) => this.handleGameObject(obj));
+    this.objectService.peas.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   private drawCorn() {
-    this.corn.objects.forEach((obj) => this.handleGameObject(obj));
+    this.objectService.corn.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   private drawPowerUps() {
-    this.powerUps.objects.forEach((obj) => this.handleGameObject(obj));
+    this.objectService.powerUps.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   private drawHearts() {
-    this.hearts.objects.forEach((obj) => this.handleGameObject(obj));
+    this.objectService.hearts.objects.forEach((obj) => this.handleGameObject(obj));
   }
 
   private drawCursor() {

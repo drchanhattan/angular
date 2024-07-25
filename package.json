@@ -2,6 +2,7 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
+    "locate-circular-deps": "npx madge --circular --extensions ts ./",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
     "build": "ng build --configuration production --output-path docs --base-href .",
     "docs": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",

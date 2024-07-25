@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
-import { GameObjectGroup } from '../models/game-object/game-object-group';
-import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { CursorService } from './cursor.service';
+import { ObjectService } from './object-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +11,10 @@ export class DifficultyService {
   lives!: number;
   powerUpFrequency = 3;
 
-  constructor(private cursor: CursorService) {}
+  constructor(
+    private cursor: CursorService,
+    private objectService: ObjectService,
+  ) {}
 
   resetLevel() {
     this.level = 1;
@@ -22,29 +24,26 @@ export class DifficultyService {
     this.lives = 3;
   }
 
-  resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
-    objectGroup.editSettings(settings.settings.size, settings.settings.speed, settings.count);
-  }
-
-  levelUpPeas(peas: GameObjectGroup) {
+  levelUpPeas() {
     const defaultSettings = GameObjectDefaults.pea().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.005, this.level);
     const count = GameObjectDefaults.pea().count;
-    peas.editSettings(size, speed, count);
+    this.objectService.peas.editSettings(size, speed, count);
   }
 
-  levelUpCorn(corn: GameObjectGroup) {
+  levelUpCorn() {
     const defaultSettings = GameObjectDefaults.corn().settings;
     const minSize = 20;
     const size = Math.max(defaultSettings.size * Math.pow(0.99, this.level), minSize);
     const speed = defaultSettings.speed * Math.pow(1.001, this.level);
     const count = Math.min(GameObjectDefaults.corn().count * Math.pow(1.06, this.level));
-    corn.editSettings(size, speed, count);
+    this.objectService.corn.editSettings(size, speed, count);
   }
 
-  levelUpPowerUps(powerUps: GameObjectGroup) {
+  levelUpPowerUps() {
+    const powerUps = this.objectService.powerUps;
     const defaultSettings = GameObjectDefaults.powerUp().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);
@@ -54,7 +53,8 @@ export class DifficultyService {
     this.level % this.powerUpFrequency === 0 ? powerUps.createObjects() : powerUps.destroyObjects();
   }
 
-  levelUpHearts(hearts: GameObjectGroup) {
+  levelUpHearts() {
+    const hearts = this.objectService.hearts;
     const defaultSettings = GameObjectDefaults.heart().settings;
     const minSize = 10;
     const size = Math.max(defaultSettings.size * Math.pow(0.98, this.level), minSize);

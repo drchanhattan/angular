@@ -14,6 +14,7 @@ import { CursorService } from './components/avoid-the-cob/services/cursor.servic
 import { DifficultyService } from './components/avoid-the-cob/services/difficulty.service';
 import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
 import { GameService } from './components/avoid-the-cob/services/game-service';
+import { ObjectService } from './components/avoid-the-cob/services/object-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { GameComponent } from './pages/game/game.component';
@@ -35,13 +36,14 @@ import { GameComponent } from './pages/game/game.component';
   providers: [
     CanvasService,
     CursorService,
+    DifficultyService,
     FirebaseService,
     GameService,
     GameTextService,
-    MainMenuService,
     LeaderboardService,
+    MainMenuService,
+    ObjectService,
     PlayerNameService,
-    DifficultyService,
   ],
 })
 export class AppComponent {
