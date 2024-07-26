@@ -13,7 +13,8 @@ export class PlayerNameService {
     Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
-    this.alphaDashValidator(),
+    this.characterValidator(),
+    this.whitespaceValidator(),
     this.profanityValidator(),
   ]);
   showParticles = new FormControl<boolean>(false);
@@ -41,13 +42,29 @@ export class PlayerNameService {
     this.opacityService.hide('app-player-name');
   }
 
-  private alphaDashValidator(): ValidatorFn {
+  private characterValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const pattern = /^[\p{L}\- ]+$/u;
+      const pattern = /^[\p{L}\- ]+$/u; // Letters spaces and hyphens
       if (control.value && !pattern.test(control.value)) {
-        return { alphaDash: true };
+        return { letters: true };
       }
       return null;
+    };
+  }
+
+  private whitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const consecutivePattern = /[ \-]{2,}/; // Consecutive spaces or hyphens
+      const edgePattern = /(^[ \-])|([ \-]$)/; // leading or trailing spaces or hyphens
+
+      return value
+        ? consecutivePattern.test(value)
+          ? { consecutive: true }
+          : edgePattern.test(value)
+            ? { edge: true }
+            : null
+        : null;
     };
   }
 
@@ -57,7 +74,7 @@ export class PlayerNameService {
         ...englishDataset.build(),
         ...englishRecommendedTransformers,
       });
-      const containsProfanity = matcher.hasMatch(control.value);
+      const containsProfanity = matcher.hasMatch(control.value.replace(/\s/g, ''));
       return containsProfanity ? { profanity: true } : null;
     };
   }
