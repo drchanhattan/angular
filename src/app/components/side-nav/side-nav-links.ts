@@ -12,12 +12,7 @@ export interface SideNavGroup {
 
 export const sideNavLinks: SideNavGroup[] = [
   { label: 'Home', url: '/home' },
-  {
-    label: 'Games',
-    url: '',
-    sublinks: [{ label: 'Avoid the Cob', url: '/game' }],
-    expanded: true,
-  },
+  { label: 'Avoid the Cob', url: '/game' },
   {
     label: 'Gallery',
     url: '',
