@@ -38,7 +38,6 @@ export class AvoidTheCobService {
 
       if (this.gameObjectService.objectsCleared()) {
         this.audioService.play('levelup.mp3');
-        this.audioService.play('levelup2.mp3');
         this.gameStateService.levelCleared();
       }
     }
