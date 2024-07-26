@@ -105,6 +105,31 @@ export class GameObject {
     return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
   }
 
+  // Wall Collision
+  // ==============================
+
+  processWallCollision() {
+    if (this.detectWallCollisionOnAxis('x', window.innerWidth)) {
+      this.processWallCollisionOnAxis('x', window.innerWidth / 2);
+    }
+
+    if (this.detectWallCollisionOnAxis('y', window.innerHeight)) {
+      this.processWallCollisionOnAxis('y', window.innerHeight / 2);
+    }
+  }
+
+  private processWallCollisionOnAxis(axis: 'x' | 'y', centre: number) {
+    const sign = Math.sign(this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY']);
+    const position = this[axis];
+    if ((position < centre && sign === -1) || (position > centre && sign === 1)) {
+      this.reverseDirection(axis);
+    }
+  }
+
+  private reverseDirection(axis: 'x' | 'y') {
+    this[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY'] *= -1;
+  }
+
   // Behaviour Handling
   // ==============================
 

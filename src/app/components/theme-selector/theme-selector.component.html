@@ -1,12 +1,5 @@
-<app-icon-button [icon]="'contrast'" [menu]="themes"></app-icon-button>
-
-<mat-menu #themes>
-  <button mat-menu-item [disabled]="service.isLight" (click)="setTheme('light-theme')">
-    <mat-icon>light_mode</mat-icon>
-    <span>Light</span>
-  </button>
-  <button mat-menu-item [disabled]="service.isDark" (click)="setTheme('dark-theme')">
-    <mat-icon>dark_mode</mat-icon>
-    <span>Dark</span>
-  </button>
-</mat-menu>
+@if (service.isDark) {
+  <app-icon-button [icon]="'light_mode'" (click)="setTheme('light-theme')"></app-icon-button>
+} @else {
+  <app-icon-button [icon]="'dark_mode'" (click)="setTheme('dark-theme')"></app-icon-button>
+}

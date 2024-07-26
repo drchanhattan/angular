@@ -13,6 +13,12 @@ export interface SideNavGroup {
 export const sideNavLinks: SideNavGroup[] = [
   { label: 'Home', url: '/home' },
   {
+    label: 'Games',
+    url: '',
+    sublinks: [{ label: 'Avoid the Cob', url: '/game' }],
+    expanded: true,
+  },
+  {
     label: 'Gallery',
     url: '',
     sublinks: [
@@ -22,8 +28,6 @@ export const sideNavLinks: SideNavGroup[] = [
       { label: 'South America', url: '/south-america' },
       { label: 'Oceania', url: '/oceania' },
     ],
-    expanded: false,
+    expanded: true,
   },
-  { label: 'Avoid the Cob', url: '/game' },
-  { label: 'Contact', url: '/contact' },
 ];

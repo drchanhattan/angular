@@ -9,6 +9,7 @@ import { GameTextService } from './components/avoid-the-cob/components/game-text
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
 import { PlayerNameService } from './components/avoid-the-cob/components/player-name/player-name-service';
+import { AudioService } from './components/avoid-the-cob/services/audio-service';
 import { AvoidTheCobService } from './components/avoid-the-cob/services/avoid-the-cob-service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
 import { CollisionService } from './components/avoid-the-cob/services/collision-service';
@@ -20,6 +21,7 @@ import { GameStateService } from './components/avoid-the-cob/services/game-state
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import { GameComponent } from './pages/game/game.component';
 
 @Component({
@@ -34,9 +36,11 @@ import { GameComponent } from './pages/game/game.component';
     MatIconModule,
     MatSidenavModule,
     IconButtonComponent,
+    ThemeSelectorComponent,
   ],
   templateUrl: './app.component.html',
   providers: [
+    AudioService,
     CanvasService,
     CursorService,
     CollisionService,

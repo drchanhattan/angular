@@ -2,7 +2,7 @@
 <app-icon-button class="flex self-end" [icon]="'close'" (click)="close.emit()"></app-icon-button>
 
 <!-- Links -->
-<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-[20%]">
+<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-[10%]">
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
@@ -12,7 +12,7 @@
         [label]="item.label"></app-side-nav-button>
     } @else {
       <!-- Link Group -->
-      <app-side-nav-button [group]="item"></app-side-nav-button>
+      <app-side-nav-button [group]="item" [active]="hasActiveSublink(item.sublinks)"></app-side-nav-button>
       @if (item.expanded) {
         @for (subLink of item.sublinks; track subLink) {
           <!-- SubLink -->
@@ -26,3 +26,6 @@
     }
   }
 </div>
+
+<!-- Close Button -->
+<app-theme-selector class="flex self-end"></app-theme-selector>

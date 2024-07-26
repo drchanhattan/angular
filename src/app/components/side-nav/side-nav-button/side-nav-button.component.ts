@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SideNavGroup } from '../side-nav-links';
 
@@ -17,7 +17,7 @@ export class SideNavButtonComponent {
   @Input() label?: string;
   @Input() group?: SideNavGroup;
 
-  expandGroup(button: MatButton) {
+  expandGroup(button: any) {
     if (!!this.group) {
       this.group.expanded = !this.group.expanded;
       button._elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' });

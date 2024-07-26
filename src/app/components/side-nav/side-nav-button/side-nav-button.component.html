@@ -1,19 +1,24 @@
 @if (!!this.group) {
   <!-- Group -->
-  <button #groupBtn mat-button class="mb-6 !rounded-lg" (click)="expandGroup(groupBtn)">
-    <span class="text-nowrap text-xl">{{ group.label.toUpperCase() }}</span>
-    <mat-icon class="secondary-icon !flex !items-center !justify-center !text-3xl" iconPositionEnd>
+  <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
+    <span class="text-primary text-nowrap text-xl">
+      {{ group.label }}
+    </span>
+    <mat-icon
+      class="!flex !items-center !justify-center !text-2xl"
+      [ngClass]="{ 'text-primary': !active, 'text-secondary': active }"
+      iconPositionEnd>
       {{ group.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}
     </mat-icon>
   </button>
 } @else if (active) {
   <!-- Active Link -->
-  <button mat-flat-button class="mb-6 !rounded-lg !p-3">
-    <span class="mx-1 text-nowrap text-xl">{{ label?.toUpperCase() }}</span>
+  <button mat-button class="mb-2 !rounded-lg !p-3">
+    <span class="text-secondary mx-1 text-nowrap text-xl">{{ label }}</span>
   </button>
 } @else {
   <!-- Inactive Link -->
-  <button mat-button class="mb-6 !rounded-lg">
-    <span class="mx-1 text-nowrap text-xl">{{ label?.toUpperCase() }}</span>
+  <button mat-button class="mb-2 !rounded-lg" disabledInteractive>
+    <span class="text-primary mx-1 text-nowrap text-xl">{{ label }}</span>
   </button>
 }

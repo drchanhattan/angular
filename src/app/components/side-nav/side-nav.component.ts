@@ -3,13 +3,14 @@ import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 import { SideNavButtonComponent } from './side-nav-button/side-nav-button.component';
 import { SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, IconButtonComponent, SideNavButtonComponent],
+  imports: [CommonModule, IconButtonComponent, SideNavButtonComponent, ThemeSelectorComponent],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {
@@ -21,16 +22,7 @@ export class SideNavComponent {
   constructor(private router: Router) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
       this.currentRoute = event.url;
-      this.autoExpandActiveGroup();
       window.scrollTo(0, 0);
-    });
-  }
-
-  private autoExpandActiveGroup() {
-    this.links.forEach((link) => {
-      if (link.sublinks) {
-        link.expanded = this.hasActiveSublink(link.sublinks);
-      }
     });
   }
 

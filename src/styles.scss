@@ -21,33 +21,40 @@ body {
 }
 
 html {
+  @include mat.core-color($light-theme);
   @include mat.core-color($dark-theme);
-  @include mat.all-component-colors($dark-theme);
 }
 
-// Buttons
-.primary-button {
-  @include mat.button-color($dark-theme, $color-variant: primary);
-}
-.secondary-button {
-  @include mat.button-color($dark-theme, $color-variant: secondary);
-}
-.tertiary-button {
-  @include mat.button-color($dark-theme, $color-variant: tertiary);
-}
-
-// Icons
-.primary-icon {
-  @include mat.icon-color($dark-theme, $color-variant: primary);
-}
-.secondary-icon {
-  @include mat.icon-color($dark-theme, $color-variant: secondary);
-}
-.tertiary-icon {
+// Light Theme
+.light-theme {
+  @include mat.all-component-colors($light-theme);
+  @include mat.all-component-typographies($light-theme);
   @include mat.icon-color($dark-theme, $color-variant: tertiary);
+  @include mat.button-color($light-theme, $color-variant: secondary);
+
+  .text-primary {
+    color: mat.get-theme-color($light-theme, primary, 0);
+  }
+  .text-secondary {
+    color: mat.get-theme-color($dark-theme, tertiary, 80);
+  }
+}
+
+// Dark Theme
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  @include mat.all-component-typographies($dark-theme);
+  @include mat.icon-color($dark-theme, $color-variant: tertiary);
+
+  .text-primary {
+    color: mat.get-theme-color($dark-theme, tertiary, 80);
+  }
+  .text-secondary {
+    color: mat.get-theme-color($dark-theme, secondary, 100);
+  }
 }
 
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', sans-serif;
 }

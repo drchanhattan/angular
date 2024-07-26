@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameObject } from '../models/game-object/game-object';
+import { AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
 import { GameStateService } from './game-state-service';
@@ -11,6 +12,7 @@ import { PowerUpService } from './power-up-service';
 })
 export class CollisionService {
   constructor(
+    private audioService: AudioService,
     private canvasService: CanvasService,
     private cursor: CursorService,
     private gameStateService: GameStateService,
@@ -19,33 +21,8 @@ export class CollisionService {
   ) {}
 
   processCollisions(obj: GameObject) {
-    this.processWallCollision(obj);
+    obj.processWallCollision();
     this.processCursorCollisions(obj);
-  }
-
-  // Wall Collision
-  // ==============================
-
-  private processWallCollision(obj: GameObject) {
-    if (obj.detectWallCollisionOnAxis('x', window.innerWidth)) {
-      this.processWallCollisionOnAxis(obj, 'x', window.innerWidth / 2);
-    }
-
-    if (obj.detectWallCollisionOnAxis('y', window.innerHeight)) {
-      this.processWallCollisionOnAxis(obj, 'y', window.innerHeight / 2);
-    }
-  }
-
-  private processWallCollisionOnAxis(obj: GameObject, axis: 'x' | 'y', centre: number) {
-    const sign = Math.sign(obj[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY']);
-    const position = obj[axis];
-    if ((position < centre && sign === -1) || (position > centre && sign === 1)) {
-      this.reverseDirection(obj, axis);
-    }
-  }
-
-  private reverseDirection(obj: GameObject, axis: 'x' | 'y') {
-    obj[`delta${axis.toUpperCase()}` as 'deltaX' | 'deltaY'] *= -1;
   }
 
   // Cursor Collision
@@ -67,6 +44,7 @@ export class CollisionService {
 
   private peaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
+      this.audioService.play('pea.mp3');
       pea.destroy();
       this.particleService.create(pea, 20);
     }
@@ -74,6 +52,7 @@ export class CollisionService {
 
   private cornCollision(corn: GameObject) {
     if (corn.detectCollision(this.cursor.object)) {
+      this.audioService.play('corn.mp3');
       corn.destroy();
       this.particleService.create(corn);
 
@@ -91,6 +70,7 @@ export class CollisionService {
 
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
+      this.audioService.play('powerup.mp3');
       powerUp.destroy();
       this.particleService.create(powerUp, 100);
       this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
@@ -100,6 +80,7 @@ export class CollisionService {
 
   private heartCollision(heart: GameObject) {
     if (heart.detectCollision(this.cursor.object)) {
+      this.audioService.play('heart.mp3');
       heart.destroy();
       this.gameStateService.lives++;
       this.particleService.create(heart, 8);
