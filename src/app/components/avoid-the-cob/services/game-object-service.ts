@@ -53,9 +53,8 @@ export class GameObjectService {
   objectsCleared() {
     const peas = this.peas.objects;
     const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
-    const powerUps = this.powerUps.objects;
 
-    return ![...peas, ...blueCorn, ...powerUps].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
+    return ![...peas, ...blueCorn].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
   }
 
   reset() {

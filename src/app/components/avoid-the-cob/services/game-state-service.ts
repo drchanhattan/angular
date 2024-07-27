@@ -43,7 +43,7 @@ export class GameStateService {
   }
 
   resetLives() {
-    this.lives = 3;
+    this.lives = 300;
   }
 
   levelCleared() {
