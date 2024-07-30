@@ -13,7 +13,8 @@ import { MainMenuService } from './main-menu-service';
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {
-  @HostBinding('class') hostClasses = 'absolute flex flex-col size-full flex items-center justify-center';
+  @HostBinding('class') hostClasses =
+    'absolute flex flex-col size-full flex items-center justify-center [&>button>mat-icon]:!text-game-yellow';
 
   constructor(
     public avoidTheCob: AvoidTheCobService,

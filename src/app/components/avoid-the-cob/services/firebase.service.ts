@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { PlayerNameService } from '../components/player-name/player-name-service';
+import { NewPlayerService } from '../components/new-player/new-player-service';
 import { GameScore } from '../models/game-score/game-score';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class FirebaseService {
   private firestore: Firestore = inject(Firestore);
   private scoresDocRef = doc(this.firestore, 'gameData/highScores');
 
-  constructor(private nameService: PlayerNameService) {}
+  constructor(private nameService: NewPlayerService) {}
 
   async save(score: number): Promise<void> {
     const name = this.nameService.name.value?.toUpperCase();

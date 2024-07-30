@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OpacityService } from '../../services/opacity-service';
+import { OverlayItem, OverlayService } from '../../services/overlay-service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,15 +7,15 @@ import { OpacityService } from '../../services/opacity-service';
 export class GameTextService {
   text: string = '';
   subtext: string = '';
-  constructor(private opacityService: OpacityService) {}
+  constructor(private overlayService: OverlayService) {}
 
   show(text: string, subtext: string, duration: number) {
     this.text = text;
     this.subtext = subtext;
 
-    this.opacityService.show('app-game-text');
+    this.overlayService.toggle(OverlayItem.GameText, false);
     setTimeout(() => {
-      this.opacityService.hide('app-game-text');
+      this.overlayService.toggle(OverlayItem.GameText, true);
     }, duration);
   }
 }

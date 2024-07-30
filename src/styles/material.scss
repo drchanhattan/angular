@@ -1,23 +1,13 @@
 @use '@angular/material' as mat;
-@use '../m3-theme.scss' as m3-theme;
+@use '../../m3-theme.scss' as m3-theme;
 
 @include mat.core();
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@font-face {
-  font-family: 'InkFree';
-  src: url('/ink-free.ttf') format('truetype');
-}
 
 $light-theme: m3-theme.$light-theme;
 $dark-theme: m3-theme.$dark-theme;
 
-html,
-body {
-  height: 100%;
+@mixin neutral-opacity($opacity, $color-value) {
+  background-color: rgba(mat.get-theme-color($light-theme, neutral, $color-value), $opacity);
 }
 
 html {
@@ -38,6 +28,10 @@ html {
   .text-secondary {
     color: mat.get-theme-color($dark-theme, tertiary, 80);
   }
+
+  .neutral-opacity-90 {
+    @include neutral-opacity(0.9, 99);
+  }
 }
 
 // Dark Theme
@@ -52,9 +46,8 @@ html {
   .text-secondary {
     color: mat.get-theme-color($dark-theme, secondary, 100);
   }
-}
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+  .neutral-opacity-90 {
+    @include neutral-opacity(0.9, 10);
+  }
 }

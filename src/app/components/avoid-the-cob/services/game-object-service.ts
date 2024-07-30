@@ -38,7 +38,7 @@ export class GameObjectService {
 
         if (paused) {
           this.magnetise(obj, 500, 7, true, false);
-          this.particleService.create(obj, 1, 0.5);
+          this.particleService.create(obj, 1, 0.2);
           obj.deltaY = obj.deltaY + 0.075;
         } else {
           this.customObjectBehaviour(obj);
@@ -48,6 +48,13 @@ export class GameObjectService {
         obj.move();
       }
     });
+  }
+
+  destroyAll() {
+    this.peas.objects = [];
+    this.corn.objects = [];
+    this.powerUps.objects = [];
+    this.hearts.objects = [];
   }
 
   objectsCleared() {

@@ -13,6 +13,7 @@ import { GameObjectService } from './game-object-service';
 export class GameStateService {
   lives = 0;
   paused = true;
+  browserResized = false;
 
   constructor(
     private cursor: CursorService,
@@ -24,31 +25,42 @@ export class GameStateService {
   ) {}
 
   start() {
+    this.paused = false;
     this.gameObjectService.peas.createObjects();
     this.gameObjectService.corn.createObjects();
-    this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
   }
 
   gameOver() {
+    this.lives = 0;
     this.paused = true;
     this.firebaseService.save(this.difficultyService.level);
-    this.textService.show('Game Over', `You reached level ${this.difficultyService.level}`, 5000);
+
+    const subtext = this.browserResized
+      ? 'Browser window resize detected'
+      : `You reached level ${this.difficultyService.level}`;
+    this.textService.show('Game Over', subtext, 5000);
 
     setTimeout(() => {
+      this.gameObjectService.destroyAll();
       this.leaderboardService.show();
       this.cursor.show();
     }, 6000);
   }
 
-  resetLives() {
-    this.lives = 300;
+  reset() {
+    this.lives = 3;
+    this.browserResized = false;
   }
 
   levelCleared() {
     this.cursor.collisionEnabled = false;
     this.cursor.setInvincibility(false);
+    this.browserResized ? this.gameOver() : this.levelUp();
+  }
+
+  levelUp() {
     this.paused = true;
     this.levelUpText();
 

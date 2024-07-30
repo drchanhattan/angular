@@ -1,8 +1,12 @@
-<!-- Close Button -->
-<app-icon-button class="flex self-end" [icon]="'close'" (click)="close.emit()"></app-icon-button>
+<div class="flex w-full justify-between">
+  <!-- Theme Selector -->
+  <app-theme-selector></app-theme-selector>
+  <!-- Close Button -->
+  <app-icon-button [icon]="'close'" (click)="close.emit()"></app-icon-button>
+</div>
 
 <!-- Links -->
-<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-[10%]">
+<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-10">
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
@@ -17,7 +21,7 @@
         @for (subLink of item.sublinks; track subLink) {
           <!-- SubLink -->
           <app-side-nav-button
-            class="ml-6"
+            class="ml-5"
             (click)="navigate(subLink.url)"
             [active]="currentRoute === subLink.url"
             [label]="subLink.label"></app-side-nav-button>
@@ -26,6 +30,3 @@
     }
   }
 </div>
-
-<!-- Close Button -->
-<app-theme-selector class="flex self-end"></app-theme-selector>

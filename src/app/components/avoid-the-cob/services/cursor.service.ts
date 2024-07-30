@@ -3,6 +3,7 @@ import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { CanvasService } from './canvas-service';
+import { DeviceService } from './device-service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,11 @@ export class CursorService {
   private history: { x: number; y: number }[] = [];
   private lastTouch: { x: number; y: number } | null = null;
 
-  constructor(private canvasService: CanvasService) {
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    isTouchDevice ? this.handleTouch() : this.handleMouse();
-
+  constructor(
+    private canvasService: CanvasService,
+    private deviceService: DeviceService,
+  ) {
+    this.deviceService.isTouchScreen ? this.handleTouch() : this.handleMouse();
     this.storeHistory();
   }
 
@@ -30,11 +32,11 @@ export class CursorService {
   }
 
   show() {
-    this.canvasService.canvasEle.nativeElement.classList.remove('cursor-none');
+    this.canvasService.canvasEle.classList.remove('cursor-none');
   }
 
   hide() {
-    this.canvasService.canvasEle.nativeElement.classList.add('cursor-none');
+    this.canvasService.canvasEle.classList.add('cursor-none');
   }
 
   reset() {

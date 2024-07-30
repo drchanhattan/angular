@@ -8,12 +8,13 @@ import * as AOS from 'aos';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
-import { PlayerNameService } from './components/avoid-the-cob/components/player-name/player-name-service';
+import { NewPlayerService } from './components/avoid-the-cob/components/new-player/new-player-service';
 import { AudioService } from './components/avoid-the-cob/services/audio-service';
 import { AvoidTheCobService } from './components/avoid-the-cob/services/avoid-the-cob-service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
 import { CollisionService } from './components/avoid-the-cob/services/collision-service';
 import { CursorService } from './components/avoid-the-cob/services/cursor.service';
+import { DeviceService } from './components/avoid-the-cob/services/device-service';
 import { DifficultyService } from './components/avoid-the-cob/services/difficulty.service';
 import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
 import { GameObjectService } from './components/avoid-the-cob/services/game-object-service';
@@ -29,31 +30,32 @@ import { GameComponent } from './pages/game/game.component';
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
     GameComponent,
-    SideNavComponent,
+    IconButtonComponent,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    IconButtonComponent,
+    RouterOutlet,
+    SideNavComponent,
     ThemeSelectorComponent,
   ],
   templateUrl: './app.component.html',
   providers: [
     AudioService,
+    AvoidTheCobService,
     CanvasService,
     CursorService,
     CollisionService,
     DifficultyService,
-    GameStateService,
     FirebaseService,
-    AvoidTheCobService,
+    GameObjectService,
+    GameStateService,
     GameTextService,
     LeaderboardService,
     MainMenuService,
-    GameObjectService,
-    PlayerNameService,
+    NewPlayerService,
     PowerUpService,
+    DeviceService,
   ],
 })
 export class AppComponent {

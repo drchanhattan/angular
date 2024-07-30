@@ -1,17 +1,20 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
+import { DeviceService } from './device-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CanvasService {
-  canvasEle!: ElementRef<HTMLCanvasElement>;
+  canvasEle!: HTMLCanvasElement;
   context!: CanvasRenderingContext2D;
 
-  setup(canvasEle: ElementRef<HTMLCanvasElement>) {
-    this.canvasEle = canvasEle;
-    const canvas = this.canvasEle.nativeElement;
+  constructor(private deviceService: DeviceService) {}
+
+  setup() {
+    this.canvasEle = document.querySelector('canvas') as HTMLCanvasElement;
+    const canvas = this.canvasEle;
     canvas.width = window.innerWidth * devicePixelRatio;
     canvas.height = window.innerHeight * devicePixelRatio;
     this.context = canvas.getContext('2d')!;
@@ -33,18 +36,18 @@ export class CanvasService {
   }
 
   flash(duration: number, color: string, animationClass?: string) {
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    const canvasClass = this.canvasEle.nativeElement.classList;
-    const canvasStyles = this.canvasEle.nativeElement.style;
+    const isTouchScreen = this.deviceService.isTouchScreen;
+    const canvasClass = this.canvasEle.classList;
+    const canvasStyles = this.canvasEle.style;
     canvasStyles.backgroundColor = color;
 
-    if (!isTouchDevice && animationClass) {
+    if (!isTouchScreen && animationClass) {
       canvasClass.toggle(animationClass);
     }
 
     setTimeout(() => {
       canvasStyles.backgroundColor = '';
-      if (!isTouchDevice && animationClass) {
+      if (!isTouchScreen && animationClass) {
         canvasClass.toggle(animationClass);
       }
     }, duration);

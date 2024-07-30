@@ -1,19 +1,14 @@
-<!-- Leaderboard -->
-<app-icon-button
-  class="absolute right-0 top-0 z-10 [&>button>mat-icon]:!text-game-yellow"
-  (click)="showLeaderboard()"
-  [icon]="'leaderboard'"></app-icon-button>
-
 <!-- Corn SVG -->
 <div class="relative flex flex-1">
   <img src="title.svg" class="absolute inset-0 m-auto max-h-[85vh]" />
   <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[85vh] animate-heartbeat" />
 </div>
 
-<div class="mb-10 flex w-full justify-evenly sm:justify-center sm:space-x-10">
-  <!-- Exit -->
-  <app-game-button (click)="exit()" [text]="'EXIT'"></app-game-button>
+<!-- Leaderboard -->
+<app-icon-button class="absolute top-0" (click)="showLeaderboard()" [icon]="'leaderboard'"></app-icon-button>
 
-  <!-- Play -->
-  <app-game-button (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
-</div>
+<!-- Settings -->
+<app-icon-button class="absolute right-0 top-0" (click)="(null)" [icon]="'settings'"></app-icon-button>
+
+<!-- Play -->
+<app-game-button class="absolute bottom-0 sm:left-0" (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>

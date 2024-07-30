@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
-import { OpacityService } from '../../services/opacity-service';
+import { OverlayItem, OverlayService } from '../../services/overlay-service';
 import { ParticleService } from '../../services/particle-service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PlayerNameService {
+export class NewPlayerService {
   name = new FormControl<string>('', [
     Validators.required,
     Validators.minLength(6),
@@ -17,11 +17,10 @@ export class PlayerNameService {
     this.whitespaceValidator(),
     this.profanityValidator(),
   ]);
-  showParticles = new FormControl<boolean>(false);
 
   constructor(
     private particleService: ParticleService,
-    private opacityService: OpacityService,
+    private overlayService: OverlayService,
   ) {
     const name = window.localStorage.getItem('name');
 
@@ -33,13 +32,12 @@ export class PlayerNameService {
   show() {
     const settings = GameObjectDefaults.powerUp().settings;
     settings.gravity = -0.015;
-    this.particleService.showMenuParticles('peaSvg', this.showParticles, settings, 30);
-    this.opacityService.show('app-player-name');
+    this.particleService.menuParticles('peaSvg', settings, 15);
+    this.overlayService.toggle(OverlayItem.NewPlayer, false);
   }
 
   hide() {
-    this.showParticles.setValue(false);
-    this.opacityService.hide('app-player-name');
+    this.overlayService.toggle(OverlayItem.NewPlayer, true);
   }
 
   private characterValidator(): ValidatorFn {

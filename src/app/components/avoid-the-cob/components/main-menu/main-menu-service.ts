@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
-import { OpacityService } from '../../services/opacity-service';
+import { OverlayItem, OverlayService } from '../../services/overlay-service';
 import { ParticleService } from '../../services/particle-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MainMenuService {
-  showParticles = new FormControl<boolean>(false);
-
   constructor(
     private particleService: ParticleService,
-    private opacityService: OpacityService,
+    private overlayService: OverlayService,
   ) {}
 
-  hide() {
-    this.showParticles.setValue(false);
-    this.opacityService.hide('app-main-menu');
+  show() {
+    this.overlayService.toggle(OverlayItem.MainMenu, false);
+    this.particleService.menuParticles('cornSvg', GameObjectDefaults.corn().settings, 30);
   }
 
-  show() {
-    this.particleService.showMenuParticles('cornSvg', this.showParticles, GameObjectDefaults.corn().settings, 30);
-    this.opacityService.show('app-main-menu');
+  hide() {
+    this.overlayService.toggle(OverlayItem.MainMenu, true);
   }
 }

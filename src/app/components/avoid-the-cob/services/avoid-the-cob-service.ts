@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
-import { PlayerNameService } from '../components/player-name/player-name-service';
+import { NewPlayerService } from '../components/new-player/new-player-service';
 import { AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CollisionService } from './collision-service';
@@ -21,11 +21,11 @@ export class AvoidTheCobService {
     private collisionService: CollisionService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
+    private gameObjectService: GameObjectService,
     private gameStateService: GameStateService,
     private mainMenuService: MainMenuService,
-    private gameObjectService: GameObjectService,
+    private newPlayerService: NewPlayerService,
     private particleService: ParticleService,
-    private playerNameService: PlayerNameService,
     private textService: GameTextService,
   ) {}
 
@@ -48,17 +48,16 @@ export class AvoidTheCobService {
 
     if (!!name) {
       this.mainMenuService.hide();
-      this.playerNameService.hide();
+      this.newPlayerService.hide();
       this.newGame();
     } else {
       this.mainMenuService.hide();
-      this.playerNameService.show();
+      this.newPlayerService.show();
     }
   }
 
   private newGame() {
-    // this.audioService.play('music.mp3', true);
-    this.gameStateService.resetLives();
+    this.gameStateService.reset();
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
     this.cursor.reset();

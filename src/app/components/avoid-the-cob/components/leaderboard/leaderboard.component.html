@@ -1,9 +1,9 @@
 <!-- Header -->
-<span class="mt-24 text-4xl text-game-yellow sm:text-5xl">LEADERBOARD</span>
+<span class="absolute top-0 my-10 flex w-full justify-center text-3xl text-game-yellow sm:text-5xl">LEADERBOARD</span>
 
 <!-- Scores -->
 <div
-  class="my-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty px-[10%] sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12"
+  class="max-h-1/2 z-10 flex w-full flex-col overflow-y-scroll text-pretty px-[10%] sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12"
   style="scrollbar-width: thin">
   @for (score of leaderboardService.scores; track score) {
     <div class="mb-4 flex flex-1 justify-evenly text-xl sm:text-2xl">
@@ -14,7 +14,6 @@
 </div>
 
 <!-- Back -->
-<app-game-button
-  class="mb-10 flex w-full justify-evenly"
-  (click)="leaderboardService.hide()"
-  [text]="'Back'"></app-game-button>
+<div class="absolute flex h-full w-full items-end justify-center sm:justify-start">
+  <app-game-button (click)="leaderboardService.hide()" [text]="'Back'"></app-game-button>
+</div>

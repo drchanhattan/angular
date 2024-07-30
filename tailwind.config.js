@@ -54,7 +54,7 @@ module.exports = {
       colors: {
         'game-black': '#0F172A',
         'game-blue': '#0055FF',
-        'game-cream': '#E9E1D8',
+        'game-cream': '#E6D3BE',
         'game-gray': '#4D4D4D',
         'game-green': '#54DF0E',
         'game-red': '#BA1A1A',

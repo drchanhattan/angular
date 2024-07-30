@@ -1,7 +1,6 @@
 <button
-  class="rounded-lg border-2 px-4 text-4xl text-game-cream hover:animate-jiggle"
+  class="rounded-lg border-2 border-game-yellow px-4 text-4xl text-game-cream hover:text-game-yellow"
   (click)="click.emit()"
-  [disabled]="disabled"
-  [ngClass]="{ 'border-game-yellow': !disabled, 'opacity-50': disabled, 'hover:text-game-yellow': !disabled }">
+  [disabled]="disabled">
   <span>{{ text }}</span>
 </button>
