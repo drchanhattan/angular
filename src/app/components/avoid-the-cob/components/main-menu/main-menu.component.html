@@ -1,14 +1,16 @@
 <!-- Corn SVG -->
 <div class="relative flex flex-1">
-  <img src="title.svg" class="absolute inset-0 m-auto max-h-[85vh]" />
-  <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[85vh] animate-heartbeat" />
+  <img src="title.svg" class="absolute inset-0 m-auto max-h-[80vh]" />
+  <img id="cornSvg" src="corn.svg" class="relative inset-0 m-auto max-h-[80vh] animate-heartbeat" />
 </div>
 
-<!-- Leaderboard -->
-<app-icon-button class="absolute top-0" (click)="showLeaderboard()" [icon]="'leaderboard'"></app-icon-button>
+<div class="flex items-end justify-end">
+  <!-- Leaderboard -->
+  <app-icon-button (click)="showLeaderboard()" [icon]="'leaderboard'"></app-icon-button>
 
-<!-- Settings -->
-<app-icon-button class="absolute right-0 top-0" (click)="(null)" [icon]="'settings'"></app-icon-button>
+  <!-- Play -->
+  <app-game-button (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
 
-<!-- Play -->
-<app-game-button class="absolute bottom-0 sm:left-0" (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
+  <!-- Settings -->
+  <app-icon-button (click)="(null)" [icon]="'settings'"></app-icon-button>
+</div>

@@ -1,19 +1,21 @@
-<!-- Header -->
-<span class="absolute top-0 my-10 flex w-full justify-center text-3xl text-game-yellow sm:text-5xl">LEADERBOARD</span>
+<div class="flex w-full flex-1 flex-col items-center justify-between overflow-hidden">
+  <!-- Header -->
+  <span class="my-10 flex justify-center text-3xl text-game-yellow sm:text-5xl">LEADERBOARD</span>
 
-<!-- Scores -->
-<div
-  class="max-h-1/2 z-10 flex w-full flex-col overflow-y-scroll text-pretty px-[10%] sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12"
-  style="scrollbar-width: thin">
-  @for (score of leaderboardService.scores; track score) {
-    <div class="mb-4 flex flex-1 justify-evenly text-xl sm:text-2xl">
-      <span class="flex-1 text-start text-game-white">{{ score.name }}</span>
-      <span class="text-end text-game-yellow">{{ score.score }}</span>
-    </div>
-  }
+  <!-- Scores -->
+  <div
+    class="my-10 flex w-full flex-col overflow-y-scroll text-pretty px-[10%] sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12"
+    style="scrollbar-width: thin">
+    @for (score of leaderboardService.scores; track score) {
+      <div class="mb-4 flex flex-1 justify-evenly text-xl sm:text-2xl">
+        <span class="flex-1 text-start text-game-white">{{ score.name }}</span>
+        <span class="text-end text-game-yellow">{{ score.score }}</span>
+      </div>
+    }
+  </div>
 </div>
 
 <!-- Back -->
-<div class="absolute flex h-full w-full items-end justify-center sm:justify-start">
-  <app-game-button (click)="leaderboardService.hide()" [text]="'Back'"></app-game-button>
+<div class="flex items-end justify-end">
+  <app-game-button (click)="leaderboardService.hide()" [text]="'BACK'"></app-game-button>
 </div>
