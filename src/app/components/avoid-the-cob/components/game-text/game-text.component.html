@@ -2,9 +2,11 @@
 <strong class="mb-4 text-5xl md:text-9xl">{{ textService.text }}</strong>
 
 <!-- Subtext -->
-<div class="flex items-center justify-center">
+<div class="flex flex-nowrap items-center justify-center">
   <span class="mr-1 text-3xl md:text-5xl">{{ textService.subtext }}</span>
-  <mat-icon class="!size-full text-3xl text-game-red md:text-5xl" *ngIf="textService.subtext === '+ 1'">
+  <mat-icon
+    class="self-start !overflow-visible text-3xl text-game-red md:text-5xl"
+    *ngIf="textService.subtext === '+ 1'">
     favorite
   </mat-icon>
 </div>
