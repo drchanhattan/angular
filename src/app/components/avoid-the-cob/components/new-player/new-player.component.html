@@ -7,7 +7,6 @@
     <input
       #input
       contenteditable
-      autofocus="true"
       class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-cream outline-none md:text-3xl lg:text-4xl"
       [formControl]="newPlayerService.name"
       (keypress)="keyPressed($event)" />
