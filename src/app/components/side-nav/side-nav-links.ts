@@ -14,7 +14,7 @@ export const sideNavLinks: SideNavGroup[] = [
   { label: 'Home', url: '/home' },
   { label: 'Avoid the Cob 2', url: '/game' },
   {
-    label: 'Gallery',
+    label: 'Photography',
     url: '',
     sublinks: [
       { label: 'Europe', url: '/europe' },

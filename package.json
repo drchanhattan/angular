@@ -2,11 +2,11 @@
   "name": "website",
   "version": "0.0.0",
   "scripts": {
+    "404": "copy docs\\index.html docs\\404.html",
     "locate-circular-deps": "npx madge --circular --extensions ts ./",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
     "build": "ng build --configuration production --output-path docs --base-href .",
     "docs": "move docs\\browser\\* docs && rmdir /s /q docs\\browser",
-    "404": "copy docs\\index.html docs\\404.html",
     "cname": "echo christopherchan.co.uk > docs\\CNAME && git add .",
     "commit": "git commit -m \"commit\"",
     "push": "git push -u origin master",
@@ -29,6 +29,7 @@
     "firebase": "^10.12.3",
     "obscenity": "^0.3.1",
     "rxjs": "~7.8.0",
+    "tailwind-scrollbar": "^3.1.0",
     "tslib": "^2.3.0",
     "typescript": "^5.4.5",
     "zone.js": "~0.14.3"

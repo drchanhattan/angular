@@ -30,6 +30,10 @@
               },
               {
                 "glob": "**/*",
+                "input": "public/fonts"
+              },
+              {
+                "glob": "**/*",
                 "input": "public/game"
               },
               {

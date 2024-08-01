@@ -59,7 +59,7 @@ import { GameComponent } from './pages/game/game.component';
   ],
 })
 export class AppComponent {
-  @HostBinding('class') hostClasses = '!size-full';
+  @HostBinding('class') hostClasses = '';
 
   constructor(public router: Router) {
     // this.registerIcons();

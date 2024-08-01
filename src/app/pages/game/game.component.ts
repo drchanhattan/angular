@@ -9,5 +9,5 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   templateUrl: './game.component.html',
 })
 export class GameComponent {
-  @HostBinding('class') hostClasses = 'flex size-full';
+  @HostBinding('class') hostClasses = '';
 }

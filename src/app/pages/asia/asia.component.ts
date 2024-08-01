@@ -8,7 +8,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './asia.component.html',
 })
 export class AsiaComponent {
-  @HostBinding('class') hostClasses = '!size-full';
+  @HostBinding('class') hostClasses = '';
 
   photos: { header: string; urls: string[] }[] = [
     {
