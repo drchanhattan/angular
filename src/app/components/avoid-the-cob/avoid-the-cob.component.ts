@@ -41,7 +41,9 @@ import { ParticleService } from './services/particle-service';
   ],
 })
 export class AvoidTheCobComponent implements AfterViewInit {
-  @HostBinding('class') hostClasses = 'flex size-full justify-center items-center font-ink bg-game-black select-none';
+  @HostBinding('class') hostClasses =
+    'flex size-full justify-center items-center font-ink select-none bg-cover bg-center bg-game-black bg-blend-darken';
+  @HostBinding('style') background = `background-image: url('background.svg');`;
 
   constructor(
     public avoidTheCob: AvoidTheCobService,
