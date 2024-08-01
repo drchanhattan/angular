@@ -10,7 +10,7 @@ import { GameTextService } from './game-text-service';
   templateUrl: './game-text.component.html',
 })
 export class GameTextComponent {
-  @HostBinding('class') hostClasses = 'absolute flex flex-col items-center justify-center text-game-white';
+  @HostBinding('class') hostClasses = 'absolute flex flex-col items-center justify-center text-game-white font-inter';
 
   constructor(public textService: GameTextService) {}
 }

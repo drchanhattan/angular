@@ -1,14 +1,14 @@
 <div class="flex w-full flex-1 flex-col items-center justify-between overflow-hidden">
   <!-- Header -->
-  <span class="my-10 flex justify-center text-3xl text-game-yellow sm:text-5xl">LEADERBOARD</span>
+  <span class="mt-24 flex justify-center text-3xl font-bold text-game-yellow sm:text-5xl">LEADERBOARD</span>
 
   <!-- Scores -->
   <div
-    class="scrollbar-thumb-rounded-xl my-10 flex w-full flex-col overflow-y-scroll text-pretty px-[10%] scrollbar-thin scrollbar-track-game-black scrollbar-thumb-game-yellow sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12">
+    class="scrollbar-thumb-rounded-xl my-10 flex w-full flex-col overflow-y-scroll text-pretty scrollbar-thin scrollbar-track-game-black scrollbar-thumb-game-yellow sm:w-9/12 sm:px-[5%] md:w-7/12 lg:w-6/12 xl:w-5/12">
     @for (score of leaderboardService.scores; track score) {
-      <div class="mb-4 flex flex-1 justify-evenly text-xl sm:text-2xl">
-        <span class="flex-1 text-start text-game-cream">{{ score.name }}</span>
-        <span class="text-end text-game-yellow">{{ score.score }}</span>
+      <div class="mb-4 flex justify-center text-xl font-bold tracking-wider sm:text-2xl">
+        <span class="mr-4 text-game-yellow">{{ score.score || '' }}</span>
+        <span class="text-game-cream">{{ score.name }}</span>
       </div>
     }
   </div>

@@ -63,6 +63,7 @@ module.exports = {
       },
       fontFamily: {
         ink: ['InkFree', 'cursive'],
+        inter: ['Inter', 'cursive'],
       },
     },
   },

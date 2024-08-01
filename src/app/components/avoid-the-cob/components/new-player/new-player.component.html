@@ -13,13 +13,13 @@
       (keypress)="keyPressed($event)" />
 
     <!-- Validation -->
-    <div class="mt-4 text-center text-xl">
+    <div class="mt-4 text-center font-inter text-sm">
       @if (newPlayerService.name.valid) {
-        <span class="text-game-green">Press ENTER to continue</span>
+        <span class="text-game-yellow">Press enter to continue</span>
       } @else {
         <span class="text-game-cream">
           @if (newPlayerService.name.hasError('required')) {
-            Enter your name
+            What's your name ?
           } @else if (newPlayerService.name.hasError('minlength')) {
             You need at least {{ 5 - newPlayerService.name.value!.length }} more character{{
               newPlayerService.name.value!.length < 4 ? 's' : ''
