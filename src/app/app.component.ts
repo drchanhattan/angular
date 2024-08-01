@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
+import { GameSettingsService } from './components/avoid-the-cob/components/game-settings/game-settings-service';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
@@ -46,16 +47,17 @@ import { GameComponent } from './pages/game/game.component';
     CanvasService,
     CursorService,
     CollisionService,
+    DeviceService,
     DifficultyService,
     FirebaseService,
     GameObjectService,
+    GameSettingsService,
     GameStateService,
     GameTextService,
     LeaderboardService,
     MainMenuService,
     NewPlayerService,
     PowerUpService,
-    DeviceService,
   ],
 })
 export class AppComponent {

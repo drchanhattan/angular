@@ -17,6 +17,7 @@ export class LeaderboardService {
   ) {}
 
   async show() {
+    this.mainMenuService.hide();
     this.overlayService.toggle(OverlayItem.Leaderboard, false);
     this.scores = await this.firebaseService.get();
   }

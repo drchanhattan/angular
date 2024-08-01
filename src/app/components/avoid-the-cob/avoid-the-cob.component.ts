@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostBinding, HostListener } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -23,6 +24,7 @@ import { ParticleService } from './services/particle-service';
   standalone: true,
   imports: [
     CommonModule,
+    GameSettingsComponent,
     GameTextComponent,
     LeaderboardComponent,
     MainMenuComponent,

@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
 import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
+import { GameSettingsService } from '../game-settings/game-settings-service';
 import { LeaderboardService } from '../leaderboard/leaderboard-service';
-import { MainMenuService } from './main-menu-service';
 
 @Component({
   selector: 'app-main-menu',
@@ -18,15 +18,10 @@ export class MainMenuComponent {
 
   constructor(
     public avoidTheCob: AvoidTheCobService,
+    public gameSettingsService: GameSettingsService,
     public leaderboardService: LeaderboardService,
-    public mainMenuService: MainMenuService,
     private router: Router,
   ) {}
-
-  showLeaderboard() {
-    this.mainMenuService.hide();
-    this.leaderboardService.show();
-  }
 
   exit() {
     this.router.navigate(['/home']).then(() => window.location.reload());

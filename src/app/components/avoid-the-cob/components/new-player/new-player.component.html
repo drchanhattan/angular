@@ -22,7 +22,7 @@
             Enter your name
           } @else if (newPlayerService.name.hasError('minlength')) {
             You need at least {{ 5 - newPlayerService.name.value!.length }} more character{{
-              newPlayerService.name.value!.length < 5 ? 's' : ''
+              newPlayerService.name.value!.length < 4 ? 's' : ''
             }}
           } @else if (newPlayerService.name.hasError('maxlength')) {
             Thats {{ newPlayerService.name.value!.length - 20 }} character{{
