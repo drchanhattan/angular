@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -7,6 +7,4 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   imports: [GalleryComponent],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
-  @HostBinding('class') hostClasses = '';
-}
+export class HomeComponent {}

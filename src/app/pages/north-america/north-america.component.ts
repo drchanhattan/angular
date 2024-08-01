@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,8 +8,6 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './north-america.component.html',
 })
 export class NorthAmericaComponent {
-  @HostBinding('class') hostClasses = '';
-
   photos: { header: string; urls: string[] }[] = [
     {
       header: 'Canada',

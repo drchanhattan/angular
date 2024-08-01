@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -61,8 +61,6 @@ import { GameComponent } from './pages/game/game.component';
   ],
 })
 export class AppComponent {
-  @HostBinding('class') hostClasses = '';
-
   constructor(public router: Router) {
     // this.registerIcons();
     this.animateOnScroll();
