@@ -3,7 +3,7 @@
   <img id="peaSvg" src="pea.svg" class="max-h-[30vh] animate-float sm:max-h-[40vh]" />
 
   <!-- Name -->
-  <div class="flex w-4/5 flex-col items-center sm:w-1/2 md:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-4/12">
+  <div class="flex w-full flex-col items-center">
     <input
       contenteditable
       class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-cream outline-none md:text-3xl lg:text-4xl"
@@ -13,14 +13,14 @@
     <!-- Validation -->
     <div class="mt-4 text-center font-inter text-sm">
       @if (newPlayerService.name.valid) {
-        <span class="text-game-yellow">Press enter to continue</span>
+        <span class="text-game-yellow">Press play when you're ready</span>
       } @else {
         <span class="text-game-cream">
           @if (newPlayerService.name.hasError('required')) {
-            What's your name ?
+            Provide a name to record your score
           } @else if (newPlayerService.name.hasError('minlength')) {
-            You need at least {{ 5 - newPlayerService.name.value!.length }} more character{{
-              newPlayerService.name.value!.length < 4 ? 's' : ''
+            You need at least {{ 6 - newPlayerService.name.value!.length }} more character{{
+              newPlayerService.name.value!.length < 5 ? 's' : ''
             }}
           } @else if (newPlayerService.name.hasError('maxlength')) {
             Thats {{ newPlayerService.name.value!.length - 20 }} character{{
@@ -42,12 +42,12 @@
   </div>
 </div>
 
-<div class="flex items-end justify-end">
+<div class="flex w-full justify-evenly">
+  <!-- Back Button -->
+  <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'BACK'"></app-game-button>
+
+  <!-- Play Button -->
   @if (newPlayerService.name.valid) {
-    <!-- Enter Button -->
-    <app-game-button (click)="enterName()" [text]="'ENTER'"></app-game-button>
-  } @else {
-    <!-- Back Button -->
-    <app-game-button (click)="back()" [text]="'BACK'"></app-game-button>
+    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'PLAY'"></app-game-button>
   }
 </div>

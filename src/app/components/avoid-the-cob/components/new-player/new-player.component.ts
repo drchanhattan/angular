@@ -13,7 +13,8 @@ import { NewPlayerService } from './new-player-service';
   templateUrl: './new-player.component.html',
 })
 export class NewPlayerComponent {
-  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center';
+  @HostBinding('class') hostClasses =
+    'absolute flex h-full w-4/5 flex-col items-center justify-center sm:w-1/2 md:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-4/12';
   @Output() backClicked = new EventEmitter();
   @Output() nameEntered = new EventEmitter();
 
@@ -24,6 +25,7 @@ export class NewPlayerComponent {
   ) {}
 
   back() {
+    this.newPlayerService.name.setValue('');
     this.newPlayerService.hide();
     this.mainMenuService.show();
   }
