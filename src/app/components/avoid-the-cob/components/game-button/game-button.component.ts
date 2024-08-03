@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-game-button',
@@ -12,5 +12,4 @@ export class GameButtonComponent {
 
   @Input() text: string = '';
   @Input() disabled: boolean = false;
-  @Output() click = new EventEmitter();
 }

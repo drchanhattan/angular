@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
+import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { GameColors } from '../models/game-colors/game-colors';
+import { CheatService } from './cheat-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
@@ -16,11 +18,13 @@ export class GameStateService {
   browserResized = false;
 
   constructor(
+    private cheatService: CheatService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
     private firebaseService: FirebaseService,
     private gameObjectService: GameObjectService,
     private leaderboardService: LeaderboardService,
+    private mainMenuService: MainMenuService,
     private textService: GameTextService,
   ) {}
 
@@ -30,12 +34,17 @@ export class GameStateService {
     this.gameObjectService.corn.createObjects();
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
+    this.cheatService.execute();
   }
 
-  gameOver() {
+  async gameOver() {
+    const cheated = this.cheatService.cheatsEnabled;
     this.lives = 0;
     this.paused = true;
-    this.firebaseService.save(this.difficultyService.level);
+
+    if (!cheated) {
+      this.firebaseService.save(this.difficultyService.level);
+    }
 
     const subtext = this.browserResized
       ? 'Browser window resize detected'
@@ -44,8 +53,8 @@ export class GameStateService {
 
     setTimeout(() => {
       this.gameObjectService.destroyAll();
-      this.leaderboardService.show();
       this.cursor.show();
+      cheated ? this.mainMenuService.show() : this.leaderboardService.show();
     }, 6000);
   }
 

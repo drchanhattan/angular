@@ -34,25 +34,25 @@ export class PowerUpService {
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Blue);
   }
 
-  private powerInvincible() {
+  powerInvincible() {
     this.cursor.setInvincibility(true);
   }
 
-  private powerAttract() {
+  powerAttract() {
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 
-  private powerRepel() {
+  powerRepel() {
     this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Repel);
   }
 
-  private powerBlueCorn() {
+  powerSlowCorn() {
+    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Slow);
+  }
+
+  powerBlueCorn() {
     this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Blue);
     this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Attract);
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
-  }
-
-  private powerSlowCorn() {
-    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Slow);
   }
 }

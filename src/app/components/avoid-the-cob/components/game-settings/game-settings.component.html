@@ -1,16 +1,46 @@
-<div class="flex flex-1 flex-col items-center justify-center font-inter text-game-cream">
-  <!-- Audio -->
-  <div class="mb-4 flex flex-col items-center">
-    <mat-slide-toggle class="yellow-slide-toggle" [formControl]="audioService.audioEnabled"></mat-slide-toggle>
-    <span class="mt-2 text-sm">Audio</span>
+<div class="mt-10 flex flex-1 flex-col items-center justify-center font-inter text-game-cream">
+  <!-- Cheats -->
+  <span class="mb-4 text-xs text-game-yellow">Active cheats will disable highscores</span>
+  <div
+    class="mb-4 w-full columns-2 gap-4 space-y-8 rounded-xl border-2 border-game-white pb-2 pt-6"
+    [formGroup]="cheatService.cheats">
+    <!-- Invincibility -->
+    <div class="flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="invincibility"></mat-slide-toggle>
+      <span>Invincibility</span>
+    </div>
+    <!-- Freeze -->
+    <div class="flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="freeze"></mat-slide-toggle>
+      <span>Freeze</span>
+    </div>
+    <!-- Force Field -->
+    <div class="flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="repel"></mat-slide-toggle>
+      <span class="text-nowrap">Force Field</span>
+    </div>
+    <!-- Magnet -->
+    <div class="flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="magnet"></mat-slide-toggle>
+      <span>Magnet</span>
+    </div>
   </div>
 
-  <!-- Particles -->
-  <div class="mb-8 flex flex-col items-center">
-    <mat-slider class="yellow-slider !w-4/5" min="0" max="3000" step="100">
-      <input matSliderThumb [formControl]="particleService.max" />
-    </mat-slider>
-    <span class="text-sm">Particles ({{ particleService.max.value }})</span>
+  <!-- Other -->
+  <div class="mb-8 flex items-center">
+    <!-- Particles -->
+    <div class="mr-2 flex w-full flex-col items-center">
+      <mat-slider class="yellow-slider !w-40" min="0" max="3000" step="100">
+        <input matSliderThumb [formControl]="particleService.max" />
+      </mat-slider>
+      <span>Particles ( {{ particleService.max.value }} )</span>
+    </div>
+
+    <!-- Audio -->
+    <div class="mx-2 mt-2 flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="audioService.audioEnabled"></mat-slide-toggle>
+      <span>Audio</span>
+    </div>
   </div>
 
   <!-- Reset -->

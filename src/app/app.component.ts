@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameSettingsService } from './components/avoid-the-cob/components/game-settings/game-settings-service';
@@ -13,6 +14,7 @@ import { NewPlayerService } from './components/avoid-the-cob/components/new-play
 import { AudioService } from './components/avoid-the-cob/services/audio-service';
 import { AvoidTheCobService } from './components/avoid-the-cob/services/avoid-the-cob-service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
+import { CheatService } from './components/avoid-the-cob/services/cheat-service';
 import { CollisionService } from './components/avoid-the-cob/services/collision-service';
 import { CursorService } from './components/avoid-the-cob/services/cursor.service';
 import { DeviceService } from './components/avoid-the-cob/services/device-service';
@@ -45,6 +47,7 @@ import { GameComponent } from './pages/game/game.component';
     AudioService,
     AvoidTheCobService,
     CanvasService,
+    CheatService,
     CursorService,
     CollisionService,
     DeviceService,
@@ -61,8 +64,12 @@ import { GameComponent } from './pages/game/game.component';
   ],
 })
 export class AppComponent {
-  constructor(public router: Router) {
-    // this.registerIcons();
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry,
+    public router: Router,
+  ) {
+    this.registerIcons();
     this.animateOnScroll();
   }
 
@@ -72,10 +79,10 @@ export class AppComponent {
   }
 
   private registerIcons() {
-    // const svgIcons = [];
-    // svgIcons.forEach((icon) => {
-    //   this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
-    // });
+    const svgIcons = ['instagram', 'linkedin'];
+    svgIcons.forEach((icon) => {
+      this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
+    });
   }
 
   private animateOnScroll() {

@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
   providedIn: 'root',
 })
 export class AudioService {
-  audioEnabled = new FormControl<boolean>(false);
+  audioEnabled = new FormControl<boolean>(true);
 
   constructor() {
     const audio = localStorage.getItem('audio');

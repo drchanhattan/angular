@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { AudioService } from '../../services/audio-service';
+import { CheatService } from '../../services/cheat-service';
 import { ParticleService } from '../../services/particle-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { NewPlayerService } from '../new-player/new-player-service';
@@ -30,13 +31,15 @@ export class GameSettingsComponent {
 
   constructor(
     public audioService: AudioService,
+    public cheatService: CheatService,
     public gameSettingsService: GameSettingsService,
     public particleService: ParticleService,
     public newPlayerService: NewPlayerService,
   ) {}
 
   reset() {
-    this.audioService.audioEnabled.reset(false);
+    this.audioService.audioEnabled.reset(true);
+    this.cheatService.cheats.reset();
     this.particleService.max.reset(2000);
     this.newPlayerService.reset();
   }
