@@ -8,7 +8,7 @@ export class ThemeSelectorService {
   currentTheme$ = new BehaviorSubject<'light-theme' | 'dark-theme'>('light-theme');
 
   constructor() {
-    const localTheme = window.localStorage.getItem('theme') as 'light-theme' | 'dark-theme';
+    const localTheme = localStorage.getItem('theme') as 'light-theme' | 'dark-theme';
     this.setTheme(localTheme ?? this.currentTheme$.value);
   }
 
@@ -16,7 +16,7 @@ export class ThemeSelectorService {
     document.documentElement.classList.remove(this.currentTheme$.value);
     document.documentElement.classList.add(theme);
     this.currentTheme$.next(theme);
-    window.localStorage.setItem('theme', theme);
+    localStorage.setItem('theme', theme);
   }
 
   get isLight() {

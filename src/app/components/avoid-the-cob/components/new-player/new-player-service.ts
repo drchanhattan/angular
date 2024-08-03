@@ -22,7 +22,7 @@ export class NewPlayerService {
     private particleService: ParticleService,
     private overlayService: OverlayService,
   ) {
-    const name = window.localStorage.getItem('name');
+    const name = localStorage.getItem('name');
 
     if (name) {
       this.name.setValue(name);
@@ -38,6 +38,11 @@ export class NewPlayerService {
 
   hide() {
     this.overlayService.toggle(OverlayItem.NewPlayer, true);
+  }
+
+  reset() {
+    this.name.reset('');
+    localStorage.removeItem('name');
   }
 
   private characterValidator(): ValidatorFn {

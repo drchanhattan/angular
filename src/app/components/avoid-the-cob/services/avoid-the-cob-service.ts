@@ -44,7 +44,7 @@ export class AvoidTheCobService {
   }
 
   play() {
-    const name = window.localStorage.getItem('name');
+    const name = localStorage.getItem('name');
 
     if (!!name) {
       this.mainMenuService.hide();

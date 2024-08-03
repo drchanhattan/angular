@@ -34,7 +34,7 @@ export class NewPlayerComponent {
     const name = this.newPlayerService.name;
 
     if (name.value && name.valid) {
-      window.localStorage.setItem('name', name.value.toUpperCase());
+      localStorage.setItem('name', name.value.toUpperCase());
       this.avoidTheCob.play();
     }
   }

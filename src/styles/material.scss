@@ -5,9 +5,32 @@
 
 $light-theme: m3-theme.$light-theme;
 $dark-theme: m3-theme.$dark-theme;
+$yellow: mat.get-theme-color($dark-theme, tertiary, 80);
 
 @mixin neutral-opacity($opacity, $color-value) {
   background-color: rgba(mat.get-theme-color($light-theme, neutral, $color-value), $opacity);
+}
+
+@mixin slide-toggle() {
+  .yellow-slide-toggle {
+    --mdc-switch-selected-focus-state-layer-color: #{$yellow};
+    --mdc-switch-selected-hover-state-layer-color: #{$yellow};
+    --mdc-switch-selected-pressed-state-layer-color: #{$yellow};
+    --mdc-switch-selected-focus-track-color: #{$yellow};
+    --mdc-switch-selected-hover-track-color: #{$yellow};
+    --mdc-switch-selected-pressed-track-color: #{$yellow};
+    --mdc-switch-selected-track-color: #{$yellow};
+  }
+}
+
+@mixin slider() {
+  .yellow-slider {
+    --mdc-slider-handle-color: #{$yellow};
+    --mdc-slider-focus-handle-color: #{$yellow};
+    --mdc-slider-hover-handle-color: #{$yellow};
+    --mdc-slider-active-track-color: #{$yellow};
+    --mdc-slider-label-container-color: #{$yellow};
+  }
 }
 
 html {
@@ -21,12 +44,15 @@ html {
   @include mat.all-component-typographies($light-theme);
   @include mat.icon-color($dark-theme, $color-variant: tertiary);
   @include mat.button-color($light-theme, $color-variant: secondary);
+  @include slide-toggle();
+  @include slider();
 
   .text-primary {
     color: mat.get-theme-color($light-theme, primary, 0);
   }
+
   .text-secondary {
-    color: mat.get-theme-color($dark-theme, tertiary, 80);
+    color: $yellow;
   }
 
   .neutral-opacity-90 {
@@ -39,10 +65,13 @@ html {
   @include mat.all-component-colors($dark-theme);
   @include mat.all-component-typographies($dark-theme);
   @include mat.icon-color($dark-theme, $color-variant: tertiary);
+  @include slide-toggle();
+  @include slider();
 
   .text-primary {
-    color: mat.get-theme-color($dark-theme, tertiary, 80);
+    color: $yellow;
   }
+
   .text-secondary {
     color: mat.get-theme-color($dark-theme, secondary, 100);
   }

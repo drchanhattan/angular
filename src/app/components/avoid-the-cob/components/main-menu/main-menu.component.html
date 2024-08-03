@@ -5,12 +5,10 @@
 </div>
 
 <div class="flex items-end justify-end">
-  <!-- Leaderboard -->
-  <app-icon-button (click)="leaderboardService.show()" [icon]="'leaderboard'"></app-icon-button>
-
-  <!-- Play -->
-  <app-game-button (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
-
   <!-- Settings -->
   <app-icon-button (click)="gameSettingsService.show()" [icon]="'settings'"></app-icon-button>
+  <!-- Play -->
+  <app-game-button (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
+  <!-- Leaderboard -->
+  <app-icon-button (click)="leaderboardService.show()" [icon]="'leaderboard'"></app-icon-button>
 </div>
