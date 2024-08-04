@@ -41,6 +41,5 @@ export class GameSettingsComponent {
     this.audioService.enabled.reset(true);
     this.cheatService.cheats.reset();
     this.particleService.maxCount.reset(this.particleService.default);
-    this.newPlayerService.reset();
   }
 }
