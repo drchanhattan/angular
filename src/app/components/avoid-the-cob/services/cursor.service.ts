@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameColors } from '../models/game-colors/game-colors';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
@@ -63,6 +64,23 @@ export class CursorService {
     for (let i = 0; i < blinks; i++) {
       changeColor(color, interval * (2 * i));
       changeColor(GameObjectDefaults.cursor().color, interval * (2 * i + 1));
+    }
+  }
+
+  pulse() {
+    if (Math.floor(performance.now() / 50) % 2 === 0) {
+      const canvas = this.canvasService;
+      const context = this.canvasService.context;
+      const settings = new GameObjectSettings(
+        this.object.type,
+        GameColors.Blue,
+        this.object.size * 1.5,
+        this.object.shape,
+        0,
+        0,
+      );
+
+      canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
     }
   }
 
@@ -134,7 +152,7 @@ export class CursorService {
         this.object.size,
         this.object.shape,
         0,
-        this.object.gravity,
+        0,
       );
       context.globalAlpha = 0.25;
       canvas.drawObject(context, new GameObject(old.x, old.y, settings));

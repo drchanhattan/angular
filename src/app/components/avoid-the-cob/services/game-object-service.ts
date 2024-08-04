@@ -87,9 +87,11 @@ export class GameObjectService {
 
     if (attract) {
       this.magnetise(obj, 25, 4, false);
+      this.cursor.pulse();
     }
     if (repel) {
-      this.magnetise(obj, 20, 5, true);
+      this.magnetise(obj, 18, 5, true);
+      this.cursor.pulse();
     }
     if (blue) {
       obj.type = GameObjectType.Pea;
