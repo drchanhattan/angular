@@ -1,28 +1,49 @@
 <!-- Canvas -->
 <canvas #canvas class="max-h-dvh overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
-<!-- Lives -->
-<div
-  *ngIf="gameStateService.lives > 0"
-  [@opacityAnimation]
-  class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4 transform">
-  <div class="flex items-center text-game-white">
-    <span class="mr-1 text-3xl md:text-5xl">{{ gameStateService.lives }}</span>
-    <mat-icon class="!size-full text-3xl text-game-red md:text-5xl">favorite</mat-icon>
-  </div>
-</div>
-
 <!-- Text -->
 <app-game-text *ngIf="overlayService.gameText" [@opacityAnimation] class="pointer-events-none"></app-game-text>
 
 <!-- Menu -->
-<app-main-menu *ngIf="overlayService.mainMenu" [@opacityAnimation]></app-main-menu>
+<app-main-menu
+  *ngIf="overlayService.mainMenu && svgLoader.corn$.value && svgLoader.title$.value"
+  [@opacityAnimation]
+  [corn]="svgLoader.corn$.value"
+  [title]="svgLoader.title$.value"></app-main-menu>
 
 <!-- Name Prompt -->
-<app-new-player *ngIf="overlayService.newPlayer" [@opacityAnimation]></app-new-player>
+<app-new-player
+  *ngIf="overlayService.newPlayer && svgLoader.pea$.value"
+  [@opacityAnimation]
+  [pea]="svgLoader.pea$.value"></app-new-player>
 
 <!-- Leaderboard -->
 <app-leaderboard *ngIf="overlayService.leaderboard" [@opacityAnimation]></app-leaderboard>
 
 <!-- Settings -->
 <app-game-settings *ngIf="overlayService.settings" [@opacityAnimation]></app-game-settings>
+
+<!-- Audio -->
+<app-icon-button
+  (click)="audioService.enabled.setValue(!audioService.enabled.value)"
+  class="absolute right-0 top-0"
+  [icon]="audioService.enabled.value ? 'volume_up' : 'volume_off'"
+  [color]="'!text-game-white'"></app-icon-button>
+
+<!-- Cheats -->
+<span
+  *ngIf="cheatService.cheatsEnabled"
+  class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-2 text-xs text-game-white">
+  Cheats on
+</span>
+
+<!-- Lives -->
+<div
+  *ngIf="gameStateService.lives > 0"
+  [@opacityAnimation]
+  class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4">
+  <div class="flex items-center text-game-white">
+    <span class="mr-1 text-3xl md:text-5xl">{{ gameStateService.lives }}</span>
+    <mat-icon class="!size-auto text-3xl text-game-red md:text-5xl">favorite</mat-icon>
+  </div>
+</div>

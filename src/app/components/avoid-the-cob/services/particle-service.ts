@@ -10,18 +10,23 @@ import { CanvasService } from './canvas-service';
 })
 export class ParticleService {
   particles: GameObject[] = [];
-  max = new FormControl<number>(2000);
+  default = 2000;
+  maxCount = new FormControl<number>(this.default);
 
   constructor(private canvasService: CanvasService) {
     const maxP = localStorage.getItem('particles');
 
     if (maxP) {
-      this.max.setValue(JSON.parse(maxP));
+      this.maxCount.setValue(JSON.parse(maxP));
     }
 
-    this.max.valueChanges.subscribe((change) => {
+    this.maxCount.valueChanges.subscribe((change) => {
       localStorage.setItem('particles', JSON.stringify(change));
     });
+  }
+
+  get maxCountChanged() {
+    return this.maxCount.value !== this.default;
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -37,14 +42,14 @@ export class ParticleService {
   }
 
   create(object: GameObject, count = 25, speed = 1) {
-    const maxCount = this.max.value;
+    const maxCount = this.maxCount.value;
     if (maxCount) {
       const currentTime = new Date();
       for (let i = 0; i < count; i++) {
         if (this.particles.length > maxCount) {
           this.particles.splice(0, count);
         }
-        const size = object.size * (Math.random() * (1 - 0.6) + 0.6);
+        const size = object.size * 0.6;
         const settings = new GameObjectSettings(
           GameObjectType.Particle,
           object.color,

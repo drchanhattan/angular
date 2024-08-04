@@ -1,12 +1,12 @@
 <div class="mt-20 flex w-full flex-1 flex-col items-center justify-center">
   <!-- Pea SVG -->
-  <img id="peaSvg" src="pea.svg" class="max-h-[30vh] animate-float sm:max-h-[40vh]" />
+  <img [src]="pea" class="max-h-[30vh] animate-float sm:max-h-[40vh]" id="peaSvg" />
 
   <!-- Name -->
   <div class="flex w-full flex-col items-center">
     <input
       contenteditable
-      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-cream outline-none md:text-3xl lg:text-4xl"
+      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-white outline-none md:text-3xl lg:text-4xl"
       [formControl]="newPlayerService.name"
       (keypress)="keyPressed($event)" />
 
@@ -15,7 +15,7 @@
       @if (newPlayerService.name.valid) {
         <span class="text-game-yellow">Press play when you're ready</span>
       } @else {
-        <span class="text-game-cream">
+        <span class="text-game-white">
           @if (newPlayerService.name.hasError('required')) {
             Provide a name to record your score
           } @else if (newPlayerService.name.hasError('minlength')) {

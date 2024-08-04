@@ -37,7 +37,7 @@ export class GameStateService {
     this.cheatService.execute();
   }
 
-  async gameOver() {
+  gameOver() {
     const cheated = this.cheatService.cheatsEnabled;
     this.lives = 0;
     this.paused = true;

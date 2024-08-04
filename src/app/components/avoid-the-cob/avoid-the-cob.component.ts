@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostBinding, HostListener } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
@@ -11,13 +12,16 @@ import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { NewPlayerService } from './components/new-player/new-player-service';
 import { NewPlayerComponent } from './components/new-player/new-player.component';
+import { AudioService } from './services/audio-service';
 import { AvoidTheCobService } from './services/avoid-the-cob-service';
 import { CanvasService } from './services/canvas-service';
+import { CheatService } from './services/cheat-service';
 import { DeviceService } from './services/device-service';
 import { DifficultyService } from './services/difficulty.service';
 import { GameStateService } from './services/game-state-service';
 import { OverlayService } from './services/overlay-service';
 import { ParticleService } from './services/particle-service';
+import { SvgLoaderService } from './services/svg-loader-service';
 
 @Component({
   selector: 'app-avoid-the-cob',
@@ -31,6 +35,7 @@ import { ParticleService } from './services/particle-service';
     MatIconModule,
     NewPlayerComponent,
     RouterLink,
+    IconButtonComponent,
   ],
   templateUrl: './avoid-the-cob.component.html',
   animations: [
@@ -46,8 +51,10 @@ export class AvoidTheCobComponent implements AfterViewInit {
   @HostBinding('style') background = `background-image: url('background.svg');`;
 
   constructor(
+    public audioService: AudioService,
     public avoidTheCob: AvoidTheCobService,
     public canvasService: CanvasService,
+    public cheatService: CheatService,
     public deviceService: DeviceService,
     public difficultyService: DifficultyService,
     public gameStateService: GameStateService,
@@ -55,6 +62,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
     public nameService: NewPlayerService,
     public overlayService: OverlayService,
     public particleService: ParticleService,
+    public svgLoader: SvgLoaderService,
     public textService: GameTextService,
   ) {}
 

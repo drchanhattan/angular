@@ -16,7 +16,7 @@ export class CheatService {
   constructor(private powerUpService: PowerUpService) {}
 
   get cheatsEnabled(): boolean {
-    return Object.values(this.cheats.value).some((cheat) => cheat === true);
+    return Object.values(this.cheats.value).some((cheat) => !!cheat);
   }
 
   execute() {

@@ -1,6 +1,5 @@
 <app-icon-button
   class="!fixed left-0 top-0 !z-20"
-  [ngClass]="{ '[&>button>mat-icon]:!text-game-yellow': router.url === '/game' }"
   *ngIf="!drawer.opened"
   (click)="drawer.open()"
   [icon]="'menu'"></app-icon-button>

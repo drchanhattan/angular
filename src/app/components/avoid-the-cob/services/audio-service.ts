@@ -5,22 +5,22 @@ import { FormControl } from '@angular/forms';
   providedIn: 'root',
 })
 export class AudioService {
-  audioEnabled = new FormControl<boolean>(true);
+  enabled = new FormControl<boolean>(true);
 
   constructor() {
     const audio = localStorage.getItem('audio');
 
     if (audio) {
-      this.audioEnabled.setValue(JSON.parse(audio));
+      this.enabled.setValue(JSON.parse(audio));
     }
 
-    this.audioEnabled.valueChanges.subscribe((change) => {
+    this.enabled.valueChanges.subscribe((change) => {
       localStorage.setItem('audio', JSON.stringify(change));
     });
   }
 
   play(src: string, loop = false) {
-    if (this.audioEnabled.value) {
+    if (this.enabled.value) {
       let audio = new Audio();
       audio.src = src;
       audio.play();

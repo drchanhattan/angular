@@ -9,7 +9,6 @@ import { Component, HostBinding, Input } from '@angular/core';
 })
 export class GameButtonComponent {
   @HostBinding('class') hostClasses = 'my-10';
-
   @Input() text: string = '';
   @Input() disabled: boolean = false;
 }

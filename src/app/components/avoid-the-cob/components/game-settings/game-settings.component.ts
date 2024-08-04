@@ -38,9 +38,9 @@ export class GameSettingsComponent {
   ) {}
 
   reset() {
-    this.audioService.audioEnabled.reset(true);
+    this.audioService.enabled.reset(true);
     this.cheatService.cheats.reset();
-    this.particleService.max.reset(2000);
+    this.particleService.maxCount.reset(this.particleService.default);
     this.newPlayerService.reset();
   }
 }
