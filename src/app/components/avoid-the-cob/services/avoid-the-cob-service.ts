@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { NewPlayerService } from '../components/new-player/new-player-service';
-import { AudioService } from './audio-service';
+import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CollisionService } from './collision-service';
 import { CursorService } from './cursor.service';
@@ -37,7 +37,7 @@ export class AvoidTheCobService {
       this.cursor.draw();
 
       if (this.gameObjectService.objectsCleared()) {
-        this.audioService.play('levelup.mp3');
+        this.audioService.play(AudioFile.LevelUp);
         this.gameStateService.levelCleared();
       }
     }

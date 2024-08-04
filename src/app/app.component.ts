@@ -27,6 +27,7 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import { GameComponent } from './pages/game/game.component';
+import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 
 @Component({
   selector: 'app-root',
@@ -61,6 +62,7 @@ import { GameComponent } from './pages/game/game.component';
     MainMenuService,
     NewPlayerService,
     PowerUpService,
+    SvgLoaderService,
   ],
 })
 export class AppComponent {

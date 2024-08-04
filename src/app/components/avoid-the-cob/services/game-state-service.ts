@@ -42,7 +42,7 @@ export class GameStateService {
     this.lives = 0;
     this.paused = true;
 
-    if (!cheated) {
+    if (!cheated && !this.browserResized) {
       this.firebaseService.save(this.difficultyService.level);
     }
 
@@ -54,7 +54,7 @@ export class GameStateService {
     setTimeout(() => {
       this.gameObjectService.destroyAll();
       this.cursor.show();
-      cheated ? this.mainMenuService.show() : this.leaderboardService.show();
+      cheated || this.browserResized ? this.mainMenuService.show() : this.leaderboardService.show();
     }, 6000);
   }
 

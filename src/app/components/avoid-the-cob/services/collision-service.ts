@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameObject } from '../models/game-object/game-object';
-import { AudioService } from './audio-service';
+import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CursorService } from './cursor.service';
 import { GameStateService } from './game-state-service';
@@ -44,7 +44,7 @@ export class CollisionService {
 
   private peaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
-      this.audioService.play('pea.mp3');
+      this.audioService.play(AudioFile.Pea);
       pea.destroy();
       this.particleService.create(pea, 20);
     }
@@ -52,7 +52,7 @@ export class CollisionService {
 
   private cornCollision(corn: GameObject) {
     if (corn.detectCollision(this.cursor.object)) {
-      this.audioService.play('corn.mp3');
+      this.audioService.play(AudioFile.Corn);
       corn.destroy();
       this.particleService.create(corn);
 
@@ -70,7 +70,7 @@ export class CollisionService {
 
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
-      this.audioService.play('powerup.mp3');
+      this.audioService.play(AudioFile.PowerUp);
       powerUp.destroy();
       this.particleService.create(powerUp, 100);
       this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
@@ -80,7 +80,7 @@ export class CollisionService {
 
   private heartCollision(heart: GameObject) {
     if (heart.detectCollision(this.cursor.object)) {
-      this.audioService.play('heart.mp3');
+      this.audioService.play(AudioFile.Heart);
       heart.destroy();
       this.gameStateService.lives++;
       this.particleService.create(heart, 8);

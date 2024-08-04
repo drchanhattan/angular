@@ -9,7 +9,7 @@ import { LeaderboardService } from './leaderboard-service';
   templateUrl: './leaderboard.component.html',
 })
 export class LeaderboardComponent {
-  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center font-ink';
+  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center';
 
   constructor(public leaderboardService: LeaderboardService) {}
 }
