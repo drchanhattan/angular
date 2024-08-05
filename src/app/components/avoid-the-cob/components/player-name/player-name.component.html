@@ -7,33 +7,33 @@
     <input
       contenteditable
       class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-white outline-none md:text-3xl lg:text-4xl"
-      [formControl]="newPlayerService.name"
+      [formControl]="playerNameService.name"
       (keypress)="keyPressed($event)" />
 
     <!-- Validation -->
     <div class="mt-4 text-center font-inter text-sm">
-      @if (newPlayerService.name.valid) {
+      @if (playerNameService.name.valid) {
         <span class="text-game-yellow">Press play when you're ready</span>
       } @else {
         <span class="text-game-white">
-          @if (newPlayerService.name.hasError('required')) {
+          @if (playerNameService.name.hasError('required')) {
             Provide a name to record your score
-          } @else if (newPlayerService.name.hasError('minlength')) {
-            You need at least {{ 6 - newPlayerService.name.value!.length }} more character{{
-              newPlayerService.name.value!.length < 5 ? 's' : ''
+          } @else if (playerNameService.name.hasError('minlength')) {
+            You need at least {{ 6 - playerNameService.name.value!.length }} more character{{
+              playerNameService.name.value!.length < 5 ? 's' : ''
             }}
-          } @else if (newPlayerService.name.hasError('maxlength')) {
-            Thats {{ newPlayerService.name.value!.length - 20 }} character{{
-              newPlayerService.name.value!.length > 21 ? 's' : ''
+          } @else if (playerNameService.name.hasError('maxlength')) {
+            Thats {{ playerNameService.name.value!.length - 20 }} character{{
+              playerNameService.name.value!.length > 21 ? 's' : ''
             }}
             too many!
-          } @else if (newPlayerService.name.hasError('letters')) {
+          } @else if (playerNameService.name.hasError('letters')) {
             Sorry, letters and hyphens only
-          } @else if (newPlayerService.name.hasError('consecutive')) {
+          } @else if (playerNameService.name.hasError('consecutive')) {
             Sorry, no consecutive spaces or hyphens
-          } @else if (newPlayerService.name.hasError('edge')) {
+          } @else if (playerNameService.name.hasError('edge')) {
             Sorry, no leading or trailing spaces
-          } @else if (newPlayerService.name.hasError('profanity')) {
+          } @else if (playerNameService.name.hasError('profanity')) {
             Ummm.. Seriously?
           }
         </span>
@@ -47,7 +47,7 @@
   <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'BACK'"></app-game-button>
 
   <!-- Play Button -->
-  @if (newPlayerService.name.valid) {
+  @if (playerNameService.name.valid) {
     <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'PLAY'"></app-game-button>
   }
 </div>

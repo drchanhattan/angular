@@ -9,7 +9,7 @@ import { AudioService } from '../../services/audio-service';
 import { CheatService } from '../../services/cheat-service';
 import { ParticleService } from '../../services/particle-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
-import { NewPlayerService } from '../new-player/new-player-service';
+import { PlayerNameService } from '../player-name/player-name-service';
 import { GameSettingsService } from './game-settings-service';
 
 @Component({
@@ -34,7 +34,7 @@ export class GameSettingsComponent {
     public cheatService: CheatService,
     public gameSettingsService: GameSettingsService,
     public particleService: ParticleService,
-    public newPlayerService: NewPlayerService,
+    public nameService: PlayerNameService,
   ) {}
 
   reset() {

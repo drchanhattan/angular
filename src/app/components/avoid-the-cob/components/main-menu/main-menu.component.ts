@@ -1,6 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
 import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
@@ -23,10 +22,5 @@ export class MainMenuComponent {
     public avoidTheCob: AvoidTheCobService,
     public gameSettingsService: GameSettingsService,
     public leaderboardService: LeaderboardService,
-    private router: Router,
   ) {}
-
-  exit() {
-    this.router.navigate(['/home']).then(() => window.location.reload());
-  }
 }

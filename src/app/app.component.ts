@@ -10,7 +10,7 @@ import { GameSettingsService } from './components/avoid-the-cob/components/game-
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard-service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu-service';
-import { NewPlayerService } from './components/avoid-the-cob/components/new-player/new-player-service';
+import { PlayerNameService } from './components/avoid-the-cob/components/player-name/player-name-service';
 import { AudioService } from './components/avoid-the-cob/services/audio-service';
 import { AvoidTheCobService } from './components/avoid-the-cob/services/avoid-the-cob-service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas-service';
@@ -23,11 +23,11 @@ import { FirebaseService } from './components/avoid-the-cob/services/firebase.se
 import { GameObjectService } from './components/avoid-the-cob/services/game-object-service';
 import { GameStateService } from './components/avoid-the-cob/services/game-state-service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
+import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import { GameComponent } from './pages/game/game.component';
-import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 
 @Component({
   selector: 'app-root',
@@ -60,7 +60,7 @@ import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader
     GameTextService,
     LeaderboardService,
     MainMenuService,
-    NewPlayerService,
+    PlayerNameService,
     PowerUpService,
     SvgLoaderService,
   ],

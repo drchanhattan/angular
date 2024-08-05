@@ -12,10 +12,13 @@
   [title]="svgLoader.title$.value"></app-main-menu>
 
 <!-- Name Prompt -->
-<app-new-player
-  *ngIf="overlayService.newPlayer && svgLoader.pea$.value"
+<app-player-name
+  *ngIf="overlayService.playerName && svgLoader.pea$.value"
   [@opacityAnimation]
-  [pea]="svgLoader.pea$.value"></app-new-player>
+  [pea]="svgLoader.pea$.value"></app-player-name>
+
+<!-- Mode Selector -->
+<app-mode-selector *ngIf="overlayService.modeSelector" [@opacityAnimation]></app-mode-selector>
 
 <!-- Leaderboard -->
 <app-leaderboard *ngIf="overlayService.leaderboard" [@opacityAnimation]></app-leaderboard>
@@ -30,20 +33,27 @@
   [icon]="audioService.enabled.value ? 'volume_up' : 'volume_off'"
   [color]="'!text-game-white'"></app-icon-button>
 
+<!-- Lives -->
+<div
+  *ngIf="gameStateService.lives > 0"
+  [@opacityAnimation]
+  class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4">
+  <div class="flex items-center font-bold text-game-white">
+    <span class="mr-1 text-5xl">{{ gameStateService.lives }}</span>
+    <mat-icon class="!size-auto text-5xl text-game-red">favorite</mat-icon>
+  </div>
+</div>
+
+<!-- Timer -->
+<span
+  *ngIf="gameStateService.timer"
+  class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-game-white opacity-50">
+  {{ gameStateService.timer }}
+</span>
+
 <!-- Cheats -->
 <span
   *ngIf="cheatService.cheatsEnabled"
   class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-2 text-xs text-game-white">
   Cheats on
 </span>
-
-<!-- Lives -->
-<div
-  *ngIf="gameStateService.lives > 0"
-  [@opacityAnimation]
-  class="pointer-events-none absolute bottom-0 left-0 mb-4 ml-4">
-  <div class="flex items-center text-game-white">
-    <span class="mr-1 text-3xl md:text-5xl">{{ gameStateService.lives }}</span>
-    <mat-icon class="!size-auto text-3xl text-game-red md:text-5xl">favorite</mat-icon>
-  </div>
-</div>

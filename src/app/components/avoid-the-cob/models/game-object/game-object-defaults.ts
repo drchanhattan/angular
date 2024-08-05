@@ -57,4 +57,15 @@ export class GameObjectDefaults {
       settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed, 0),
     };
   }
+
+  static mob() {
+    const size = scaledSize(8);
+    const count = scaledCount(size, 6);
+    const speed = scaledSpeed(size, 0.1);
+
+    return {
+      count: count,
+      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed, 0),
+    };
+  }
 }

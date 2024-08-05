@@ -8,7 +8,7 @@ import { ParticleService } from '../../services/particle-service';
 @Injectable({
   providedIn: 'root',
 })
-export class NewPlayerService {
+export class PlayerNameService {
   name = new FormControl<string>('', [
     Validators.required,
     Validators.minLength(6),

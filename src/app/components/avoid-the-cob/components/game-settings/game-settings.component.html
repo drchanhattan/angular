@@ -56,11 +56,7 @@
       (click)="reset()">
       <span class="text-game-white">Restore Defaults</span>
     </button>
-    <button
-      mat-stroked-button
-      class="!border-game-yellow"
-      *ngIf="newPlayerService.name.value"
-      (click)="newPlayerService.reset()">
+    <button mat-stroked-button class="!border-game-yellow" *ngIf="nameService.name.value" (click)="nameService.reset()">
       <span class="text-game-white">Delete Name</span>
     </button>
   </div>

@@ -10,8 +10,9 @@ import { GameTextComponent } from './components/game-text/game-text.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { NewPlayerService } from './components/new-player/new-player-service';
-import { NewPlayerComponent } from './components/new-player/new-player.component';
+import { ModeSelectorComponent } from './components/mode-selector/mode-selector.component';
+import { PlayerNameService } from './components/player-name/player-name-service';
+import { PlayerNameComponent } from './components/player-name/player-name.component';
 import { AudioService } from './services/audio-service';
 import { AvoidTheCobService } from './services/avoid-the-cob-service';
 import { CanvasService } from './services/canvas-service';
@@ -30,12 +31,13 @@ import { SvgLoaderService } from './services/svg-loader-service';
     CommonModule,
     GameSettingsComponent,
     GameTextComponent,
+    IconButtonComponent,
     LeaderboardComponent,
     MainMenuComponent,
     MatIconModule,
-    NewPlayerComponent,
+    ModeSelectorComponent,
+    PlayerNameComponent,
     RouterLink,
-    IconButtonComponent,
   ],
   templateUrl: './avoid-the-cob.component.html',
   animations: [
@@ -47,7 +49,7 @@ import { SvgLoaderService } from './services/svg-loader-service';
 })
 export class AvoidTheCobComponent implements AfterViewInit {
   @HostBinding('class') hostClasses =
-    'flex size-full select-none items-center justify-center overflow-hidden bg-game-black bg-cover bg-center font-ink bg-blend-darken';
+    'flex size-full select-none items-center justify-center overflow-hidden bg-game-black bg-cover bg-center bg-blend-darken';
   @HostBinding('style') background = `background-image: url('background.svg');`;
 
   constructor(
@@ -59,7 +61,7 @@ export class AvoidTheCobComponent implements AfterViewInit {
     public difficultyService: DifficultyService,
     public gameStateService: GameStateService,
     public mainMenuService: MainMenuService,
-    public nameService: NewPlayerService,
+    public nameService: PlayerNameService,
     public overlayService: OverlayService,
     public particleService: ParticleService,
     public svgLoader: SvgLoaderService,

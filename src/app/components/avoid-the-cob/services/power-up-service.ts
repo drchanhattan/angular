@@ -44,10 +44,12 @@ export class PowerUpService {
 
   powerRepel() {
     this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Repel);
+    this.gameObjectService.mob.setBehaviour(GameObjectBehaviour.Repel);
   }
 
   powerSlowCorn() {
     this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Slow);
+    this.gameObjectService.mob.setBehaviour(GameObjectBehaviour.Slow);
   }
 
   powerBlueCorn() {

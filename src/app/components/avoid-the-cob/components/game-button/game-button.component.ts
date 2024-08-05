@@ -8,7 +8,7 @@ import { Component, HostBinding, Input } from '@angular/core';
   templateUrl: './game-button.component.html',
 })
 export class GameButtonComponent {
-  @HostBinding('class') hostClasses = 'my-10';
+  @HostBinding('class') hostClasses = 'my-10 font-ink';
   @Input() text: string = '';
   @Input() disabled: boolean = false;
 }

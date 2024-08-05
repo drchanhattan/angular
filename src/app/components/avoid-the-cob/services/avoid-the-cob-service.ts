@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
-import { NewPlayerService } from '../components/new-player/new-player-service';
+import { ModeSelectorService } from '../components/mode-selector/mode-selector-service';
+import { PlayerNameService } from '../components/player-name/player-name-service';
 import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CollisionService } from './collision-service';
@@ -24,19 +25,27 @@ export class AvoidTheCobService {
     private gameObjectService: GameObjectService,
     private gameStateService: GameStateService,
     private mainMenuService: MainMenuService,
-    private newPlayerService: NewPlayerService,
+    private modeSelectorService: ModeSelectorService,
+    private nameService: PlayerNameService,
     private particleService: ParticleService,
     private textService: GameTextService,
   ) {}
 
   draw() {
-    this.gameObjectService.processGameObjects(this.gameStateService.paused, this.collisionService);
+    this.gameObjectService.processGameObjects(
+      this.gameStateService.paused,
+      this.collisionService,
+      this.gameStateService.mob,
+    );
     this.particleService.draw(this.canvasService.context);
 
     if (!this.gameStateService.paused) {
       this.cursor.draw();
 
-      if (this.gameObjectService.objectsCleared()) {
+      if (
+        (this.gameStateService.mob && !this.gameStateService.timer) ||
+        (!this.gameStateService.mob && this.gameObjectService.objectsCleared())
+      ) {
         this.audioService.play(AudioFile.LevelUp);
         this.gameStateService.levelCleared();
       }
@@ -47,16 +56,21 @@ export class AvoidTheCobService {
     const name = localStorage.getItem('name');
 
     if (!!name) {
-      this.mainMenuService.hide();
-      this.newPlayerService.hide();
-      this.newGame();
+      this.selectMode();
     } else {
       this.mainMenuService.hide();
-      this.newPlayerService.show();
+      this.nameService.show();
     }
   }
 
-  private newGame() {
+  selectMode() {
+    this.mainMenuService.hide();
+    this.modeSelectorService.show();
+    this.nameService.hide();
+  }
+
+  newGame(mob: boolean) {
+    this.gameStateService.mob = mob;
     this.gameStateService.reset();
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();

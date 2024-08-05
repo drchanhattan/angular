@@ -13,9 +13,12 @@ import { GameObjectService } from './game-object-service';
   providedIn: 'root',
 })
 export class GameStateService {
+  browserResized = false;
   lives = 0;
   paused = true;
-  browserResized = false;
+  timer = '';
+  timerInterval: any;
+  mob = false;
 
   constructor(
     private cheatService: CheatService,
@@ -30,14 +33,22 @@ export class GameStateService {
 
   start() {
     this.paused = false;
-    this.gameObjectService.peas.createObjects();
-    this.gameObjectService.corn.createObjects();
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
     this.cheatService.execute();
+
+    if (this.mob) {
+      this.lifeTimer();
+      this.cursor.object.size = 10;
+      this.gameObjectService.mob.createObjects();
+    } else {
+      this.gameObjectService.peas.createObjects();
+      this.gameObjectService.corn.createObjects();
+    }
   }
 
   gameOver() {
+    this.clearTimer();
     const cheated = this.cheatService.cheatsEnabled;
     this.lives = 0;
     this.paused = true;
@@ -59,11 +70,12 @@ export class GameStateService {
   }
 
   reset() {
-    this.lives = 3;
+    this.lives = this.mob ? 10 : 3;
     this.browserResized = false;
   }
 
   levelCleared() {
+    this.clearTimer();
     this.cursor.collisionEnabled = false;
     this.cursor.setInvincibility(false);
     this.browserResized ? this.gameOver() : this.levelUp();
@@ -74,7 +86,7 @@ export class GameStateService {
     this.levelUpText();
 
     setTimeout(() => {
-      this.difficultyService.increase();
+      this.difficultyService.increase(this.mob);
       this.start();
     }, 4000);
   }
@@ -85,5 +97,25 @@ export class GameStateService {
     const collectedHearts = hearts.filter((heart) => heart.isDestroyed).length;
     const subtext = collectedHearts ? `+ ${collectedHearts}` : '';
     this.textService.show(`Level ${nextLevel}`, subtext, 3500);
+  }
+
+  private lifeTimer() {
+    let timeLeft = 15;
+    this.timer = timeLeft.toString();
+
+    this.timerInterval = setInterval(() => {
+      timeLeft -= 1;
+      this.timer = timeLeft.toString();
+
+      if (timeLeft <= 0) {
+        this.clearTimer();
+        this.levelUp;
+      }
+    }, 1000);
+  }
+
+  private clearTimer() {
+    this.timer = '';
+    clearInterval(this.timerInterval);
   }
 }

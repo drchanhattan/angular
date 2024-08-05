@@ -8,8 +8,8 @@ import { ParticleService } from '../../services/particle-service';
 })
 export class MainMenuService {
   constructor(
-    private particleService: ParticleService,
     private overlayService: OverlayService,
+    private particleService: ParticleService,
   ) {}
 
   show() {

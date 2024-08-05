@@ -15,17 +15,27 @@ export class DifficultyService {
     private gameObjectService: GameObjectService,
   ) {}
 
-  increase() {
+  increase(mob: boolean) {
     this.level++;
-    this.levelUpPeas();
-    this.levelUpCorn();
-    this.levelUpPowerUps();
-    this.levelUpHearts();
-    this.levelUpCursor();
+
+    if (mob) {
+      this.levelUpMob();
+    } else {
+      this.levelUpCursor();
+      this.levelUpPeas();
+      this.levelUpCorn();
+      this.levelUpPowerUps();
+      this.levelUpHearts();
+    }
   }
 
   resetLevel() {
     this.level = 1;
+  }
+
+  private levelUpCursor() {
+    const minSize = 10;
+    this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
   }
 
   private levelUpPeas() {
@@ -42,20 +52,20 @@ export class DifficultyService {
     this.gameObjectService.peas.editSettings(size, speed, count);
   }
 
-  private levelUpCorn() {
-    const defaultCorn = GameObjectDefaults.corn();
+  private levelUpMob() {
+    const defaultMob = GameObjectDefaults.mob();
 
     // Size
     const minSize = 20;
-    const size = Math.max(defaultCorn.settings.size * Math.pow(0.99, this.level), minSize);
+    const size = Math.max(defaultMob.settings.size * Math.pow(0.99, this.level), minSize);
     // Speed
-    const speed = Math.min(defaultCorn.settings.speed * Math.pow(1.001, this.level));
+    const speed = Math.min(defaultMob.settings.speed * Math.pow(1.001, this.level));
     // Count
-    const defaultCount = defaultCorn.count;
-    const maxCount = defaultCount * 5;
-    const count = Math.min(defaultCount * Math.pow(1.05, this.level), maxCount);
+    const defaultCount = defaultMob.count;
+    const maxCount = defaultCount * 20;
+    const count = Math.min(defaultCount * Math.pow(1.08, this.level), maxCount);
 
-    this.gameObjectService.corn.editSettings(size, speed, count);
+    this.gameObjectService.mob.editSettings(size, speed, count);
   }
 
   private levelUpPowerUps() {
@@ -90,8 +100,19 @@ export class DifficultyService {
     this.level % this.powerUpFrequency === 0 ? hearts.destroyObjects() : hearts.createObjects();
   }
 
-  private levelUpCursor() {
-    const minSize = 10;
-    this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
+  private levelUpCorn() {
+    const defaultCorn = GameObjectDefaults.corn();
+
+    // Size
+    const minSize = 20;
+    const size = Math.max(defaultCorn.settings.size * Math.pow(0.99, this.level), minSize);
+    // Speed
+    const speed = Math.min(defaultCorn.settings.speed * Math.pow(1.001, this.level));
+    // Count
+    const defaultCount = defaultCorn.count;
+    const maxCount = defaultCount * 5;
+    const count = Math.min(defaultCount * Math.pow(1.05, this.level), maxCount);
+
+    this.gameObjectService.corn.editSettings(size, speed, count);
   }
 }

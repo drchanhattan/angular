@@ -5,7 +5,8 @@ export enum OverlayItem {
   Leaderboard = 2,
   MainMenu = 3,
   NewPlayer = 4,
-  Settings = 5,
+  ModeSelector = 5,
+  Settings = 6,
 }
 
 @Injectable({
@@ -15,7 +16,8 @@ export class OverlayService {
   gameText = false;
   leaderboard = false;
   mainMenu = true;
-  newPlayer = false;
+  playerName = false;
+  modeSelector = false;
   settings = false;
 
   toggle(item: OverlayItem, hide: boolean) {
@@ -33,7 +35,11 @@ export class OverlayService {
         break;
       }
       case OverlayItem.NewPlayer: {
-        this.newPlayer = !hide;
+        this.playerName = !hide;
+        break;
+      }
+      case OverlayItem.ModeSelector: {
+        this.modeSelector = !hide;
         break;
       }
       case OverlayItem.Settings: {

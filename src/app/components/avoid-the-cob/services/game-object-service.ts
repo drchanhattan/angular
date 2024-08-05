@@ -19,6 +19,7 @@ export class GameObjectService {
   corn: GameObjectGroup;
   powerUps: GameObjectGroup;
   hearts: GameObjectGroup;
+  mob: GameObjectGroup;
 
   constructor(
     private canvasService: CanvasService,
@@ -29,19 +30,24 @@ export class GameObjectService {
     this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
     this.powerUps = new GameObjectGroup(GameObjectDefaults.powerUp().count, GameObjectDefaults.powerUp().settings);
     this.hearts = new GameObjectGroup(GameObjectDefaults.heart().count, GameObjectDefaults.heart().settings);
+    this.mob = new GameObjectGroup(GameObjectDefaults.mob().count, GameObjectDefaults.mob().settings);
   }
 
-  processGameObjects(paused: boolean, collisionService: CollisionService) {
+  processGameObjects(paused: boolean, collisionService: CollisionService, mob: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
         this.canvasService.drawObject(this.canvasService.context, obj);
 
         if (paused) {
-          this.magnetise(obj, 500, 7, true, false);
-          this.particleService.create(obj, 1, 0.2);
           obj.deltaY = obj.deltaY + 0.075;
+          if (mob) {
+            obj.applyForce('y', -5);
+          } else {
+            this.magnetise(obj, 500, 7, true, false);
+            this.particleService.create(obj, 1, 0.2);
+          }
         } else {
-          this.customObjectBehaviour(obj);
+          mob ? this.magnetise(obj, 45, 2, false, true) : this.customObjectBehaviour(obj);
           collisionService.processCollisions(obj);
         }
 
@@ -55,6 +61,7 @@ export class GameObjectService {
     this.corn.objects = [];
     this.powerUps.objects = [];
     this.hearts.objects = [];
+    this.mob.objects = [];
   }
 
   objectsCleared() {
@@ -69,6 +76,7 @@ export class GameObjectService {
     this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
     this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
     this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
+    this.resetObjectGroup(this.mob, GameObjectDefaults.mob());
   }
 
   private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
@@ -76,7 +84,13 @@ export class GameObjectService {
   }
 
   private allObjects() {
-    return [...this.peas.objects, ...this.corn.objects, ...this.powerUps.objects, ...this.hearts.objects];
+    return [
+      ...this.peas.objects,
+      ...this.corn.objects,
+      ...this.powerUps.objects,
+      ...this.hearts.objects,
+      ...this.mob.objects,
+    ];
   }
 
   private customObjectBehaviour(obj: GameObject) {
