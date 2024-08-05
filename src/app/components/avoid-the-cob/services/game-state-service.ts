@@ -35,7 +35,6 @@ export class GameStateService {
     this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
-    this.cheatService.execute();
 
     if (this.mob) {
       this.lifeTimer();
@@ -45,6 +44,8 @@ export class GameStateService {
       this.gameObjectService.peas.createObjects();
       this.gameObjectService.corn.createObjects();
     }
+
+    this.cheatService.execute();
   }
 
   gameOver() {

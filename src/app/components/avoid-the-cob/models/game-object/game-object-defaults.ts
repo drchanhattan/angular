@@ -1,4 +1,4 @@
-import { scaledCount, scaledSize, scaledSpeed } from '../device-scale/device-scale';
+import { scaledSize } from '../device-scale/device-scale';
 import { GameColors } from '../game-colors/game-colors';
 import { GameObjectSettings } from './game-object-setttings';
 import { GameObjectShape } from './game-object-shape';
@@ -9,7 +9,7 @@ export class GameObjectDefaults {
     return {
       type: GameObjectType.Cursor,
       color: GameColors.White,
-      size: scaledSize(6),
+      size: scaledSize(20),
       speed: 0,
       shape: GameObjectShape.Circle,
       gravity: 0,
@@ -17,9 +17,9 @@ export class GameObjectDefaults {
   }
 
   static pea() {
-    const size = scaledSize(8);
-    const count = scaledCount(size, 2.5);
-    const speed = scaledSpeed(size, 0.15);
+    const size = scaledSize(20);
+    const count = 10;
+    const speed = 3;
 
     return {
       count: count,
@@ -28,9 +28,9 @@ export class GameObjectDefaults {
   }
 
   static corn() {
-    const size = scaledSize(14);
-    const count = scaledCount(size, 3);
-    const speed = scaledSpeed(size, 0.15);
+    const size = scaledSize(40);
+    const count = 10;
+    const speed = 3;
 
     return {
       count: count,
@@ -39,8 +39,8 @@ export class GameObjectDefaults {
   }
 
   static powerUp() {
-    const size = scaledSize(8);
-    const speed = scaledSpeed(size, scaledSize(0.5));
+    const size = scaledSize(20);
+    const speed = 5;
 
     return {
       count: 1,
@@ -49,8 +49,8 @@ export class GameObjectDefaults {
   }
 
   static heart() {
-    const size = scaledSize(8);
-    const speed = scaledSpeed(size, 0.25);
+    const size = scaledSize(20);
+    const speed = 2;
 
     return {
       count: 1,
@@ -59,9 +59,9 @@ export class GameObjectDefaults {
   }
 
   static mob() {
-    const size = scaledSize(8);
-    const count = scaledCount(size, 6);
-    const speed = scaledSpeed(size, 0.1);
+    const size = scaledSize(20);
+    const count = 20;
+    const speed = 1;
 
     return {
       count: count,

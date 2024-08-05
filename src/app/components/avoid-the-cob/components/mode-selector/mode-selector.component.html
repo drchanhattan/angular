@@ -1,9 +1,9 @@
 <div class="mt-20 flex w-60 flex-1 flex-col items-center justify-center text-center text-game-white">
-  <app-game-button class="!mb-4" (click)="selectMode(true)" [text]="'CLASSIC'"></app-game-button>
-  <span class="mb-10">The classic experience. Avoid the cob until the time runs out.</span>
-
   <app-game-button class="!mb-4" (click)="selectMode(false)" [text]="'STANDARD'"></app-game-button>
-  <span>Enhanced game mode with power-ups, peas, and extra lives.</span>
+  <span class="mb-4">Enhanced game mode with power-ups, peas, and additional life orbs.</span>
+
+  <app-game-button class="!mb-4" (click)="selectMode(true)" [text]="'CLASSIC'"></app-game-button>
+  <span>The classic mob experience. Dodge the corn until the time runs out.</span>
 </div>
 
 <!-- Back -->

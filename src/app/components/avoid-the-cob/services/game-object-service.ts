@@ -47,7 +47,7 @@ export class GameObjectService {
             this.particleService.create(obj, 1, 0.2);
           }
         } else {
-          mob ? this.magnetise(obj, 45, 2, false, true) : this.customObjectBehaviour(obj);
+          mob ? this.magnetise(obj, 50, 2, false, true) : this.customObjectBehaviour(obj);
           collisionService.processCollisions(obj);
         }
 
