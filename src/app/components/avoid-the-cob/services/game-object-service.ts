@@ -39,15 +39,9 @@ export class GameObjectService {
         this.canvasService.drawObject(this.canvasService.context, obj);
 
         if (paused) {
-          obj.deltaY = obj.deltaY + 0.075;
-          if (mob) {
-            obj.applyForce('y', -5);
-          } else {
-            this.magnetise(obj, 500, 7, true, false);
-            this.particleService.create(obj, 1, 0.2);
-          }
+          this.ejectObject(obj, mob);
         } else {
-          mob ? this.magnetise(obj, 50, 2, false, true) : this.customObjectBehaviour(obj);
+          this.customObjectBehaviour(obj, mob);
           collisionService.processCollisions(obj);
         }
 
@@ -93,12 +87,15 @@ export class GameObjectService {
     ];
   }
 
-  private customObjectBehaviour(obj: GameObject) {
+  private customObjectBehaviour(obj: GameObject, mob: boolean) {
     const attract = obj.behaviourIncludes(GameObjectBehaviour.Attract);
     const repel = obj.behaviourIncludes(GameObjectBehaviour.Repel);
     const blue = obj.behaviourIncludes(GameObjectBehaviour.Blue);
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
+    if (mob) {
+      this.magnetise(obj, 70, 2, false, true);
+    }
     if (attract) {
       this.magnetise(obj, 25, 4, false);
       this.cursor.pulse();
@@ -116,6 +113,7 @@ export class GameObjectService {
     if (slow) {
       obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
       obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
+      this.cursor.pulse();
     }
   }
 
@@ -145,6 +143,16 @@ export class GameObjectService {
       if (!object.detectWallCollisionOnAxis('y', window.innerHeight) || !collisionEnabled) {
         repel ? object.applyForce('y', -dy) : object.applyForce('y', dy);
       }
+    }
+  }
+
+  private ejectObject(obj: GameObject, mob: boolean) {
+    obj.deltaY = obj.deltaY + 0.075;
+    if (mob) {
+      obj.applyForce('y', -5);
+    } else {
+      this.magnetise(obj, 500, 7, true, false);
+      this.particleService.create(obj, 1, 0.2);
     }
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
+import { scaledSize } from '../models/device-scale/device-scale';
 import { GameColors } from '../models/game-colors/game-colors';
 import { CheatService } from './cheat-service';
 import { CursorService } from './cursor.service';
@@ -38,7 +39,7 @@ export class GameStateService {
 
     if (this.mob) {
       this.lifeTimer();
-      this.cursor.object.size = 10;
+      this.cursor.object.size = scaledSize(8);
       this.gameObjectService.mob.createObjects();
     } else {
       this.gameObjectService.peas.createObjects();

@@ -20,6 +20,7 @@ export class DifficultyService {
 
     if (mob) {
       this.levelUpMob();
+      this.levelUpCursor();
     } else {
       this.levelUpCursor();
       this.levelUpPeas();

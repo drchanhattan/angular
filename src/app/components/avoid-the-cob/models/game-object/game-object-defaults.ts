@@ -19,7 +19,7 @@ export class GameObjectDefaults {
   static pea() {
     const size = scaledSize(20);
     const count = 10;
-    const speed = 3;
+    const speed = 4;
 
     return {
       count: count,
@@ -30,7 +30,7 @@ export class GameObjectDefaults {
   static corn() {
     const size = scaledSize(40);
     const count = 10;
-    const speed = 3;
+    const speed = 4;
 
     return {
       count: count,
@@ -40,7 +40,7 @@ export class GameObjectDefaults {
 
   static powerUp() {
     const size = scaledSize(20);
-    const speed = 5;
+    const speed = 20;
 
     return {
       count: 1,
@@ -50,7 +50,7 @@ export class GameObjectDefaults {
 
   static heart() {
     const size = scaledSize(20);
-    const speed = 2;
+    const speed = 4;
 
     return {
       count: 1,
