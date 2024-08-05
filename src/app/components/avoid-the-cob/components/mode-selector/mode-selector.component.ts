@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { MainMenuService } from '../main-menu/main-menu-service';
@@ -9,7 +9,7 @@ import { ModeSelectorService } from './mode-selector-service';
 @Component({
   selector: 'app-mode-selector',
   standalone: true,
-  imports: [CommonModule, GameButtonComponent, ReactiveFormsModule],
+  imports: [CommonModule, GameButtonComponent, MatButtonModule],
   templateUrl: './mode-selector.component.html',
 })
 export class ModeSelectorComponent {

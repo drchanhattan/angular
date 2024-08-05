@@ -1,9 +1,18 @@
-<div class="mt-20 flex w-60 flex-1 flex-col items-center justify-center text-center text-game-white">
-  <app-game-button class="!mb-4" (click)="selectMode(false)" [text]="'ENHANCED'"></app-game-button>
-  <span class="mb-4">Enhanced game mode with power-ups, peas, and additional life orbs.</span>
+<div
+  class="mt-20 flex flex-1 flex-col items-center justify-center space-y-20 text-center text-game-white sm:w-full sm:flex-row sm:space-x-20 sm:space-y-0">
+  <div class="flex w-40 flex-col items-center justify-center">
+    <button mat-stroked-button class="mb-4 !border-game-yellow" (click)="selectMode(false)">
+      <span class="text-game-white">ENHANCED</span>
+    </button>
+    <span>An enhanced game with collectable peas, power ups, and additional lifes.</span>
+  </div>
 
-  <app-game-button class="!mb-4" (click)="selectMode(true)" [text]="'CLASSIC'"></app-game-button>
-  <span>The classic mob experience. Dodge the corn until the time runs out.</span>
+  <div class="flex w-40 flex-col items-center justify-center">
+    <button mat-stroked-button class="mb-4 !border-game-yellow" (click)="selectMode(true)">
+      <span class="text-game-white">MOB MODE</span>
+    </button>
+    <span>The classic 'avoid the mob' experience. Dodge the corn until the time expires.</span>
+  </div>
 </div>
 
 <!-- Back -->
