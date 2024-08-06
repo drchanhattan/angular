@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-cob.component';
 
 @Component({
@@ -8,4 +8,6 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   imports: [AvoidTheCobComponent, CommonModule],
   templateUrl: './game.component.html',
 })
-export class GameComponent {}
+export class GameComponent {
+  @HostBinding('class') hostClasses = 'flex h-dvh';
+}

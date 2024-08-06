@@ -49,16 +49,16 @@
 
   <!-- Reset -->
   <div class="flex h-8 items-center justify-center space-x-4">
-    <button
-      mat-stroked-button
-      class="!border-game-yellow"
+    <app-game-button
       *ngIf="gameSettingsService.settingsChanged"
-      (click)="reset()">
-      <span class="text-game-white">Restore Default</span>
-    </button>
-    <button mat-stroked-button class="!border-game-yellow" *ngIf="nameService.name.value" (click)="nameService.reset()">
-      <span class="text-game-white">Reset Player</span>
-    </button>
+      (click)="reset()"
+      [text]="'Restore Default'"
+      [small]="true"></app-game-button>
+    <app-game-button
+      *ngIf="nameService.name.value"
+      (click)="nameService.reset()"
+      [text]="'Reset Player'"
+      [small]="true"></app-game-button>
   </div>
 </div>
 

@@ -1,6 +1,14 @@
-<button
-  mat-stroked-button
-  class="origin-center !rounded-2xl !border-2 !border-game-yellow !py-6 !text-3xl !transition-transform !duration-200 hover:scale-105"
-  [disabled]="disabled">
-  <span class="font-ink font-bold text-game-white">{{ text }}</span>
-</button>
+@if (!small) {
+  <button
+    mat-stroked-button
+    class="my-10 origin-center !rounded-xl !border-2 !border-game-yellow !py-6 !text-3xl !transition-transform !duration-200 hover:scale-105"
+    [disabled]="disabled">
+    <span class="font-ink font-bold text-game-white">{{ text }}</span>
+  </button>
+} @else {
+  <button
+    mat-stroked-button
+    class="origin-center !border-2 !border-game-yellow !py-6 !transition-transform !duration-200 hover:scale-105">
+    <span class="font-inter text-game-white">{{ text }}</span>
+  </button>
+}
