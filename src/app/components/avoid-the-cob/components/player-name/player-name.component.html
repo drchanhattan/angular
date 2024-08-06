@@ -6,7 +6,7 @@
   <div class="flex w-full flex-col items-center">
     <input
       contenteditable
-      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl uppercase text-game-white outline-none md:text-3xl lg:text-4xl"
+      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl font-bold uppercase tracking-wider text-game-white outline-none md:text-3xl lg:text-4xl"
       [formControl]="playerNameService.name"
       (keypress)="keyPressed($event)" />
 
@@ -23,8 +23,8 @@
               playerNameService.name.value!.length < 5 ? 's' : ''
             }}
           } @else if (playerNameService.name.hasError('maxlength')) {
-            Thats {{ playerNameService.name.value!.length - 20 }} character{{
-              playerNameService.name.value!.length > 21 ? 's' : ''
+            Thats {{ playerNameService.name.value!.length - 17 }} character{{
+              playerNameService.name.value!.length > 18 ? 's' : ''
             }}
             too many!
           } @else if (playerNameService.name.hasError('letters')) {

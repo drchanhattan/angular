@@ -1,5 +1,11 @@
 @if (service.isDark) {
-  <app-icon-button [icon]="'light_mode'" (click)="setTheme('light-theme')"></app-icon-button>
+  <app-icon-button
+    [icon]="'light_mode'"
+    (click)="setTheme('light-theme')"
+    [tooltip]="'Switch to Light Theme'"></app-icon-button>
 } @else {
-  <app-icon-button [icon]="'dark_mode'" (click)="setTheme('dark-theme')"></app-icon-button>
+  <app-icon-button
+    [icon]="'dark_mode'"
+    (click)="setTheme('dark-theme')"
+    [tooltip]="'Switch to Dark Theme'"></app-icon-button>
 }

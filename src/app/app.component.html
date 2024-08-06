@@ -2,10 +2,10 @@
   class="!fixed left-0 top-0 !z-20"
   *ngIf="!drawer.opened"
   (click)="drawer.open()"
-  [icon]="'menu'"></app-icon-button>
+  [icon]="'space_dashboard'"></app-icon-button>
 
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" class="neutral-opacity-90" [autoFocus]="false" [fixedInViewport]="true">
+  <mat-sidenav #drawer mode="over" class="neutral-opacity-90 !w-80" [autoFocus]="false" [fixedInViewport]="true">
     <app-side-nav (close)="drawer.close()"></app-side-nav>
   </mat-sidenav>
 

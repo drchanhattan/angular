@@ -1,9 +1,9 @@
-<div class="flex w-full justify-between">
-  <!-- Theme Selector -->
-  <app-theme-selector></app-theme-selector>
-  <!-- Close Button -->
-  <app-icon-button [icon]="'close'" (click)="close.emit()"></app-icon-button>
-</div>
+<!-- Close Button -->
+<app-icon-button
+  class="flex w-full justify-end"
+  [icon]="'close'"
+  (click)="close.emit()"
+  [tooltip]="'Close'"></app-icon-button>
 
 <!-- Links -->
 <div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-10">
@@ -30,3 +30,6 @@
     }
   }
 </div>
+
+<!-- Theme Selector -->
+<app-theme-selector class="flex w-full items-end justify-end"></app-theme-selector>

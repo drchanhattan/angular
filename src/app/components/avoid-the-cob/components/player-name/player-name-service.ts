@@ -12,7 +12,7 @@ export class PlayerNameService {
   name = new FormControl<string>('', [
     Validators.required,
     Validators.minLength(6),
-    Validators.maxLength(20),
+    Validators.maxLength(17),
     this.characterValidator(),
     this.whitespaceValidator(),
     this.profanityValidator(),
