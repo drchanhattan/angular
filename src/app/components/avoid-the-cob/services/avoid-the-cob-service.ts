@@ -10,6 +10,7 @@ import { DifficultyService } from './difficulty.service';
 import { GameObjectService } from './game-object-service';
 import { GameStateService } from './game-state-service';
 import { ParticleService } from './particle-service';
+import { PowerUpService } from './power-up-service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,7 @@ export class AvoidTheCobService {
     private modeSelectorService: ModeSelectorService,
     private nameService: PlayerNameService,
     private particleService: ParticleService,
+    private powerUpService: PowerUpService,
     private textService: GameTextService,
   ) {}
 
@@ -62,6 +64,7 @@ export class AvoidTheCobService {
     this.gameStateService.reset(mobMode);
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
+    this.powerUpService.shufflePowerUps();
     this.cursor.reset();
     this.cursor.hide();
     this.textService.show(`Level ${this.difficultyService.level}`, '', 2500);
