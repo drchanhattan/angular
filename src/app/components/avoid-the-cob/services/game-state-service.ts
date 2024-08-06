@@ -58,7 +58,7 @@ export class GameStateService {
     this.paused = true;
     this.clearTimer();
 
-    if (!cheatsEnabled && !this.browserResized) {
+    if (!cheatsEnabled && !this.browserResized && !this.mobMode) {
       this.firebaseService.save(this.difficultyService.level);
     }
 
@@ -70,7 +70,9 @@ export class GameStateService {
     setTimeout(() => {
       this.gameObjectService.destroyAll();
       this.cursor.show();
-      cheatsEnabled || this.browserResized ? this.mainMenuService.show() : this.leaderboardService.show();
+      cheatsEnabled || this.browserResized || this.mobMode
+        ? this.mainMenuService.show()
+        : this.leaderboardService.show();
     }, 6000);
   }
 

@@ -1,4 +1,4 @@
-import { scaledSize } from '../device-scale/device-scale';
+import { scaledSize, scaledSpeed } from '../device-scale/device-scale';
 import { GameColors } from '../game-colors/game-colors';
 import { GameObjectSettings } from './game-object-setttings';
 import { GameObjectShape } from './game-object-shape';
@@ -19,7 +19,7 @@ export class GameObjectDefaults {
   static pea() {
     const size = scaledSize(20);
     const count = 10;
-    const speed = 4;
+    const speed = scaledSpeed(3);
 
     return {
       count: count,
@@ -30,7 +30,7 @@ export class GameObjectDefaults {
   static corn() {
     const size = scaledSize(40);
     const count = 10;
-    const speed = 4;
+    const speed = scaledSpeed(3);
 
     return {
       count: count,
@@ -40,7 +40,7 @@ export class GameObjectDefaults {
 
   static powerUp() {
     const size = scaledSize(20);
-    const speed = 20;
+    const speed = scaledSpeed(15);
 
     return {
       count: 1,
@@ -50,7 +50,7 @@ export class GameObjectDefaults {
 
   static heart() {
     const size = scaledSize(20);
-    const speed = 4;
+    const speed = scaledSpeed(3);
 
     return {
       count: 1,
@@ -61,7 +61,7 @@ export class GameObjectDefaults {
   static mob() {
     const size = scaledSize(20);
     const count = 20;
-    const speed = 1;
+    const speed = scaledSpeed(1);
 
     return {
       count: count,

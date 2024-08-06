@@ -7,3 +7,7 @@ export const scale = () => {
 export const scaledSize = (multiplier: number) => {
   return Math.round(scale() * multiplier);
 };
+
+export const scaledSpeed = (multiplier: number) => {
+  return scale() * multiplier;
+};
