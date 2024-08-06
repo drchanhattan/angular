@@ -2,7 +2,8 @@
   class="!fixed left-0 top-0 !z-20"
   *ngIf="!drawer.opened"
   (click)="drawer.open()"
-  [icon]="'reorder'"></app-icon-button>
+  [color]="router.url === '/game' ? 'text-game-white' : '!text-primary'"
+  [icon]="'menu'"></app-icon-button>
 
 <mat-sidenav-container>
   <mat-sidenav #drawer mode="over" class="neutral-opacity-90 !w-80" [autoFocus]="false" [fixedInViewport]="true">
