@@ -13,18 +13,18 @@
     <!-- Validation -->
     <div class="mt-4 text-center font-inter text-sm">
       @if (playerNameService.name.valid) {
-        <span class="text-game-yellow">Press play when you're ready</span>
+        <span class="text-game-yellow">Press enter to continue</span>
       } @else {
         <span class="text-game-white">
           @if (playerNameService.name.hasError('required')) {
             Provide a name to record your score
           } @else if (playerNameService.name.hasError('minlength')) {
-            You need at least {{ 6 - playerNameService.name.value!.length }} more character{{
-              playerNameService.name.value!.length < 5 ? 's' : ''
+            You need at least {{ 5 - playerNameService.name.value!.length }} more character{{
+              playerNameService.name.value!.length < 4 ? 's' : ''
             }}
           } @else if (playerNameService.name.hasError('maxlength')) {
-            Thats {{ playerNameService.name.value!.length - 17 }} character{{
-              playerNameService.name.value!.length > 18 ? 's' : ''
+            Thats {{ playerNameService.name.value!.length - 16 }} character{{
+              playerNameService.name.value!.length > 17 ? 's' : ''
             }}
             too many!
           } @else if (playerNameService.name.hasError('letters')) {
@@ -46,8 +46,8 @@
   <!-- Back Button -->
   <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'BACK'"></app-game-button>
 
-  <!-- Play Button -->
+  <!-- Next Button -->
   @if (playerNameService.name.valid) {
-    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'PLAY'"></app-game-button>
+    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'NEXT'"></app-game-button>
   }
 </div>
