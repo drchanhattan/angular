@@ -32,7 +32,7 @@ export class PlayerNameService {
   show() {
     const settings = GameObjectDefaults.powerUp().settings;
     settings.gravity = -0.015;
-    this.particleService.menuParticles('peaSvg', settings, 15);
+    this.particleService.menuParticles('peaSvg', settings, 20);
     this.overlayService.toggle(OverlayItem.NewPlayer, false);
   }
 

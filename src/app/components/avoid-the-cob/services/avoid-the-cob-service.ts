@@ -3,7 +3,6 @@ import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { ModeSelectorService } from '../components/mode-selector/mode-selector-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
-import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
 import { CollisionService } from './collision-service';
 import { CursorService } from './cursor.service';
@@ -17,7 +16,6 @@ import { ParticleService } from './particle-service';
 })
 export class AvoidTheCobService {
   constructor(
-    private audioService: AudioService,
     private canvasService: CanvasService,
     private collisionService: CollisionService,
     private cursor: CursorService,
@@ -32,23 +30,14 @@ export class AvoidTheCobService {
   ) {}
 
   draw() {
-    this.gameObjectService.processGameObjects(
-      this.gameStateService.paused,
-      this.collisionService,
-      this.gameStateService.mob,
-    );
+    const { mobMode, paused } = this.gameStateService;
+
+    this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode);
     this.particleService.draw(this.canvasService.context);
 
-    if (!this.gameStateService.paused) {
+    if (!paused) {
       this.cursor.draw();
-
-      if (
-        (this.gameStateService.mob && !this.gameStateService.timer) ||
-        (!this.gameStateService.mob && this.gameObjectService.objectsCleared())
-      ) {
-        this.audioService.play(AudioFile.LevelUp);
-        this.gameStateService.levelCleared();
-      }
+      this.gameStateService.checkLevelComplete(mobMode);
     }
   }
 
@@ -69,9 +58,8 @@ export class AvoidTheCobService {
     this.nameService.hide();
   }
 
-  newGame(mob: boolean) {
-    this.gameStateService.mob = mob;
-    this.gameStateService.reset();
+  newGame(mobMode: boolean) {
+    this.gameStateService.reset(mobMode);
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
     this.cursor.reset();

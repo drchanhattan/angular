@@ -43,18 +43,18 @@ export class PowerUpService {
   }
 
   powerRepel() {
-    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Repel);
-    this.gameObjectService.mob.setBehaviour(GameObjectBehaviour.Repel);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Repel);
+    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.Repel);
   }
 
   powerSlowCorn() {
-    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Slow);
-    this.gameObjectService.mob.setBehaviour(GameObjectBehaviour.Slow);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Slow);
+    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.Slow);
   }
 
   powerBlueCorn() {
-    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Blue);
-    this.gameObjectService.corn.setBehaviour(GameObjectBehaviour.Attract);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Blue);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Attract);
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
   }
 }

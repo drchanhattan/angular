@@ -16,10 +16,10 @@ import { ParticleService } from './particle-service';
 })
 export class GameObjectService {
   peas: GameObjectGroup;
-  corn: GameObjectGroup;
+  corns: GameObjectGroup;
   powerUps: GameObjectGroup;
   hearts: GameObjectGroup;
-  mob: GameObjectGroup;
+  mobs: GameObjectGroup;
 
   constructor(
     private canvasService: CanvasService,
@@ -27,21 +27,21 @@ export class GameObjectService {
     private particleService: ParticleService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
-    this.corn = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
+    this.corns = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
     this.powerUps = new GameObjectGroup(GameObjectDefaults.powerUp().count, GameObjectDefaults.powerUp().settings);
     this.hearts = new GameObjectGroup(GameObjectDefaults.heart().count, GameObjectDefaults.heart().settings);
-    this.mob = new GameObjectGroup(GameObjectDefaults.mob().count, GameObjectDefaults.mob().settings);
+    this.mobs = new GameObjectGroup(GameObjectDefaults.mob().count, GameObjectDefaults.mob().settings);
   }
 
-  processGameObjects(paused: boolean, collisionService: CollisionService, mob: boolean) {
+  processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
         this.canvasService.drawObject(this.canvasService.context, obj);
 
         if (paused) {
-          this.ejectObject(obj, mob);
+          this.ejectObject(obj, mobMode);
         } else {
-          this.customObjectBehaviour(obj, mob);
+          this.customObjectBehaviour(obj, mobMode);
           collisionService.processCollisions(obj);
         }
 
@@ -52,25 +52,25 @@ export class GameObjectService {
 
   destroyAll() {
     this.peas.objects = [];
-    this.corn.objects = [];
+    this.corns.objects = [];
     this.powerUps.objects = [];
     this.hearts.objects = [];
-    this.mob.objects = [];
+    this.mobs.objects = [];
   }
 
   objectsCleared() {
     const peas = this.peas.objects;
-    const blueCorn = this.corn.objects.filter((corn) => corn.isPea);
+    const blueCorn = this.corns.objects.filter((corn) => corn.isPea);
 
     return ![...peas, ...blueCorn].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
   }
 
   reset() {
     this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
-    this.resetObjectGroup(this.corn, GameObjectDefaults.corn());
+    this.resetObjectGroup(this.corns, GameObjectDefaults.corn());
     this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());
     this.resetObjectGroup(this.hearts, GameObjectDefaults.heart());
-    this.resetObjectGroup(this.mob, GameObjectDefaults.mob());
+    this.resetObjectGroup(this.mobs, GameObjectDefaults.mob());
   }
 
   private resetObjectGroup(objectGroup: GameObjectGroup, settings: { count: number; settings: GameObjectSettings }) {
@@ -80,24 +80,24 @@ export class GameObjectService {
   private allObjects() {
     return [
       ...this.peas.objects,
-      ...this.corn.objects,
+      ...this.corns.objects,
       ...this.powerUps.objects,
       ...this.hearts.objects,
-      ...this.mob.objects,
+      ...this.mobs.objects,
     ];
   }
 
-  private customObjectBehaviour(obj: GameObject, mob: boolean) {
+  private customObjectBehaviour(obj: GameObject, mobMode: boolean) {
     const attract = obj.behaviourIncludes(GameObjectBehaviour.Attract);
     const repel = obj.behaviourIncludes(GameObjectBehaviour.Repel);
     const blue = obj.behaviourIncludes(GameObjectBehaviour.Blue);
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
-    if (mob) {
+    if (mobMode) {
       this.magnetise(obj, 70, 2, false, true);
     }
     if (attract) {
-      this.magnetise(obj, 25, 4, false);
+      this.magnetise(obj, 10, 8, false);
       this.cursor.pulse();
     }
     if (repel) {
@@ -146,9 +146,9 @@ export class GameObjectService {
     }
   }
 
-  private ejectObject(obj: GameObject, mob: boolean) {
+  private ejectObject(obj: GameObject, mobMode: boolean) {
     obj.deltaY = obj.deltaY + 0.075;
-    if (mob) {
+    if (mobMode) {
       obj.applyForce('y', -5);
     } else {
       this.magnetise(obj, 500, 7, true, false);

@@ -46,9 +46,6 @@ export class ParticleService {
     if (maxCount) {
       const currentTime = new Date();
       for (let i = 0; i < count; i++) {
-        if (this.particles.length > maxCount) {
-          this.particles.splice(0, count);
-        }
         const size = object.size * 0.6;
         const settings = new GameObjectSettings(
           GameObjectType.Particle,
@@ -61,6 +58,10 @@ export class ParticleService {
         const particle = new GameObject(object.x, object.y, settings);
         particle.timestamp = new Date(currentTime.getTime() + i * 50);
         this.particles.push(particle);
+      }
+
+      if (this.particles.length > maxCount) {
+        this.particles.splice(0, this.particles.length - maxCount);
       }
     }
   }
@@ -84,9 +85,15 @@ export class ParticleService {
 
   private decay() {
     const currentTime = new Date().getTime();
+
     this.particles = this.particles.filter((p) => {
       const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
-      return isOnScreen && currentTime - p.timestamp.getTime() <= 2750;
+      const randomChance = Math.random() > 0.99;
+      const age = currentTime - p.timestamp.getTime();
+      const fresh = age < 1000;
+      const expired = age > 3000;
+
+      return isOnScreen && (fresh || !randomChance) && !expired;
     });
   }
 }

@@ -21,9 +21,9 @@ export class ModeSelectorComponent {
     private modeSelectorService: ModeSelectorService,
   ) {}
 
-  selectMode(mob: boolean) {
+  selectMode(mobMode: boolean) {
     this.modeSelectorService.hide();
-    this.avoidTheCob.newGame(mob);
+    this.avoidTheCob.newGame(mobMode);
   }
 
   back() {

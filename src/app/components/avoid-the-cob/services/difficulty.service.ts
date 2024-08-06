@@ -15,18 +15,19 @@ export class DifficultyService {
     private gameObjectService: GameObjectService,
   ) {}
 
-  increase(mob: boolean) {
+  increase(mobMode: boolean, cheatsEnabled: boolean) {
     this.level++;
 
-    if (mob) {
+    this.levelUpCursor();
+    if (mobMode) {
       this.levelUpMob();
-      this.levelUpCursor();
     } else {
-      this.levelUpCursor();
       this.levelUpPeas();
       this.levelUpCorn();
-      this.levelUpPowerUps();
       this.levelUpHearts();
+      if (!cheatsEnabled) {
+        this.levelUpPowerUps();
+      }
     }
   }
 
@@ -66,7 +67,7 @@ export class DifficultyService {
     const maxCount = defaultCount * 20;
     const count = Math.min(defaultCount * Math.pow(1.08, this.level), maxCount);
 
-    this.gameObjectService.mob.editSettings(size, speed, count);
+    this.gameObjectService.mobs.editSettings(size, speed, count);
   }
 
   private levelUpPowerUps() {
@@ -114,6 +115,6 @@ export class DifficultyService {
     const maxCount = defaultCount * 5;
     const count = Math.min(defaultCount * Math.pow(1.05, this.level), maxCount);
 
-    this.gameObjectService.corn.editSettings(size, speed, count);
+    this.gameObjectService.corns.editSettings(size, speed, count);
   }
 }
