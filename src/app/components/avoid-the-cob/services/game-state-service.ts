@@ -54,9 +54,9 @@ export class GameStateService {
   gameOver() {
     const { cheatsEnabled } = this.cheatService;
 
-    this.clearTimer();
     this.lives = 0;
     this.paused = true;
+    this.clearTimer();
 
     if (!cheatsEnabled && !this.browserResized) {
       this.firebaseService.save(this.difficultyService.level);
@@ -81,7 +81,7 @@ export class GameStateService {
   }
 
   checkLevelComplete(mobMode: boolean) {
-    if ((mobMode && !this.timer) || (!mobMode && this.gameObjectService.objectsCleared())) {
+    if (!this.paused && ((mobMode && !this.timer) || (!mobMode && this.gameObjectService.objectsCleared()))) {
       this.cursor.collisionEnabled = false;
       this.cursor.setInvincibility(false);
       this.browserResized ? this.gameOver() : this.levelUp();
