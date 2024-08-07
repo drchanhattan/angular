@@ -65,15 +65,13 @@ export class GameStateService {
     const subtext = this.browserResized
       ? 'Browser window resize detected'
       : `You reached level ${this.difficultyService.level}`;
-    this.textService.show('Game Over', subtext, 5000);
-
-    setTimeout(() => {
+    this.textService.show('Game Over', subtext, 5000).then(() => {
       this.gameObjectService.destroyAll();
       this.cursor.show();
       cheatsEnabled || this.browserResized || this.mobMode
         ? this.mainMenuService.show()
         : this.leaderboardService.show();
-    }, 6000);
+    });
   }
 
   reset(mobMode: boolean) {
@@ -93,13 +91,11 @@ export class GameStateService {
   levelUp() {
     this.paused = true;
     this.clearTimer();
-    this.levelUpText();
     this.audioService.play(AudioFile.LevelUp);
-
-    setTimeout(() => {
+    this.levelUpText().then(() => {
       this.difficultyService.increase(this.mobMode, this.cheatService.cheatsEnabled);
       this.start();
-    }, 4000);
+    });
   }
 
   private levelUpText() {
@@ -107,7 +103,7 @@ export class GameStateService {
     const hearts = this.gameObjectService.hearts.objects;
     const collectedHearts = hearts.filter((heart) => heart.isDestroyed).length;
     const subtext = collectedHearts ? `+ ${collectedHearts}` : '';
-    this.textService.show(`Level ${nextLevel}`, subtext, 3500);
+    return this.textService.show(`Level ${nextLevel}`, subtext, 3500);
   }
 
   private lifeTimer() {

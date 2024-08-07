@@ -67,10 +67,8 @@ export class AvoidTheCobService {
     this.powerUpService.shufflePowerUps();
     this.cursor.reset();
     this.cursor.hide();
-    this.textService.show(`Level ${this.difficultyService.level}`, '', 2500);
-
-    setTimeout(() => {
+    this.textService.show(`Level ${this.difficultyService.level}`, '', 2500).then(() => {
       this.gameStateService.start();
-    }, 3000);
+    });
   }
 }

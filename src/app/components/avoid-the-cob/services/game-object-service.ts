@@ -97,7 +97,7 @@ export class GameObjectService {
       this.magnetise(obj, 80, 2, false, true);
     }
     if (attract) {
-      this.magnetise(obj, 10, 8, false);
+      this.magnetise(obj, 20, 8, false);
       this.cursor.pulse();
     }
     if (repel) {

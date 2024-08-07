@@ -15,7 +15,7 @@ export enum OverlayItem {
 export class OverlayService {
   gameText = false;
   leaderboard = false;
-  mainMenu = true;
+  mainMenu = false;
   playerName = false;
   modeSelector = false;
   settings = false;

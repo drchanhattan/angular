@@ -9,13 +9,14 @@ export class GameTextService {
   subtext: string = '';
   constructor(private overlayService: OverlayService) {}
 
-  show(text: string, subtext: string, duration: number) {
+  async show(text: string, subtext: string, duration: number) {
     this.text = text;
     this.subtext = subtext;
 
     this.overlayService.toggle(OverlayItem.GameText, false);
-    setTimeout(() => {
-      this.overlayService.toggle(OverlayItem.GameText, true);
-    }, duration);
+    await new Promise((resolve) => setTimeout(resolve, duration));
+    this.overlayService.toggle(OverlayItem.GameText, true);
+
+    return;
   }
 }

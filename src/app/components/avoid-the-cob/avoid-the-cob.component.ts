@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, HostBinding, HostListener } from '@angular/core';
+import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
@@ -47,7 +47,7 @@ import { SvgLoaderService } from './services/svg-loader-service';
     ]),
   ],
 })
-export class AvoidTheCobComponent implements AfterViewInit {
+export class AvoidTheCobComponent implements OnInit {
   @HostBinding('class') hostClasses =
     'flex size-full select-none items-center justify-center overflow-hidden bg-game-black bg-cover bg-center bg-blend-darken';
   @HostBinding('style') background = `background-image: url('background.svg');`;
@@ -79,10 +79,12 @@ export class AvoidTheCobComponent implements AfterViewInit {
     location.reload();
   }
 
-  ngAfterViewInit() {
-    this.canvasService.setup();
-    this.mainMenuService.show();
-    this.animate();
+  ngOnInit() {
+    this.displayMobileNotice().then(() => {
+      this.canvasService.setup();
+      this.mainMenuService.show();
+      this.animate();
+    });
   }
 
   animate() {
@@ -96,5 +98,11 @@ export class AvoidTheCobComponent implements AfterViewInit {
     };
 
     requestAnimationFrame(animateFrame);
+  }
+
+  private async displayMobileNotice() {
+    const text = 'Avoid the Cob is best experienced on desktop';
+    const subtext = 'Mobile Device Detected';
+    return this.deviceService.isTouchScreen ? this.textService.show(subtext, text, 5000) : null;
   }
 }
