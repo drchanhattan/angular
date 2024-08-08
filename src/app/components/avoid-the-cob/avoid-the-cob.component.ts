@@ -103,6 +103,6 @@ export class AvoidTheCobComponent implements OnInit {
   private async displayMobileNotice() {
     const text = 'Avoid the Cob is best experienced on desktop';
     const subtext = 'Mobile Device Detected';
-    return this.deviceService.isTouchScreen ? this.textService.show(subtext, text, 5000) : null;
+    return this.deviceService.isTouchScreen ? this.textService.show(subtext, text, 4000) : null;
   }
 }
