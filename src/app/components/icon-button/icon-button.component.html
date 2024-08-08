@@ -1,9 +1,9 @@
 <button
   mat-icon-button
-  class="m-10 !size-8 origin-center !p-0 !text-[2rem] !leading-8 transition-transform duration-200 hover:scale-125"
+  class="m-10 origin-center scale-125 transition-transform duration-200 hover:!scale-150"
   [disabled]="disabled"
   [matTooltip]="tooltip">
-  <mat-icon [ngClass]="[color, '!size-auto', '!text-[2rem]']">
+  <mat-icon [ngClass]="[color, '!flex !size-auto']">
     {{ icon }}
   </mat-icon>
 </button>
