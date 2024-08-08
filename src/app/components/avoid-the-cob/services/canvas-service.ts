@@ -41,7 +41,7 @@ export class CanvasService {
     const canvasStyles = this.canvasEle.style;
     canvasStyles.backgroundColor = color;
 
-    if (!isTouchScreen && animationClass) {
+    if (animationClass) {
       canvasClass.toggle(animationClass);
     }
 
