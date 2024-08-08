@@ -103,7 +103,7 @@ export class GameStateService {
     const nextLevel = this.difficultyService.level + 1;
     const hearts = this.gameObjectService.hearts.objects;
     const collectedHearts = hearts.filter((heart) => heart.isDestroyed).length;
-    const subtext = collectedHearts ? `+ ${collectedHearts}` : '';
+    const subtext = collectedHearts ? `+` : '';
     return this.textService.show(`Level ${nextLevel}`, subtext, 3500);
   }
 
