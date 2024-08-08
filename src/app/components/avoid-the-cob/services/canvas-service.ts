@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
-import { DeviceService } from './device-service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +8,6 @@ import { DeviceService } from './device-service';
 export class CanvasService {
   canvasEle!: HTMLCanvasElement;
   context!: CanvasRenderingContext2D;
-
-  constructor(private deviceService: DeviceService) {}
 
   setup() {
     this.canvasEle = document.querySelector('canvas') as HTMLCanvasElement;
@@ -36,7 +33,6 @@ export class CanvasService {
   }
 
   flash(duration: number, color: string, animationClass?: string) {
-    const isTouchScreen = this.deviceService.isTouchScreen;
     const canvasClass = this.canvasEle.classList;
     const canvasStyles = this.canvasEle.style;
     canvasStyles.backgroundColor = color;
