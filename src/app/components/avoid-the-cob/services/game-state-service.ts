@@ -67,6 +67,7 @@ export class GameStateService {
       : `You reached level ${this.difficultyService.level}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
       this.gameObjectService.destroyAll();
+      this.difficultyService.level = 0;
       this.cursor.show();
       cheatsEnabled || this.browserResized || this.mobMode
         ? this.mainMenuService.show()

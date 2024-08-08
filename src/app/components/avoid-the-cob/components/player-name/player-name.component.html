@@ -19,8 +19,8 @@
           @if (playerNameService.name.hasError('required')) {
             Provide a name to record your score
           } @else if (playerNameService.name.hasError('minlength')) {
-            You need at least {{ 5 - playerNameService.name.value!.length }} more character{{
-              playerNameService.name.value!.length < 4 ? 's' : ''
+            You need at least {{ 6 - playerNameService.name.value!.length }} more character{{
+              playerNameService.name.value!.length < 5 ? 's' : ''
             }}
           } @else if (playerNameService.name.hasError('maxlength')) {
             Thats {{ playerNameService.name.value!.length - 16 }} character{{

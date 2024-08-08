@@ -37,8 +37,11 @@ export class AvoidTheCobService {
     this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode);
     this.particleService.draw(this.canvasService.context);
 
-    if (!paused) {
+    if (this.difficultyService.level > 0) {
       this.cursor.draw();
+    }
+
+    if (!paused) {
       this.gameStateService.checkLevelComplete(mobMode);
     }
   }
@@ -61,12 +64,13 @@ export class AvoidTheCobService {
   }
 
   newGame(mobMode: boolean) {
+    this.cursor.hide();
+    this.cursor.reset();
     this.gameStateService.reset(mobMode);
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
     this.powerUpService.shufflePowerUps();
-    this.cursor.reset();
-    this.cursor.hide();
+
     this.textService.show(`Level ${this.difficultyService.level}`, '', 2500).then(() => {
       this.gameStateService.start();
     });
