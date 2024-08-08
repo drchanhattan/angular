@@ -59,7 +59,7 @@ export class CollisionService {
       if (!this.cursor.invincible) {
         this.gameStateService.lives--;
         this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
-        this.cursor.disableCollision(550);
+        this.cursor.disableCollision(500);
       }
 
       if (this.gameStateService.lives === 0) {

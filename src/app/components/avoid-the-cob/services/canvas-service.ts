@@ -42,13 +42,13 @@ export class CanvasService {
     canvasStyles.backgroundColor = color;
 
     if (animationClass) {
-      canvasClass.toggle(animationClass);
+      canvasClass.add(animationClass);
     }
 
     setTimeout(() => {
       canvasStyles.backgroundColor = '';
       if (!isTouchScreen && animationClass) {
-        canvasClass.toggle(animationClass);
+        canvasClass.remove(animationClass);
       }
     }, duration);
   }
