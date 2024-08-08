@@ -47,7 +47,7 @@ export class CanvasService {
 
     setTimeout(() => {
       canvasStyles.backgroundColor = '';
-      if (!isTouchScreen && animationClass) {
+      if (animationClass) {
         canvasClass.remove(animationClass);
       }
     }, duration);
