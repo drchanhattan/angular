@@ -65,6 +65,10 @@ module.exports = {
         ink: ['InkFree', 'cursive'],
         inter: ['Inter', 'cursive'],
       },
+      scale: {
+        175: '1.75',
+        200: '2',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar')],

@@ -1,8 +1,7 @@
 @if (svgIcon) {
   <button
     mat-icon-button
-    class="origin-center scale-125 transition-transform duration-200"
-    [ngClass]="{ 'hover:!scale-150': hover }"
+    [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
     [disabled]="disabled"
     [matTooltip]="tooltip">
     <mat-icon [svgIcon]="svgIcon" [ngClass]="[color, '!flex !size-auto']"></mat-icon>
@@ -10,8 +9,7 @@
 } @else {
   <button
     mat-icon-button
-    class="origin-center scale-125 transition-transform duration-200"
-    [ngClass]="{ 'hover:!scale-150': hover }"
+    [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
     [disabled]="disabled"
     [matTooltip]="tooltip">
     <mat-icon [ngClass]="[color, '!flex !size-auto']">

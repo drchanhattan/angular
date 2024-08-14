@@ -11,7 +11,8 @@
   [color]="'text-mat-cream'"
   [matIcon]="'logout'"
   [tooltip]="'Exit'"
-  [hover]="true"></app-icon-button>
+  [scale]="'scale-175'"
+  [hoverScale]="'hover:!scale-200'"></app-icon-button>
 
 <div class="flex items-end justify-end">
   <!-- Settings -->
@@ -21,9 +22,10 @@
     [matIcon]="'settings'"
     [color]="'text-mat-cream'"
     [tooltip]="'Settings'"
-    [hover]="true"></app-icon-button>
+    [scale]="'scale-175'"
+    [hoverScale]="'hover:!scale-200'"></app-icon-button>
   <!-- Play -->
-  <app-game-button (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
+  <app-game-button class="mx-4" (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
   <!-- Leaderboard -->
   <app-icon-button
     class="m-8"
@@ -31,5 +33,6 @@
     [matIcon]="'leaderboard'"
     [color]="'text-mat-cream'"
     [tooltip]="'Leaderboard'"
-    [hover]="true"></app-icon-button>
+    [scale]="'scale-175'"
+    [hoverScale]="'hover:!scale-200'"></app-icon-button>
 </div>

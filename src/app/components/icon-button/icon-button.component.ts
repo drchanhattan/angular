@@ -17,5 +17,6 @@ export class IconButtonComponent {
   @Input() disabled: boolean = false;
   @Input() color: string = '';
   @Input() tooltip: string = '';
-  @Input() hover: boolean = false;
+  @Input() scale: string = 'scale-125';
+  @Input() hoverScale: string = '';
 }
