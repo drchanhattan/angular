@@ -7,12 +7,12 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class WeatherService {
-  private apiUrl = 'http://api.openweathermap.org/data/2.5/weather';
+  private apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  private apiKey = environment.weather;
 
   constructor(private http: HttpClient) {}
 
   getWeather(city: string): Observable<any> {
-    const apiKey = environment.weather;
-    return this.http.get<any>(`${this.apiUrl}?q=${city}&appid=${apiKey}&units=metric`);
+    return this.http.get<any>(`${this.apiUrl}?q=${city}&appid=${this.apiKey}&units=metric`);
   }
 }
