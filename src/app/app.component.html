@@ -1,16 +1,16 @@
-<app-icon-button
-  class="!fixed left-0 top-0 !z-20"
-  *ngIf="!drawer.opened"
-  (click)="drawer.open()"
-  [color]="router.url === '/game' ? 'text-game-white' : '!text-primary'"
-  [icon]="'menu'"></app-icon-button>
-
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" class="neutral-opacity-90 !w-80" [autoFocus]="false" [fixedInViewport]="true">
+  <mat-sidenav #drawer mode="over" class="toolbar-neutral !w-80" [autoFocus]="false" [fixedInViewport]="true">
     <app-side-nav (close)="drawer.close()"></app-side-nav>
   </mat-sidenav>
 
   <mat-sidenav-content>
+    <div
+      *ngIf="router.url !== '/game'"
+      class="toolbar-neutral !fixed left-0 top-0 z-10 flex h-14 w-full justify-between">
+      <app-icon-button class="m-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
+      <app-weather></app-weather>
+    </div>
+
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

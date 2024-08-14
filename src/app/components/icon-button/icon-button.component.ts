@@ -12,8 +12,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './icon-button.component.html',
 })
 export class IconButtonComponent {
-  @Input() icon: string = '';
+  @Input() matIcon!: string;
+  @Input() svgIcon!: string;
   @Input() disabled: boolean = false;
-  @Input() color: string = '!text-primary';
+  @Input() color: string = '';
   @Input() tooltip: string = '';
+  @Input() hover: boolean = false;
 }

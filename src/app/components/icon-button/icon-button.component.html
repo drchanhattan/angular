@@ -1,9 +1,21 @@
-<button
-  mat-icon-button
-  class="m-10 origin-center scale-125 transition-transform duration-200 hover:!scale-150"
-  [disabled]="disabled"
-  [matTooltip]="tooltip">
-  <mat-icon [ngClass]="[color, '!flex !size-auto']">
-    {{ icon }}
-  </mat-icon>
-</button>
+@if (svgIcon) {
+  <button
+    mat-icon-button
+    class="origin-center scale-125 transition-transform duration-200"
+    [ngClass]="{ 'hover:!scale-150': hover }"
+    [disabled]="disabled"
+    [matTooltip]="tooltip">
+    <mat-icon [svgIcon]="svgIcon" [ngClass]="[color, '!flex !size-auto']"></mat-icon>
+  </button>
+} @else {
+  <button
+    mat-icon-button
+    class="origin-center scale-125 transition-transform duration-200"
+    [ngClass]="{ 'hover:!scale-150': hover }"
+    [disabled]="disabled"
+    [matTooltip]="tooltip">
+    <mat-icon [ngClass]="[color, '!flex !size-auto']">
+      {{ matIcon }}
+    </mat-icon>
+  </button>
+}

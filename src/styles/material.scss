@@ -5,10 +5,17 @@
 
 $light-theme: m3-theme.$light-theme;
 $dark-theme: m3-theme.$dark-theme;
-$yellow: mat.get-theme-color($dark-theme, tertiary, 80);
+$black: mat.get-theme-color($light-theme, neutral, 10) !important;
+$white: mat.get-theme-color($light-theme, neutral, 99) !important;
+$blue: mat.get-theme-color($dark-theme, primary, 40) !important;
+$yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 
-@mixin neutral-opacity($opacity, $color-value) {
-  background-color: rgba(mat.get-theme-color($light-theme, neutral, $color-value), $opacity);
+@mixin neutral($theme, $opacity) {
+  @if $theme == light {
+    background-color: rgba(mat.get-theme-color($light-theme, neutral, 99), $opacity);
+  } @else if $theme == dark {
+    background-color: rgba(mat.get-theme-color($light-theme, neutral, 10), $opacity);
+  }
 }
 
 @mixin slide-toggle() {
@@ -42,21 +49,29 @@ html {
 .light-theme {
   @include mat.all-component-colors($light-theme);
   @include mat.all-component-typographies($light-theme);
-  @include mat.icon-color($dark-theme, $color-variant: tertiary);
+  @include mat.icon-color($light-theme, $color-variant: primary);
   @include mat.button-color($light-theme, $color-variant: secondary);
   @include slide-toggle();
   @include slider();
 
+  .bg-primary {
+    background-color: $blue;
+  }
+
   .text-primary {
-    color: mat.get-theme-color($light-theme, primary, 0);
+    color: $black;
   }
 
   .text-secondary {
     color: $yellow;
   }
 
-  .neutral-opacity-90 {
-    @include neutral-opacity(0.9, 99);
+  .text-active {
+    color: $blue;
+  }
+
+  .toolbar-neutral {
+    @include neutral(light, 0.9);
   }
 }
 
@@ -68,15 +83,23 @@ html {
   @include slide-toggle();
   @include slider();
 
+  .bg-primary {
+    background-color: $yellow;
+  }
+
   .text-primary {
     color: $yellow;
   }
 
   .text-secondary {
-    color: mat.get-theme-color($dark-theme, secondary, 100);
+    color: $white;
   }
 
-  .neutral-opacity-90 {
-    @include neutral-opacity(0.9, 10);
+  .text-active {
+    color: $white;
+  }
+
+  .toolbar-neutral {
+    @include neutral(dark, 0.9);
   }
 }

@@ -28,18 +28,21 @@
 
 <!-- Audio -->
 <app-icon-button
+  *ngIf="gameStateService.paused"
   (click)="audioService.enabled.setValue(!audioService.enabled.value)"
-  class="absolute right-0 top-0"
-  [icon]="audioService.enabled.value ? 'volume_up' : 'volume_off'"
-  [color]="'!text-game-white'"></app-icon-button>
+  class="absolute right-0 top-0 m-8"
+  [matIcon]="audioService.enabled.value ? 'volume_up' : 'volume_off'"
+  [color]="'!text-mat-cream'"
+  [tooltip]="audioService.enabled.value ? 'Mute' : 'Unmute'"
+  [hover]="true"></app-icon-button>
 
 <!-- Lives -->
 <div
   *ngIf="gameStateService.lives > 0"
   [@opacityAnimation]
   class="pointer-events-none absolute bottom-0 left-0 mb-10 ml-10">
-  <div class="flex items-center font-bold text-game-white">
-    <mat-icon class="!size-auto text-5xl text-game-red">favorite</mat-icon>
+  <div class="flex items-center font-bold text-mat-cream">
+    <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
     <span class="ml-2 text-5xl">{{ gameStateService.lives }}</span>
   </div>
 </div>
@@ -47,13 +50,13 @@
 <!-- Timer -->
 <span
   *ngIf="gameStateService.timer"
-  class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-game-white opacity-50">
+  class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
   {{ gameStateService.timer }}
 </span>
 
 <!-- Cheats -->
 <span
   *ngIf="cheatService.cheatsEnabled"
-  class="pointer-events-none absolute bottom-0 right-0 mb-2 mr-2 text-xs text-game-white">
+  class="pointer-events-none absolute bottom-0 right-0 m-4 text-xs text-mat-cream">
   Cheats on
 </span>

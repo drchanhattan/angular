@@ -14,7 +14,7 @@ import { SideNavLink, sideNavLinks } from './side-nav-links';
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {
-  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center';
+  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden px-4';
   @Output() close = new EventEmitter();
   currentRoute!: string;
   links = sideNavLinks;
@@ -35,5 +35,21 @@ export class SideNavComponent {
 
   hasActiveSublink(links: SideNavLink[]) {
     return links.map((link) => link.url).includes(this.currentRoute);
+  }
+
+  github() {
+    window.open('https://github.com/drchanhattan/');
+  }
+
+  instagram() {
+    window.open('https://www.instagram.com/drchanhattan/');
+  }
+
+  linkedIn() {
+    window.open('https://www.linkedin.com/in/christopher-chan-941503a1/');
+  }
+
+  youtube() {
+    window.open('https://www.youtube.com/@drchanhattan/');
   }
 }

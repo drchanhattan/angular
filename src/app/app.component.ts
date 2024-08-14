@@ -27,6 +27,8 @@ import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { WeatherService } from './components/weather/weather-service';
+import { WeatherComponent } from './components/weather/weather.component';
 import { GameComponent } from './pages/game/game.component';
 
 @Component({
@@ -42,6 +44,7 @@ import { GameComponent } from './pages/game/game.component';
     RouterOutlet,
     SideNavComponent,
     ThemeSelectorComponent,
+    WeatherComponent,
   ],
   templateUrl: './app.component.html',
   providers: [
@@ -63,6 +66,7 @@ import { GameComponent } from './pages/game/game.component';
     PlayerNameService,
     PowerUpService,
     SvgLoaderService,
+    WeatherService,
   ],
 })
 export class AppComponent {
@@ -81,7 +85,7 @@ export class AppComponent {
   }
 
   private registerIcons() {
-    const svgIcons = ['instagram', 'linkedin'];
+    const svgIcons = ['github', 'instagram', 'linkedin', 'youtube'];
     svgIcons.forEach((icon) => {
       this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
     });

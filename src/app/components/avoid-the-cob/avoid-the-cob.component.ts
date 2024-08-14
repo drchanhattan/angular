@@ -49,7 +49,7 @@ import { SvgLoaderService } from './services/svg-loader-service';
 })
 export class AvoidTheCobComponent implements OnInit {
   @HostBinding('class') hostClasses =
-    'flex size-full select-none items-center justify-center overflow-hidden bg-game-black bg-cover bg-center bg-blend-darken';
+    'flex size-full select-none items-center justify-center overflow-hidden bg-mat-black bg-cover bg-center bg-blend-darken';
   @HostBinding('style') background = `background-image: url('background.svg');`;
 
   constructor(
@@ -69,9 +69,9 @@ export class AvoidTheCobComponent implements OnInit {
   ) {}
 
   @HostListener('window:resize') onResize() {
+    this.canvasService.setup();
     if (!this.deviceService.isTouchScreen) {
       this.gameStateService.browserResized = true;
-      this.canvasService.setup();
     }
   }
 

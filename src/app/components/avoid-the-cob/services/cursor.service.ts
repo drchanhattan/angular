@@ -115,7 +115,7 @@ export class CursorService {
 
         this.lastTouch = { x: touchX, y: touchY };
 
-        if (event.target === this.canvasService.context.canvas) {
+        if (event.target === this.canvasService.context?.canvas) {
           event.preventDefault();
         }
       }

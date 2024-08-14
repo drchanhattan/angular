@@ -38,7 +38,6 @@ export class CanvasService {
     canvasStyles.backgroundColor = color;
 
     if (animationClass) {
-      canvasClass.remove(animationClass);
       canvasClass.add(animationClass);
     }
 

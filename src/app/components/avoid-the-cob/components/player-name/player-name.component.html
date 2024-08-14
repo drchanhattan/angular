@@ -6,16 +6,16 @@
   <div class="flex w-full flex-col items-center">
     <input
       contenteditable
-      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl font-bold uppercase tracking-wider text-game-white outline-none md:text-3xl lg:text-4xl"
+      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl font-bold uppercase tracking-wider text-mat-cream outline-none md:text-3xl lg:text-4xl"
       [formControl]="playerNameService.name"
       (keypress)="keyPressed($event)" />
 
     <!-- Validation -->
     <div class="mt-4 text-center font-inter text-sm">
       @if (playerNameService.name.valid) {
-        <span class="text-game-yellow">Press next to continue</span>
+        <span class="text-mat-yellow">Press next to continue</span>
       } @else {
-        <span class="text-game-white">
+        <span class="text-mat-cream">
           @if (playerNameService.name.hasError('required')) {
             Provide a name to record your score
           } @else if (playerNameService.name.hasError('minlength')) {

@@ -1,12 +1,10 @@
 <!-- Close Button -->
-<app-icon-button
-  class="flex w-full justify-end"
-  [icon]="'close'"
-  (click)="close.emit()"
-  [tooltip]="'Close'"></app-icon-button>
+<div class="mt-2 flex w-full items-center justify-end">
+  <app-icon-button [matIcon]="'close'" (click)="close.emit()" [tooltip]="'Close'"></app-icon-button>
+</div>
 
 <!-- Links -->
-<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-10">
+<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-8 pt-12">
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
@@ -32,4 +30,10 @@
 </div>
 
 <!-- Theme Selector -->
-<app-theme-selector class="flex w-full items-end justify-end"></app-theme-selector>
+<div class="mb-4 flex w-full items-center justify-between">
+  <app-icon-button (click)="linkedIn()" [svgIcon]="'linkedin'" [tooltip]="'LinkedIn'"></app-icon-button>
+  <app-icon-button (click)="github()" [svgIcon]="'github'" [tooltip]="'Github'"></app-icon-button>
+  <app-icon-button (click)="instagram()" [svgIcon]="'instagram'" [tooltip]="'Instagram'"></app-icon-button>
+  <app-icon-button (click)="youtube()" [svgIcon]="'youtube'" [tooltip]="'Youtube'"></app-icon-button>
+  <app-theme-selector></app-theme-selector>
+</div>

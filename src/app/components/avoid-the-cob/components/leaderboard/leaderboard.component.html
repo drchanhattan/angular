@@ -1,16 +1,16 @@
 <div class="flex w-full flex-1 flex-col items-center justify-between overflow-hidden">
   <!-- Header -->
-  <span class="mt-24 flex justify-center text-3xl font-bold tracking-widest text-game-yellow sm:text-5xl">
+  <span class="mt-24 flex justify-center text-3xl font-bold tracking-widest text-mat-yellow sm:text-5xl">
     LEADERBOARD
   </span>
 
   <!-- Scores -->
   <div
-    class="scrollbar-thumb-rounded-xl mt-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty font-ink scrollbar-thin scrollbar-track-game-black scrollbar-thumb-game-yellow">
+    class="scrollbar-thumb-rounded-xl mt-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty font-ink scrollbar-thin scrollbar-track-mat-black scrollbar-thumb-mat-yellow">
     @for (score of leaderboardService.scores; track score) {
       <div class="mb-4 flex justify-center text-xl font-bold tracking-widest sm:text-2xl">
-        <span class="mr-4 text-game-yellow">{{ score.score || '' }}</span>
-        <span class="text-game-white">{{ score.name }}</span>
+        <span class="mr-4 text-mat-yellow">{{ score.score || '' }}</span>
+        <span class="text-mat-cream">{{ score.name }}</span>
       </div>
     }
   </div>

@@ -11,7 +11,7 @@ import { ThemeSelectorService } from './theme-selector-service';
 export class ThemeSelectorComponent {
   constructor(public service: ThemeSelectorService) {}
 
-  setTheme(theme: 'light-theme' | 'dark-theme') {
-    this.service.setTheme(theme);
+  setTheme() {
+    this.service.setTheme(this.service.currentTheme$.value === 'light-theme' ? 'dark-theme' : 'light-theme');
   }
 }
