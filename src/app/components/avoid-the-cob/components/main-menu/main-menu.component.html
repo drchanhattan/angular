@@ -1,3 +1,9 @@
+<!-- Corn SVG -->
+<div class="relative flex flex-1 overflow-hidden">
+  <img [src]="title" class="absolute inset-0 m-auto max-h-[80dvh]" />
+  <img [src]="corn" class="relative m-auto max-h-[80dvh] animate-heartbeat" id="cornSvg" />
+</div>
+
 <!-- Exit -->
 <app-icon-button
   class="absolute size-full p-8"
@@ -6,12 +12,6 @@
   [matIcon]="'logout'"
   [tooltip]="'Exit'"
   [hover]="true"></app-icon-button>
-
-<!-- Corn SVG -->
-<div class="relative flex flex-1 overflow-hidden">
-  <img [src]="title" class="absolute inset-0 m-auto max-h-[80dvh]" />
-  <img [src]="corn" class="relative m-auto max-h-[80dvh] animate-heartbeat" id="cornSvg" />
-</div>
 
 <div class="flex items-end justify-end">
   <!-- Settings -->
