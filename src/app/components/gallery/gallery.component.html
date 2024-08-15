@@ -2,7 +2,7 @@
 <div class="relative flex h-screen w-screen items-center justify-center">
   <img class="h-full w-full object-cover" [src]="hero" />
   <div class="absolute flex h-full w-full items-end justify-center bg-[rgba(0,0,0,0)]">
-    <span class="px-10 pb-40 text-center text-5xl font-bold leading-normal text-mat-white drop-shadow-md sm:text-8xl">
+    <span class="px-10 pb-40 text-center text-5xl font-bold leading-normal text-mat-yellow drop-shadow-md sm:text-8xl">
       {{ name }}
     </span>
   </div>
@@ -11,11 +11,11 @@
 <!-- Photos -->
 <div *ngIf="photos" class="mb-20 w-full">
   @for (group of photos; track group) {
-    <div
+    <span
       data-aos="fade-up"
-      class="mb-16 mt-8 flex h-36 w-full items-center justify-center text-center text-6xl font-bold">
+      class="mb-16 mt-8 flex h-36 w-full items-center justify-center text-center text-6xl font-bold text-mat-cream">
       {{ group.header }}
-    </div>
+    </span>
     <div class="m-auto w-11/12 columns-1 gap-20 lg:columns-3">
       @for (url of group.urls; track $index) {
         <img class="mb-16 rounded-xl" loading="lazy" data-src="{{ url }}" data-aos="fade-up" (load)="animate()" />
