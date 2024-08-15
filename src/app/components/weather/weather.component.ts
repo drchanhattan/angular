@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './weather.component.html',
 })
 export class WeatherComponent implements OnInit {
-  @HostBinding('class') hostClasses = 'm-4 text-active flex text-xs font-semibold';
+  @HostBinding('class') hostClasses = 'm-4 text-mat-cream flex text-xs font-semibold';
   @Input() location: string = 'Bristol, GB';
 
   name!: string;

@@ -60,6 +60,8 @@ module.exports = {
         'mat-red': '#BA1A1A',
         'mat-white': '#FDFCFF',
         'mat-yellow': '#FFC107',
+        'neutral-black': '#171C22',
+        'neutral-white': '#F8F9FF',
       },
       fontFamily: {
         ink: ['InkFree', 'cursive'],

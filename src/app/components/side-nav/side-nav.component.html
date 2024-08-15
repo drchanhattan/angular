@@ -1,6 +1,6 @@
 <!-- Close Button -->
 <div class="mt-4 flex w-full items-center justify-between">
-  <app-icon-button class="m-2" (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
+  <app-icon-button (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
   <app-icon-button (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
 </div>
 

@@ -26,7 +26,6 @@ import { PowerUpService } from './components/avoid-the-cob/services/power-up-ser
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 import { ToolbarService } from './components/toolbar/toolbar-service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { GameComponent } from './pages/game/game.component';
@@ -43,7 +42,6 @@ import { GameComponent } from './pages/game/game.component';
     MatSidenavModule,
     RouterOutlet,
     SideNavComponent,
-    ThemeSelectorComponent,
     ToolbarComponent,
   ],
   templateUrl: './app.component.html',
