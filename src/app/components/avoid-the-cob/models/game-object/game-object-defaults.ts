@@ -61,7 +61,7 @@ export class GameObjectDefaults {
   static mob() {
     const size = scaledSize(20);
     const count = 20;
-    const speed = scaledSpeed(1);
+    const speed = scaledSpeed(1.5);
 
     return {
       count: count,

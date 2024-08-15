@@ -94,7 +94,7 @@ export class GameObjectService {
     const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
 
     if (mobMode) {
-      this.magnetise(obj, 80, 2, false, true);
+      this.magnetise(obj, 80, this.mobs.settings.speed, false, true);
     }
     if (attract) {
       this.magnetise(obj, 20, 8, false);

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToolbarService } from '../../toolbar/toolbar-service';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
@@ -32,9 +33,11 @@ export class GameStateService {
     private leaderboardService: LeaderboardService,
     private mainMenuService: MainMenuService,
     private textService: GameTextService,
+    private toolbarService: ToolbarService,
   ) {}
 
   start() {
+    this.toolbarService.hide();
     this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
@@ -66,6 +69,7 @@ export class GameStateService {
       ? 'Browser window resize detected'
       : `You reached level ${this.difficultyService.level}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
+      this.toolbarService.show();
       this.gameObjectService.destroyAll();
       this.difficultyService.level = 0;
       this.cursor.show();
@@ -108,7 +112,7 @@ export class GameStateService {
   }
 
   private lifeTimer() {
-    let timeLeft = 15;
+    let timeLeft = 10;
     this.timer = timeLeft.toString();
 
     this.timerInterval = setInterval(() => {

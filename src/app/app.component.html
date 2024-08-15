@@ -1,10 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" class="toolbar-neutral !w-80" [autoFocus]="false" [fixedInViewport]="true">
+  <mat-sidenav #drawer mode="over" class="!w-80" [autoFocus]="false" [fixedInViewport]="true">
     <app-side-nav (close)="drawer.close()"></app-side-nav>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-toolbar *ngIf="router.url !== '/game'" [drawer]="drawer"></app-toolbar>
+    <app-toolbar [drawer]="drawer"></app-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

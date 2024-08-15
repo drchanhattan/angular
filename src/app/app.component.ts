@@ -27,6 +27,7 @@ import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { ToolbarService } from './components/toolbar/toolbar-service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { GameComponent } from './pages/game/game.component';
 
@@ -65,6 +66,7 @@ import { GameComponent } from './pages/game/game.component';
     PlayerNameService,
     PowerUpService,
     SvgLoaderService,
+    ToolbarService,
   ],
 })
 export class AppComponent {

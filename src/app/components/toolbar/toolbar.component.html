@@ -1,2 +1,7 @@
-<app-icon-button class="m-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
-<app-theme-selector class="m-2"></app-theme-selector>
+@if (toolbarService.visible) {
+  <div
+    class="toolbar-neutral mat-elevation-z10 !fixed left-0 top-0 z-10 flex h-14 w-full items-center justify-between px-4">
+    <app-icon-button class="m-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
+    <app-theme-selector class="m-2"></app-theme-selector>
+  </div>
+}

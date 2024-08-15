@@ -111,7 +111,7 @@ export class DifficultyService {
     const minSize = scaledSize(5);
     const size = Math.max(defaultMob.settings.size * Math.pow(0.98, this.level), minSize);
     // Speed
-    const speed = Math.min(defaultMob.settings.speed * Math.pow(1.002, this.level));
+    const speed = Math.min(defaultMob.settings.speed * Math.pow(1.004, this.level));
     // Count
     const defaultCount = defaultMob.count;
     const maxCount = defaultCount * 3;

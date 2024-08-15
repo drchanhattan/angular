@@ -4,16 +4,6 @@
   <img [src]="corn" class="relative m-auto max-h-[80dvh] animate-heartbeat" id="cornSvg" />
 </div>
 
-<!-- Exit -->
-<app-icon-button
-  class="absolute left-0 top-0 m-8"
-  (click)="router.navigate(['/home'])"
-  [color]="'text-mat-cream'"
-  [matIcon]="'logout'"
-  [tooltip]="'Exit'"
-  [scale]="'scale-175'"
-  [hoverScale]="'hover:!scale-200'"></app-icon-button>
-
 <div class="flex items-end justify-end">
   <!-- Settings -->
   <app-icon-button
