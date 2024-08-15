@@ -3,14 +3,13 @@ import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
-import { ThemeSelectorComponent } from '../theme-selector/theme-selector.component';
 import { SideNavButtonComponent } from './side-nav-button/side-nav-button.component';
 import { SideNavLink, sideNavLinks } from './side-nav-links';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, IconButtonComponent, SideNavButtonComponent, ThemeSelectorComponent],
+  imports: [CommonModule, IconButtonComponent, SideNavButtonComponent],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {

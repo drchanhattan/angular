@@ -1,10 +1,11 @@
 <!-- Close Button -->
-<div class="mt-2 flex w-full items-center justify-end">
+<div class="mt-2 flex w-full items-center justify-between">
+  <app-icon-button class="m-2" (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
   <app-icon-button (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
 </div>
 
 <!-- Links -->
-<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pl-8 pt-12">
+<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden pt-12">
   @for (item of links; track item) {
     @if (!item.sublinks) {
       <!-- Link -->
@@ -29,11 +30,9 @@
   }
 </div>
 
-<!-- Theme Selector -->
-<div class="mb-4 flex w-full items-center justify-between">
+<div class="mb-4 flex w-full items-center justify-evenly">
   <app-icon-button (click)="linkedIn()" [svgIcon]="'linkedin'" [tooltip]="'LinkedIn'"></app-icon-button>
   <app-icon-button (click)="github()" [svgIcon]="'github'" [tooltip]="'Github'"></app-icon-button>
-  <!-- <app-icon-button (click)="instagram()" [svgIcon]="'instagram'" [tooltip]="'Instagram'"></app-icon-button> -->
   <app-icon-button (click)="youtube()" [svgIcon]="'youtube'" [tooltip]="'Youtube'"></app-icon-button>
-  <app-theme-selector></app-theme-selector>
+  <app-icon-button (click)="instagram()" [svgIcon]="'instagram'" [tooltip]="'Instagram'"></app-icon-button>
 </div>

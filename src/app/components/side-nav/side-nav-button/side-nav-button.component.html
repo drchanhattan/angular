@@ -1,7 +1,7 @@
 @if (!!this.group) {
   <!-- Group -->
   <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
-    <span class="text-primary text-nowrap text-xl">
+    <span class="text-primary text-nowrap text-lg font-semibold">
       {{ group.label }}
     </span>
     <mat-icon
@@ -14,11 +14,11 @@
 } @else if (active) {
   <!-- Active Link -->
   <button mat-button class="mb-2 !rounded-lg !p-3">
-    <span class="text-active mx-1 text-nowrap text-xl">{{ label }}</span>
+    <span class="text-active mx-1 text-nowrap text-lg font-semibold">{{ label }}</span>
   </button>
 } @else {
   <!-- Inactive Link -->
   <button mat-button class="mb-2 !rounded-lg" disabledInteractive>
-    <span class="text-primary mx-1 text-nowrap text-xl">{{ label }}</span>
+    <span class="text-primary mx-1 text-nowrap text-lg font-semibold">{{ label }}</span>
   </button>
 }

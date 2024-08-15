@@ -4,13 +4,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div
-      *ngIf="router.url !== '/game'"
-      class="toolbar-neutral !fixed left-0 top-0 z-10 flex h-14 w-full justify-between">
-      <app-icon-button class="m-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
-      <app-weather></app-weather>
-    </div>
-
+    <app-toolbar *ngIf="router.url !== '/game'" [drawer]="drawer"></app-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

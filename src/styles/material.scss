@@ -12,7 +12,7 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 
 @mixin neutral($theme, $opacity) {
   @if $theme == light {
-    background-color: rgba(mat.get-theme-color($light-theme, neutral, 99), $opacity);
+    background-color: rgba(mat.get-theme-color($light-theme, neutral, 95), $opacity);
   } @else if $theme == dark {
     background-color: rgba(mat.get-theme-color($light-theme, neutral, 10), $opacity);
   }
@@ -71,7 +71,7 @@ html {
   }
 
   .toolbar-neutral {
-    @include neutral(light, 0.9);
+    @include neutral(light, 0.95);
   }
 }
 
@@ -100,6 +100,6 @@ html {
   }
 
   .toolbar-neutral {
-    @include neutral(dark, 0.9);
+    @include neutral(dark, 0.95);
   }
 }

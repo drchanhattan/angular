@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { WeatherService } from './weather-service';
+import { HttpClient } from '@angular/common/http';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-weather',
@@ -9,23 +10,27 @@ import { WeatherService } from './weather-service';
   templateUrl: './weather.component.html',
 })
 export class WeatherComponent implements OnInit {
+  @HostBinding('class') hostClasses = 'm-4 text-active flex text-xs font-semibold';
+  @Input() location: string = 'Bristol, GB';
+
   name!: string;
   description!: string;
   temperature!: number;
-  icon!: string;
+  #apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  #apiKey = environment.weather;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.getWeather('Bristol, GB');
+    this.getWeather(this.location);
   }
 
   private getWeather(city: string) {
-    this.weatherService.getWeather(city).subscribe((data) => {
+    const url = `${this.#apiUrl}?q=${city}&appid=${this.#apiKey}&units=metric`;
+    this.http.get(url).subscribe((data: any) => {
       this.name = data.name;
       this.description = data.weather[0].description;
       this.temperature = Math.round(data.main.temp);
-      this.icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
     });
   }
 }
