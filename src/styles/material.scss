@@ -42,6 +42,30 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
   }
 }
 
+@mixin mat-tab() {
+  --mdc-tab-indicator-active-indicator-color: #{$yellow};
+  --mat-tab-header-active-focus-indicator-color: #{$yellow};
+  --mat-tab-header-active-hover-indicator-color: #{$yellow};
+  --mat-tab-header-active-label-text-color: #{$yellow};
+  --mat-tab-header-active-focus-label-text-color: #{$yellow};
+  --mat-tab-header-active-hover-label-text-color: #{$yellow};
+
+  mat-tab-header {
+    background: $black;
+    position: fixed !important;
+    width: 100%;
+    bottom: 0;
+    z-index: 99;
+  }
+  .mat-mdc-tab-label-container {
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+  .mat-mdc-tab-labels > div:first-child {
+    display: none;
+  }
+}
+
 html {
   @include mat.core-color($light-theme);
   @include mat.core-color($dark-theme);
@@ -52,4 +76,5 @@ html {
   @include mat-divider();
   @include mat-slide-toggle();
   @include mat-slider();
+  @include mat-tab();
 }

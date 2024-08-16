@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import AOS from 'aos';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatTabsModule],
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent {
@@ -16,5 +17,9 @@ export class GalleryComponent {
 
   animate() {
     AOS.refresh();
+  }
+
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 }
