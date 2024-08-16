@@ -51,14 +51,22 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
   --mat-tab-header-active-hover-label-text-color: #{$yellow};
 
   mat-tab-header {
-    background: $black;
+    @apply bg-gradient-to-tr from-mat-black/95 to-neutral-black/95;
     position: fixed !important;
     width: 100%;
     bottom: 0;
     z-index: 99;
+    overflow-x: scroll !important;
+    scrollbar-width: none;
+  }
+  .mat-mdc-tab-header-pagination {
+    display: none !important;
   }
   .mat-mdc-tab-labels > div:first-child {
-    display: none;
+    display: none !important;
+  }
+  .mat-mdc-tab-label-container {
+    overflow-x: visible;
   }
 }
 

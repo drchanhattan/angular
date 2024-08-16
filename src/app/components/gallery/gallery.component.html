@@ -1,6 +1,6 @@
 <!-- Photos -->
 @if (photos) {
-  <mat-tab-group mat-stretch-tabs headerPosition="below" (selectedTabChange)="scrollToTop()">
+  <mat-tab-group mat-stretch-tabs headerPosition="below" animationDuration="0" (selectedTabChange)="scrollToTop()">
     <mat-tab>
       <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
     </mat-tab>
