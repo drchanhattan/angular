@@ -6,7 +6,7 @@
     </mat-tab>
     @for (group of photos; track group) {
       <mat-tab [label]="group.header">
-        <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pb-20 pt-20 lg:columns-3">
+        <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pt-20 lg:columns-3">
           @for (url of group.urls; track $index) {
             <img
               class="mat-elevation-z20 mb-16 rounded-lg"
