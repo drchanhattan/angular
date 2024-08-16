@@ -20,7 +20,6 @@
           @for (url of group.urls; track $index) {
             <img
               class="mat-elevation-z20 mb-16 rounded-lg"
-              loading="lazy"
               data-src="{{ url }}"
               data-aos="fade-up"
               (load)="animate()" />
