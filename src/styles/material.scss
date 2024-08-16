@@ -56,17 +56,12 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
     width: 100%;
     bottom: 0;
     z-index: 99;
-    overflow-x: scroll !important;
-    scrollbar-width: none;
-  }
-  .mat-mdc-tab-header-pagination {
-    display: none !important;
   }
   .mat-mdc-tab-labels > div:first-child {
     display: none !important;
   }
-  .mat-mdc-tab-label-container {
-    overflow-x: visible;
+  .mat-mdc-tab-list {
+    overflow-x: auto !important;
   }
 }
 
