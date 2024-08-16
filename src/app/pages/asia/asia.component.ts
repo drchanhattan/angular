@@ -8,13 +8,15 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './asia.component.html',
 })
 export class AsiaComponent {
-  photos: { header: string; urls: string[] }[] = [
+  photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
       header: 'Hong Kong',
+      icons: ['hong kong'],
       urls: ['hong-kong-1.jpg', 'hong-kong-2.jpg', 'hong-kong-3.jpg'],
     },
     {
       header: 'Thailand',
+      icons: ['thailand'],
       urls: [
         'thailand-1.jpg',
         'thailand-2.jpg',
@@ -29,6 +31,7 @@ export class AsiaComponent {
     },
     {
       header: 'Cambodia',
+      icons: ['cambodia'],
       urls: [
         'cambodia-1.jpg',
         'cambodia-2.jpg',
@@ -42,6 +45,7 @@ export class AsiaComponent {
     },
     {
       header: 'Malaysia and Singapore',
+      icons: ['malaysia', 'singapore'],
       urls: [
         'malaysia-singapore-1.jpg',
         'malaysia-singapore-2.jpg',
@@ -52,6 +56,7 @@ export class AsiaComponent {
     },
     {
       header: 'Laos and Vietnam',
+      icons: ['laos', 'vietnam'],
       urls: [
         'laos-vietnam-1.jpg',
         'laos-vietnam-2.jpg',

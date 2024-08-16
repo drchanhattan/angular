@@ -8,9 +8,10 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './north-america.component.html',
 })
 export class NorthAmericaComponent {
-  photos: { header: string; urls: string[] }[] = [
+  photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
       header: 'Canada',
+      icons: ['canada'],
       urls: [
         'canada-1.jpg',
         'canada-2.jpg',
@@ -39,6 +40,7 @@ export class NorthAmericaComponent {
     },
     {
       header: 'Guatemala and Costa Rica',
+      icons: ['guatemala', 'costa rica'],
       urls: [
         'guatemala-costa-rica-1.jpg',
         'guatemala-costa-rica-2.jpg',
@@ -50,6 +52,7 @@ export class NorthAmericaComponent {
     },
     {
       header: 'Mexico',
+      icons: ['mexico'],
       urls: [
         'mexico-1.jpg',
         'mexico-2.jpg',
@@ -67,6 +70,7 @@ export class NorthAmericaComponent {
     },
     {
       header: 'USA',
+      icons: ['usa'],
       urls: [
         'usa-1.jpg',
         'usa-2.jpg',

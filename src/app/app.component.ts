@@ -28,6 +28,7 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarService } from './components/toolbar/toolbar-service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { Icons } from './icons/icons';
 import { GameComponent } from './pages/game/game.component';
 
 @Component({
@@ -83,8 +84,7 @@ export class AppComponent {
   }
 
   private registerIcons() {
-    const svgIcons = ['chan', 'github', 'instagram', 'linkedin', 'youtube'];
-    svgIcons.forEach((icon) => {
+    Icons.forEach((icon) => {
       this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
     });
   }

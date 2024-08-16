@@ -8,9 +8,10 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
-  photos: { header: string; urls: string[] }[] = [
+  photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
       header: 'Australia',
+      icons: ['australia'],
       urls: [
         'australia-1.jpg',
         'australia-2.jpg',
@@ -27,14 +28,17 @@ export class OceaniaComponent {
     },
     {
       header: 'Fiji',
+      icons: ['fiji'],
       urls: ['fiji-1.jpg', 'fiji-2.jpg', 'fiji-3.jpg', 'fiji-4.jpg'],
     },
     {
       header: 'Hobbiton',
+      icons: ['hobbiton'],
       urls: ['hobbiton-1.jpg', 'hobbiton-2.jpg', 'hobbiton-3.jpg', 'hobbiton-4.jpg', 'hobbiton-5.jpg'],
     },
     {
       header: 'New Zealand',
+      icons: ['new zealand'],
       urls: [
         'new-zealand-1.jpg',
         'new-zealand-2.jpg',

@@ -8,9 +8,10 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './europe.component.html',
 })
 export class EuropeComponent {
-  photos: { header: string; urls: string[] }[] = [
+  photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
       header: 'Austria',
+      icons: ['austria'],
       urls: [
         'austria-1.jpg',
         'austria-2.jpg',
@@ -36,6 +37,7 @@ export class EuropeComponent {
     },
     {
       header: 'Croatia',
+      icons: ['croatia'],
       urls: [
         'croatia-1.jpg',
         'croatia-2.jpg',
@@ -51,6 +53,7 @@ export class EuropeComponent {
     },
     {
       header: 'Czech Republic',
+      icons: ['czech republic'],
       urls: [
         'czech-1.jpg',
         'czech-2.jpg',
@@ -92,6 +95,7 @@ export class EuropeComponent {
 
     {
       header: 'England',
+      icons: ['england'],
       urls: [
         'england-1.jpg',
         'england-2.jpg',
@@ -119,14 +123,17 @@ export class EuropeComponent {
     },
     {
       header: 'Germany',
+      icons: ['germany'],
       urls: ['germany-1.jpg', 'germany-2.jpg', 'germany-3.jpg', 'germany-4.jpg', 'germany-5.jpg', 'germany-6.jpg'],
     },
     {
       header: 'Hungary',
+      icons: ['hungary'],
       urls: ['hungary-1.jpg', 'hungary-2.jpg', 'hungary-3.jpg', 'hungary-4.jpg', 'hungary-5.jpg', 'hungary-6.jpg'],
     },
     {
       header: 'Italy',
+      icons: ['italy'],
       urls: [
         'italy-1.jpg',
         'italy-2.jpg',
@@ -147,6 +154,7 @@ export class EuropeComponent {
     },
     {
       header: 'Slovenia',
+      icons: ['slovenia'],
       urls: [
         'slovenia-1.jpg',
         'slovenia-2.jpg',

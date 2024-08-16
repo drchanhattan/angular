@@ -8,9 +8,10 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
-  photos: { header: string; urls: string[] }[] = [
+  photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
       header: 'Argentina and Chile',
+      icons: ['argentina', 'chile'],
       urls: [
         'argentina-chile-1.jpg',
         'argentina-chile-2.jpg',
@@ -26,6 +27,7 @@ export class SouthAmericaComponent {
     },
     {
       header: 'Bolivia',
+      icons: ['bolivia'],
       urls: [
         'bolivia-1.jpg',
         'bolivia-2.jpg',
@@ -43,6 +45,7 @@ export class SouthAmericaComponent {
     },
     {
       header: 'Brazil',
+      icons: ['brazil'],
       urls: [
         'brazil-1.jpg',
         'brazil-2.jpg',
@@ -57,6 +60,7 @@ export class SouthAmericaComponent {
     },
     {
       header: 'Peru',
+      icons: ['peru'],
       urls: [
         'peru-1.jpg',
         'peru-2.jpg',

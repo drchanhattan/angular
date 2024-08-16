@@ -10,8 +10,13 @@
       <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
     </mat-tab>
     @for (group of photos; track group) {
-      <mat-tab [label]="group.header">
-        <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pt-20 lg:columns-3">
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon class="mr-1 scale-75" [svgIcon]="group.icons[0]"></mat-icon>
+          <span>{{ group.header }}</span>
+          <mat-icon class="ml-1 scale-75" [svgIcon]="group.icons[1]"></mat-icon>
+        </ng-template>
+        <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pt-16 lg:columns-3">
           @for (url of group.urls; track $index) {
             <img
               class="mat-elevation-z20 mb-16 rounded-lg"
