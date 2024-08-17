@@ -12,7 +12,7 @@ import { ToolbarService } from '../toolbar/toolbar-service';
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements OnInit, OnDestroy {
-  @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center overflow-hidden';
+  @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center overflow-hidden bg-mat-black';
   @Input() name!: string;
   @Input() hero?: string;
   @Input() photos?: { header: string; urls: string[]; icons: string[] }[];

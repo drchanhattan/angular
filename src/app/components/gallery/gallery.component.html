@@ -16,10 +16,10 @@
           <mat-icon *ngIf="group.icons[1]" class="mr-2 scale-75" [svgIcon]="group.icons[1]"></mat-icon>
           <span class="text-mat-cream">{{ group.header }}</span>
         </ng-template>
-        <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pt-16 lg:columns-3">
+        <div class="mx-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pb-8 pt-16 lg:columns-3 lg:pb-16">
           @for (url of group.urls; track $index) {
             <img
-              class="mat-elevation-z20 mb-16 rounded-lg"
+              class="mat-elevation-z20 mb-16 rounded-lg bg-white p-4"
               data-src="{{ url }}"
               data-aos="fade-up"
               (load)="animate()" />
