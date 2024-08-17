@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ToolbarService {
-  visible = true;
+  visible: boolean = true;
+  header: string = '';
 
   show() {
     this.visible = true;

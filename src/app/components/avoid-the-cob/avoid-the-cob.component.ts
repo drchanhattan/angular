@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
@@ -47,7 +47,7 @@ import { SvgLoaderService } from './services/svg-loader-service';
     ]),
   ],
 })
-export class AvoidTheCobComponent implements OnInit {
+export class AvoidTheCobComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClasses =
     'flex size-full select-none items-center justify-center overflow-hidden bg-mat-black bg-cover bg-center bg-blend-darken';
   @HostBinding('style') background = `background-image: url('background.svg');`;
@@ -85,6 +85,10 @@ export class AvoidTheCobComponent implements OnInit {
       this.mainMenuService.show();
       this.animate();
     });
+  }
+
+  ngOnDestroy() {
+    window.location.reload();
   }
 
   animate() {

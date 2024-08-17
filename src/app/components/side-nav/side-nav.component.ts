@@ -30,7 +30,7 @@ export class SideNavComponent {
   navigate(path: string) {
     if (this.currentRoute !== path) {
       this.close.emit();
-      this.router.navigate([path]).then(() => window.location.reload());
+      this.router.navigate([path]);
     }
   }
 

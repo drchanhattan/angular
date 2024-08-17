@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameSettingsService } from './components/avoid-the-cob/components/game-settings/game-settings-service';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
@@ -72,15 +72,9 @@ export class AppComponent {
   constructor(
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
-    public router: Router,
   ) {
     this.registerIcons();
     this.animateOnScroll();
-  }
-
-  @HostListener('window:popstate', ['$event'])
-  onPopState() {
-    location.reload();
   }
 
   private registerIcons() {

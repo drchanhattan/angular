@@ -85,11 +85,14 @@ export class CursorService {
   }
 
   private updatePosition(x: number, y: number) {
-    const rect = this.canvasService.context.canvas.getBoundingClientRect();
-    const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
-    const newY = ((y - rect.top) / (rect.bottom - rect.top)) * window.innerHeight;
-    this.object.x = Math.min(Math.max(0, newX), window.innerWidth);
-    this.object.y = Math.min(Math.max(0, newY), window.innerHeight);
+    const canvas = this.canvasService.context.canvas;
+    if (canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
+      const newY = ((y - rect.top) / (rect.bottom - rect.top)) * window.innerHeight;
+      this.object.x = Math.min(Math.max(0, newX), window.innerWidth);
+      this.object.y = Math.min(Math.max(0, newY), window.innerHeight);
+    }
   }
 
   private handleMouse() {
