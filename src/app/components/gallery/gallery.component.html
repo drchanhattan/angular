@@ -14,7 +14,7 @@
         <ng-template matTabLabel>
           <mat-icon class="mr-2 scale-75" [svgIcon]="group.icons[0]"></mat-icon>
           <mat-icon *ngIf="group.icons[1]" class="mr-2 scale-75" [svgIcon]="group.icons[1]"></mat-icon>
-          <span>{{ group.header }}</span>
+          <span class="text-mat-cream">{{ group.header }}</span>
         </ng-template>
         <div #tabContent class="m-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pt-16 lg:columns-3">
           @for (url of group.urls; track $index) {

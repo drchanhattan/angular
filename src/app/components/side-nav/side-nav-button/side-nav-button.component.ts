@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SideNavGroup } from '../side-nav-links';
+import { SideNavGroup, SideNavLink } from '../side-nav-links';
 
 @Component({
   selector: 'app-side-nav-button',
@@ -12,7 +12,7 @@ import { SideNavGroup } from '../side-nav-links';
 })
 export class SideNavButtonComponent {
   @Input() active?: boolean;
-  @Input() label?: string;
+  @Input() link?: SideNavLink;
   @Input() group?: SideNavGroup;
 
   expandGroup(button: any) {

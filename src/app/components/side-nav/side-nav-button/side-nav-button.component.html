@@ -1,6 +1,7 @@
-@if (!!this.group) {
+@if (!!group) {
   <!-- Group -->
   <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
+    <mat-icon [ngClass]="{ 'text-mat-cream': !active, 'text-mat-yellow': active }">{{ group.icon }}</mat-icon>
     <span class="text-nowrap text-lg text-mat-cream">
       {{ group.label }}
     </span>
@@ -11,14 +12,10 @@
       {{ group.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}
     </mat-icon>
   </button>
-} @else if (active) {
-  <!-- Active Link -->
-  <button mat-button class="mb-2 !rounded-lg !p-3">
-    <span class="mx-1 text-nowrap text-lg font-semibold text-mat-yellow">{{ label }}</span>
-  </button>
-} @else {
-  <!-- Inactive Link -->
-  <button mat-button class="mb-2 !rounded-lg" disabledInteractive>
-    <span class="mx-1 text-nowrap text-lg text-mat-cream">{{ label }}</span>
+} @else if (!!link) {
+  <button mat-button class="mb-2 !rounded-lg">
+    <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'mx-1 text-nowrap text-lg font-semibold']">
+      {{ link.label }}
+    </span>
   </button>
 }

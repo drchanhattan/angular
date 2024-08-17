@@ -9,13 +9,7 @@
 <!-- Links -->
 <div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4">
   @for (item of links; track item) {
-    @if (!item.sublinks) {
-      <!-- Link -->
-      <app-side-nav-button
-        (click)="navigate(item.url)"
-        [active]="currentRoute === item.url"
-        [label]="item.label"></app-side-nav-button>
-    } @else {
+    @if (item.sublinks) {
       <!-- Link Group -->
       <app-side-nav-button [group]="item" [active]="hasActiveSublink(item.sublinks)"></app-side-nav-button>
       @if (item.expanded) {
@@ -25,7 +19,7 @@
             class="ml-5"
             (click)="navigate(subLink.url)"
             [active]="currentRoute === subLink.url"
-            [label]="subLink.label"></app-side-nav-button>
+            [link]="subLink"></app-side-nav-button>
         }
       }
     }
