@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavigationEnd, Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { SideNavLink, sideNavLinks } from './side-nav-links';
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, IconButtonComponent, MatDividerModule, SideNavButtonComponent],
+  imports: [IconButtonComponent, MatDividerModule, SideNavButtonComponent],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -6,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './weather.component.html',
 })
 export class WeatherComponent implements OnInit {

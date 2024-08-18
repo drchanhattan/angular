@@ -1,4 +1,3 @@
-<!-- Photos -->
 @if (photos) {
   <mat-tab-group
     mat-stretch-tabs="true"
@@ -7,17 +6,23 @@
     disablePagination="true"
     (selectedTabChange)="scrollToTop()">
     <mat-tab>
+      <!-- Hero -->
       <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
     </mat-tab>
     @for (group of photos; track group) {
       <mat-tab>
+        <!-- Tab Label -->
         <ng-template matTabLabel>
-          <mat-icon class="mr-2 scale-75" [svgIcon]="group.icons[0]"></mat-icon>
-          <mat-icon *ngIf="group.icons[1]" class="mr-2 scale-75" [svgIcon]="group.icons[1]"></mat-icon>
+          <mat-icon class="mr-4" [svgIcon]="group.icons[0]"></mat-icon>
+          @if (group.icons[1]) {
+            <mat-icon class="mr-4" [svgIcon]="group.icons[1]"></mat-icon>
+          }
           <span class="text-mat-cream">{{ group.header }}</span>
         </ng-template>
+        <!-- Country -->
         <div class="mx-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pb-8 pt-16 lg:columns-3 lg:pb-16">
           @for (url of group.urls; track $index) {
+            <!-- Photo -->
             <img
               class="mat-elevation-z20 mb-16 rounded-lg bg-white p-4"
               data-src="{{ url }}"
@@ -29,9 +34,11 @@
     }
   </mat-tab-group>
 } @else {
+  <!-- Hero -->
   <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
 }
 
+<!-- Hero Template -->
 <ng-template #heroTemplate>
   <img class="h-screen w-screen object-cover" [src]="hero" />
 </ng-template>

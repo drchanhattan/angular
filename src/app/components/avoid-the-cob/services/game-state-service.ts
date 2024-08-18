@@ -11,6 +11,7 @@ import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
 import { GameObjectService } from './game-object-service';
+import { ScoreService } from './score-service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,12 +33,12 @@ export class GameStateService {
     private gameObjectService: GameObjectService,
     private leaderboardService: LeaderboardService,
     private mainMenuService: MainMenuService,
+    private scoreService: ScoreService,
     private textService: GameTextService,
     private toolbarService: ToolbarService,
   ) {}
 
   start() {
-    this.toolbarService.hide();
     this.paused = false;
     this.cursor.blink(GameColors.Gray, 4, 125);
     this.cursor.disableCollision(1000);
@@ -62,13 +63,12 @@ export class GameStateService {
     this.clearTimer();
 
     if (!cheatsEnabled && !this.browserResized && !this.mobMode) {
-      this.firebaseService.save(this.difficultyService.level);
+      this.firebaseService.save(this.scoreService.score);
     }
 
-    const subtext = this.browserResized
-      ? 'Browser window resize detected'
-      : `You reached level ${this.difficultyService.level}`;
+    const subtext = this.browserResized ? 'Browser window resize detected' : `Final score: ${this.scoreService.score}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
+      this.scoreService.resetScore();
       this.toolbarService.show();
       this.gameObjectService.destroyAll();
       this.difficultyService.level = 0;
@@ -97,6 +97,7 @@ export class GameStateService {
     this.paused = true;
     this.clearTimer();
     this.audioService.play(AudioFile.LevelUp);
+    this.scoreService.levelIncrease();
     this.levelUpText().then(() => {
       this.difficultyService.increase(this.mobMode, this.cheatService.cheatsEnabled);
       this.start();

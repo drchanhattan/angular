@@ -4,7 +4,7 @@
 <!-- Subtext -->
 <div class="flex flex-nowrap items-center justify-center">
   <span class="mr-2 text-center text-3xl md:text-5xl">{{ textService.subtext }}</span>
-  <mat-icon class="self-start !overflow-visible text-3xl text-mat-red md:text-5xl" *ngIf="textService.subtext === '+'">
-    favorite
-  </mat-icon>
+  @if (textService.subtext === '+') {
+    <mat-icon class="self-start !overflow-visible text-3xl text-mat-red md:text-5xl">favorite</mat-icon>
+  }
 </div>

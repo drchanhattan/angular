@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
@@ -9,7 +8,7 @@ import { ModeSelectorService } from './mode-selector-service';
 @Component({
   selector: 'app-mode-selector',
   standalone: true,
-  imports: [CommonModule, GameButtonComponent, MatButtonModule],
+  imports: [GameButtonComponent, MatButtonModule],
   templateUrl: './mode-selector.component.html',
 })
 export class ModeSelectorComponent {

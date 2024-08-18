@@ -1,5 +1,4 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -16,19 +15,18 @@ import { PlayerNameComponent } from './components/player-name/player-name.compon
 import { AudioService } from './services/audio-service';
 import { AvoidTheCobService } from './services/avoid-the-cob-service';
 import { CanvasService } from './services/canvas-service';
-import { CheatService } from './services/cheat-service';
 import { DeviceService } from './services/device-service';
 import { DifficultyService } from './services/difficulty.service';
 import { GameStateService } from './services/game-state-service';
 import { OverlayService } from './services/overlay-service';
 import { ParticleService } from './services/particle-service';
+import { ScoreService } from './services/score-service';
 import { SvgLoaderService } from './services/svg-loader-service';
 
 @Component({
   selector: 'app-avoid-the-cob',
   standalone: true,
   imports: [
-    CommonModule,
     GameSettingsComponent,
     GameTextComponent,
     IconButtonComponent,
@@ -56,7 +54,6 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     public audioService: AudioService,
     public avoidTheCob: AvoidTheCobService,
     public canvasService: CanvasService,
-    public cheatService: CheatService,
     public deviceService: DeviceService,
     public difficultyService: DifficultyService,
     public gameStateService: GameStateService,
@@ -64,6 +61,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     public nameService: PlayerNameService,
     public overlayService: OverlayService,
     public particleService: ParticleService,
+    public scoreService: ScoreService,
     public svgLoader: SvgLoaderService,
     public textService: GameTextService,
   ) {}

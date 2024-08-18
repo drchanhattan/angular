@@ -3,31 +3,11 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        jiggle: 'jiggle 0.5s',
         float: 'float 2s infinite',
         heartbeat: 'heartbeat 0.5s infinite',
+        jiggle: 'jiggle 0.5s',
       },
       keyframes: {
-        jiggle: {
-          '0%': {
-            transform: 'rotate(0deg)',
-          },
-          '20%': {
-            transform: 'rotate(3deg)',
-          },
-          '40%': {
-            transform: 'rotate(-3deg)',
-          },
-          '60%': {
-            transform: 'rotate(3deg)',
-          },
-          '80%': {
-            transform: 'rotate(-3deg)',
-          },
-          '100%': {
-            transform: 'rotate(0deg)',
-          },
-        },
         float: {
           '0%': {
             transform: 'translateY(0)',
@@ -48,6 +28,26 @@ module.exports = {
           },
           '100%': {
             transform: 'scale(1)',
+          },
+        },
+        jiggle: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '20%': {
+            transform: 'rotate(3deg)',
+          },
+          '40%': {
+            transform: 'rotate(-3deg)',
+          },
+          '60%': {
+            transform: 'rotate(3deg)',
+          },
+          '80%': {
+            transform: 'rotate(-3deg)',
+          },
+          '100%': {
+            transform: 'rotate(0deg)',
           },
         },
       },

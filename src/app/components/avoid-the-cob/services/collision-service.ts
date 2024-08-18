@@ -6,6 +6,7 @@ import { CursorService } from './cursor.service';
 import { GameStateService } from './game-state-service';
 import { ParticleService } from './particle-service';
 import { PowerUpService } from './power-up-service';
+import { ScoreService } from './score-service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class CollisionService {
     private gameStateService: GameStateService,
     private particleService: ParticleService,
     private powerUpService: PowerUpService,
+    private scoreService: ScoreService,
   ) {}
 
   processCollisions(obj: GameObject) {
@@ -45,21 +47,23 @@ export class CollisionService {
   private peaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
       this.audioService.play(AudioFile.Pea);
-      pea.destroy();
+      this.scoreService.peaCollected();
       this.particleService.create(pea, 20);
+      pea.destroy();
     }
   }
 
   private cornCollision(corn: GameObject) {
     if (corn.detectCollision(this.cursor.object)) {
       this.audioService.play(AudioFile.Corn);
-      corn.destroy();
       this.particleService.create(corn);
+      corn.destroy();
 
       if (!this.cursor.invincible) {
         this.gameStateService.lives--;
         this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
         this.cursor.disableCollision(500);
+        this.scoreService.resetCombo();
       }
 
       if (this.gameStateService.lives === 0) {
@@ -71,20 +75,20 @@ export class CollisionService {
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
       this.audioService.play(AudioFile.PowerUp);
-      powerUp.destroy();
-      this.particleService.create(powerUp, 100);
       this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
+      this.particleService.create(powerUp, 100);
       this.powerUpService.randomPowerUp();
+      powerUp.destroy();
     }
   }
 
   private heartCollision(heart: GameObject) {
     if (heart.detectCollision(this.cursor.object)) {
       this.audioService.play(AudioFile.Heart);
-      heart.destroy();
+      this.cursor.blink(heart.color, 2, 100);
       this.gameStateService.lives++;
       this.particleService.create(heart, 8);
-      this.cursor.blink(heart.color, 2, 100);
+      heart.destroy();
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToolbarService } from '../../toolbar/toolbar-service';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { ModeSelectorService } from '../components/mode-selector/mode-selector-service';
@@ -29,6 +30,7 @@ export class AvoidTheCobService {
     private particleService: ParticleService,
     private powerUpService: PowerUpService,
     private textService: GameTextService,
+    private toolbarService: ToolbarService,
   ) {}
 
   draw() {
@@ -70,6 +72,7 @@ export class AvoidTheCobService {
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
     this.powerUpService.shufflePowerUps();
+    this.toolbarService.hide();
 
     this.textService.show(`Level ${this.difficultyService.level}`, '', 2500).then(() => {
       this.gameStateService.start();

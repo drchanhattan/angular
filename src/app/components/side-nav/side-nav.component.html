@@ -16,7 +16,7 @@
         @for (subLink of item.sublinks; track subLink) {
           <!-- SubLink -->
           <app-side-nav-button
-            class="ml-5"
+            class="ml-5 pl-[1px]"
             (click)="navigate(subLink.url)"
             [active]="currentRoute === subLink.url"
             [link]="subLink"></app-side-nav-button>

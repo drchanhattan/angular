@@ -19,12 +19,12 @@
           @if (playerNameService.name.hasError('required')) {
             Provide a name to record your score
           } @else if (playerNameService.name.hasError('minlength')) {
-            You need at least {{ 6 - playerNameService.name.value!.length }} more character{{
-              playerNameService.name.value!.length < 5 ? 's' : ''
+            You need at least {{ playerNameService.minLength - playerNameService.name.value!.length }} more character{{
+              playerNameService.name.value!.length < playerNameService.minLength - 1 ? 's' : ''
             }}
           } @else if (playerNameService.name.hasError('maxlength')) {
-            Thats {{ playerNameService.name.value!.length - 16 }} character{{
-              playerNameService.name.value!.length > 17 ? 's' : ''
+            Thats {{ playerNameService.name.value!.length - playerNameService.maxLength }} character{{
+              playerNameService.name.value!.length > playerNameService.maxLength + 1 ? 's' : ''
             }}
             too many!
           } @else if (playerNameService.name.hasError('letters')) {

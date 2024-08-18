@@ -27,6 +27,7 @@ export class CursorService {
   draw() {
     if (this.invincible) {
       this.trail();
+      this.pulse();
     }
 
     this.canvasService.drawObject(this.canvasService.context, this.object);
@@ -85,7 +86,7 @@ export class CursorService {
   }
 
   private updatePosition(x: number, y: number) {
-    const canvas = this.canvasService.context.canvas;
+    const canvas = this.canvasService.context?.canvas;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
       const newX = ((x - rect.left) / (rect.right - rect.left)) * window.innerWidth;
@@ -151,7 +152,7 @@ export class CursorService {
     this.history.forEach((old) => {
       const settings = new GameObjectSettings(
         this.object.type,
-        this.object.color,
+        GameColors.Blue,
         this.object.size,
         this.object.shape,
         0,

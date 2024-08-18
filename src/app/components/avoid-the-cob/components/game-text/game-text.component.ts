@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { GameTextService } from './game-text-service';
@@ -6,7 +5,7 @@ import { GameTextService } from './game-text-service';
 @Component({
   selector: 'app-game-text',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [MatIconModule],
   templateUrl: './game-text.component.html',
 })
 export class GameTextComponent {

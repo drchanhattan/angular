@@ -9,10 +9,12 @@ import { ParticleService } from '../../services/particle-service';
   providedIn: 'root',
 })
 export class PlayerNameService {
+  minLength = 3;
+  maxLength = 16;
   name = new FormControl<string>('', [
     Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(16),
+    Validators.minLength(this.minLength),
+    Validators.maxLength(this.maxLength),
     this.characterValidator(),
     this.whitespaceValidator(),
     this.profanityValidator(),

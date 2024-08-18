@@ -2,51 +2,64 @@
 <canvas #canvas class="overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
 <!-- Text -->
-<app-game-text *ngIf="overlayService.gameText" [@opacityAnimation] class="pointer-events-none"></app-game-text>
+@if (overlayService.gameText) {
+  <app-game-text [@opacityAnimation] class="pointer-events-none"></app-game-text>
+}
 
 <!-- Menu -->
-<app-main-menu
-  *ngIf="overlayService.mainMenu && svgLoader.corn$.value && svgLoader.title$.value"
-  [@opacityAnimation]
-  [corn]="svgLoader.corn$.value"
-  [title]="svgLoader.title$.value"></app-main-menu>
+@if (overlayService.mainMenu && svgLoader.corn$.value && svgLoader.title$.value) {
+  <app-main-menu [@opacityAnimation] [corn]="svgLoader.corn$.value" [title]="svgLoader.title$.value"></app-main-menu>
+}
 
 <!-- Name Prompt -->
-<app-player-name
-  *ngIf="overlayService.playerName && svgLoader.pea$.value"
-  [@opacityAnimation]
-  [pea]="svgLoader.pea$.value"></app-player-name>
+@if (overlayService.playerName && svgLoader.pea$.value) {
+  <app-player-name [@opacityAnimation] [pea]="svgLoader.pea$.value"></app-player-name>
+}
 
 <!-- Mode Selector -->
-<app-mode-selector *ngIf="overlayService.modeSelector" [@opacityAnimation]></app-mode-selector>
+@if (overlayService.modeSelector) {
+  <app-mode-selector [@opacityAnimation]></app-mode-selector>
+}
 
 <!-- Leaderboard -->
-<app-leaderboard *ngIf="overlayService.leaderboard" [@opacityAnimation]></app-leaderboard>
+@if (overlayService.leaderboard) {
+  <app-leaderboard [@opacityAnimation]></app-leaderboard>
+}
 
 <!-- Settings -->
-<app-game-settings *ngIf="overlayService.settings" [@opacityAnimation]></app-game-settings>
+@if (overlayService.settings) {
+  <app-game-settings [@opacityAnimation]></app-game-settings>
+}
 
 <!-- Lives -->
-<div
-  *ngIf="gameStateService.lives > 0"
-  [@opacityAnimation]
-  class="pointer-events-none absolute bottom-0 left-0 mb-10 ml-10">
-  <div class="flex items-center font-bold text-mat-cream">
+@if (gameStateService.lives > 0) {
+  <div
+    [@opacityAnimation]
+    class="pointer-events-none absolute left-0 top-0 m-4 flex items-center font-bold text-mat-cream">
     <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
     <span class="ml-2 text-5xl">{{ gameStateService.lives }}</span>
   </div>
-</div>
+}
+
+<!-- Score -->
+@if (gameStateService.lives > 0) {
+  <div
+    [@opacityAnimation]
+    class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">
+    <span>{{ scoreService.score }}</span>
+    @if (scoreService.comboMultiplier > 1) {
+      <span class="mr-1 animate-pulse overflow-hidden text-lg font-bold text-mat-yellow">
+        x {{ scoreService.comboMultiplier }}
+      </span>
+    }
+  </div>
+}
 
 <!-- Timer -->
-<span
-  *ngIf="gameStateService.timer"
-  class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
-  {{ gameStateService.timer }}
-</span>
-
-<!-- Cheats -->
-<span
-  *ngIf="cheatService.cheatsEnabled"
-  class="pointer-events-none absolute bottom-0 right-0 m-4 text-xs text-mat-cream">
-  Cheats on
-</span>
+@if (gameStateService.timer) {
+  <span
+    [@opacityAnimation]
+    class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
+    {{ gameStateService.timer }}
+  </span>
+}

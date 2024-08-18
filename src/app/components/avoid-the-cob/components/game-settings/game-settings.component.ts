@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +15,6 @@ import { GameSettingsService } from './game-settings-service';
   selector: 'app-game-settings',
   standalone: true,
   imports: [
-    CommonModule,
     GameButtonComponent,
     MatButtonModule,
     MatIconModule,

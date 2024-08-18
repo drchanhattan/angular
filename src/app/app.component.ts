@@ -23,6 +23,7 @@ import { FirebaseService } from './components/avoid-the-cob/services/firebase.se
 import { GameObjectService } from './components/avoid-the-cob/services/game-object-service';
 import { GameStateService } from './components/avoid-the-cob/services/game-state-service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
+import { ScoreService } from './components/avoid-the-cob/services/score-service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
@@ -64,6 +65,7 @@ import { GameComponent } from './pages/game/game.component';
     MainMenuService,
     PlayerNameService,
     PowerUpService,
+    ScoreService,
     SvgLoaderService,
     ToolbarService,
   ],

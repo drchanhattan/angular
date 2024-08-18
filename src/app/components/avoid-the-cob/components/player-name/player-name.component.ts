@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
@@ -10,7 +9,7 @@ import { PlayerNameService } from './player-name-service';
 @Component({
   selector: 'app-player-name',
   standalone: true,
-  imports: [CommonModule, GameButtonComponent, ReactiveFormsModule],
+  imports: [GameButtonComponent, ReactiveFormsModule],
   templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {
