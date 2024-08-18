@@ -18,14 +18,14 @@ export class CanvasService {
     this.context.scale(devicePixelRatio, devicePixelRatio);
   }
 
-  drawObject(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier = 1) {
+  drawObject(context: CanvasRenderingContext2D, object: GameObject, scale = 1) {
     context.fillStyle = object.color;
     context.beginPath();
 
     if (object.shape === GameObjectShape.Square) {
-      this.drawSquare(context, object, sizeMultiplier);
+      this.drawSquare(context, object, scale);
     } else if (object.shape === GameObjectShape.Circle) {
-      this.drawCircle(context, object, sizeMultiplier);
+      this.drawCircle(context, object, scale);
     }
 
     context.closePath();
@@ -49,10 +49,10 @@ export class CanvasService {
     }, duration);
   }
 
-  private drawSquare(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
+  private drawSquare(context: CanvasRenderingContext2D, object: GameObject, scale: number) {
     const drawX = object.x - object.size / 2;
     const drawY = object.y - object.size / 2;
-    const size = object.size * sizeMultiplier;
+    const size = object.size * scale;
     const cornerRadius = size / 3;
 
     context.beginPath();
@@ -69,7 +69,7 @@ export class CanvasService {
     context.fill();
   }
 
-  private drawCircle(context: CanvasRenderingContext2D, object: GameObject, sizeMultiplier: number) {
-    context.arc(object.x, object.y, object.size * sizeMultiplier, 0, 2 * Math.PI);
+  private drawCircle(context: CanvasRenderingContext2D, object: GameObject, scale: number) {
+    context.arc(object.x, object.y, object.size * scale, 0, 2 * Math.PI);
   }
 }

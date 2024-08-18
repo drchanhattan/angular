@@ -1,5 +1,5 @@
 import { scaledSize, scaledSpeed } from '../device-scale/device-scale';
-import { GameColors } from '../game-colors/game-colors';
+import { GameColor } from '../game-color/game-color';
 import { GameObjectSettings } from './game-object-setttings';
 import { GameObjectShape } from './game-object-shape';
 import { GameObjectType } from './game-object-type';
@@ -8,7 +8,7 @@ export class GameObjectDefaults {
   static cursor() {
     return {
       type: GameObjectType.Cursor,
-      color: GameColors.White,
+      color: GameColor.White,
       size: scaledSize(20),
       speed: 0,
       shape: GameObjectShape.Circle,
@@ -23,7 +23,7 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Pea, GameColors.Green, size, GameObjectShape.Circle, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.Pea, GameColor.Green, size, GameObjectShape.Circle, speed, 0),
     };
   }
 
@@ -34,7 +34,7 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.Corn, GameColor.Yellow, size, GameObjectShape.Square, speed, 0),
     };
   }
 
@@ -54,7 +54,7 @@ export class GameObjectDefaults {
 
     return {
       count: 1,
-      settings: new GameObjectSettings(GameObjectType.Heart, GameColors.Red, size, GameObjectShape.Circle, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.Heart, GameColor.Red, size, GameObjectShape.Circle, speed, 0),
     };
   }
 
@@ -65,7 +65,7 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, GameColors.Yellow, size, GameObjectShape.Square, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.Corn, GameColor.Yellow, size, GameObjectShape.Square, speed, 0),
     };
   }
 }

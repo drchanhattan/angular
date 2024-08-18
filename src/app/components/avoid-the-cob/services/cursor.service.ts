@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { GameColors } from '../models/game-colors/game-colors';
+import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { CanvasService } from './canvas-service';
 import { DeviceService } from './device-service';
+import { ParticleService } from './particle-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,21 +14,21 @@ export class CursorService {
   object = new GameObject(0, 0, GameObjectDefaults.cursor());
   invincible: boolean = false;
   collisionEnabled: boolean = true;
-  private history: { x: number; y: number }[] = [];
+  randomColor!: GameColor;
   private lastTouch: { x: number; y: number } | null = null;
 
   constructor(
     private canvasService: CanvasService,
     private deviceService: DeviceService,
+    private particleService: ParticleService,
   ) {
     this.deviceService.isTouchScreen ? this.handleTouch() : this.handleMouse();
-    this.storeHistory();
+    setInterval(() => this.randomizeColor(), 20);
   }
 
   draw() {
     if (this.invincible) {
-      this.trail();
-      this.pulse();
+      this.halo(this.randomColor, 1.25, false);
     }
 
     this.canvasService.drawObject(this.canvasService.context, this.object);
@@ -51,7 +52,6 @@ export class CursorService {
   }
 
   setInvincibility(enabled: boolean) {
-    this.resetHistory();
     this.invincible = enabled;
   }
 
@@ -68,20 +68,22 @@ export class CursorService {
     }
   }
 
-  pulse() {
-    if (Math.floor(performance.now() / 50) % 2 === 0) {
-      const canvas = this.canvasService;
-      const context = this.canvasService.context;
-      const settings = new GameObjectSettings(
-        this.object.type,
-        GameColors.Blue,
-        this.object.size * 1.5,
-        this.object.shape,
-        0,
-        0,
-      );
+  halo(color: GameColor, scale = 1.5, blink = true, pulse = false) {
+    const blinkActive = blink && Math.floor(Date.now() / 50) % 2 === 0;
+    const size = this.object.size * (blinkActive ? 0 : pulse ? this.pulseSize(scale) : scale);
+    const canvas = this.canvasService;
+    const context = this.canvasService.context;
+    const settings = new GameObjectSettings(this.object.type, color, size, this.object.shape, 0, 0);
 
-      canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
+    canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
+  }
+
+  particles(color: GameColor, count = 0.25, speed = 0.5) {
+    // Reduce particles by percentage
+    if (Math.random() < count) {
+      const blueCursor = Object.assign({}, this.object);
+      blueCursor.color = color;
+      this.particleService.create(blueCursor, 1, speed);
     }
   }
 
@@ -135,33 +137,19 @@ export class CursorService {
     document.addEventListener('touchcancel', touchEndHandler);
   }
 
-  private storeHistory() {
-    setInterval(() => {
-      this.history = this.history.slice(-40);
-    }, 150);
+  private randomizeColor(): void {
+    if (this.invincible) {
+      const colors = [GameColor.Red, GameColor.Green, GameColor.Blue, GameColor.Yellow];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      this.randomColor = colors[randomIndex] as GameColor;
+    }
   }
 
-  private resetHistory() {
-    this.history = [];
-  }
+  private pulseSize(maxSize: number): number {
+    const steps = 20;
+    const stepSize = (maxSize - 1) / (steps / 2);
+    const sizeIndex = Math.floor(Date.now() / 20) % steps;
 
-  private trail() {
-    const canvas = this.canvasService;
-    const context = this.canvasService.context;
-
-    this.history.forEach((old) => {
-      const settings = new GameObjectSettings(
-        this.object.type,
-        GameColors.Blue,
-        this.object.size,
-        this.object.shape,
-        0,
-        0,
-      );
-      context.globalAlpha = 0.25;
-      canvas.drawObject(context, new GameObject(old.x, old.y, settings));
-      context.globalAlpha = 1;
-    });
-    this.history.push({ x: this.object.x, y: this.object.y });
+    return sizeIndex < steps / 2 ? 1 + sizeIndex * stepSize : 1 + (steps - 1 - sizeIndex) * stepSize;
   }
 }

@@ -4,7 +4,7 @@ import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { scaledSize } from '../models/device-scale/device-scale';
-import { GameColors } from '../models/game-colors/game-colors';
+import { GameColor } from '../models/game-color/game-color';
 import { AudioFile, AudioService } from './audio-service';
 import { CheatService } from './cheat-service';
 import { CursorService } from './cursor.service';
@@ -40,7 +40,7 @@ export class GameStateService {
 
   start() {
     this.paused = false;
-    this.cursor.blink(GameColors.Gray, 4, 125);
+    this.cursor.blink(GameColor.Gray, 4, 125);
     this.cursor.disableCollision(1000);
 
     if (this.mobMode) {
@@ -106,10 +106,7 @@ export class GameStateService {
 
   private levelUpText() {
     const nextLevel = this.difficultyService.level + 1;
-    const hearts = this.gameObjectService.hearts.objects;
-    const collectedHearts = hearts.filter((heart) => heart.isDestroyed).length;
-    const subtext = collectedHearts ? `+` : '';
-    return this.textService.show(`Level ${nextLevel}`, subtext, 3500);
+    return this.textService.show(`Level ${nextLevel}`, '', 3500);
   }
 
   private lifeTimer() {

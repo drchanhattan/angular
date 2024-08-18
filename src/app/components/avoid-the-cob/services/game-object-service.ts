@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectBehaviour } from '../models/game-object/game-object-behaviour';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -98,11 +99,12 @@ export class GameObjectService {
     }
     if (attract) {
       this.magnetise(obj, 20, 8, false);
-      this.cursor.pulse();
+      this.cursor.halo(GameColor.Blue);
+      this.cursor.particles(GameColor.Blue);
     }
     if (repel) {
       this.magnetise(obj, 18, 5, true);
-      this.cursor.pulse();
+      this.cursor.halo(GameColor.Blue, 3, false, true);
     }
     if (blue) {
       obj.type = GameObjectType.Pea;
@@ -113,7 +115,8 @@ export class GameObjectService {
     if (slow) {
       obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
       obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
-      this.cursor.pulse();
+      this.cursor.halo(GameColor.Blue);
+      this.cursor.particles(GameColor.White, 0.01, 10);
     }
   }
 

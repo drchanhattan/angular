@@ -1,10 +1,2 @@
-<!-- Text -->
 <strong class="mb-4 text-center text-5xl md:text-9xl">{{ textService.text }}</strong>
-
-<!-- Subtext -->
-<div class="flex flex-nowrap items-center justify-center">
-  <span class="mr-2 text-center text-3xl md:text-5xl">{{ textService.subtext }}</span>
-  @if (textService.subtext === '+') {
-    <mat-icon class="self-start !overflow-visible text-3xl text-mat-red md:text-5xl">favorite</mat-icon>
-  }
-</div>
+<span class="mr-2 text-center text-3xl md:text-5xl">{{ textService.subtext }}</span>
