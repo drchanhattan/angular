@@ -44,7 +44,7 @@ export class GameObjectDefaults {
 
     return {
       count: 1,
-      settings: new GameObjectSettings(GameObjectType.PowerUp, '#0055FF', size, GameObjectShape.Circle, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.PowerUp, GameColor.Blue, size, GameObjectShape.Circle, speed, 0),
     };
   }
 

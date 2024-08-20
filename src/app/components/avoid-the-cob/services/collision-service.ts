@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
@@ -61,7 +62,7 @@ export class CollisionService {
 
       if (!this.cursor.invincible) {
         this.gameStateService.lives--;
-        this.canvasService.flash(500, '#7F1D1D', 'animate-jiggle');
+        this.canvasService.flash(500, GameColor.FlashRed, 'animate-jiggle');
         this.cursor.disableCollision(500);
         this.scoreService.resetCombo();
       }
@@ -75,7 +76,7 @@ export class CollisionService {
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
       this.audioService.play(AudioFile.PowerUp);
-      this.canvasService.flash(500, '#1A40AF', 'animate-pulse');
+      this.canvasService.flash(500, GameColor.FlashBlue, 'animate-pulse');
       this.particleService.create(powerUp, 100);
       this.powerUpService.randomPowerUp();
       powerUp.destroy();

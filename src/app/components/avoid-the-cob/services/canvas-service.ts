@@ -26,8 +26,6 @@ export class CanvasService {
       : this.drawCircle(object, scale, object.shape !== GameObjectShape.Donut);
 
     this.context.closePath();
-    this.context.fill();
-    this.context.globalAlpha = 1;
   }
 
   flash(duration: number, color: string, animationClass?: string) {
@@ -53,7 +51,6 @@ export class CanvasService {
     const size = object.size * scale;
     const cornerRadius = size / 3;
 
-    this.context.beginPath();
     this.context.moveTo(drawX + cornerRadius, drawY);
     this.context.lineTo(drawX + size - cornerRadius, drawY);
     this.context.quadraticCurveTo(drawX + size, drawY, drawX + size, drawY + cornerRadius);
@@ -63,18 +60,20 @@ export class CanvasService {
     this.context.quadraticCurveTo(drawX, drawY + size, drawX, drawY + size - cornerRadius);
     this.context.lineTo(drawX, drawY + cornerRadius);
     this.context.quadraticCurveTo(drawX, drawY, drawX + cornerRadius, drawY);
-    this.context.closePath();
     this.context.fill();
   }
 
   private drawCircle(object: GameObject, scale: number, filled: boolean) {
-    this.context.arc(object.x, object.y, object.size * scale, 0, 2 * Math.PI);
+    const radius = object.size * scale;
 
-    if (!filled) {
-      this.context.fillStyle = '#00000000';
-      this.context.strokeStyle = object.color;
-      this.context.lineWidth = 5;
+    if (filled) {
+      this.context.arc(object.x, object.y, radius, 0, 2 * Math.PI);
       this.context.fill();
+    } else {
+      const lineWidth = 5;
+      this.context.arc(object.x, object.y, radius - lineWidth / 2, 0, 2 * Math.PI);
+      this.context.strokeStyle = object.color;
+      this.context.lineWidth = lineWidth;
       this.context.stroke();
     }
   }

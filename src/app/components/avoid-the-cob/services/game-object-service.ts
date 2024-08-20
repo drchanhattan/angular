@@ -147,7 +147,7 @@ export class GameObjectService {
   private blueify(obj: GameObject) {
     if (obj.behaviourIncludes(GameObjectBehaviour.Blueify)) {
       obj.type = GameObjectType.Pea;
-      obj.color = '#0055FF';
+      obj.color = GameColor.Blue;
       obj.size = this.peas.objects[0].size;
       obj.shape = GameObjectShape.Circle;
     }

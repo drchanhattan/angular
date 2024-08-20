@@ -6,6 +6,7 @@ import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { scaledSize } from '../models/device-scale/device-scale';
 import { GameColor } from '../models/game-color/game-color';
 import { AudioFile, AudioService } from './audio-service';
+import { CanvasService } from './canvas-service';
 import { CheatService } from './cheat-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
@@ -26,6 +27,7 @@ export class GameStateService {
 
   constructor(
     private audioService: AudioService,
+    private canvasService: CanvasService,
     private cheatService: CheatService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
@@ -40,7 +42,7 @@ export class GameStateService {
 
   start() {
     this.paused = false;
-    this.cursor.blink(GameColor.Gray, 4, 125);
+    this.cursor.blink(GameColor.Transparent, 4, 125);
     this.cursor.disableCollision(1000);
 
     if (this.mobMode) {
@@ -97,6 +99,7 @@ export class GameStateService {
     this.paused = true;
     this.clearTimer();
     this.audioService.play(AudioFile.LevelUp);
+    this.canvasService.flash(300, GameColor.Cream);
     this.scoreService.levelIncrease();
     this.levelUpText().then(() => {
       this.difficultyService.increase(this.mobMode, this.cheatService.cheatsEnabled);
