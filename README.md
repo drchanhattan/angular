@@ -1,27 +1,38 @@
-# Website
+# Christopher Chan Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
+Welcome to the GitHub repository for my personal website. This project is a Single Page Application (SPA) built with Angular, showcasing my photography and a web game I created called Avoid the Cob.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Live Demo](#live-demo)
+- [Technologies](#technologies)
+- [Contact](#contact)
 
-## Code scaffolding
+## Introduction
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This project serves as both my portfolio and a playground to demonstrate my web development skills.
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Avoid the Cob**: A fun web game I created where the objective is to dodge obstacles and compete for highscores.
+- **Photography Gallery**: A collection of my favourite photographs from the all the places i've travelled.
 
-## Running unit tests
+## Live Demo
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Check out the live version of the website: [christopherchan.co.uk](https://christopherchan.co.uk)
 
-## Running end-to-end tests
+## Technologies
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Angular**
+- **TypeScript**
+- **HTML5**
+- **SCSS**
+- **Tailwind**
+- **Material**
+- **Firebase**
 
-## Further help
+## Contact
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For any inquiries or feedback, you can reach me via [LinkedIn](https://www.linkedin.com/in/christopher-chan-941503a1/)
