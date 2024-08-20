@@ -70,7 +70,7 @@ export class CanvasService {
       this.context.arc(object.x, object.y, radius, 0, 2 * Math.PI);
       this.context.fill();
     } else {
-      const lineWidth = 5;
+      const lineWidth = radius < 10 ? 2 : 5;
       this.context.arc(object.x, object.y, radius - lineWidth / 2, 0, 2 * Math.PI);
       this.context.strokeStyle = object.color;
       this.context.lineWidth = lineWidth;

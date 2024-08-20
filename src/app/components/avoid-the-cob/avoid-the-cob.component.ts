@@ -68,7 +68,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize') onResize() {
     this.canvasService.init();
-    if (!this.deviceService.isTouchScreen) {
+    if (!this.deviceService.isTouch) {
       this.gameStateService.browserResized = true;
     }
   }
@@ -104,6 +104,6 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
   private async displayMobileNotice() {
     const text = 'Avoid the Cob is best experienced on desktop';
     const subtext = 'Mobile Device Detected';
-    return this.deviceService.isTouchScreen ? this.textService.show(subtext, text, 4000) : null;
+    return this.deviceService.isTouch ? this.textService.show(subtext, text, 4000) : null;
   }
 }

@@ -16,7 +16,7 @@ export class CursorService {
   collisionEnabled: boolean = true;
   donut = new FormControl(false);
   invincible: boolean = false;
-  object = new GameObject(0, 0, GameObjectDefaults.cursor());
+  object = new GameObject(window.innerWidth / 2, window.innerHeight / 4, GameObjectDefaults.cursor());
 
   #lastTouch: { x: number; y: number } | null = null;
   #randomColor!: GameColor;
@@ -26,8 +26,7 @@ export class CursorService {
     private deviceService: DeviceService,
     private particleService: ParticleService,
   ) {
-    this.deviceService.isTouchScreen ? this.handleTouch() : this.handleMouse();
-
+    this.deviceService.isTouch ? this.handleTouch() : this.handleMouse();
     this.setShape();
     this.randomizeColor();
   }
