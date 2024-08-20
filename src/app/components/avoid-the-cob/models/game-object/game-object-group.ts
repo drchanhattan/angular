@@ -16,15 +16,7 @@ export class GameObjectGroup {
     for (let i = 0; i < this.count; i++) {
       const xSpawn = Math.random() * window.innerWidth;
       const ySpawn = Math.random() * window.innerHeight;
-      const settings = new GameObjectSettings(
-        this.settings.type,
-        this.settings.color,
-        this.settings.size,
-        this.settings.shape,
-        this.settings.speed,
-        this.settings.gravity,
-      );
-      this.objects[i] = new GameObject(xSpawn, ySpawn, settings);
+      this.objects[i] = new GameObject(xSpawn, ySpawn, this.settings);
     }
   }
 

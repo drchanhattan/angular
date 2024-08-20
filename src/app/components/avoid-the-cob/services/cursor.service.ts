@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
+import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { CanvasService } from './canvas-service';
 import { DeviceService } from './device-service';
 import { ParticleService } from './particle-service';
@@ -11,11 +13,13 @@ import { ParticleService } from './particle-service';
   providedIn: 'root',
 })
 export class CursorService {
-  object = new GameObject(0, 0, GameObjectDefaults.cursor());
-  invincible: boolean = false;
   collisionEnabled: boolean = true;
-  randomColor!: GameColor;
-  private lastTouch: { x: number; y: number } | null = null;
+  donut = new FormControl(false);
+  invincible: boolean = false;
+  object = new GameObject(0, 0, GameObjectDefaults.cursor());
+
+  #lastTouch: { x: number; y: number } | null = null;
+  #randomColor!: GameColor;
 
   constructor(
     private canvasService: CanvasService,
@@ -23,12 +27,14 @@ export class CursorService {
     private particleService: ParticleService,
   ) {
     this.deviceService.isTouchScreen ? this.handleTouch() : this.handleMouse();
-    setInterval(() => this.randomizeColor(), 20);
+
+    this.setShape();
+    this.randomizeColor();
   }
 
   draw() {
     if (this.invincible) {
-      this.halo(this.randomColor, 1.25, false);
+      this.halo(this.#randomColor, 1.25, false);
     }
 
     this.canvasService.drawObject(this.canvasService.context, this.object);
@@ -68,22 +74,37 @@ export class CursorService {
     }
   }
 
-  halo(color: GameColor, scale = 1.5, blink = true, pulse = false) {
+  halo(color: GameColor, scale = 1.5, blink = true) {
     const blinkActive = blink && Math.floor(Date.now() / 50) % 2 === 0;
-    const size = this.object.size * (blinkActive ? 0 : pulse ? this.pulseSize(scale) : scale);
+    const size = this.object.size * (blinkActive ? 0 : scale);
     const canvas = this.canvasService;
     const context = this.canvasService.context;
-    const settings = new GameObjectSettings(this.object.type, color, size, this.object.shape, 0, 0);
+    const settings = new GameObjectSettings(this.object.type, color, size, GameObjectShape.Circle, 0, 0);
 
     canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
   }
 
-  particles(color: GameColor, count = 0.25, speed = 0.5) {
-    // Reduce particles by percentage
-    if (Math.random() < count) {
-      const blueCursor = Object.assign({}, this.object);
-      blueCursor.color = color;
-      this.particleService.create(blueCursor, 1, speed);
+  pulse(color: GameColor, scale: number) {
+    const canvas = this.canvasService;
+    const context = this.canvasService.context;
+    const settings = new GameObjectSettings(
+      this.object.type,
+      color,
+      this.object.size * this.pulseSize(scale),
+      GameObjectShape.Donut,
+      0,
+      0,
+    );
+
+    canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
+  }
+
+  particles(color: GameColor, speed: number, spawnChance: number) {
+    if (Math.random() < spawnChance) {
+      const cursor = Object.assign({}, this.object);
+      cursor.color = color;
+      cursor.shape = GameObjectShape.Circle;
+      this.particleService.create(cursor, 1, speed);
     }
   }
 
@@ -111,15 +132,15 @@ export class CursorService {
         const touchX = touch.clientX;
         const touchY = touch.clientY;
 
-        if (this.lastTouch) {
-          const deltaX = touchX - this.lastTouch.x;
-          const deltaY = touchY - this.lastTouch.y;
+        if (this.#lastTouch) {
+          const deltaX = touchX - this.#lastTouch.x;
+          const deltaY = touchY - this.#lastTouch.y;
 
           this.object.x = Math.min(Math.max(0, this.object.x + deltaX), window.innerWidth);
           this.object.y = Math.min(Math.max(0, this.object.y + deltaY), window.innerHeight);
         }
 
-        this.lastTouch = { x: touchX, y: touchY };
+        this.#lastTouch = { x: touchX, y: touchY };
 
         if (event.target === this.canvasService.context?.canvas) {
           event.preventDefault();
@@ -128,7 +149,7 @@ export class CursorService {
     };
 
     const touchEndHandler = () => {
-      this.lastTouch = null;
+      this.#lastTouch = null;
     };
 
     document.addEventListener('touchmove', touchHandler, { passive: false });
@@ -137,18 +158,34 @@ export class CursorService {
     document.addEventListener('touchcancel', touchEndHandler);
   }
 
-  private randomizeColor(): void {
-    if (this.invincible) {
-      const colors = [GameColor.Red, GameColor.Green, GameColor.Blue, GameColor.Yellow];
-      const randomIndex = Math.floor(Math.random() * colors.length);
-      this.randomColor = colors[randomIndex] as GameColor;
+  private setShape() {
+    const donut = localStorage.getItem('donut');
+
+    if (donut) {
+      this.object.shape = JSON.parse(donut) ? GameObjectShape.Donut : GameObjectShape.Circle;
+      this.donut.setValue(JSON.parse(donut));
     }
+
+    this.donut.valueChanges.pipe().subscribe((change) => {
+      this.object.shape = change ? GameObjectShape.Donut : GameObjectShape.Circle;
+      localStorage.setItem('donut', JSON.stringify(change));
+    });
+  }
+
+  private randomizeColor(): void {
+    setInterval(() => {
+      if (this.invincible) {
+        const colors = [GameColor.Red, GameColor.Green, GameColor.Blue, GameColor.Yellow];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        this.#randomColor = colors[randomIndex] as GameColor;
+      }
+    }, 20);
   }
 
   private pulseSize(maxSize: number): number {
-    const steps = 20;
+    const steps = 60;
     const stepSize = (maxSize - 1) / (steps / 2);
-    const sizeIndex = Math.floor(Date.now() / 20) % steps;
+    const sizeIndex = Math.floor(Date.now() / 5) % steps;
 
     return sizeIndex < steps / 2 ? 1 + sizeIndex * stepSize : 1 + (steps - 1 - sizeIndex) * stepSize;
   }

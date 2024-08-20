@@ -1,4 +1,5 @@
 export enum GameObjectShape {
-  Square = 1,
-  Circle = 2,
+  Square = 'square',
+  Circle = 'circle',
+  Donut = 'donut',
 }

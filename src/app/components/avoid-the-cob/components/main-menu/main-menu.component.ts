@@ -15,7 +15,7 @@ import { LeaderboardService } from '../leaderboard/leaderboard-service';
 })
 export class MainMenuComponent {
   @HostBinding('class') hostClasses =
-    'absolute flex size-full flex-col items-center justify-center [&>button>mat-icon]:!text-mat-yellow';
+    'absolute flex size-full flex-col lg:flex-row items-center justify-center [&>button>mat-icon]:!text-mat-yellow';
   @Input() corn?: SafeUrl | null;
   @Input() title?: SafeUrl | null;
 

@@ -33,7 +33,7 @@ export class PowerUpService {
     const powerUpIndex = (level / frequency - 1) % this.powerUps.length;
 
     this.powerUps[powerUpIndex]();
-    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Blue);
+    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Blueify);
   }
 
   powerInvincible() {
@@ -55,7 +55,7 @@ export class PowerUpService {
   }
 
   powerBlueCorn() {
-    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Blue);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Blueify);
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Attract);
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
   }

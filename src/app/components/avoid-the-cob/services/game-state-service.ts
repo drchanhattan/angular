@@ -66,7 +66,7 @@ export class GameStateService {
       this.firebaseService.save(this.scoreService.score);
     }
 
-    const subtext = this.browserResized ? 'Browser window resize detected' : `Final score: ${this.scoreService.score}`;
+    const subtext = this.browserResized ? 'Browser window resize detected' : `Score: ${this.scoreService.score}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
       this.scoreService.resetScore();
       this.toolbarService.show();

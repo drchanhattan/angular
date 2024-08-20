@@ -31,7 +31,13 @@
   </div>
 
   <!-- Other -->
-  <div class="mb-8 flex items-center">
+  <div class="mb-8 flex items-start">
+    <!-- Donut -->
+    <div class="mx-2 mt-2 flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="cursorService.donut"></mat-slide-toggle>
+      <span class="text-center">Donut</span>
+    </div>
+
     <!-- Particles -->
     <div class="mr-2 flex w-full flex-col items-center">
       <mat-slider class="yellow-slider !w-40" min="0" max="3000" step="100">

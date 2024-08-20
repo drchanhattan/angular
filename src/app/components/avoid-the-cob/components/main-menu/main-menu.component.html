@@ -1,13 +1,13 @@
 <!-- Corn SVG -->
-<div class="relative flex flex-1 overflow-hidden">
+<div class="relative flex flex-1 overflow-hidden lg:flex-none">
   <img [src]="title" class="absolute inset-0 m-auto max-h-[80dvh]" />
   <img [src]="corn" class="relative m-auto max-h-[80dvh] animate-heartbeat" id="cornSvg" />
 </div>
 
-<div class="flex items-end justify-end">
-  <!-- Settings -->
+<div class="md flex items-end justify-end lg:mr-20 lg:flex-col lg:items-center">
+  <!-- Settings icon -->
   <app-icon-button
-    class="m-8"
+    class="m-8 lg:hidden"
     (click)="gameSettingsService.show()"
     [matIcon]="'settings'"
     [color]="'text-mat-cream'"
@@ -17,10 +17,20 @@
 
   <!-- Play -->
   <app-game-button class="mx-4" (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
+  <!-- Settings -->
+  <app-game-button
+    class="mx-4 hidden lg:flex"
+    (click)="gameSettingsService.show()"
+    [text]="'SETTINGS'"></app-game-button>
+  <!-- leaderboard -->
+  <app-game-button
+    class="mx-4 hidden lg:flex"
+    (click)="leaderboardService.show()"
+    [text]="'LEADERBOARD'"></app-game-button>
 
-  <!-- Leaderboard -->
+  <!-- Leaderboard icon -->
   <app-icon-button
-    class="m-8"
+    class="m-8 lg:hidden"
     (click)="leaderboardService.show()"
     [matIcon]="'leaderboard'"
     [color]="'text-mat-cream'"

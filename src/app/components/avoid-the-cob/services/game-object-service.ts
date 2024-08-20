@@ -89,34 +89,29 @@ export class GameObjectService {
   }
 
   private customObjectBehaviour(obj: GameObject, mobMode: boolean) {
-    const attract = obj.behaviourIncludes(GameObjectBehaviour.Attract);
-    const repel = obj.behaviourIncludes(GameObjectBehaviour.Repel);
-    const blue = obj.behaviourIncludes(GameObjectBehaviour.Blue);
-    const slow = obj.behaviourIncludes(GameObjectBehaviour.Slow);
+    this.attract(obj);
+    this.repel(obj);
+    this.blueify(obj);
+    this.freeze(obj);
 
     if (mobMode) {
       this.magnetise(obj, 80, this.mobs.settings.speed, false, true);
     }
-    if (attract) {
+  }
+
+  private attract(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.Attract)) {
       this.magnetise(obj, 20, 8, false);
       this.cursor.halo(GameColor.Blue);
-      this.cursor.particles(GameColor.Blue);
+      this.cursor.particles(GameColor.Blue, 0.5, 0.35);
     }
-    if (repel) {
-      this.magnetise(obj, 18, 5, true);
-      this.cursor.halo(GameColor.Blue, 3, false, true);
-    }
-    if (blue) {
-      obj.type = GameObjectType.Pea;
-      obj.color = '#0055FF';
-      obj.size = this.peas.objects[0].size;
-      obj.shape = GameObjectShape.Circle;
-    }
-    if (slow) {
-      obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
-      obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
+  }
+
+  private repel(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.Repel)) {
+      this.magnetise(obj, 12, 5, true);
       this.cursor.halo(GameColor.Blue);
-      this.cursor.particles(GameColor.White, 0.01, 10);
+      this.cursor.pulse(GameColor.Blue, 5);
     }
   }
 
@@ -146,6 +141,24 @@ export class GameObjectService {
       if (!object.detectWallCollisionOnAxis('y', window.innerHeight) || !collisionEnabled) {
         repel ? object.applyForce('y', -dy) : object.applyForce('y', dy);
       }
+    }
+  }
+
+  private blueify(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.Blueify)) {
+      obj.type = GameObjectType.Pea;
+      obj.color = '#0055FF';
+      obj.size = this.peas.objects[0].size;
+      obj.shape = GameObjectShape.Circle;
+    }
+  }
+
+  private freeze(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.Slow)) {
+      obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
+      obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
+      this.cursor.halo(GameColor.Blue);
+      this.cursor.particles(GameColor.White, 10, 0.01);
     }
   }
 

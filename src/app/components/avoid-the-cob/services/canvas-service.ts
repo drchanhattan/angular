@@ -24,8 +24,8 @@ export class CanvasService {
 
     if (object.shape === GameObjectShape.Square) {
       this.drawSquare(context, object, scale);
-    } else if (object.shape === GameObjectShape.Circle) {
-      this.drawCircle(context, object, scale);
+    } else {
+      this.drawCircle(context, object, scale, object.shape !== GameObjectShape.Donut);
     }
 
     context.closePath();
@@ -69,7 +69,15 @@ export class CanvasService {
     context.fill();
   }
 
-  private drawCircle(context: CanvasRenderingContext2D, object: GameObject, scale: number) {
+  private drawCircle(context: CanvasRenderingContext2D, object: GameObject, scale: number, filled: boolean) {
     context.arc(object.x, object.y, object.size * scale, 0, 2 * Math.PI);
+
+    if (!filled) {
+      context.fillStyle = '#00000000';
+      context.strokeStyle = object.color;
+      context.lineWidth = 5;
+      context.fill();
+      context.stroke();
+    }
   }
 }

@@ -6,6 +6,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { AudioService } from '../../services/audio-service';
 import { CheatService } from '../../services/cheat-service';
+import { CursorService } from '../../services/cursor.service';
 import { ParticleService } from '../../services/particle-service';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { PlayerNameService } from '../player-name/player-name-service';
@@ -30,6 +31,7 @@ export class GameSettingsComponent {
   constructor(
     public audioService: AudioService,
     public cheatService: CheatService,
+    public cursorService: CursorService,
     public gameSettingsService: GameSettingsService,
     public particleService: ParticleService,
     public nameService: PlayerNameService,
