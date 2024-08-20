@@ -37,7 +37,7 @@ export class GameObjectService {
   processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
-        this.canvasService.drawObject(this.canvasService.context, obj);
+        this.canvasService.drawObject(obj);
 
         if (paused) {
           this.ejectObject(obj, mobMode);

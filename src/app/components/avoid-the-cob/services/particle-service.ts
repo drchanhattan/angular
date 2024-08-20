@@ -14,10 +14,10 @@ export class ParticleService {
   maxCount = new FormControl<number>(this.default);
 
   constructor(private canvasService: CanvasService) {
-    const maxP = localStorage.getItem('particles');
+    const max = localStorage.getItem('particles');
 
-    if (maxP) {
-      this.maxCount.setValue(JSON.parse(maxP));
+    if (max) {
+      this.maxCount.setValue(JSON.parse(max));
     }
 
     this.maxCount.valueChanges.subscribe((change) => {
@@ -29,13 +29,11 @@ export class ParticleService {
     return this.maxCount.value !== this.default;
   }
 
-  draw(context: CanvasRenderingContext2D) {
+  draw() {
     this.particles.forEach((p) => {
-      context.globalAlpha = 0.8;
-      this.canvasService.drawObject(context, p, 0.25);
+      this.canvasService.drawObject(p, 0.25, 0.8);
       p.deltaY = p.deltaY + p.gravity;
       p.move();
-      context.globalAlpha = 1;
     });
 
     this.decay();

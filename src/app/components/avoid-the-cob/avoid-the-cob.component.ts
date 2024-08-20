@@ -67,7 +67,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
   ) {}
 
   @HostListener('window:resize') onResize() {
-    this.canvasService.setup();
+    this.canvasService.init();
     if (!this.deviceService.isTouchScreen) {
       this.gameStateService.browserResized = true;
     }
@@ -79,7 +79,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.displayMobileNotice().then(() => {
-      this.canvasService.setup();
+      this.canvasService.init();
       this.mainMenuService.show();
       this.animate();
     });
@@ -91,10 +91,9 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
 
   animate() {
     const context = this.canvasService.context;
-    const canvas = this.canvasService.canvasEle;
 
     const animateFrame = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.clearRect(0, 0, context.canvas.width, context.canvas.height);
       this.avoidTheCob.draw();
       requestAnimationFrame(animateFrame);
     };

@@ -4,7 +4,6 @@ import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { ModeSelectorService } from '../components/mode-selector/mode-selector-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
-import { CanvasService } from './canvas-service';
 import { CollisionService } from './collision-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
@@ -18,7 +17,6 @@ import { PowerUpService } from './power-up-service';
 })
 export class AvoidTheCobService {
   constructor(
-    private canvasService: CanvasService,
     private collisionService: CollisionService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
@@ -37,7 +35,7 @@ export class AvoidTheCobService {
     const { mobMode, paused } = this.gameStateService;
 
     this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode);
-    this.particleService.draw(this.canvasService.context);
+    this.particleService.draw();
 
     if (this.difficultyService.level > 0) {
       this.cursor.draw();

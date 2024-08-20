@@ -37,15 +37,15 @@ export class CursorService {
       this.halo(this.#randomColor, 1.25, false);
     }
 
-    this.canvasService.drawObject(this.canvasService.context, this.object);
+    this.canvasService.drawObject(this.object);
   }
 
   show() {
-    this.canvasService.canvasEle.classList.remove('cursor-none');
+    this.canvasService.context.canvas.classList.remove('cursor-none');
   }
 
   hide() {
-    this.canvasService.canvasEle.classList.add('cursor-none');
+    this.canvasService.context.canvas.classList.add('cursor-none');
   }
 
   reset() {
@@ -77,16 +77,12 @@ export class CursorService {
   halo(color: GameColor, scale = 1.5, blink = true) {
     const blinkActive = blink && Math.floor(Date.now() / 50) % 2 === 0;
     const size = this.object.size * (blinkActive ? 0 : scale);
-    const canvas = this.canvasService;
-    const context = this.canvasService.context;
     const settings = new GameObjectSettings(this.object.type, color, size, GameObjectShape.Circle, 0, 0);
 
-    canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
+    this.canvasService.drawObject(new GameObject(this.object.x, this.object.y, settings));
   }
 
   pulse(color: GameColor, scale: number) {
-    const canvas = this.canvasService;
-    const context = this.canvasService.context;
     const settings = new GameObjectSettings(
       this.object.type,
       color,
@@ -96,7 +92,7 @@ export class CursorService {
       0,
     );
 
-    canvas.drawObject(context, new GameObject(this.object.x, this.object.y, settings));
+    this.canvasService.drawObject(new GameObject(this.object.x, this.object.y, settings));
   }
 
   particles(color: GameColor, speed: number, spawnChance: number) {

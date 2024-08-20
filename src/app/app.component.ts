@@ -22,6 +22,7 @@ import { DifficultyService } from './components/avoid-the-cob/services/difficult
 import { FirebaseService } from './components/avoid-the-cob/services/firebase.service';
 import { GameObjectService } from './components/avoid-the-cob/services/game-object-service';
 import { GameStateService } from './components/avoid-the-cob/services/game-state-service';
+import { ParticleService } from './components/avoid-the-cob/services/particle-service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
 import { ScoreService } from './components/avoid-the-cob/services/score-service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
@@ -63,6 +64,7 @@ import { GameComponent } from './pages/game/game.component';
     GameTextService,
     LeaderboardService,
     MainMenuService,
+    ParticleService,
     PlayerNameService,
     PowerUpService,
     ScoreService,
