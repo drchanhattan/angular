@@ -42,7 +42,6 @@ export class ParticleService {
   create(object: GameObject, count = 25, speed = 1) {
     const maxCount = this.maxCount.value;
     if (maxCount) {
-      const currentTime = new Date();
       for (let i = 0; i < count; i++) {
         const size = object.size * 0.6;
         const settings = new GameObjectSettings(
@@ -54,7 +53,7 @@ export class ParticleService {
           object.gravity || 0.001,
         );
         const particle = new GameObject(object.x, object.y, settings);
-        particle.timestamp = new Date(currentTime.getTime() + i * 50);
+        particle.expiration = this.expirationTime(1000, 3000);
         this.particles.push(particle);
       }
 
@@ -81,17 +80,17 @@ export class ParticleService {
     }, 500);
   }
 
+  private expirationTime(min: number, max: number): number {
+    const randomMilliseconds = Math.floor(Math.random() * (max - min + 1)) + min;
+    return Date.now() + randomMilliseconds;
+  }
+
   private decay() {
-    const currentTime = new Date().getTime();
-
+    const currentTime = Date.now();
     this.particles = this.particles.filter((p) => {
-      const isOnScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
-      const randomChance = Math.random() > 0.99;
-      const age = currentTime - p.timestamp.getTime();
-      const fresh = age < 1000;
-      const expired = age > 3000;
-
-      return isOnScreen && (fresh || !randomChance) && !expired;
+      const onScreen = p.x >= 0 && p.x <= window.innerWidth && p.y >= 0 && p.y <= window.innerHeight;
+      const expired = currentTime > p.expiration!;
+      return onScreen && !expired;
     });
   }
 }

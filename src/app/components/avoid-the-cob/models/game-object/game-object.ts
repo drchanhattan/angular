@@ -14,7 +14,7 @@ export class GameObject {
   deltaY: number;
   gravity: number;
   behaviours: GameObjectBehaviour[];
-  timestamp: Date;
+  expiration?: number;
 
   constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
@@ -27,7 +27,6 @@ export class GameObject {
     this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.gravity = settings.gravity ?? 0;
     this.behaviours = [GameObjectBehaviour.Default];
-    this.timestamp = new Date();
   }
 
   get isPea() {
