@@ -8,9 +8,9 @@ import { PowerUpService } from './power-up-service';
 export class CheatService {
   cheats = new FormGroup({
     invincibility: new FormControl<boolean>(false),
-    magnet: new FormControl<boolean>(false),
-    repel: new FormControl<boolean>(false),
-    freeze: new FormControl<boolean>(false),
+    magnetise: new FormControl<boolean>(false),
+    forceField: new FormControl<boolean>(false),
+    timeLock: new FormControl<boolean>(false),
   });
 
   constructor(private powerUpService: PowerUpService) {}
@@ -20,21 +20,21 @@ export class CheatService {
   }
 
   execute() {
-    const { invincibility, magnet, repel, freeze } = this.cheats.value;
+    const { invincibility, magnetise, forceField, timeLock } = this.cheats.value;
 
     if (!!invincibility) {
       this.powerUpService.powerInvincible();
     }
-    if (!!magnet) {
+    if (!!magnetise) {
       setTimeout(() => {
-        this.powerUpService.powerAttract();
+        this.powerUpService.powerMagnetise();
       }, 1000);
     }
-    if (!!repel) {
-      this.powerUpService.powerRepel();
+    if (!!forceField) {
+      this.powerUpService.powerForceField();
     }
-    if (!!freeze) {
-      this.powerUpService.powerSlowCorn();
+    if (!!timeLock) {
+      this.powerUpService.powerTimeLock();
     }
   }
 }

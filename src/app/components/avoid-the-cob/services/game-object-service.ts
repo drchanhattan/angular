@@ -89,37 +89,37 @@ export class GameObjectService {
   }
 
   private customObjectBehaviour(obj: GameObject, mobMode: boolean) {
-    this.attract(obj);
-    this.repel(obj);
+    this.magnetise(obj);
+    this.forceField(obj);
     this.blueify(obj);
-    this.freeze(obj);
+    this.timeLock(obj);
 
     if (mobMode) {
-      this.magnetise(obj, 80, this.mobs.settings.speed, false, true);
+      this.applyMagnetism(obj, 80, this.mobs.settings.speed, true, true);
     }
   }
 
-  private attract(obj: GameObject) {
-    if (obj.behaviourIncludes(GameObjectBehaviour.Attract)) {
-      this.magnetise(obj, 20, 8, false);
+  private magnetise(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.Magnetise)) {
+      this.applyMagnetism(obj, 20, 8, true);
       this.cursor.halo(GameColor.Blue);
       this.cursor.particles(GameColor.Blue, 0.5, 0.35);
     }
   }
 
-  private repel(obj: GameObject) {
-    if (obj.behaviourIncludes(GameObjectBehaviour.Repel)) {
-      this.magnetise(obj, 12, 5, true);
+  private forceField(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.ForceField)) {
+      this.applyMagnetism(obj, 12, 5, false);
       this.cursor.halo(GameColor.Blue);
       this.cursor.pulse(GameColor.Blue, 5);
     }
   }
 
-  private magnetise(
+  private applyMagnetism(
     object: GameObject,
     radiusMultiplier: number,
     speed: number,
-    repel: boolean,
+    attract: boolean,
     collisionEnabled = true,
   ) {
     const obj = Object.assign({}, this.cursor.object);
@@ -135,11 +135,11 @@ export class GameObjectService {
       dy *= speed;
 
       if (!object.detectWallCollisionOnAxis('x', window.innerWidth) || !collisionEnabled) {
-        repel ? object.applyForce('x', -dx) : object.applyForce('x', dx);
+        attract ? object.applyForce('x', dx) : object.applyForce('x', -dx);
       }
 
       if (!object.detectWallCollisionOnAxis('y', window.innerHeight) || !collisionEnabled) {
-        repel ? object.applyForce('y', -dy) : object.applyForce('y', dy);
+        attract ? object.applyForce('y', dy) : object.applyForce('y', -dy);
       }
     }
   }
@@ -153,8 +153,8 @@ export class GameObjectService {
     }
   }
 
-  private freeze(obj: GameObject) {
-    if (obj.behaviourIncludes(GameObjectBehaviour.Slow)) {
+  private timeLock(obj: GameObject) {
+    if (obj.behaviourIncludes(GameObjectBehaviour.TimeLock)) {
       obj.deltaX = 1 * (Math.random() < 0.5 ? -1 : 1);
       obj.deltaY = 1 * (Math.random() < 0.5 ? -1 : 1);
       this.cursor.halo(GameColor.Blue);
@@ -167,7 +167,7 @@ export class GameObjectService {
     if (mobMode) {
       obj.applyForce('y', -5);
     } else {
-      this.magnetise(obj, 500, 7, true, false);
+      this.applyMagnetism(obj, 500, 7, false, false);
       this.particleService.create(obj, 1, 0.2);
     }
   }

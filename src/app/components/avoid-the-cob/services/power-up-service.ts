@@ -10,9 +10,9 @@ import { GameObjectService } from './game-object-service';
 export class PowerUpService {
   powerUps = [
     this.powerInvincible.bind(this),
-    this.powerAttract.bind(this),
-    this.powerRepel.bind(this),
-    this.powerSlowCorn.bind(this),
+    this.powerMagnetise.bind(this),
+    this.powerForceField.bind(this),
+    this.powerTimeLock.bind(this),
     this.powerBlueCorn.bind(this),
   ];
 
@@ -40,23 +40,23 @@ export class PowerUpService {
     this.cursor.setInvincibility(true);
   }
 
-  powerAttract() {
-    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
+  powerMagnetise() {
+    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Magnetise);
   }
 
-  powerRepel() {
-    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Repel);
-    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.Repel);
+  powerForceField() {
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.ForceField);
+    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.ForceField);
   }
 
-  powerSlowCorn() {
-    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Slow);
-    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.Slow);
+  powerTimeLock() {
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.TimeLock);
+    this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.TimeLock);
   }
 
   powerBlueCorn() {
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Blueify);
-    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Attract);
-    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Attract);
+    this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Magnetise);
+    this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Magnetise);
   }
 }
