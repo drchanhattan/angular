@@ -7,30 +7,27 @@
 <div class="md flex items-end justify-end lg:mr-20 lg:flex-col lg:items-center">
   <!-- Settings icon -->
   <app-icon-button
-    class="m-8 lg:hidden"
+    class="mx-10 my-14 lg:hidden"
     (click)="gameSettingsService.show()"
     [matIcon]="'settings'"
     [color]="'text-mat-cream'"
-    [tooltip]="'Settings'"
+    [tooltip]="'Options'"
     [scale]="'scale-175'"
     [hoverScale]="'hover:!scale-200'"></app-icon-button>
 
   <!-- Play -->
-  <app-game-button class="mx-4" (click)="avoidTheCob.play()" [text]="'PLAY'"></app-game-button>
-  <!-- Settings -->
+  <app-game-button class="my-12 lg:my-4" (click)="avoidTheCob.play()" [text]="'Play'"></app-game-button>
+  <!-- Options -->
+  <app-game-button class="m-4 hidden lg:flex" (click)="gameSettingsService.show()" [text]="'Options'"></app-game-button>
+  <!-- Leaderboard -->
   <app-game-button
-    class="mx-4 hidden lg:flex"
-    (click)="gameSettingsService.show()"
-    [text]="'SETTINGS'"></app-game-button>
-  <!-- leaderboard -->
-  <app-game-button
-    class="mx-4 hidden lg:flex"
+    class="m-4 hidden lg:flex"
     (click)="leaderboardService.show()"
-    [text]="'LEADERBOARD'"></app-game-button>
+    [text]="'Leaderboard'"></app-game-button>
 
   <!-- Leaderboard icon -->
   <app-icon-button
-    class="m-8 lg:hidden"
+    class="mx-10 my-14 lg:hidden"
     (click)="leaderboardService.show()"
     [matIcon]="'leaderboard'"
     [color]="'text-mat-cream'"

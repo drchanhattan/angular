@@ -9,6 +9,5 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class GameButtonComponent {
   @Input() text: string = '';
-  @Input() disabled: boolean = false;
   @Input() small: boolean = false;
 }

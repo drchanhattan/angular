@@ -1,55 +1,57 @@
-<div class="mt-20 flex w-80 flex-1 flex-col items-center justify-center font-inter text-mat-cream">
+<div class="mt-10 flex w-80 flex-1 flex-col items-center justify-center font-inter text-mat-cream">
+  <!-- Audio -->
+  <div class="my-4 flex items-center">
+    <mat-slide-toggle class="yellow-slide-toggle mr-2" [formControl]="audioService.enabled"></mat-slide-toggle>
+    <span>Audio</span>
+  </div>
+
   <!-- Cheats -->
-  <span class="mb-4 text-xs text-mat-yellow">Toggling cheats will disable highscores</span>
   <div
-    class="mb-4 flex w-full items-center justify-evenly rounded-xl border-2 border-mat-cream py-6"
+    class="mb-4 flex w-full flex-col items-center rounded-xl border-2 border-mat-cream py-6"
     [formGroup]="cheatService.cheats">
-    <div class="flex flex-col space-y-8">
-      <!-- Invincibility -->
-      <div class="flex flex-col items-center">
-        <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="invincibility"></mat-slide-toggle>
-        <span>Invincibility</span>
+    <span class="mb-6 text-xs text-mat-yellow">Enabling cheats will disable highscores</span>
+    <div class="flex w-full items-center justify-evenly">
+      <div class="flex flex-col space-y-8">
+        <!-- Invincibility -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="invincibility"></mat-slide-toggle>
+          <span>Invincibility</span>
+        </div>
+        <!-- Time Lock -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="timeLock"></mat-slide-toggle>
+          <span>Time Lock</span>
+        </div>
       </div>
-      <!-- Time Lock -->
-      <div class="flex flex-col items-center">
-        <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="timeLock"></mat-slide-toggle>
-        <span>Time Lock</span>
-      </div>
-    </div>
-    <div class="flex flex-col space-y-8">
-      <!-- Force Field -->
-      <div class="flex flex-col items-center">
-        <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="forceField"></mat-slide-toggle>
-        <span class="text-nowrap">Force Field</span>
-      </div>
-      <!-- Magnetise -->
-      <div class="flex flex-col items-center">
-        <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="magnetise"></mat-slide-toggle>
-        <span>Magnetise</span>
+      <div class="flex flex-col space-y-8">
+        <!-- Force Field -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="forceField"></mat-slide-toggle>
+          <span class="text-nowrap">Force Field</span>
+        </div>
+        <!-- Magnetise -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="magnetise"></mat-slide-toggle>
+          <span>Magnetise</span>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Other -->
   <div class="mb-8 flex items-start">
-    <!-- Donut -->
-    <div class="mx-2 mt-2 flex flex-col items-center">
-      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="cursorService.donut"></mat-slide-toggle>
-      <span class="text-center">Donut</span>
-    </div>
-
     <!-- Particles -->
-    <div class="mr-2 flex w-full flex-col items-center">
+    <div class="mx-2 flex w-full flex-col items-center">
       <mat-slider class="yellow-slider !w-40" min="0" max="3000" step="100">
         <input matSliderThumb [formControl]="particleService.maxCount" />
       </mat-slider>
       <span>Particles ( {{ particleService.maxCount.value }} )</span>
     </div>
 
-    <!-- Audio -->
+    <!-- Donut -->
     <div class="mx-2 mt-2 flex flex-col items-center">
-      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="audioService.enabled"></mat-slide-toggle>
-      <span>Audio</span>
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="cursorService.donut"></mat-slide-toggle>
+      <span class="text-nowrap">Cursor Style {{ !cursorService.donut.value ? 1 : 2 }}</span>
     </div>
   </div>
 
@@ -59,12 +61,10 @@
       <app-game-button (click)="reset()" [text]="'Restore Default'" [small]="true"></app-game-button>
     }
     @if (nameService.name.value) {
-      <app-game-button (click)="nameService.reset()" [text]="'Reset Name'" [small]="true"></app-game-button>
+      <app-game-button (click)="nameService.reset()" [text]="'Erase Name'" [small]="true"></app-game-button>
     }
   </div>
 </div>
 
 <!-- Back -->
-<div class="flex items-end justify-end">
-  <app-game-button (click)="gameSettingsService.hide()" [text]="'BACK'"></app-game-button>
-</div>
+<app-game-button class="mb-12" (click)="gameSettingsService.hide()" [text]="'Back'"></app-game-button>

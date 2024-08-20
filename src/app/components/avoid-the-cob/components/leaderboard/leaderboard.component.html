@@ -1,8 +1,6 @@
 <div class="flex w-full flex-1 flex-col items-center justify-between overflow-hidden">
   <!-- Header -->
-  <span class="mt-24 flex justify-center text-3xl font-bold tracking-widest text-mat-yellow sm:text-5xl">
-    LEADERBOARD
-  </span>
+  <span class="mt-24 flex justify-center text-3xl tracking-widest text-mat-yellow sm:text-5xl">LEADERBOARD</span>
 
   <!-- Scores -->
   <div
@@ -19,6 +17,4 @@
 </div>
 
 <!-- Back -->
-<div class="flex items-end">
-  <app-game-button (click)="leaderboardService.hide()" [text]="'BACK'"></app-game-button>
-</div>
+<app-game-button class="my-12" (click)="leaderboardService.hide()" [text]="'Back'"></app-game-button>

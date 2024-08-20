@@ -12,42 +12,40 @@
 
     <!-- Validation -->
     <div class="mt-4 text-center font-inter text-sm">
-      @if (playerNameService.name.valid) {
-        <span class="text-mat-yellow">Press next to continue</span>
-      } @else {
-        <span class="text-mat-cream">
-          @if (playerNameService.name.hasError('required')) {
-            Provide a name to record your score
-          } @else if (playerNameService.name.hasError('minlength')) {
-            You need at least {{ playerNameService.minLength - playerNameService.name.value!.length }} more character{{
-              playerNameService.name.value!.length < playerNameService.minLength - 1 ? 's' : ''
-            }}
-          } @else if (playerNameService.name.hasError('maxlength')) {
-            Thats {{ playerNameService.name.value!.length - playerNameService.maxLength }} character{{
-              playerNameService.name.value!.length > playerNameService.maxLength + 1 ? 's' : ''
-            }}
-            too many!
-          } @else if (playerNameService.name.hasError('letters')) {
-            Sorry, letters and hyphens only
-          } @else if (playerNameService.name.hasError('consecutive')) {
-            Sorry, no consecutive spaces or hyphens
-          } @else if (playerNameService.name.hasError('edge')) {
-            Sorry, no leading or trailing spaces
-          } @else if (playerNameService.name.hasError('profanity')) {
-            Ummm.. Seriously?
-          }
-        </span>
-      }
+      <span class="text-mat-cream">
+        @if (playerNameService.name.valid) {
+          &nbsp;
+        } @else if (playerNameService.name.hasError('required')) {
+          What should I call you?
+        } @else if (playerNameService.name.hasError('minlength')) {
+          You need at least {{ playerNameService.minLength - playerNameService.name.value!.length }} more character{{
+            playerNameService.name.value!.length < playerNameService.minLength - 1 ? 's' : ''
+          }}
+        } @else if (playerNameService.name.hasError('maxlength')) {
+          Thats {{ playerNameService.name.value!.length - playerNameService.maxLength }} character{{
+            playerNameService.name.value!.length > playerNameService.maxLength + 1 ? 's' : ''
+          }}
+          too many!
+        } @else if (playerNameService.name.hasError('letters')) {
+          Sorry, letters and hyphens only
+        } @else if (playerNameService.name.hasError('consecutive')) {
+          Sorry, no consecutive spaces or hyphens
+        } @else if (playerNameService.name.hasError('edge')) {
+          Sorry, no leading or trailing spaces
+        } @else if (playerNameService.name.hasError('profanity')) {
+          Ummm.. Seriously?
+        }
+      </span>
     </div>
   </div>
 </div>
 
-<div class="flex w-full justify-evenly">
+<div class="my-12 flex w-full justify-evenly">
   <!-- Back Button -->
-  <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'BACK'"></app-game-button>
+  <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'Back'"></app-game-button>
 
   <!-- Next Button -->
   @if (playerNameService.name.valid) {
-    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'NEXT'"></app-game-button>
+    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'Next'"></app-game-button>
   }
 </div>
