@@ -1,6 +1,7 @@
 @if (svgIcon) {
   <button
     mat-icon-button
+    onclick="blur()"
     [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
     [disabled]="disabled"
     [matTooltip]="tooltip">
@@ -9,6 +10,7 @@
 } @else {
   <button
     mat-icon-button
+    onclick="blur()"
     [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
     [disabled]="disabled"
     [matTooltip]="tooltip">

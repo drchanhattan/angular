@@ -1,19 +1,14 @@
-<div class="flex w-full flex-1 flex-col items-center justify-between overflow-hidden">
-  <!-- Header -->
-  <span class="mt-24 flex justify-center text-3xl tracking-widest text-mat-yellow sm:text-5xl">LEADERBOARD</span>
-
-  <!-- Scores -->
-  <div
-    class="scrollbar-thumb-rounded-xl mt-10 flex w-full flex-1 flex-col overflow-y-scroll text-pretty font-ink scrollbar-thin scrollbar-track-mat-black scrollbar-thumb-mat-yellow">
-    @for (score of leaderboardService.scores; track $index) {
-      <div class="mb-4 flex justify-center font-bold tracking-widest">
-        <span class="mr-4 font-inter text-lg text-mat-yellow sm:text-xl">
-          {{ score.score ? score.score.toLocaleString('en-GB') : '' }}
-        </span>
-        <span class="text-xl text-mat-cream sm:text-2xl">{{ score.name }}</span>
-      </div>
-    }
-  </div>
+<!-- Scores -->
+<div
+  class="scrollbar-thumb-rounded-xl mt-24 flex w-full flex-1 flex-col overflow-y-scroll text-pretty font-ink scrollbar-thin scrollbar-track-mat-black scrollbar-thumb-mat-yellow">
+  @for (score of leaderboardService.scores; track $index) {
+    <div class="mb-4 flex justify-center font-bold tracking-widest">
+      <span class="mr-4 font-inter text-lg text-mat-yellow sm:text-xl">
+        {{ score.score ? score.score.toLocaleString('en-GB') : '' }}
+      </span>
+      <span class="text-xl text-mat-cream sm:text-2xl">{{ score.name }}</span>
+    </div>
+  }
 </div>
 
 <!-- Back -->
