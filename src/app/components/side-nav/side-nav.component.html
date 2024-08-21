@@ -8,12 +8,12 @@
 
 <!-- Links -->
 <div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4">
-  @for (item of links; track item) {
+  @for (item of links; track $index) {
     @if (item.sublinks) {
       <!-- Link Group -->
       <app-side-nav-button [group]="item" [active]="hasActiveSublink(item.sublinks)"></app-side-nav-button>
       @if (item.expanded) {
-        @for (subLink of item.sublinks; track subLink) {
+        @for (subLink of item.sublinks; track $index) {
           <!-- SubLink -->
           <app-side-nav-button
             class="ml-5 pl-[1px]"

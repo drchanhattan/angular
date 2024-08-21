@@ -78,11 +78,9 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.displayMobileNotice().then(() => {
-      this.canvasService.init();
-      this.mainMenuService.show();
-      this.animate();
-    });
+    this.canvasService.init();
+    this.mainMenuService.show();
+    this.animate();
   }
 
   ngOnDestroy() {
@@ -99,11 +97,5 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     };
 
     requestAnimationFrame(animateFrame);
-  }
-
-  private async displayMobileNotice() {
-    const text = 'Avoid the Cob is best experienced on desktop';
-    const subtext = 'Mobile Device Detected';
-    return this.deviceService.isTouch ? this.textService.show(subtext, text, 4000) : null;
   }
 }

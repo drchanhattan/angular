@@ -9,7 +9,7 @@
       <!-- Hero -->
       <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
     </mat-tab>
-    @for (group of photos; track group) {
+    @for (group of photos; track $index) {
       <mat-tab>
         <!-- Tab Label -->
         <ng-template matTabLabel>
@@ -21,12 +21,13 @@
         </ng-template>
         <!-- Country -->
         <div class="mx-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pb-8 pt-16 lg:columns-3 lg:pb-16">
-          @for (url of group.urls; track $index) {
+          @for (url of group.urls; track $index; let index = $index) {
             <!-- Photo -->
             <img
               class="mat-elevation-z20 mb-16 rounded-lg bg-white p-4"
               data-src="{{ url }}"
               data-aos="fade-up"
+              [loading]="index < 3 ? 'eager' : 'lazy'"
               (load)="animate()" />
           }
         </div>
