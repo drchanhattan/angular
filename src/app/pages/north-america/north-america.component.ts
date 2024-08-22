@@ -39,7 +39,7 @@ export class NorthAmericaComponent {
       ],
     },
     {
-      header: 'Guatemala and Costa Rica',
+      header: 'Guatemala & Costa Rica',
       icons: ['guatemala', 'costa rica'],
       urls: [
         'guatemala-costa-rica-1.jpg',

@@ -10,7 +10,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 export class SouthAmericaComponent {
   photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
-      header: 'Argentina and Chile',
+      header: 'Argentina & Chile',
       icons: ['argentina', 'chile'],
       urls: [
         'argentina-chile-1.jpg',

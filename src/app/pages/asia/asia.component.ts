@@ -44,7 +44,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Malaysia and Singapore',
+      header: 'Malaysia & Singapore',
       icons: ['malaysia', 'singapore'],
       urls: [
         'malaysia-singapore-1.jpg',
@@ -55,7 +55,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Laos and Vietnam',
+      header: 'Laos & Vietnam',
       icons: ['laos', 'vietnam'],
       urls: [
         'laos-vietnam-1.jpg',

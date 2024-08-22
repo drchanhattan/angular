@@ -14,7 +14,7 @@ import { SideNavLink, sideNavLinks } from './side-nav-links';
 })
 export class SideNavComponent {
   @HostBinding('class') hostClasses =
-    'flex h-full flex-col items-center overflow-hidden px-4 bg-gradient-to-t from-mat-black/95 to-neutral-black/95';
+    'flex h-full flex-col items-center overflow-hidden px-4 bg-gradient-to-t from-mat-black/85 to-neutral-black/85';
   @Output() close = new EventEmitter();
   currentRoute!: string;
   links = sideNavLinks;

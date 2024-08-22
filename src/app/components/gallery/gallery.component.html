@@ -1,7 +1,6 @@
 @if (photos) {
   <mat-tab-group
     mat-stretch-tabs="true"
-    headerPosition="below"
     animationDuration="0"
     disablePagination="true"
     (selectedTabChange)="scrollToTop()">
@@ -13,18 +12,23 @@
       <mat-tab>
         <!-- Tab Label -->
         <ng-template matTabLabel>
-          <mat-icon class="mr-4" [svgIcon]="group.icons[0]"></mat-icon>
-          @if (group.icons[1]) {
-            <mat-icon class="mr-4" [svgIcon]="group.icons[1]"></mat-icon>
-          }
-          <span class="text-mat-cream">{{ group.header }}</span>
+          <div class="flex flex-col items-center">
+            <div class="mb-4 flex">
+              <mat-icon [svgIcon]="group.icons[0]"></mat-icon>
+              @if (group.icons[1]) {
+                <mat-icon class="ml-4" [svgIcon]="group.icons[1]"></mat-icon>
+              }
+            </div>
+            <span class="text-mat-cream">{{ group.header }}</span>
+          </div>
         </ng-template>
         <!-- Country -->
-        <div class="mx-auto min-h-screen w-11/12 columns-1 gap-16 !overflow-hidden pb-8 pt-16 lg:columns-3 lg:pb-16">
+        <div
+          class="mx-auto min-h-screen columns-1 gap-16 !overflow-hidden px-4 pb-10 pt-20 sm:px-20 lg:columns-3 lg:pb-16">
           @for (url of group.urls; track $index; let index = $index) {
             <!-- Photo -->
             <img
-              class="mat-elevation-z20 mb-16 rounded-lg bg-white p-4"
+              class="mat-elevation-z2 mb-16 rounded-lg bg-white p-4"
               data-src="{{ url }}"
               data-aos="fade-up"
               [loading]="index < 3 ? 'eager' : 'lazy'"

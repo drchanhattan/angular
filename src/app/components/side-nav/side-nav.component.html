@@ -1,13 +1,13 @@
 <!-- Close Button -->
-<div class="mt-4 flex w-full items-center justify-between">
-  <app-icon-button (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
-  <app-icon-button (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
+<div class="mb-2 flex w-full items-center justify-between">
+  <app-icon-button class="mt-2" (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
+  <app-icon-button class="mt-2" (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
 </div>
 
-<mat-divider class="!m-4"></mat-divider>
+<mat-divider></mat-divider>
 
 <!-- Links -->
-<div class="flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4">
+<div class="mt-4 flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4">
   @for (item of links; track $index) {
     @if (item.sublinks) {
       <!-- Link Group -->
@@ -26,9 +26,9 @@
   }
 </div>
 
-<mat-divider class="!m-4"></mat-divider>
+<mat-divider></mat-divider>
 
-<div class="mb-4 flex w-full items-center justify-evenly">
+<div class="my-2 flex w-full items-center justify-between">
   <app-icon-button (click)="linkedIn()" [svgIcon]="'linkedin'" [tooltip]="'LinkedIn'"></app-icon-button>
   <app-icon-button (click)="github()" [svgIcon]="'github'" [tooltip]="'Github'"></app-icon-button>
   <app-icon-button (click)="youtube()" [svgIcon]="'youtube'" [tooltip]="'Youtube'"></app-icon-button>
