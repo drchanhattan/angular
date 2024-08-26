@@ -59,6 +59,7 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
   }
   .mat-mdc-tab {
     height: 6rem;
+    min-width: 10rem;
   }
   .mat-mdc-tab-labels > div:first-child {
     display: none !important;
