@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameSettingsService } from './components/avoid-the-cob/components/game-settings/game-settings-service';
 import { GameTextService } from './components/avoid-the-cob/components/game-text/game-text-service';
@@ -27,9 +27,8 @@ import { PowerUpService } from './components/avoid-the-cob/services/power-up-ser
 import { ScoreService } from './components/avoid-the-cob/services/score-service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
-import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { ToolbarService } from './components/toolbar/toolbar-service';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { Icons } from './icons/icons';
 import { GameComponent } from './pages/game/game.component';
 
@@ -43,9 +42,8 @@ import { GameComponent } from './pages/game/game.component';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    NavigationComponent,
     RouterOutlet,
-    SideNavComponent,
-    ToolbarComponent,
   ],
   templateUrl: './app.component.html',
   providers: [
@@ -69,13 +67,13 @@ import { GameComponent } from './pages/game/game.component';
     PowerUpService,
     ScoreService,
     SvgLoaderService,
-    ToolbarService,
   ],
 })
 export class AppComponent {
   constructor(
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
+    public router: Router,
   ) {
     this.registerIcons();
     this.animateOnScroll();

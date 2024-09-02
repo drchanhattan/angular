@@ -1,50 +1,39 @@
-@if (photos) {
-  <mat-tab-group
-    headerPosition="below"
-    mat-stretch-tabs="true"
-    animationDuration="0"
-    disablePagination="true"
-    (selectedTabChange)="scrollToTop()">
-    <mat-tab>
-      <!-- Hero -->
-      <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
-    </mat-tab>
-    @for (group of photos; track $index) {
-      <mat-tab>
-        <!-- Tab Label -->
-        <ng-template matTabLabel>
-          <div class="flex flex-col items-center">
-            <div class="mb-4 flex">
-              <mat-icon [svgIcon]="group.icons[0]"></mat-icon>
-              @if (group.icons[1]) {
-                <mat-icon class="ml-4" [svgIcon]="group.icons[1]"></mat-icon>
-              }
-            </div>
-            <span class="text-mat-cream">{{ group.header }}</span>
-          </div>
-        </ng-template>
-        <!-- Country -->
-        <div
-          class="mx-auto min-h-screen columns-1 gap-16 !overflow-hidden px-4 pb-10 pt-20 sm:px-20 lg:columns-3 lg:pb-16">
-          @for (url of group.urls; track $index; let index = $index) {
-            <!-- Photo -->
-            <img
-              class="mat-elevation-z2 mb-16 rounded-lg bg-white p-4"
-              data-src="{{ url }}"
-              data-aos="fade-up"
-              [loading]="index < 3 ? 'eager' : 'lazy'"
-              (load)="animate()" />
-          }
-        </div>
-      </mat-tab>
-    }
-  </mat-tab-group>
-} @else {
-  <!-- Hero -->
-  <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
-}
+<mat-sidenav-container autosize>
+  <mat-sidenav
+    #drawer
+    mode="over"
+    position="end"
+    class="!w-40 !rounded-none"
+    [autoFocus]="false"
+    [fixedInViewport]="true">
+    <app-country-selector [photos]="photos" (selected)="drawer.close()"></app-country-selector>
+  </mat-sidenav>
 
-<!-- Hero Template -->
-<ng-template #heroTemplate>
-  <img class="h-screen w-screen object-cover" [src]="hero" />
-</ng-template>
+  <mat-sidenav-content>
+    <!-- Toolbar -->
+    <div
+      class="mat-elevation-z1 fixed z-10 flex h-14 w-full items-center justify-end border-b border-mat-yellow bg-mat-black/95">
+      @if (photos) {
+        <app-icon-button class="mr-4" (click)="drawer.open()" [matIcon]="'explore'"></app-icon-button>
+      }
+    </div>
+
+    <!-- Photo Grid -->
+    @if (photos && countryListService.isSelected) {
+      <div
+        class="mx-auto min-h-screen columns-1 gap-16 !overflow-hidden bg-neutral-white px-4 pb-10 pt-20 sm:px-20 lg:columns-3 lg:pb-16">
+        @for (url of photos[countryListService.selected].urls; track $index) {
+          <img
+            class="mat-elevation-z2 mb-16 rounded-lg bg-white p-4"
+            data-src="{{ url }}"
+            data-aos="fade-up"
+            loading="lazy"
+            (load)="animate()" />
+        }
+      </div>
+    } @else {
+      <!-- Hero -->
+      <img class="h-screen w-screen object-cover" [src]="hero" />
+    }
+  </mat-sidenav-content>
+</mat-sidenav-container>

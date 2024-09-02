@@ -1,10 +1,12 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" class="!w-80 !bg-transparent" [autoFocus]="false" [fixedInViewport]="true">
-    <app-side-nav (close)="drawer.close()"></app-side-nav>
+  <mat-sidenav #drawer mode="over" class="!w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
+    <app-navigation (close)="drawer.close()"></app-navigation>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-toolbar [drawer]="drawer"></app-toolbar>
+    @if (router.url !== '/game') {
+      <app-icon-button class="fixed z-20 ml-4 mt-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
+    }
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

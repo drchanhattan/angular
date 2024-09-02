@@ -3,18 +3,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
-import { SideNavButtonComponent } from './side-nav-button/side-nav-button.component';
-import { SideNavLink, sideNavLinks } from './side-nav-links';
+import { NavigationButtonComponent } from './navigation-button/navigation-button.component';
+import { SideNavLink, sideNavLinks } from './navigation-links';
 
 @Component({
-  selector: 'app-side-nav',
+  selector: 'app-navigation',
   standalone: true,
-  imports: [IconButtonComponent, MatDividerModule, SideNavButtonComponent],
-  templateUrl: './side-nav.component.html',
+  imports: [IconButtonComponent, MatDividerModule, NavigationButtonComponent],
+  templateUrl: './navigation.component.html',
 })
-export class SideNavComponent {
-  @HostBinding('class') hostClasses =
-    'flex h-full flex-col items-center overflow-hidden px-4 bg-gradient-to-t from-mat-black/85 to-neutral-black/85';
+export class NavigationComponent {
+  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden px-4 bg-sidenav';
   @Output() close = new EventEmitter();
   currentRoute!: string;
   links = sideNavLinks;

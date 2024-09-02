@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ToolbarService } from '../../toolbar/toolbar-service';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
@@ -37,7 +36,6 @@ export class GameStateService {
     private mainMenuService: MainMenuService,
     private scoreService: ScoreService,
     private textService: GameTextService,
-    private toolbarService: ToolbarService,
   ) {}
 
   start() {
@@ -71,7 +69,6 @@ export class GameStateService {
     const subtext = this.browserResized ? 'Browser window resize detected' : `Score: ${this.scoreService.score}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
       this.scoreService.resetScore();
-      this.toolbarService.show();
       this.gameObjectService.destroyAll();
       this.difficultyService.level = 0;
       this.cursor.show();

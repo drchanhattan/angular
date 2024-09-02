@@ -10,26 +10,6 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 export class AsiaComponent {
   photos: { header: string; icons: string[]; urls: string[] }[] = [
     {
-      header: 'Hong Kong',
-      icons: ['hong kong'],
-      urls: ['hong-kong-1.jpg', 'hong-kong-2.jpg', 'hong-kong-3.jpg'],
-    },
-    {
-      header: 'Thailand',
-      icons: ['thailand'],
-      urls: [
-        'thailand-1.jpg',
-        'thailand-2.jpg',
-        'thailand-3.jpg',
-        'thailand-4.jpg',
-        'thailand-5.jpg',
-        'thailand-6.jpg',
-        'thailand-7.jpg',
-        'thailand-8.jpg',
-        'thailand-9.jpg',
-      ],
-    },
-    {
       header: 'Cambodia',
       icons: ['cambodia'],
       urls: [
@@ -44,15 +24,9 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Malaysia & Singapore',
-      icons: ['malaysia', 'singapore'],
-      urls: [
-        'malaysia-singapore-1.jpg',
-        'malaysia-singapore-2.jpg',
-        'malaysia-singapore-3.jpg',
-        'malaysia-singapore-4.jpg',
-        'malaysia-singapore-5.jpg',
-      ],
+      header: 'Hong Kong',
+      icons: ['hong kong'],
+      urls: ['hong-kong-1.jpg', 'hong-kong-2.jpg', 'hong-kong-3.jpg'],
     },
     {
       header: 'Laos & Vietnam',
@@ -71,6 +45,32 @@ export class AsiaComponent {
         'laos-vietnam-11.jpg',
         'laos-vietnam-12.jpg',
         'laos-vietnam-13.jpg',
+      ],
+    },
+    {
+      header: 'Malaysia & Singapore',
+      icons: ['malaysia', 'singapore'],
+      urls: [
+        'malaysia-singapore-1.jpg',
+        'malaysia-singapore-2.jpg',
+        'malaysia-singapore-3.jpg',
+        'malaysia-singapore-4.jpg',
+        'malaysia-singapore-5.jpg',
+      ],
+    },
+    {
+      header: 'Thailand',
+      icons: ['thailand'],
+      urls: [
+        'thailand-1.jpg',
+        'thailand-2.jpg',
+        'thailand-3.jpg',
+        'thailand-4.jpg',
+        'thailand-5.jpg',
+        'thailand-6.jpg',
+        'thailand-7.jpg',
+        'thailand-8.jpg',
+        'thailand-9.jpg',
       ],
     },
   ];

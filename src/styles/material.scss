@@ -9,17 +9,6 @@ $black: mat.get-theme-color($light-theme, neutral, 10) !important;
 $white: mat.get-theme-color($light-theme, neutral, 99) !important;
 $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 
-@mixin mat-divider() {
-  mat-divider {
-    width: 100%;
-    height: 1px;
-    &[vertical] {
-      width: 1px;
-      height: 100%;
-    }
-  }
-}
-
 @mixin mat-slide-toggle() {
   .yellow-slide-toggle {
     --mdc-switch-selected-focus-state-layer-color: #{$yellow};
@@ -42,30 +31,13 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
   }
 }
 
-@mixin mat-tab() {
-  --mdc-tab-indicator-active-indicator-color: #{$yellow};
-  --mat-tab-header-active-focus-indicator-color: #{$yellow};
-  --mat-tab-header-active-hover-indicator-color: #{$yellow};
-  --mat-tab-header-active-label-text-color: #{$yellow};
-  --mat-tab-header-active-focus-label-text-color: #{$yellow};
-  --mat-tab-header-active-hover-label-text-color: #{$yellow};
+@mixin mat-sidenav() {
+  mat-sidenav {
+    background: transparent !important;
+  }
 
-  mat-tab-header {
-    @apply bg-gradient-to-tr from-mat-black/85 to-neutral-black/85;
-    position: fixed !important;
-    width: 100%;
-    bottom: 0;
-    z-index: 99;
-  }
-  .mat-mdc-tab {
-    height: 6rem;
-    min-width: 10rem;
-  }
-  .mat-mdc-tab-labels > div:first-child {
-    display: none !important;
-  }
-  .mat-mdc-tab-list {
-    overflow-x: auto !important;
+  .bg-sidenav {
+    @apply bg-gradient-to-t from-mat-black/95 to-neutral-black/95;
   }
 }
 
@@ -76,8 +48,7 @@ html {
   @include mat.all-component-typographies($dark-theme);
   @include mat.icon-color($dark-theme, $color-variant: tertiary);
 
-  @include mat-divider();
   @include mat-slide-toggle();
   @include mat-slider();
-  @include mat-tab();
+  @include mat-sidenav();
 }

@@ -1,34 +1,32 @@
-<!-- Close Button -->
-<div class="mb-2 flex w-full items-center justify-between">
-  <app-icon-button class="mt-2" (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
-  <app-icon-button class="mt-2" (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
+<div class="flex h-14 w-full items-center justify-between border-b border-mat-cream">
+  <!-- Home Button -->
+  <app-icon-button (click)="navigate('/home')" [svgIcon]="'chan'"></app-icon-button>
+  <!-- Close Button -->
+  <app-icon-button (click)="close.emit()" [matIcon]="'close'" [tooltip]="'Close'"></app-icon-button>
 </div>
 
-<mat-divider></mat-divider>
-
 <!-- Links -->
-<div class="mt-4 flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4">
+<div
+  class="mt-4 flex size-full flex-1 flex-col items-start overflow-y-auto overflow-x-hidden p-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
   @for (item of links; track $index) {
     @if (item.sublinks) {
       <!-- Link Group -->
-      <app-side-nav-button [group]="item" [active]="hasActiveSublink(item.sublinks)"></app-side-nav-button>
+      <app-navigation-button [group]="item" [active]="hasActiveSublink(item.sublinks)"></app-navigation-button>
       @if (item.expanded) {
         @for (subLink of item.sublinks; track $index) {
           <!-- SubLink -->
-          <app-side-nav-button
+          <app-navigation-button
             class="ml-5 pl-[1px]"
             (click)="navigate(subLink.url)"
             [active]="currentRoute === subLink.url"
-            [link]="subLink"></app-side-nav-button>
+            [link]="subLink"></app-navigation-button>
         }
       }
     }
   }
 </div>
 
-<mat-divider></mat-divider>
-
-<div class="my-2 flex w-full items-center justify-between">
+<div class="flex h-14 w-full items-center justify-between border-t border-mat-cream py-2">
   <app-icon-button (click)="linkedIn()" [svgIcon]="'linkedin'" [tooltip]="'LinkedIn'"></app-icon-button>
   <app-icon-button (click)="github()" [svgIcon]="'github'" [tooltip]="'Github'"></app-icon-button>
   <app-icon-button (click)="youtube()" [svgIcon]="'youtube'" [tooltip]="'Youtube'"></app-icon-button>

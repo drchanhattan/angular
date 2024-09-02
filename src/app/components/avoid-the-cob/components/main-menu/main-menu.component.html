@@ -24,6 +24,8 @@
     class="m-4 hidden lg:flex"
     (click)="leaderboardService.show()"
     [text]="'Leaderboard'"></app-game-button>
+  <!-- Exit -->
+  <app-game-button class="m-4 hidden lg:flex" (click)="router.navigate(['/home'])" [text]="'Exit'"></app-game-button>
 
   <!-- Leaderboard icon -->
   <app-icon-button
