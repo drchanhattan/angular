@@ -10,8 +10,8 @@ export class CountryListService {
     return !isNaN(this.selected);
   }
 
-  select(index: number) {
-    this.selected = index;
+  select(index?: number) {
+    this.selected = index!;
     window.scrollTo(0, 0);
   }
 }

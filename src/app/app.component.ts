@@ -28,6 +28,7 @@ import { ScoreService } from './components/avoid-the-cob/services/score-service'
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
+import { CountryListService } from './components/gallery/country-list/country-list-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { Icons } from './icons/icons';
 import { GameComponent } from './pages/game/game.component';
@@ -53,6 +54,7 @@ import { GameComponent } from './pages/game/game.component';
     CheatService,
     CursorService,
     CollisionService,
+    CountryListService,
     DeviceService,
     DifficultyService,
     FirebaseService,

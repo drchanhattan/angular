@@ -12,7 +12,7 @@
   <mat-sidenav-content>
     <!-- Toolbar -->
     <div
-      class="mat-elevation-z1 fixed z-10 flex h-14 w-full items-center justify-end border-b border-mat-yellow bg-mat-black/95">
+      class="mat-elevation-z1 fixed z-10 flex h-14 w-screen items-center justify-end border-b border-mat-yellow bg-mat-black/95">
       @if (photos) {
         <app-icon-button class="mr-4" (click)="drawer.open()" [matIcon]="'explore'"></app-icon-button>
       }
@@ -21,7 +21,7 @@
     <!-- Photo Grid -->
     @if (photos && countryListService.isSelected) {
       <div
-        class="mx-auto min-h-screen columns-1 gap-16 !overflow-hidden bg-neutral-white px-4 pb-10 pt-20 sm:px-20 lg:columns-3 lg:pb-16">
+        class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pt-20 sm:px-20 lg:columns-3">
         @for (url of photos[countryListService.selected].urls; track $index) {
           <img
             class="mat-elevation-z2 mb-16 rounded-lg bg-white p-4"
@@ -33,7 +33,16 @@
       </div>
     } @else {
       <!-- Hero -->
-      <img class="h-screen w-screen object-cover" [src]="hero" />
+
+      <div class="h-screen w-screen">
+        <img class="size-full object-cover" data-src="{{ hero }}" data-aos="fade-in" data-aos-duration="2000" />
+        <div class="absolute inset-0 top-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+        <div class="absolute inset-0 flex h-4/5 w-full items-end justify-center overflow-hidden">
+          <span class="text-center font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
+            {{ name }}
+          </span>
+        </div>
+      </div>
     }
   </mat-sidenav-content>
 </mat-sidenav-container>

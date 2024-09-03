@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { CountryListService } from '../gallery/country-list/country-list-service';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { NavigationButtonComponent } from './navigation-button/navigation-button.component';
 import { SideNavLink, sideNavLinks } from './navigation-links';
@@ -18,8 +19,12 @@ export class NavigationComponent {
   currentRoute!: string;
   links = sideNavLinks;
 
-  constructor(private router: Router) {
+  constructor(
+    private countryListService: CountryListService,
+    private router: Router,
+  ) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
+      this.countryListService.select();
       this.currentRoute = event.url;
       window.scrollTo(0, 0);
     });
