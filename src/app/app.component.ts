@@ -73,21 +73,13 @@ import { GameComponent } from './pages/game/game.component';
 })
 export class AppComponent {
   constructor(
-    private deviceService: DeviceService,
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
     public countriesService: CountriesService,
     public router: Router,
   ) {
-    this.requestFullscreen();
     this.registerIcons();
     this.animateOnScroll();
-  }
-
-  private requestFullscreen() {
-    if (this.deviceService.isTouch) {
-      document.documentElement.requestFullscreen();
-    }
   }
 
   private registerIcons() {
