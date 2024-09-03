@@ -1,4 +1,4 @@
-<div class="my-14 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
+<div class="overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
   @for (group of photos; track $index; let index = $index) {
     <button mat-button class="!h-32 !w-full !rounded-none" (click)="select(index)">
       <div class="mb-2">
@@ -8,7 +8,7 @@
         }
       </div>
 
-      <span [ngClass]="isCountryActive(index) ? 'text-mat-yellow' : 'text-mat-cream'">
+      <span [ngClass]="isSelected(index) ? 'text-mat-yellow' : 'text-mat-cream'">
         {{ group.header }}
       </span>
     </button>

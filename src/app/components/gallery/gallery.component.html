@@ -1,30 +1,23 @@
-<mat-sidenav-container autosize>
+<mat-sidenav-container>
+  <!-- Country Side Nav -->
   <mat-sidenav
     #drawer
     mode="over"
     position="end"
-    class="!w-40 !rounded-none"
+    class="mt-14 !w-40 !rounded-none"
     [autoFocus]="false"
     [fixedInViewport]="true">
-    <app-country-selector [photos]="photos" (selected)="drawer.close()"></app-country-selector>
+    <app-countries [photos]="photos" (selected)="drawer.close()"></app-countries>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- Toolbar -->
-    <div
-      class="mat-elevation-z1 fixed z-10 flex h-14 w-screen items-center justify-end border-b border-mat-yellow bg-mat-black/95">
-      @if (photos) {
-        <app-icon-button class="mr-4" (click)="drawer.open()" [matIcon]="'explore'"></app-icon-button>
-      }
-    </div>
-
     <!-- Photo Grid -->
-    @if (photos && countryListService.isSelected) {
+    @if (photos && countriesService.isSelected) {
       <div
         class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pt-20 sm:px-20 lg:columns-3">
-        @for (url of photos[countryListService.selected].urls; track $index) {
+        @for (url of photos[countriesService.selected].urls; track $index) {
           <img
-            class="mat-elevation-z2 mb-16 rounded-lg bg-white p-4"
+            class="mat-elevation-z5 mb-16 rounded-lg"
             data-src="{{ url }}"
             data-aos="fade-up"
             loading="lazy"

@@ -36,7 +36,7 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
     background: transparent !important;
   }
 
-  .bg-sidenav {
+  .bg-sidenav-gradient {
     @apply bg-gradient-to-t from-mat-black/95 to-neutral-black/95;
   }
 }

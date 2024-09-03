@@ -1,12 +1,22 @@
+<!-- Toolbar -->
+@if (router.url !== '/game') {
+  <div
+    class="mat-elevation-z fixed z-10 flex h-14 w-screen items-center justify-between border-b border-mat-yellow bg-mat-black/95 px-4">
+    <app-icon-button (click)="drawer.toggle()" [matIcon]="'menu'"></app-icon-button>
+    @if (router.url !== '/home') {
+      <app-icon-button (click)="countriesService.toggle()" [matIcon]="'explore'"></app-icon-button>
+    }
+  </div>
+}
+
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="over" class="!w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
+  <!-- Side Nav -->
+  <mat-sidenav #drawer mode="over" class="!mt-14 !w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
     <app-navigation (close)="drawer.close()"></app-navigation>
   </mat-sidenav>
 
+  <!-- Content -->
   <mat-sidenav-content>
-    @if (router.url !== '/game') {
-      <app-icon-button class="fixed z-20 ml-4 mt-2" (click)="drawer.open()" [matIcon]="'menu'"></app-icon-button>
-    }
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
