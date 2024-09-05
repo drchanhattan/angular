@@ -3,8 +3,11 @@
   <div
     class="mat-elevation-z fixed z-10 flex h-14 w-screen items-center justify-between border-b border-mat-yellow bg-mat-black/95 px-4">
     <app-icon-button (click)="drawer.toggle()" [matIcon]="'menu'"></app-icon-button>
-    @if (router.url !== '/home') {
-      <app-icon-button (click)="countriesService.toggle()" [matIcon]="'explore'"></app-icon-button>
+    @if (router.url !== '/home' && !drawer.opened) {
+      <app-icon-button
+        class="hover:animate-spin"
+        (click)="countriesService.toggle()"
+        [matIcon]="'explore'"></app-icon-button>
     }
   </div>
 }
