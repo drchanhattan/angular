@@ -1,7 +1,7 @@
 @if (!!group) {
   <!-- Group -->
   <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
-    <mat-icon class="text-mat-cream">{{ group.icon }}</mat-icon>
+    <mat-icon class="text-mat-cream">{{ icon }}</mat-icon>
     <span class="text-nowrap text-lg text-mat-cream">
       {{ group.label }}
     </span>
@@ -13,8 +13,11 @@
     </mat-icon>
   </button>
 } @else if (!!link) {
-  <button mat-button class="mb-2 !rounded-lg">
-    <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'mx-1 text-nowrap text-lg']">
+  <button mat-button class="mb-2 !rounded-lg !px-4">
+    @if (icon) {
+      <mat-icon class="text-mat-cream">{{ icon }}</mat-icon>
+    }
+    <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'text-nowrap text-lg']">
       {{ link.label }}
     </span>
   </button>

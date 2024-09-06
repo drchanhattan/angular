@@ -12,6 +12,7 @@ import { SideNavGroup, SideNavLink } from '../navigation-links';
 })
 export class NavigationButtonComponent {
   @Input() active?: boolean;
+  @Input() icon?: string;
   @Input() link?: SideNavLink;
   @Input() group?: SideNavGroup;
 

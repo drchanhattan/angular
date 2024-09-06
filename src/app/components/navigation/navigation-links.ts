@@ -6,11 +6,17 @@ export interface SideNavLink {
 export interface SideNavGroup {
   label: string;
   icon: string;
+  link?: SideNavLink;
   sublinks?: SideNavLink[];
   expanded?: boolean;
 }
 
 export const sideNavLinks: SideNavGroup[] = [
+  {
+    label: 'Home',
+    icon: 'home',
+    link: { label: 'Home', url: '/home' },
+  },
   {
     label: 'Games',
     icon: 'sports_esports',

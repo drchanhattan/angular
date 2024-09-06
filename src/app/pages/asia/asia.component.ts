@@ -26,7 +26,20 @@ export class AsiaComponent {
     {
       header: 'Hong Kong',
       icons: ['hong kong'],
-      urls: ['hong-kong-1.jpg', 'hong-kong-2.jpg', 'hong-kong-3.jpg'],
+      urls: [
+        'hong-kong-1.jpg',
+        'hong-kong-2.jpg',
+        'hong-kong-3.jpg',
+        'hong-kong-4.jpg',
+        'hong-kong-5.jpg',
+        'hong-kong-6.jpg',
+        'hong-kong-7.jpg',
+        'hong-kong-8.jpg',
+        'hong-kong-9.jpg',
+        'hong-kong-10.jpg',
+        'hong-kong-11.jpg',
+        'hong-kong-12.jpg',
+      ],
     },
     {
       header: 'Laos & Vietnam',
