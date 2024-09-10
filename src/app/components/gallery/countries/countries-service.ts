@@ -5,19 +5,19 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class CountriesService {
   toggled = new EventEmitter();
-  selected!: number;
+  index!: number;
 
   get isSelected() {
-    return !isNaN(this.selected);
+    return !isNaN(this.index);
   }
 
   select(index: number) {
     window.scrollTo(0, 0);
-    this.selected = index;
+    this.index = index;
   }
 
   unselect() {
-    this.selected = undefined!;
+    this.index = undefined!;
   }
 
   toggle() {

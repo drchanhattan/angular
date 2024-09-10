@@ -23,6 +23,6 @@ export class CountriesComponent {
   }
 
   isSelected(index: number) {
-    return this.countriesService.selected === index;
+    return this.countriesService.index === index;
   }
 }

@@ -15,7 +15,7 @@
     @if (photos && countriesService.isSelected) {
       <div
         class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pt-20 sm:px-20 lg:columns-3">
-        @for (url of photos[countriesService.selected].urls; track $index) {
+        @for (url of photos[countriesService.index].urls; track $index) {
           <img
             class="mat-elevation-z5 mb-16 rounded-lg"
             data-src="{{ url }}"

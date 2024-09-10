@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, HostBinding, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -22,7 +22,7 @@ import { CountriesComponent } from './countries/countries.component';
   ],
   templateUrl: './gallery.component.html',
 })
-export class GalleryComponent implements AfterViewInit {
+export class GalleryComponent implements OnInit, AfterViewInit {
   @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center overflow-hidden bg-neutral-white';
   @ViewChild('drawer') matSidenav!: MatSidenav;
   @Input() name!: string;
@@ -31,8 +31,11 @@ export class GalleryComponent implements AfterViewInit {
 
   constructor(public countriesService: CountriesService) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.countriesService.unselect();
+  }
+
+  ngAfterViewInit() {
     this.countriesService.toggled.subscribe(() => this.matSidenav.toggle());
   }
 

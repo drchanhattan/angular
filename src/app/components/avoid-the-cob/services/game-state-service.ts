@@ -96,7 +96,7 @@ export class GameStateService {
     this.paused = true;
     this.clearTimer();
     this.audioService.play(AudioFile.LevelUp);
-    this.canvasService.flash(300, GameColor.Cream);
+    this.canvasService.flash(200, GameColor.Cream);
     this.scoreService.levelIncrease();
     this.levelUpText().then(() => {
       this.difficultyService.increase(this.mobMode, this.cheatService.cheatsEnabled);
