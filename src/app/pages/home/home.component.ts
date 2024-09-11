@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
+import { AboutComponent } from '../../components/about/about.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [GalleryComponent],
+  imports: [AboutComponent, GalleryComponent],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  @HostBinding('class') hostClasses = 'flex';
+}

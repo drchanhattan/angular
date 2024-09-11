@@ -67,6 +67,9 @@ module.exports = {
         ink: ['InkFree', 'cursive'],
         inter: ['Inter', 'cursive'],
       },
+      maxHeight: {
+        fill: '-webkit-fill-available',
+      },
       scale: {
         175: '1.75',
         200: '2',
