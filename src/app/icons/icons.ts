@@ -35,7 +35,7 @@ export const Icons = [
   'new zealand',
   'peru',
   'sass',
-  ' singapore',
+  'singapore',
   'slovenia',
   'tailwind',
   'thailand',
