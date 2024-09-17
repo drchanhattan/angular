@@ -34,7 +34,7 @@ export class PlayerNameComponent {
 
     if (name.value && name.valid) {
       localStorage.setItem('name', name.value.toUpperCase());
-      this.avoidTheCob.selectMode();
+      this.avoidTheCob.play(false);
     }
   }
 

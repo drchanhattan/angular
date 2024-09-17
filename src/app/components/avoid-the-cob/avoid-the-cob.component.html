@@ -16,11 +16,6 @@
   <app-player-name [@opacityAnimation] [pea]="svgLoader.pea$.value"></app-player-name>
 }
 
-<!-- Mode Selector -->
-@if (overlayService.modeSelector) {
-  <app-mode-selector [@opacityAnimation]></app-mode-selector>
-}
-
 <!-- Leaderboard -->
 @if (overlayService.leaderboard) {
   <app-leaderboard [@opacityAnimation]></app-leaderboard>

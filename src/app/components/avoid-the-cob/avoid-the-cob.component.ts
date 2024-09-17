@@ -9,7 +9,6 @@ import { GameTextComponent } from './components/game-text/game-text.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { ModeSelectorComponent } from './components/mode-selector/mode-selector.component';
 import { PlayerNameService } from './components/player-name/player-name-service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
 import { AudioService } from './services/audio-service';
@@ -33,7 +32,6 @@ import { SvgLoaderService } from './services/svg-loader-service';
     LeaderboardComponent,
     MainMenuComponent,
     MatIconModule,
-    ModeSelectorComponent,
     PlayerNameComponent,
     RouterLink,
   ],

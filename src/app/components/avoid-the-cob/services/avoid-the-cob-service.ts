@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
-import { ModeSelectorService } from '../components/mode-selector/mode-selector-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
 import { CollisionService } from './collision-service';
 import { CursorService } from './cursor.service';
@@ -22,7 +21,6 @@ export class AvoidTheCobService {
     private gameObjectService: GameObjectService,
     private gameStateService: GameStateService,
     private mainMenuService: MainMenuService,
-    private modeSelectorService: ModeSelectorService,
     private nameService: PlayerNameService,
     private particleService: ParticleService,
     private powerUpService: PowerUpService,
@@ -44,21 +42,20 @@ export class AvoidTheCobService {
     }
   }
 
-  play() {
+  play(mobMode: boolean) {
     const name = localStorage.getItem('name');
-
-    if (!!name) {
-      this.selectMode();
-    } else {
-      this.mainMenuService.hide();
-      this.nameService.show();
-    }
-  }
-
-  selectMode() {
     this.mainMenuService.hide();
-    this.modeSelectorService.show();
-    this.nameService.hide();
+
+    if (mobMode) {
+      this.newGame(true);
+    } else {
+      if (name) {
+        this.nameService.hide();
+        this.newGame(false);
+      } else {
+        this.nameService.show();
+      }
+    }
   }
 
   newGame(mobMode: boolean) {
