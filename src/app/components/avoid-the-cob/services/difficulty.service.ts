@@ -39,7 +39,7 @@ export class DifficultyService {
 
   private levelUpCursor(modeMode: boolean) {
     const minSize = scaledSize(modeMode ? 5 : 10);
-    this.cursor.object.size = Math.max(GameObjectDefaults.cursor().size * Math.pow(0.98, this.level), minSize);
+    this.cursor.object.size = Math.max(this.cursor.cursorSize(modeMode) * Math.pow(0.98, this.level), minSize);
   }
 
   private levelUpCorn() {

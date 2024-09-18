@@ -40,6 +40,10 @@ export class CursorService {
     this.canvasService.drawObject(this.object);
   }
 
+  cursorSize(mobMode: boolean) {
+    return mobMode ? scaledSize(8) : scaledSize(20);
+  }
+
   showPointer() {
     this.canvasService.context.canvas.classList.remove('cursor-none');
   }
@@ -49,10 +53,8 @@ export class CursorService {
   }
 
   reset(mobMode: boolean) {
-    this.object.size = mobMode ? scaledSize(8) : scaledSize(20);
+    this.object.size = this.cursorSize(mobMode);
     this.hidePointer();
-    this.blink(GameColor.Transparent, 4, 125);
-    this.disableCollision(1000);
   }
 
   disableCollision(duration: number) {

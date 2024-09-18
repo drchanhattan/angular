@@ -39,7 +39,8 @@ export class GameStateService {
 
   start() {
     this.paused = false;
-    this.cursor.reset(this.mobMode);
+    this.cursor.blink(GameColor.Transparent, 4, 125);
+    this.cursor.disableCollision(1000);
 
     if (this.mobMode) {
       this.lifeTimer();
