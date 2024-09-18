@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 
 export enum OverlayItem {
   GameText = 1,
-  Leaderboard = 2,
-  MainMenu = 3,
-  NewPlayer = 4,
+  Help = 2,
+  Leaderboard = 3,
+  MainMenu = 4,
+  NewPlayer = 5,
   Settings = 6,
 }
 
@@ -13,6 +14,7 @@ export enum OverlayItem {
 })
 export class OverlayService {
   gameText = false;
+  help = false;
   leaderboard = false;
   mainMenu = false;
   playerName = false;
@@ -22,6 +24,10 @@ export class OverlayService {
     switch (item) {
       case OverlayItem.GameText: {
         this.gameText = !hide;
+        break;
+      }
+      case OverlayItem.Help: {
+        this.help = !hide;
         break;
       }
       case OverlayItem.Leaderboard: {

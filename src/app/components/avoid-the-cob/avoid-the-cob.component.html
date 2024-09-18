@@ -16,6 +16,11 @@
   <app-player-name [@opacityAnimation] [pea]="svgLoader.pea$.value"></app-player-name>
 }
 
+<!-- Help -->
+@if (overlayService.help) {
+  <app-game-help [@opacityAnimation]></app-game-help>
+}
+
 <!-- Leaderboard -->
 @if (overlayService.leaderboard) {
   <app-leaderboard [@opacityAnimation]></app-leaderboard>

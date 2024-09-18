@@ -59,8 +59,6 @@ export class AvoidTheCobService {
   }
 
   newGame(mobMode: boolean) {
-    this.cursor.hide();
-    this.cursor.reset();
     this.gameStateService.reset(mobMode);
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();

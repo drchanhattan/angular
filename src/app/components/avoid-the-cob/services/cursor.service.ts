@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { scaledSize } from '../models/device-scale/device-scale';
 import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
@@ -39,16 +40,19 @@ export class CursorService {
     this.canvasService.drawObject(this.object);
   }
 
-  show() {
+  showPointer() {
     this.canvasService.context.canvas.classList.remove('cursor-none');
   }
 
-  hide() {
+  hidePointer() {
     this.canvasService.context.canvas.classList.add('cursor-none');
   }
 
-  reset() {
-    this.object.size = GameObjectDefaults.cursor().size;
+  reset(mobMode: boolean) {
+    this.object.size = mobMode ? scaledSize(8) : scaledSize(20);
+    this.hidePointer();
+    this.blink(GameColor.Transparent, 4, 125);
+    this.disableCollision(1000);
   }
 
   disableCollision(duration: number) {

@@ -9,7 +9,7 @@ export class GameObjectDefaults {
     return {
       type: GameObjectType.Cursor,
       color: GameColor.White,
-      size: scaledSize(20),
+      size: 0,
       speed: 0,
       shape: GameObjectShape.Circle,
       gravity: 0,

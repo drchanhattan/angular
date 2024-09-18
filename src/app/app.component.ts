@@ -28,6 +28,7 @@ import { ScoreService } from './components/avoid-the-cob/services/score-service'
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
+import { GameHelpService } from './components/avoid-the-cob/components/game-help/game-help-service';
 import { CountriesService } from './components/gallery/countries/countries-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { Icons } from './icons/icons';
@@ -58,6 +59,7 @@ import { GameComponent } from './pages/game/game.component';
     DeviceService,
     DifficultyService,
     FirebaseService,
+    GameHelpService,
     GameObjectService,
     GameSettingsService,
     GameStateService,

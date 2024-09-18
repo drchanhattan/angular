@@ -6,6 +6,7 @@ module.exports = {
         float: 'float 2s infinite',
         heartbeat: 'heartbeat 0.5s infinite',
         jiggle: 'jiggle 0.5s',
+        shake: 'shake 4s infinite',
       },
       keyframes: {
         float: {
@@ -48,6 +49,23 @@ module.exports = {
           },
           '100%': {
             transform: 'rotate(0deg)',
+          },
+        },
+        shake: {
+          '0%, 100%': {
+            transform: 'translateX(0)',
+          },
+          '5%, 15%, 25%, 85%, 95%': {
+            transform: 'translateY(-10px)',
+          },
+          '10%, 30%, 50%, 70%, 90%': {
+            transform: 'translateX(-8px)',
+          },
+          '20%, 40%, 60%, 80%': {
+            transform: 'translateX(6px)',
+          },
+          '35%, 45%, 55%, 65%, 75%': {
+            transform: 'translateY(7px)',
           },
         },
       },

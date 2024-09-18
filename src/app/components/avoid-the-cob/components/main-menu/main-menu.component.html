@@ -1,41 +1,54 @@
-<!-- Corn SVG -->
-<div class="relative flex flex-1 overflow-hidden lg:mt-0 lg:flex-none">
-  <img [src]="title" class="absolute inset-0 m-auto max-h-[80dvh] py-4" />
-  <img [src]="corn" class="relative m-auto max-h-[80dvh] animate-heartbeat py-4" id="cornSvg" />
-</div>
-
-<div class="flex items-end justify-end lg:mr-20 lg:flex-col lg:items-start">
-  <!-- Settings icon -->
+<!-- Icon Buttons -->
+<div class="absolute left-0 top-0 flex w-full justify-between px-10 pt-10">
+  <!-- Help -->
   <app-icon-button
-    class="my-14 mr-8 lg:hidden"
-    (click)="gameSettingsService.show()"
-    [matIcon]="'settings'"
+    (click)="gameHelpService.show()"
+    [matIcon]="'help_outline'"
     [color]="'text-mat-cream'"
-    [tooltip]="'Options'"
     [scale]="'scale-175'"
     [hoverScale]="'hover:!scale-200'"></app-icon-button>
-
-  <!-- Play -->
-  <app-game-button class="my-12 lg:m-1" (click)="avoidTheCob.play(false)" [text]="'Play'"></app-game-button>
-  <!-- Mob Mode -->
-  <app-game-button class="m-1 hidden lg:flex" (click)="avoidTheCob.play(true)" [text]="'Mob Mode'"></app-game-button>
-  <!-- Options -->
-  <app-game-button class="m-1 hidden lg:flex" (click)="gameSettingsService.show()" [text]="'Options'"></app-game-button>
-  <!-- Leaderboard -->
-  <app-game-button
-    class="m-1 hidden lg:flex"
-    (click)="leaderboardService.show()"
-    [text]="'Leaderboard'"></app-game-button>
-  <!-- Exit -->
-  <app-game-button class="m-1 hidden lg:flex" (click)="router.navigate(['/home'])" [text]="'Exit'"></app-game-button>
 
   <!-- Leaderboard icon -->
   <app-icon-button
-    class="my-14 ml-8 lg:hidden"
+    class="lg:hidden"
     (click)="leaderboardService.show()"
     [matIcon]="'leaderboard'"
     [color]="'text-mat-cream'"
-    [tooltip]="'Leaderboard'"
+    [scale]="'scale-175'"
+    [hoverScale]="'hover:!scale-200'"></app-icon-button>
+
+  <!-- Settings icon -->
+  <app-icon-button
+    class="lg:hidden"
+    (click)="gameSettingsService.show()"
+    [matIcon]="'settings'"
+    [color]="'text-mat-cream'"
     [scale]="'scale-175'"
     [hoverScale]="'hover:!scale-200'"></app-icon-button>
 </div>
+
+<!-- Corn SVG -->
+<div class="relative mb-20 flex-none overflow-hidden">
+  <img [src]="title" class="absolute inset-0 m-auto max-h-[60dvh] lg:max-h-[80dvh]" />
+  <img [src]="corn" class="relative m-auto max-h-[60dvh] animate-heartbeat lg:max-h-[80dvh]" id="cornSvg" />
+</div>
+
+<!-- Desktop Buttons -->
+<div class="mr-20 hidden flex-col items-start justify-end space-y-2 lg:flex">
+  <!-- Play -->
+  <app-game-button (click)="avoidTheCob.play(false)" [text]="'Play'"></app-game-button>
+  <!-- Mob Mode -->
+  <app-game-button (click)="avoidTheCob.play(true)" [text]="'Mob Mode'"></app-game-button>
+  <!-- Options -->
+  <app-game-button (click)="gameSettingsService.show()" [text]="'Options'"></app-game-button>
+  <!-- Leaderboard -->
+  <app-game-button (click)="leaderboardService.show()" [text]="'Leaderboard'"></app-game-button>
+  <!-- Exit -->
+  <app-game-button (click)="router.navigate(['/home'])" [text]="'Exit'"></app-game-button>
+</div>
+
+<!-- Mobile Play Button -->
+<app-game-button
+  class="absolute bottom-0 mb-12 rounded-full border-2 border-mat-yellow pb-1 lg:hidden"
+  (click)="avoidTheCob.play(false)"
+  [text]="'Play'"></app-game-button>

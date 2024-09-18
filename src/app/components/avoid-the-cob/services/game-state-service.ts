@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
-import { scaledSize } from '../models/device-scale/device-scale';
 import { GameColor } from '../models/game-color/game-color';
 import { AudioFile, AudioService } from './audio-service';
 import { CanvasService } from './canvas-service';
@@ -40,12 +39,10 @@ export class GameStateService {
 
   start() {
     this.paused = false;
-    this.cursor.blink(GameColor.Transparent, 4, 125);
-    this.cursor.disableCollision(1000);
+    this.cursor.reset(this.mobMode);
 
     if (this.mobMode) {
       this.lifeTimer();
-      this.cursor.object.size = scaledSize(8);
       this.gameObjectService.mobs.createObjects();
     } else {
       this.gameObjectService.peas.createObjects();
@@ -71,7 +68,7 @@ export class GameStateService {
       this.scoreService.resetScore();
       this.gameObjectService.destroyAll();
       this.difficultyService.level = 0;
-      this.cursor.show();
+      this.cursor.showPointer();
       cheatsEnabled || this.browserResized || this.mobMode
         ? this.mainMenuService.show()
         : this.leaderboardService.show();

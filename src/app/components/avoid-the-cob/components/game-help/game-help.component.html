@@ -1,0 +1,33 @@
+<div class="flex flex-1 flex-col items-center justify-center p-8 text-mat-cream">
+  <!-- Label -->
+  <span class="text-2xl font-bold">{{ gameHelpObjects[selectedIndex].gameObject }}</span>
+
+  <!-- Object -->
+  <div class="my-8 flex w-full items-center justify-center">
+    <!-- Left -->
+    <app-icon-button (click)="backward()" [matIcon]="'arrow_back_ios_new'" [color]="'text-mat-cream'"></app-icon-button>
+
+    <div class="mx-12 flex size-32 items-center justify-center rounded-xl border-2 border-mat-cream">
+      @if (selectedIndex === 0) {
+        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-green"></div>
+      } @else if (selectedIndex === 1) {
+        <div class="mx-2 size-8 animate-shake rounded-lg bg-mat-yellow"></div>
+      } @else if (selectedIndex === 2) {
+        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-blue"></div>
+      } @else if (selectedIndex === 3) {
+        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-red"></div>
+      }
+    </div>
+
+    <!-- Right -->
+    <app-icon-button (click)="forward()" [matIcon]="'arrow_forward_ios'" [color]="'text-mat-cream'"></app-icon-button>
+  </div>
+
+  <!-- Description -->
+  <span class="max-w-80 text-center">
+    {{ gameHelpObjects[selectedIndex].description }}
+  </span>
+</div>
+
+<!-- Back -->
+<app-game-button class="mb-12" (click)="gameHelpService.hide()" [text]="'Back'"></app-game-button>

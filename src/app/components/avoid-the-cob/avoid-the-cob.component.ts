@@ -3,6 +3,7 @@ import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angula
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { GameHelpComponent } from './components/game-help/game-help.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
@@ -26,6 +27,7 @@ import { SvgLoaderService } from './services/svg-loader-service';
   selector: 'app-avoid-the-cob',
   standalone: true,
   imports: [
+    GameHelpComponent,
     GameSettingsComponent,
     GameTextComponent,
     IconButtonComponent,
