@@ -66,15 +66,17 @@ export class CanvasService {
   private drawCircle(object: GameObject, scale: number, filled: boolean) {
     const radius = object.size * scale;
 
-    if (filled) {
-      this.context.arc(object.x, object.y, radius, 0, 2 * Math.PI);
-      this.context.fill();
-    } else {
-      const lineWidth = radius < 10 ? 2 : 5;
-      this.context.arc(object.x, object.y, radius - lineWidth / 2, 0, 2 * Math.PI);
-      this.context.strokeStyle = object.color;
-      this.context.lineWidth = lineWidth;
-      this.context.stroke();
+    if (radius) {
+      if (filled) {
+        this.context.arc(object.x, object.y, radius, 0, 2 * Math.PI);
+        this.context.fill();
+      } else {
+        const lineWidth = radius < 10 ? 2 : 5;
+        this.context.arc(object.x, object.y, radius - lineWidth / 2, 0, 2 * Math.PI);
+        this.context.strokeStyle = object.color;
+        this.context.lineWidth = lineWidth;
+        this.context.stroke();
+      }
     }
   }
 }
