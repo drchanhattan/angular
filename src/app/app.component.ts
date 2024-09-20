@@ -29,6 +29,7 @@ import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
 import { GameHelpService } from './components/avoid-the-cob/components/game-help/game-help-service';
+import { OverlayService } from './components/avoid-the-cob/services/overlay-service';
 import { CountriesService } from './components/gallery/countries/countries-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { Icons } from './icons/icons';
@@ -66,6 +67,7 @@ import { GameComponent } from './pages/game/game.component';
     GameTextService,
     LeaderboardService,
     MainMenuService,
+    OverlayService,
     ParticleService,
     PlayerNameService,
     PowerUpService,

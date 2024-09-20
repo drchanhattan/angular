@@ -73,10 +73,6 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:keydown.escape', ['$event']) onKeydownHandler() {
-    location.reload();
-  }
-
   ngOnInit() {
     this.canvasService.init();
     this.mainMenuService.show();
