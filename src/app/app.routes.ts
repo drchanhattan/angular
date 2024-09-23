@@ -10,7 +10,6 @@ import { SouthAmericaComponent } from './pages/south-america/south-america.compo
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
   { path: 'cv', component: CVComponent },
   { path: 'home', component: HomeComponent },
   { path: 'europe', component: EuropeComponent },
@@ -19,4 +18,5 @@ export const routes: Routes = [
   { path: 'south-america', component: SouthAmericaComponent },
   { path: 'oceania', component: OceaniaComponent },
   { path: 'game', component: GameComponent },
+  { path: '**', redirectTo: 'home' },
 ];
