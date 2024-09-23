@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AsiaComponent } from './pages/asia/asia.component';
+import { CVComponent } from './pages/cv/cv.component';
 import { EuropeComponent } from './pages/europe/europe.component';
 import { GameComponent } from './pages/game/game.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -9,6 +10,8 @@ import { SouthAmericaComponent } from './pages/south-america/south-america.compo
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' },
+  { path: 'cv', component: CVComponent },
   { path: 'home', component: HomeComponent },
   { path: 'europe', component: EuropeComponent },
   { path: 'asia', component: AsiaComponent },
