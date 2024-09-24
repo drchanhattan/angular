@@ -5,22 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class ScoreService {
   score = 0;
-  peasCollected = 0;
-  comboMultiplier = 1;
+  comboMultiplier = 0;
 
   levelIncrease() {
     this.score += 1000;
   }
 
   peaCollected() {
-    this.score += this.comboMultiplier * 3;
-    this.comboMultiplier = Math.round(this.peasCollected / 3) + 1;
-    this.peasCollected += 1;
+    this.score += this.comboMultiplier || 1;
+    this.comboMultiplier += 1;
   }
 
   resetCombo() {
-    this.peasCollected = 0;
-    this.comboMultiplier = 1;
+    this.comboMultiplier = 0;
   }
 
   resetScore() {

@@ -18,7 +18,7 @@ export class GameHelpComponent {
     {
       gameObject: 'Pea',
       description:
-        'Each pea awards 3 points multiplied by your current combo level. Your combo will increase for every 3 peas collected in a row without taking damage.',
+        'Each pea awards 1 point multiplied by your current combo level. Your combo will increase for every pea collected in a row without taking damage.',
     },
     {
       gameObject: 'Corn',
@@ -33,7 +33,7 @@ export class GameHelpComponent {
     {
       gameObject: 'Life',
       description:
-        "Extra lives help you stay in the game. Tip: They appear frequently, but be sure to collect them before you collect the peas, else you'll miss your chance.",
+        "Extra lives will help you stay in the game. Tip: They appear frequently, but be sure to collect them first, or you'll miss your chance!",
     },
   ];
 
