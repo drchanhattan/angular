@@ -8,6 +8,7 @@ export class GameObjectSettings {
   shape: GameObjectShape;
   speed: number;
   gravity: number;
+  rotation?: number;
 
   constructor(
     type: GameObjectType,
@@ -16,6 +17,7 @@ export class GameObjectSettings {
     shape: GameObjectShape,
     speed: number,
     gravity: number,
+    rotation?: number,
   ) {
     this.type = type;
     this.color = color;
@@ -23,5 +25,6 @@ export class GameObjectSettings {
     this.shape = shape;
     this.speed = speed;
     this.gravity = gravity;
+    this.rotation = rotation;
   }
 }

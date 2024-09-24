@@ -37,6 +37,7 @@ export class GameObjectService {
   processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
+        this.applyRotation(obj);
         this.canvasService.drawObject(obj);
 
         if (paused) {
@@ -96,6 +97,15 @@ export class GameObjectService {
 
     if (mobMode) {
       this.applyMagnetism(obj, 80, this.mobs.settings.speed, true, true);
+    }
+  }
+
+  private applyRotation(obj: GameObject) {
+    if (obj.rotation) {
+      const timeLock = obj.behaviourIncludes(GameObjectBehaviour.TimeLock);
+      const forceField = obj.behaviourIncludes(GameObjectBehaviour.ForceField);
+      const speed = timeLock ? 0.5 : forceField ? 20 : 5;
+      obj.rotation = obj.rotation + Math.random() * speed;
     }
   }
 

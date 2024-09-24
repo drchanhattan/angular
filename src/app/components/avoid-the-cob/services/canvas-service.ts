@@ -22,7 +22,7 @@ export class CanvasService {
     this.context.beginPath();
 
     object.shape === GameObjectShape.Square
-      ? this.drawSquare(object, scale)
+      ? this.drawSquare(object, scale, object.rotation)
       : this.drawCircle(object, scale, object.shape !== GameObjectShape.Donut);
 
     this.context.closePath();
@@ -45,11 +45,19 @@ export class CanvasService {
     }, duration);
   }
 
-  private drawSquare(object: GameObject, scale: number) {
+  private drawSquare(object: GameObject, scale: number, rotation?: number) {
     const drawX = object.x - object.size / 2;
     const drawY = object.y - object.size / 2;
     const size = object.size * scale;
     const cornerRadius = size / 3;
+
+    this.context.save();
+
+    if (rotation) {
+      this.context.translate(object.x, object.y);
+      this.context.rotate((rotation * Math.PI) / 180);
+      this.context.translate(-object.x, -object.y);
+    }
 
     this.context.moveTo(drawX + cornerRadius, drawY);
     this.context.lineTo(drawX + size - cornerRadius, drawY);
@@ -61,6 +69,7 @@ export class CanvasService {
     this.context.lineTo(drawX, drawY + cornerRadius);
     this.context.quadraticCurveTo(drawX, drawY, drawX + cornerRadius, drawY);
     this.context.fill();
+    this.context.restore();
   }
 
   private drawCircle(object: GameObject, scale: number, filled: boolean) {

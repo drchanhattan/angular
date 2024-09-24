@@ -15,6 +15,7 @@ export class GameObject {
   gravity: number;
   behaviours: GameObjectBehaviour[];
   expiration?: number;
+  rotation?: number;
 
   constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
@@ -26,6 +27,7 @@ export class GameObject {
     this.deltaX = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.deltaY = settings.speed ? (Math.random() - Math.random()) * settings.speed : 0;
     this.gravity = settings.gravity ?? 0;
+    this.rotation = settings.rotation;
     this.behaviours = [GameObjectBehaviour.Default];
   }
 
