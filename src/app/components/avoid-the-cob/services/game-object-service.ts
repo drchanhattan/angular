@@ -37,7 +37,7 @@ export class GameObjectService {
   processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
-        this.applyRotation(obj);
+        this.applyRotation(obj, mobMode);
         this.canvasService.drawObject(obj);
 
         if (paused) {
@@ -100,11 +100,11 @@ export class GameObjectService {
     }
   }
 
-  private applyRotation(obj: GameObject) {
+  private applyRotation(obj: GameObject, mobMode: boolean) {
     if (obj.rotation) {
       const timeLock = obj.behaviourIncludes(GameObjectBehaviour.TimeLock);
       const forceField = obj.behaviourIncludes(GameObjectBehaviour.ForceField);
-      const speed = timeLock ? 0.5 : forceField ? 20 : 5;
+      const speed = timeLock ? 0.5 : forceField || mobMode ? 20 : 5;
       obj.rotation = obj.rotation + Math.random() * speed;
     }
   }

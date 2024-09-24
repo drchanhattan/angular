@@ -64,7 +64,11 @@ export class GameStateService {
       this.firebaseService.save(this.scoreService.score);
     }
 
-    const subtext = this.browserResized ? 'Browser window resize detected' : `Score: ${this.scoreService.score}`;
+    const subtext = this.browserResized
+      ? 'Browser window resize detected'
+      : this.mobMode
+        ? `You reached level: ${this.difficultyService.level}`
+        : `Score: ${this.scoreService.score}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
       this.scoreService.resetScore();
       this.gameObjectService.destroyAll();

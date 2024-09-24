@@ -73,7 +73,15 @@ export class GameObjectDefaults {
 
     return {
       count: count,
-      settings: new GameObjectSettings(GameObjectType.Corn, GameColor.Yellow, size, GameObjectShape.Square, speed, 0),
+      settings: new GameObjectSettings(
+        GameObjectType.Corn,
+        GameColor.Yellow,
+        size,
+        GameObjectShape.Square,
+        speed,
+        0,
+        1,
+      ),
     };
   }
 }

@@ -42,7 +42,7 @@
 }
 
 <!-- Score -->
-@if (gameStateService.lives > 0) {
+@if (gameStateService.lives > 0 && !gameStateService.mobMode) {
   <div
     [@opacityAnimation]
     class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">
