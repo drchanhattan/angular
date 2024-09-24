@@ -47,7 +47,7 @@ export class DifficultyService {
 
     // Size
     const minSize = scaledSize(20);
-    const size = Math.max(defaultCorn.settings.size * Math.pow(0.99, this.level), minSize);
+    const size = Math.max(defaultCorn.settings.size * Math.pow(0.98, this.level), minSize);
     // Speed
     const speed = Math.min(defaultCorn.settings.speed * Math.pow(1.001, this.level));
     // Count
