@@ -16,6 +16,9 @@ export class NavigationButtonComponent {
   @Input() link?: SideNavLink;
   @Input() group?: SideNavGroup;
 
+  textClasses = '';
+  iconClasses = '!flex !items-center !justify-center !overflow-visible !text-2xl';
+
   expandGroup(button: any) {
     if (!!this.group) {
       this.group.expanded = !this.group.expanded;
