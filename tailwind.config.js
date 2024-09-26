@@ -7,6 +7,7 @@ module.exports = {
         heartbeat: 'heartbeat 0.5s infinite',
         jiggle: 'jiggle 0.5s',
         shake: 'shake 4s infinite',
+        zoom: 'zoom 20s infinite',
       },
       keyframes: {
         float: {
@@ -66,6 +67,17 @@ module.exports = {
           },
           '35%, 45%, 55%, 65%, 75%': {
             transform: 'translateY(7px)',
+          },
+        },
+        zoom: {
+          '0%': {
+            transform: 'scale(1)',
+          },
+          '50%': {
+            transform: 'scale(1.1)',
+          },
+          '100%': {
+            transform: 'scale(1)',
           },
         },
       },

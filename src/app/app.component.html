@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 @if (router.url !== '/game') {
   <div
-    class="fixed z-10 flex h-14 w-screen items-center justify-between border-b border-mat-yellow bg-mat-black/95 px-4">
+    class="fixed z-10 flex h-16 w-screen items-center justify-between border-b border-mat-yellow bg-mat-black/95 px-4">
     <app-icon-button (click)="drawer.toggle()" [matIcon]="'menu'"></app-icon-button>
     @if (router.url !== '/home' && !drawer.opened) {
       <app-icon-button
@@ -14,7 +14,7 @@
 
 <mat-sidenav-container>
   <!-- Side Nav -->
-  <mat-sidenav #drawer mode="over" class="!mt-14 !w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
+  <mat-sidenav #drawer mode="over" class="!mt-16 !w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
     <app-navigation (close)="drawer.close()"></app-navigation>
   </mat-sidenav>
 
