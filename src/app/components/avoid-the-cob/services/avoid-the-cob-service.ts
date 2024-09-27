@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameTextService } from '../components/game-text/game-text-service';
 import { MainMenuService } from '../components/main-menu/main-menu-service';
 import { PlayerNameService } from '../components/player-name/player-name-service';
+import { AudioService } from './audio-service';
 import { CollisionService } from './collision-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
@@ -15,6 +16,7 @@ import { PowerUpService } from './power-up-service';
 })
 export class AvoidTheCobService {
   constructor(
+    private audioService: AudioService,
     private collisionService: CollisionService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
@@ -64,6 +66,7 @@ export class AvoidTheCobService {
     this.gameObjectService.reset();
     this.difficultyService.resetLevel();
     this.powerUpService.shufflePowerUps();
+    this.audioService.playMusic();
 
     this.textService.show(`Level ${this.difficultyService.level}`, '', 2500).then(() => {
       this.gameStateService.start();

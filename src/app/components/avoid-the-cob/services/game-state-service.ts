@@ -59,6 +59,7 @@ export class GameStateService {
     this.lives = 0;
     this.paused = true;
     this.clearTimer();
+    this.audioService.stopMusic();
 
     if (!cheatsEnabled && !this.browserResized && !this.mobMode) {
       this.firebaseService.save(this.scoreService.score);
@@ -97,7 +98,8 @@ export class GameStateService {
   levelUp() {
     this.paused = true;
     this.clearTimer();
-    this.audioService.play(AudioFile.LevelUp);
+    this.audioService.setMusicSpeed(1);
+    this.audioService.playSfx(AudioFile.LevelUp);
     this.canvasService.flash(200, GameColor.Cream);
     this.scoreService.levelIncrease();
     this.levelUpText().then(() => {

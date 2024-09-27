@@ -47,7 +47,7 @@ export class CollisionService {
 
   private peaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
-      this.audioService.play(AudioFile.Pea);
+      this.audioService.playSfx(AudioFile.Pea);
       this.scoreService.peaCollected();
       this.particleService.create(pea, 20);
       pea.destroy();
@@ -56,7 +56,7 @@ export class CollisionService {
 
   private cornCollision(corn: GameObject) {
     if (corn.detectCollision(this.cursor.object)) {
-      this.audioService.play(AudioFile.Corn);
+      this.audioService.playSfx(AudioFile.Corn);
       this.particleService.create(corn);
       corn.destroy();
 
@@ -75,7 +75,7 @@ export class CollisionService {
 
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
-      this.audioService.play(AudioFile.PowerUp);
+      this.audioService.playSfx(AudioFile.PowerUp);
       this.canvasService.flash(500, GameColor.FlashBlue, 'animate-pulse');
       this.particleService.create(powerUp, 100);
       this.powerUpService.randomPowerUp();
@@ -85,7 +85,7 @@ export class CollisionService {
 
   private heartCollision(heart: GameObject) {
     if (heart.detectCollision(this.cursor.object)) {
-      this.audioService.play(AudioFile.Heart);
+      this.audioService.playSfx(AudioFile.Heart);
       this.cursor.blink(heart.color, 2, 100);
       this.gameStateService.lives++;
       this.particleService.create(heart, 8);

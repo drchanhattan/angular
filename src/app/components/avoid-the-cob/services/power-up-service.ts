@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameObjectBehaviour } from '../models/game-object/game-object-behaviour';
+import { AudioService } from './audio-service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { GameObjectService } from './game-object-service';
@@ -17,6 +18,7 @@ export class PowerUpService {
   ];
 
   constructor(
+    private audioService: AudioService,
     private cursor: CursorService,
     private difficultyService: DifficultyService,
     private gameObjectService: GameObjectService,
@@ -50,6 +52,7 @@ export class PowerUpService {
   }
 
   powerTimeLock() {
+    this.audioService.setMusicSpeed(0.75);
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.TimeLock);
     this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.TimeLock);
   }

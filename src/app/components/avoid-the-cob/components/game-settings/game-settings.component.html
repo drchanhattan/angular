@@ -1,8 +1,16 @@
 <div class="mt-10 flex w-80 flex-1 flex-col items-center justify-center font-inter text-mat-cream">
   <!-- Audio -->
-  <div class="my-4 flex items-center">
-    <mat-slide-toggle class="yellow-slide-toggle mr-2" [formControl]="audioService.enabled"></mat-slide-toggle>
-    <span>Audio</span>
+  <div class="my-4 flex w-full justify-evenly">
+    <div class="flex flex-col items-center justify-center">
+      <mat-slide-toggle
+        class="yellow-slide-toggle"
+        [formControl]="audioService.audio.controls.music"></mat-slide-toggle>
+      <span>Music</span>
+    </div>
+    <div class="flex flex-col items-center justify-center">
+      <mat-slide-toggle class="yellow-slide-toggle" [formControl]="audioService.audio.controls.sfx"></mat-slide-toggle>
+      <span>SFX</span>
+    </div>
   </div>
 
   <!-- Cheats -->
