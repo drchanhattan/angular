@@ -76,7 +76,9 @@ export class AudioService {
   }
 
   setMusicSpeed(speed: number) {
-    this.#activeMusic.playbackRate = speed;
+    if (this.#activeMusic) {
+      this.#activeMusic.playbackRate = speed;
+    }
   }
 
   reset() {

@@ -104,7 +104,7 @@ export class GameObjectService {
     if (obj.rotation) {
       const timeLock = obj.behaviourIncludes(GameObjectBehaviour.TimeLock);
       const forceField = obj.behaviourIncludes(GameObjectBehaviour.ForceField);
-      const speed = timeLock ? 0.5 : forceField || mobMode ? 20 : 5;
+      const speed = timeLock ? 0.5 : forceField || mobMode ? 20 : 10;
       obj.rotation = obj.rotation + Math.random() * speed;
     }
   }
