@@ -33,14 +33,12 @@ import { OverlayService } from './components/avoid-the-cob/services/overlay-serv
 import { CountriesService } from './components/gallery/countries/countries-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { Icons } from './icons/icons';
-import { GameComponent } from './pages/game/game.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    GameComponent,
     IconButtonComponent,
     MatButtonModule,
     MatIconModule,

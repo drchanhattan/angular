@@ -20,7 +20,7 @@ export const sideNavLinks: SideNavGroup[] = [
   {
     label: 'Games',
     icon: 'sports_esports',
-    sublinks: [{ label: 'Avoid the Cob', url: '/game' }],
+    sublinks: [{ label: 'Avoid the Cob', url: '/avoid-the-cob' }],
     expanded: true,
   },
   {

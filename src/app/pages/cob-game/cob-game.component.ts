@@ -2,11 +2,11 @@ import { Component, HostBinding } from '@angular/core';
 import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-cob.component';
 
 @Component({
-  selector: 'app-game',
+  selector: 'app-cob-game',
   standalone: true,
   imports: [AvoidTheCobComponent],
-  templateUrl: './game.component.html',
+  templateUrl: './cob-game.component.html',
 })
-export class GameComponent {
+export class CobGameComponent {
   @HostBinding('class') hostClasses = 'flex h-dvh';
 }

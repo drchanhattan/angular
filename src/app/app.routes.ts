@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AsiaComponent } from './pages/asia/asia.component';
+import { CobGameComponent } from './pages/cob-game/cob-game.component';
 import { CVComponent } from './pages/cv/cv.component';
 import { EuropeComponent } from './pages/europe/europe.component';
-import { GameComponent } from './pages/game/game.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NorthAmericaComponent } from './pages/north-america/north-america.component';
 import { OceaniaComponent } from './pages/oceania/oceania.component';
@@ -17,6 +17,6 @@ export const routes: Routes = [
   { path: 'north-america', component: NorthAmericaComponent },
   { path: 'south-america', component: SouthAmericaComponent },
   { path: 'oceania', component: OceaniaComponent },
-  { path: 'game', component: GameComponent },
+  { path: 'avoid-the-cob', component: CobGameComponent },
   { path: '**', redirectTo: 'home' },
 ];
