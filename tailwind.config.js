@@ -7,7 +7,7 @@ module.exports = {
         heartbeat: 'heartbeat 0.5s infinite',
         jiggle: 'jiggle 0.5s',
         shake: 'shake 4s infinite',
-        zoom: 'zoom 20s infinite',
+        zoom: 'zoom 15s infinite',
       },
       keyframes: {
         float: {
