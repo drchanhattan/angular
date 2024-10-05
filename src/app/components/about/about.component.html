@@ -1,65 +1,63 @@
-<div class="absolute size-full overflow-hidden">
-  <img src="hero-home.jpg" class="size-full animate-zoom object-cover" />
-</div>
-
-<div
-  class="mat-elevation-z5 z-10 mb-10 mt-20 flex h-fit max-w-min flex-col items-center justify-center self-center rounded-2xl bg-mat-black/75 backdrop-blur-sm">
-  <div class="flex flex-col items-center p-6 md:flex-row">
-    <!-- About -->
-    <div [@opacityAnimation] class="mx-6 my-4 sm:w-1/2 sm:min-w-80">
-      <div class="mb-2 text-4xl md:text-5xl">
-        <span>Hey, I'm</span>
-        <span class="text-mat-yellow">&nbsp;Chris</span>
-        <span>.</span>
-      </div>
-      <span class="text-base md:text-lg">
-        I'm a front-end developer with a passion for crafting intuitive and engaging single-page applications. This site
-        features my photography portfolio and highlights my design and development skills. Check out the game I'm
-        building and try to post a high score! I'm always open to new connections and work opportunities, so feel free
-        to reach out on
-        <a
-          class="inline-block text-mat-yellow"
-          href="https://www.linkedin.com/in/christopher-chan-941503a1/"
-          target="_blank">
-          LinkedIn
-        </a>
-        <span>!</span>
-      </span>
-    </div>
-
-    <!-- Technology -->
-    <div class="my-4 flex w-3/5 flex-col justify-center sm:m-6 sm:w-1/2">
-      <div class="mb-4 flex justify-center">
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'angular', label: 'Angular', delay: 400 }"></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            technology;
-            context: { icon: 'typescript', label: 'Typescript', delay: 550 }
-          "></ng-container>
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'html', label: 'HTML', delay: 700 }"></ng-container>
+<div class="flex h-auto w-full items-center justify-center bg-cover" style="background-image: url('hero-home.jpg')">
+  <div
+    class="mat-elevation-z5 z-10 mb-10 mt-20 flex h-fit max-w-min flex-col items-center justify-center self-center rounded-2xl bg-mat-black/75 backdrop-blur-sm">
+    <div class="flex flex-col items-center p-6 md:flex-row">
+      <!-- About -->
+      <div [@opacityAnimation] class="mx-6 my-4 sm:w-1/2 sm:min-w-80">
+        <div class="mb-2 text-4xl md:text-5xl">
+          <span>Hey, I'm</span>
+          <span class="text-mat-yellow">&nbsp;Chris</span>
+          <span>.</span>
+        </div>
+        <span class="text-base md:text-lg">
+          I'm a front-end developer with a passion for crafting intuitive and engaging single-page applications. This
+          site features my photography portfolio and highlights my design and development skills. Check out the game I'm
+          building and try to post a high score! I'm always open to new connections and work opportunities, so feel free
+          to reach out on
+          <a
+            class="inline-block text-mat-yellow"
+            href="https://www.linkedin.com/in/christopher-chan-941503a1/"
+            target="_blank">
+            LinkedIn
+          </a>
+          <span>!</span>
+        </span>
       </div>
 
-      <div class="mb-4 flex justify-center">
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'sass', label: 'SCSS', delay: 850 }"></ng-container>
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'git', label: 'Git', delay: 1000 }"></ng-container>
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'tailwind', label: 'Tailwind', delay: 850 }"></ng-container>
-      </div>
+      <!-- Technology -->
+      <div class="my-4 flex w-3/5 flex-col justify-center sm:m-6 sm:w-1/2">
+        <div class="mb-4 flex justify-center">
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'angular', label: 'Angular', delay: 400 }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="
+              technology;
+              context: { icon: 'typescript', label: 'Typescript', delay: 550 }
+            "></ng-container>
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'html', label: 'HTML', delay: 700 }"></ng-container>
+        </div>
 
-      <div class="flex justify-center">
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'material', label: 'Material', delay: 700 }"></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            technology;
-            context: { icon: 'javascript', label: 'Javascript', delay: 550 }
-          "></ng-container>
-        <ng-container
-          *ngTemplateOutlet="technology; context: { icon: 'rxjs', label: 'RXJS', delay: 400 }"></ng-container>
+        <div class="mb-4 flex justify-center">
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'sass', label: 'SCSS', delay: 850 }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'git', label: 'Git', delay: 1000 }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'tailwind', label: 'Tailwind', delay: 850 }"></ng-container>
+        </div>
+
+        <div class="flex justify-center">
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'material', label: 'Material', delay: 700 }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="
+              technology;
+              context: { icon: 'javascript', label: 'Javascript', delay: 550 }
+            "></ng-container>
+          <ng-container
+            *ngTemplateOutlet="technology; context: { icon: 'rxjs', label: 'RXJS', delay: 400 }"></ng-container>
+        </div>
       </div>
     </div>
   </div>

@@ -1,9 +1,7 @@
 @if (!!group) {
   <!-- Group -->
   <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
-    <mat-icon [ngClass]="[iconClasses, 'text-mat-cream']">
-      {{ icon }}
-    </mat-icon>
+    <ng-container matButtonIcon [ngTemplateOutlet]="icon"></ng-container>
     <span class="text-nowrap text-xl text-mat-cream sm:text-lg">
       {{ group.label }}
     </span>
@@ -14,13 +12,18 @@
 } @else if (!!link) {
   <!-- Link -->
   <button mat-button class="mb-2 !rounded-lg !px-4">
-    @if (icon) {
-      <mat-icon [ngClass]="[iconClasses, 'text-mat-cream']">
-        {{ icon }}
-      </mat-icon>
-    }
+    <ng-container matButtonIcon [ngTemplateOutlet]="icon"></ng-container>
     <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'text-nowrap text-xl sm:text-lg']">
       {{ link.label }}
     </span>
   </button>
 }
+
+<!-- Icon -->
+<ng-template #icon>
+  @if (matIcon) {
+    <mat-icon [ngClass]="[iconClasses, 'text-mat-cream']">{{ matIcon }}</mat-icon>
+  } @else if (svgIcon) {
+    <mat-icon [ngClass]="[iconClasses, 'scale-125 text-mat-cream']" [svgIcon]="svgIcon"></mat-icon>
+  }
+</ng-template>

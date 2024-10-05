@@ -1,0 +1,12 @@
+<app-red-panda></app-red-panda>
+<div class="absolute bottom-10 flex size-full flex-col items-center justify-center text-mat-cream">
+  <div class="flex items-center justify-center space-x-8">
+    @for (link of links; track $index) {
+      <app-icon-button (click)="open(link.url)" [svgIcon]="link.icon" [scale]="'scale-150'"></app-icon-button>
+    }
+  </div>
+  <div class="mt-10 flex flex-col items-center">
+    <span>Copyright © 2024 Christopher Chan.</span>
+    <span class="text-xs">Powered by Ramen Noodles.</span>
+  </div>
+</div>

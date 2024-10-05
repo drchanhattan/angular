@@ -6,14 +6,16 @@
       <!-- Link -->
       <app-navigation-button
         class=""
-        (click)="navigate(item.link.url)"
+        (click)="navigate(item.link.url, item.link.external)"
         [active]="currentRoute === item.link.url"
-        [icon]="item.icon"
+        [matIcon]="item.matIcon"
+        [svgIcon]="item.svgIcon"
         [link]="item.link"></app-navigation-button>
     } @else if (item.sublinks) {
       <!-- Link Group -->
       <app-navigation-button
-        [icon]="item.icon"
+        [matIcon]="item.matIcon"
+        [svgIcon]="item.svgIcon"
         [group]="item"
         [active]="hasActiveSublink(item.sublinks)"></app-navigation-button>
       @if (item.expanded) {
@@ -28,11 +30,4 @@
       }
     }
   }
-</div>
-
-<div class="flex h-16 w-full items-center justify-between border-t border-mat-cream px-4 py-2">
-  <app-icon-button (click)="linkedIn()" [svgIcon]="'linkedin'" [tooltip]="'LinkedIn'"></app-icon-button>
-  <app-icon-button (click)="github()" [svgIcon]="'github'" [tooltip]="'Github'"></app-icon-button>
-  <app-icon-button (click)="youtube()" [svgIcon]="'youtube'" [tooltip]="'Youtube'"></app-icon-button>
-  <app-icon-button (click)="instagram()" [svgIcon]="'instagram'" [tooltip]="'Instagram'"></app-icon-button>
 </div>

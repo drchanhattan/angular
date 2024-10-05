@@ -35,16 +35,18 @@
           data-src="{{ hero }}"
           data-aos="fade-in"
           data-aos-duration="2000" />
-        <div class="absolute inset-0 top-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
-        <div class="absolute inset-0 flex h-4/5 w-full items-end justify-center overflow-hidden">
+        <div class="absolute top-0 flex size-full items-center justify-center">
           <span
             data-aos="zoom-out"
             data-aos-duration="2000"
-            class="select-none text-center font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
+            class="mb-20 select-none font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
             {{ name }}
           </span>
         </div>
       </div>
     }
+
+    <!-- Footer -->
+    <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

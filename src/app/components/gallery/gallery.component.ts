@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import AOS from 'aos';
+import { FooterComponent } from '../footer/footer.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { CountriesService } from './countries/countries-service';
 import { CountriesComponent } from './countries/countries.component';
@@ -19,6 +20,7 @@ import { CountriesComponent } from './countries/countries.component';
     IconButtonComponent,
     GalleryComponent,
     CountriesComponent,
+    FooterComponent,
   ],
   templateUrl: './gallery.component.html',
 })

@@ -63,6 +63,10 @@
               {
                 "glob": "**/*",
                 "input": "public/photos/south-america"
+              },
+              {
+                "glob": "**/*",
+                "input": "public/panda"
               }
             ],
             "styles": [

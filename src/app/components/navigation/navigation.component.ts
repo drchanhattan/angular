@@ -13,7 +13,7 @@ import { SideNavLink, sideNavLinks } from './navigation-links';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-sidenav-gradient';
+  @HostBinding('class') hostClasses = 'bg-sidenav-gradient flex h-full flex-col items-center overflow-hidden';
   @Output() close = new EventEmitter();
   currentRoute!: string;
   links = sideNavLinks;
@@ -25,8 +25,10 @@ export class NavigationComponent {
     });
   }
 
-  navigate(path: string) {
-    if (this.currentRoute !== path) {
+  navigate(path: string, external = false) {
+    if (external) {
+      window.open(path);
+    } else if (this.currentRoute !== path) {
       this.close.emit();
       this.router.navigate([path]);
     }
@@ -34,21 +36,5 @@ export class NavigationComponent {
 
   hasActiveSublink(links: SideNavLink[]) {
     return links.map((link) => link.url).includes(this.currentRoute);
-  }
-
-  github() {
-    window.open('https://github.com/drchanhattan/');
-  }
-
-  instagram() {
-    window.open('https://www.instagram.com/drchanhattan/');
-  }
-
-  linkedIn() {
-    window.open('https://www.linkedin.com/in/christopher-chan-941503a1/');
-  }
-
-  youtube() {
-    window.open('https://www.youtube.com/@drchanhattan/');
   }
 }

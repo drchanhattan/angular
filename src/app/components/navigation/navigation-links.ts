@@ -1,11 +1,13 @@
 export interface SideNavLink {
   label: string;
   url: string;
+  external?: boolean;
 }
 
 export interface SideNavGroup {
   label: string;
-  icon: string;
+  matIcon?: string;
+  svgIcon?: string;
   link?: SideNavLink;
   sublinks?: SideNavLink[];
   expanded?: boolean;
@@ -14,18 +16,23 @@ export interface SideNavGroup {
 export const sideNavLinks: SideNavGroup[] = [
   {
     label: 'Home',
-    icon: 'home',
+    matIcon: 'home',
     link: { label: 'Home', url: '/home' },
   },
   {
+    label: 'LinkedIn',
+    svgIcon: 'linkedin',
+    link: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', external: true },
+  },
+  {
     label: 'Games',
-    icon: 'sports_esports',
+    matIcon: 'sports_esports',
     sublinks: [{ label: 'Avoid the Cob', url: '/avoid-the-cob' }],
     expanded: true,
   },
   {
     label: 'Photography',
-    icon: 'photo_camera',
+    matIcon: 'photo_camera',
     sublinks: [
       { label: 'Europe', url: '/europe' },
       { label: 'Asia', url: '/asia' },

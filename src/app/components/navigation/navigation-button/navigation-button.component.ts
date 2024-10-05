@@ -12,11 +12,11 @@ import { SideNavGroup, SideNavLink } from '../navigation-links';
 })
 export class NavigationButtonComponent {
   @Input() active?: boolean;
-  @Input() icon?: string;
+  @Input() matIcon?: string;
+  @Input() svgIcon?: string;
   @Input() link?: SideNavLink;
   @Input() group?: SideNavGroup;
 
-  textClasses = '';
   iconClasses = '!flex !items-center !justify-center !overflow-visible !text-2xl';
 
   expandGroup(button: any) {
