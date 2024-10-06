@@ -1,1 +1,6 @@
-<img #sprite [src]="sprite$.value" class="absolute cursor-pointer overflow-hidden" [style]="pandaStyle" />
+<img
+  #sprite
+  class="absolute cursor-pointer overflow-hidden"
+  (click)="jump()"
+  [src]="sprite$.value"
+  [style]="pandaStyle" />

@@ -10,5 +10,5 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  @HostBinding('class') hostClasses = 'flex flex-col';
+  @HostBinding('class') hostClasses = 'flex flex-col overflow-hidden';
 }

@@ -18,7 +18,6 @@ enum Sprite {
 export class RedPandaComponent {
   @HostBinding('class') hostClasses = 'absolute size-full select-none overflow-hidden';
   cursorX = 200;
-  cursorY = 0;
   panda = new Panda(0, 0, window.innerWidth / 2, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);
 
@@ -27,7 +26,6 @@ export class RedPandaComponent {
     if (Math.abs(this.cursorX - event.clientX) > 75) {
       this.cursorX = event.clientX;
     }
-    this.cursorY = event.pageY;
   }
 
   constructor(
@@ -58,6 +56,15 @@ export class RedPandaComponent {
     const height = `height: ${size}px;`;
     const direction = `transform: scaleX(${isflipped$.value ? -1 : 1});`;
     return `${width} ${height} ${top} ${left} ${direction}`;
+  }
+
+  jump() {
+    const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;
+    if (!isJumping$.value) {
+      isJumping$.next(true);
+      deltaX$.next(isflipped$.value ? -speed : speed);
+      deltaY$.next(-jumpHeight);
+    }
   }
 
   private updateSprite() {
@@ -104,25 +111,11 @@ export class RedPandaComponent {
       deltaX$.next(withinRange ? 0 : moveRight ? speed : -speed);
       isflipped$.next(!moveRight);
     }
-
-    if (Math.abs(cursorDiff) < size) {
-      this.jump();
-    }
   }
 
   private moveX() {
     if (this.panda.deltaX$.value) {
       this.panda.x += this.panda.deltaX$.value;
-    }
-  }
-
-  private jump() {
-    const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, size, speed } = this.panda;
-    const bottomOffset = document.body.scrollHeight - this.cursorY;
-    if (!isJumping$.value && bottomOffset > 0 && bottomOffset < size) {
-      isJumping$.next(true);
-      deltaX$.next(isflipped$.value ? -speed : speed);
-      deltaY$.next(-jumpHeight);
     }
   }
 
