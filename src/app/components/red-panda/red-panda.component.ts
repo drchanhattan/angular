@@ -17,13 +17,13 @@ enum Sprite {
 })
 export class RedPandaComponent {
   @HostBinding('class') hostClasses = 'absolute w-full select-none pointer-events-none';
-  cursorX = 200;
-  panda = new Panda(0, 0, window.innerWidth / 2, 9999, 150);
+  cursorX = 0;
+  panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);
 
   @HostListener('document:mousemove', ['$event'])
   handleMouseMove(event: MouseEvent) {
-    if (Math.abs(this.cursorX - event.clientX) > 75) {
+    if (Math.abs(this.cursorX - event.clientX) > 150) {
       this.cursorX = event.clientX;
     }
   }
@@ -36,16 +36,6 @@ export class RedPandaComponent {
       this.updateSprite();
       this.animate();
     });
-  }
-
-  private preloadSprites$() {
-    return forkJoin(
-      Object.values(Sprite).map((gif) =>
-        this.http
-          .get(gif, { responseType: 'blob' })
-          .pipe(map((blob) => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)))),
-      ),
-    );
   }
 
   get pandaStyle() {
@@ -65,6 +55,16 @@ export class RedPandaComponent {
       deltaX$.next(isflipped$.value ? -speed : speed);
       deltaY$.next(-jumpHeight);
     }
+  }
+
+  private preloadSprites$() {
+    return forkJoin(
+      Object.values(Sprite).map((gif) =>
+        this.http
+          .get(gif, { responseType: 'blob' })
+          .pipe(map((blob) => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)))),
+      ),
+    );
   }
 
   private updateSprite() {
@@ -102,19 +102,26 @@ export class RedPandaComponent {
 
   private updateDirection() {
     const { deltaX$, isflipped$, isJumping$, speed, size, x } = this.panda;
-    const cursorDiff = this.cursorX - (x + size);
+    const pandaX = x + size / 2;
+    const cursorDiff = this.cursorX - pandaX;
+    const tooFarLeft = window.innerWidth - pandaX > window.innerWidth - size;
+    const tooFarRight = window.innerWidth - pandaX < size;
 
     if (!isJumping$.value) {
-      const withinRange = Math.abs(cursorDiff + size / 2) < 5;
-      const moveRight = cursorDiff + size / 2 > 0;
+      const move = Math.abs(cursorDiff) < 300;
+      const negativeDiff = cursorDiff < 0;
+      const fixed = !move || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
 
-      deltaX$.next(withinRange ? 0 : moveRight ? speed : -speed);
-      isflipped$.next(!moveRight);
+      deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);
+      isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);
     }
   }
 
   private moveX() {
-    if (this.panda.deltaX$.value) {
+    const moveLeft = this.panda.deltaX$.value < 0;
+    const canMoveLeft = moveLeft && this.panda.x > this.panda.size / 2;
+    const canMoveRight = !moveLeft && window.innerWidth - this.panda.size > this.panda.x + this.panda.size / 2;
+    if (this.panda.deltaX$.value && (canMoveLeft || canMoveRight)) {
       this.panda.x += this.panda.deltaX$.value;
     }
   }
