@@ -1,6 +1,6 @@
 @if (!!group) {
   <!-- Group -->
-  <button #groupBtn mat-button class="mb-2 !rounded-lg" (click)="expandGroup(groupBtn)">
+  <button #groupBtn mat-button class="mb-4 !rounded-lg" (click)="expandGroup(groupBtn)">
     <ng-container matButtonIcon [ngTemplateOutlet]="icon"></ng-container>
     <span class="text-nowrap text-xl text-mat-cream sm:text-lg">
       {{ group.label }}
@@ -11,7 +11,7 @@
   </button>
 } @else if (!!link) {
   <!-- Link -->
-  <button mat-button class="mb-2 !rounded-lg !px-4">
+  <button mat-button class="mb-4 !rounded-lg !px-4">
     <ng-container matButtonIcon [ngTemplateOutlet]="icon"></ng-container>
     <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'text-nowrap text-xl sm:text-lg']">
       {{ link.label }}

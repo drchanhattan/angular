@@ -13,7 +13,7 @@ import { SideNavLink, sideNavLinks } from './navigation-links';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  @HostBinding('class') hostClasses = 'bg-mat-black/75 flex h-full flex-col items-center overflow-hidden';
+  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black/85';
   @Output() close = new EventEmitter();
   currentRoute!: string;
   links = sideNavLinks;
