@@ -18,5 +18,5 @@ import { RouterLink } from '@angular/router';
   ],
 })
 export class AboutComponent {
-  @HostBinding('class') hostClasses = 'flex h-fit min-h-screen w-full justify-center text-mat-cream';
+  @HostBinding('class') hostClasses = 'relative flex h-fit min-h-screen w-full justify-center text-mat-cream';
 }

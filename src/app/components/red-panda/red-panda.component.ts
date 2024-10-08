@@ -16,7 +16,7 @@ enum Sprite {
   templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {
-  @HostBinding('class') hostClasses = 'absolute size-full select-none overflow-hidden';
+  @HostBinding('class') hostClasses = 'absolute w-full select-none pointer-events-none';
   cursorX = 200;
   panda = new Panda(0, 0, window.innerWidth / 2, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);
@@ -132,11 +132,11 @@ export class RedPandaComponent {
 
   private floorCollision() {
     const { deltaY$, isJumping$, size, y } = this.panda;
-    const isfalling = deltaY$.value > 0;
-    const height = document.querySelector('app-red-panda')?.parentElement?.clientHeight;
+    const parentHeight = document.querySelector('app-red-panda')?.clientHeight || 0;
+    const floor = parentHeight / 2 + size / 2;
 
-    if (height && y + size / 2 > height && isfalling) {
-      this.panda.y = height;
+    if (y > floor) {
+      this.panda.y = floor;
       deltaY$.next(0);
       isJumping$.next(false);
     }

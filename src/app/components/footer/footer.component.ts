@@ -14,8 +14,7 @@ type Link = {
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  @HostBinding('class') hostClasses =
-    'relative flex h-96 w-full flex-col overflow-x-hidden overflow-y-visible bg-mat-black';
+  @HostBinding('class') hostClasses = 'relative flex h-96 w-full flex-col items-center justify-center bg-mat-black';
 
   links: Link[] = [
     { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: 'linkedin' },
