@@ -1,6 +1,1 @@
-<img
-  #sprite
-  class="pointer-events-auto absolute cursor-pointer overflow-hidden"
-  (click)="jump()"
-  [src]="sprite$.value"
-  [style]="pandaStyle" />
+<img #sprite class="absolute overflow-hidden" (mouseover)="jump()" [src]="sprite$.value" [style]="pandaStyle" />

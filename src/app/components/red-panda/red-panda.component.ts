@@ -16,14 +16,14 @@ enum Sprite {
   templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {
-  @HostBinding('class') hostClasses = 'absolute w-full select-none pointer-events-none';
+  @HostBinding('class') hostClasses = 'absolute w-full select-none';
   cursorX = 0;
   panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);
 
   @HostListener('document:mousemove', ['$event'])
   handleMouseMove(event: MouseEvent) {
-    if (Math.abs(this.cursorX - event.clientX) > 150) {
+    if (Math.abs(this.cursorX - event.clientX) > 50) {
       this.cursorX = event.clientX;
     }
   }
@@ -108,7 +108,7 @@ export class RedPandaComponent {
     const tooFarRight = window.innerWidth - pandaX < size;
 
     if (!isJumping$.value) {
-      const move = Math.abs(cursorDiff) < 300;
+      const move = Math.abs(cursorDiff) < 500;
       const negativeDiff = cursorDiff < 0;
       const fixed = !move || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
 

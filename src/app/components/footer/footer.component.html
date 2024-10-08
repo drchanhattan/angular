@@ -2,7 +2,7 @@
 <div class="mb-20 flex items-center justify-center">
   @for (link of links; track $index) {
     <app-icon-button
-      class="pointer-events-auto mx-4"
+      class="mx-4"
       (click)="open(link.url)"
       [svgIcon]="link.icon"
       [scale]="'scale-150'"></app-icon-button>
@@ -14,7 +14,7 @@
   <app-red-panda class="mt-4 hidden md:flex"></app-red-panda>
 
   <!-- Copyright -->
-  <div class="pointer-events-none z-10 flex flex-col items-center justify-center text-mat-cream">
+  <div class="z-10 flex flex-col items-center justify-center text-mat-cream">
     <span>Copyright © 2024 Christopher Chan.</span>
     <span class="text-xs">Powered by Ramen Noodles.</span>
   </div>
