@@ -25,7 +25,7 @@ import { CountriesComponent } from './countries/countries.component';
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
-  @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center overflow-hidden bg-neutral-white';
+  @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';
   @ViewChild('drawer') matSidenav!: MatSidenav;
   @Input() name!: string;
   @Input() hero?: string;

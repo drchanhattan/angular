@@ -10,7 +10,7 @@
     <app-countries [photos]="photos" (selected)="drawer.close()"></app-countries>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content class="!overflow-hidden">
     <!-- Photo Grid -->
     @if (photos && countriesService.isSelected) {
       <div
@@ -28,18 +28,15 @@
         }
       </div>
     } @else {
-      <!-- Hero -->
-      <div class="h-screen w-screen cursor-pointer overflow-hidden" (click)="countriesService.toggle()">
-        <img
-          class="size-full animate-zoom object-cover"
-          data-src="{{ hero }}"
-          data-aos="fade-in"
-          data-aos-duration="2000" />
+      <div class="h-screen w-screen cursor-pointer" (click)="countriesService.toggle()">
+        <!-- Hero -->
+        <img class="fixed size-full animate-zoom object-cover" [src]="hero" />
+        <!-- Text -->
         <div class="absolute top-0 flex size-full items-center justify-center">
           <span
             data-aos="zoom-out"
             data-aos-duration="2000"
-            class="fixed mb-20 select-none font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
+            class="fixed mb-20 select-none text-center font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
             {{ name }}
           </span>
         </div>

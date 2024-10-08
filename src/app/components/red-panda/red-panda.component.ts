@@ -102,15 +102,16 @@ export class RedPandaComponent {
 
   private updateDirection() {
     const { deltaX$, isflipped$, isJumping$, speed, size, x } = this.panda;
+    const windowWidth = window.innerWidth;
     const pandaX = x + size / 2;
     const cursorDiff = this.cursorX - pandaX;
-    const tooFarLeft = window.innerWidth - pandaX > window.innerWidth - size;
-    const tooFarRight = window.innerWidth - pandaX < size;
+    const tooFarLeft = windowWidth - pandaX > windowWidth - size;
+    const tooFarRight = windowWidth - pandaX < size;
 
     if (!isJumping$.value) {
-      const move = Math.abs(cursorDiff) < 500;
+      const canMove = Math.abs(cursorDiff) < windowWidth / 3;
       const negativeDiff = cursorDiff < 0;
-      const fixed = !move || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
+      const fixed = !canMove || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
 
       deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);
       isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);
