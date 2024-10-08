@@ -4,7 +4,7 @@
     #drawer
     mode="over"
     position="end"
-    class="mt-16 !w-40 !rounded-none bg-transparent backdrop-blur"
+    class="mat-elevation-z5 mt-16 !w-40 !rounded-none bg-transparent backdrop-blur"
     [autoFocus]="false"
     [fixedInViewport]="true">
     <app-countries [photos]="photos" (selected)="drawer.close()"></app-countries>
@@ -39,7 +39,7 @@
           <span
             data-aos="zoom-out"
             data-aos-duration="2000"
-            class="mb-20 select-none font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
+            class="fixed mb-20 select-none font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
             {{ name }}
           </span>
         </div>

@@ -11,7 +11,7 @@ import { CountriesService } from './countries-service';
   templateUrl: './countries.component.html',
 })
 export class CountriesComponent {
-  @HostBinding('class') hostClasses = 'bg-sidenav-gradient flex h-full flex-col items-center overflow-hidden';
+  @HostBinding('class') hostClasses = 'bg-mat-black/75 flex h-full flex-col items-center overflow-hidden';
   @Input() photos?: { header: string; urls: string[]; icons: string[] }[];
   @Output() selected = new EventEmitter();
 
