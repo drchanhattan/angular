@@ -1,1 +1,7 @@
-<img #sprite class="absolute overflow-hidden" (mouseover)="jump()" [src]="sprite$.value" [style]="pandaStyle" />
+<img
+  #sprite
+  class="absolute overflow-hidden"
+  (mouseover)="mouseover(true)"
+  (mouseleave)="mouseover(false)"
+  [src]="sprite$.value"
+  [style]="pandaStyle" />

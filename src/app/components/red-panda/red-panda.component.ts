@@ -20,6 +20,7 @@ export class RedPandaComponent {
   cursorX = 0;
   panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);
+  jump$ = new BehaviorSubject<boolean>(false);
 
   @HostListener('document:mousemove', ['$event'])
   handleMouseMove(event: MouseEvent) {
@@ -48,9 +49,13 @@ export class RedPandaComponent {
     return `${width} ${height} ${top} ${left} ${direction}`;
   }
 
-  jump() {
+  mouseover(value: boolean) {
+    this.jump$.next(value);
+  }
+
+  private jump() {
     const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;
-    if (!isJumping$.value) {
+    if (this.jump$.value && !isJumping$.value) {
       isJumping$.next(true);
       deltaX$.next(isflipped$.value ? -speed : speed);
       deltaY$.next(-jumpHeight);
@@ -89,6 +94,7 @@ export class RedPandaComponent {
     const animateFrame = () => {
       this.updateX();
       this.updateY();
+      this.jump();
       requestAnimationFrame(animateFrame);
     };
 
@@ -105,17 +111,18 @@ export class RedPandaComponent {
     const windowWidth = window.innerWidth;
     const pandaX = x + size / 2;
     const cursorDiff = this.cursorX - pandaX;
+    const negativeDiff = cursorDiff < 0;
     const tooFarLeft = windowWidth - pandaX > windowWidth - size;
     const tooFarRight = windowWidth - pandaX < size;
 
     if (!isJumping$.value) {
       const canMove = Math.abs(cursorDiff) < windowWidth / 3;
-      const negativeDiff = cursorDiff < 0;
       const fixed = !canMove || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
 
       deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);
-      isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);
     }
+
+    isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);
   }
 
   private moveX() {
