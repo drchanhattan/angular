@@ -1,22 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { Icon } from '../icon/icon';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-icon-button',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [CommonModule, IconComponent, MatButtonModule],
   templateUrl: './icon-button.component.html',
 })
 export class IconButtonComponent {
-  @Input() matIcon!: string;
-  @Input() svgIcon!: string;
-  @Input() disabled: boolean = false;
-  @Input() color: string = '';
-  @Input() tooltip: string = '';
-  @Input() scale: string = 'scale-125';
-  @Input() hoverScale: string = '';
+  @HostBinding('class') hostClasses = 'scale-125';
+  @Input() icon: Icon = { matIcon: 'face' };
+  @Input() classes: string = '';
 }

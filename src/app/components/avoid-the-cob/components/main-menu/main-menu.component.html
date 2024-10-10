@@ -2,29 +2,24 @@
 <div class="absolute left-0 top-0 flex w-full justify-between px-10 pt-10">
   <!-- Help -->
   <app-icon-button
+    class="scale-175 hover:!scale-200"
     (click)="gameHelpService.show()"
-    [matIcon]="'help_outline'"
-    [color]="'text-mat-cream'"
-    [scale]="'scale-175'"
-    [hoverScale]="'hover:!scale-200'"></app-icon-button>
+    [icon]="{ matIcon: 'help_outline' }"
+    [classes]="'text-mat-cream'"></app-icon-button>
 
   <!-- Leaderboard icon -->
   <app-icon-button
-    class="lg:hidden"
+    class="scale-175 hover:!scale-200 lg:hidden"
     (click)="leaderboardService.show()"
-    [matIcon]="'leaderboard'"
-    [color]="'text-mat-cream'"
-    [scale]="'scale-175'"
-    [hoverScale]="'hover:!scale-200'"></app-icon-button>
+    [icon]="{ matIcon: 'leaderboard' }"
+    [classes]="'text-mat-cream'"></app-icon-button>
 
   <!-- Settings icon -->
   <app-icon-button
-    class="lg:hidden"
+    class="scale-175 hover:!scale-200 lg:hidden"
     (click)="gameSettingsService.show()"
-    [matIcon]="'settings'"
-    [color]="'text-mat-cream'"
-    [scale]="'scale-175'"
-    [hoverScale]="'hover:!scale-200'"></app-icon-button>
+    [icon]="{ matIcon: 'settings' }"
+    [classes]="'text-mat-cream'"></app-icon-button>
 </div>
 
 <!-- Corn SVG -->

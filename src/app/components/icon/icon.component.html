@@ -1,0 +1,5 @@
+@if (icon.svgIcon) {
+  <mat-icon [svgIcon]="icon.svgIcon" [ngClass]="classes"></mat-icon>
+} @else {
+  <mat-icon [ngClass]="classes">{{ icon.matIcon }}</mat-icon>
+}

@@ -5,7 +5,10 @@
   <!-- Object -->
   <div class="my-8 flex w-full items-center justify-center">
     <!-- Left -->
-    <app-icon-button (click)="backward()" [matIcon]="'arrow_back_ios_new'" [color]="'text-mat-cream'"></app-icon-button>
+    <app-icon-button
+      (click)="backward()"
+      [icon]="{ matIcon: 'arrow_back_ios_new' }"
+      [classes]="'text-mat-cream'"></app-icon-button>
 
     <div class="mx-12 flex size-32 items-center justify-center rounded-xl border-2 border-mat-cream">
       @if (selectedIndex === 0) {
@@ -20,7 +23,10 @@
     </div>
 
     <!-- Right -->
-    <app-icon-button (click)="forward()" [matIcon]="'arrow_forward_ios'" [color]="'text-mat-cream'"></app-icon-button>
+    <app-icon-button
+      (click)="forward()"
+      [icon]="{ matIcon: 'arrow_forward_ios' }"
+      [classes]="'text-mat-cream'"></app-icon-button>
   </div>
 
   <!-- Description -->

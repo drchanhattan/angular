@@ -1,12 +1,9 @@
 <!-- Toolbar -->
 @if (!isGame) {
-  <div class="fixed z-10 flex h-16 w-screen items-center justify-between border-b border-mat-yellow bg-mat-black px-4">
-    <app-icon-button (click)="drawer.toggle()" [matIcon]="'menu'"></app-icon-button>
+  <div class="fixed z-10 flex h-16 w-full items-center justify-between border-b border-mat-yellow bg-mat-black px-4">
+    <app-icon-button (click)="drawer.toggle()" [icon]="{ matIcon: 'menu' }"></app-icon-button>
     @if (router.url !== '/home' && !drawer.opened) {
-      <app-icon-button
-        class="hover:animate-spin"
-        (click)="countriesService.toggle()"
-        [matIcon]="'explore'"></app-icon-button>
+      <app-icon-button (click)="countriesService.toggle()" [icon]="{ matIcon: 'explore' }"></app-icon-button>
     }
   </div>
 }

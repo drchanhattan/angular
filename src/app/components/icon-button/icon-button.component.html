@@ -1,21 +1,3 @@
-@if (svgIcon) {
-  <button
-    mat-icon-button
-    onclick="blur()"
-    [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
-    [disabled]="disabled"
-    [matTooltip]="tooltip">
-    <mat-icon [svgIcon]="svgIcon" [ngClass]="[color, '!flex !size-auto']"></mat-icon>
-  </button>
-} @else {
-  <button
-    mat-icon-button
-    onclick="blur()"
-    [ngClass]="[scale, hoverScale, 'origin-center transition-transform duration-200']"
-    [disabled]="disabled"
-    [matTooltip]="tooltip">
-    <mat-icon [ngClass]="[color, '!flex !size-auto']">
-      {{ matIcon }}
-    </mat-icon>
-  </button>
-}
+<button mat-icon-button>
+  <app-icon [icon]="icon" [classes]="[classes, '!flex !size-auto']"></app-icon>
+</button>
