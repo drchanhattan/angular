@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
@@ -28,25 +26,15 @@ import { ParticleService } from './components/avoid-the-cob/services/particle-se
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
 import { ScoreService } from './components/avoid-the-cob/services/score-service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
-import { FooterComponent } from './components/footer/footer.component';
-import { CountriesService } from './components/gallery/countries/countries-service';
-import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { CountryPickerService } from './components/country-picker/country-picker-service';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { Icons } from './icons/icons';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    FooterComponent,
-    IconButtonComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    NavigationComponent,
-    RouterOutlet,
-  ],
+  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AudioService,
@@ -55,7 +43,7 @@ import { Icons } from './icons/icons';
     CheatService,
     CursorService,
     CollisionService,
-    CountriesService,
+    CountryPickerService,
     DeviceService,
     DifficultyService,
     FirebaseService,
@@ -78,15 +66,11 @@ export class AppComponent {
   constructor(
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
-    public countriesService: CountriesService,
+    public countryPickerService: CountryPickerService,
     public router: Router,
   ) {
     this.registerIcons();
     this.animateOnScroll();
-  }
-
-  get isGame() {
-    return this.router.url === '/avoid-the-cob';
   }
 
   private registerIcons() {

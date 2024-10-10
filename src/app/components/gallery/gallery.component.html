@@ -7,7 +7,7 @@
     class="mat-elevation-z5 mt-16 !w-60 !rounded-none backdrop-blur"
     [autoFocus]="false"
     [fixedInViewport]="true">
-    <app-countries [photos]="photos" (selected)="drawer.close()"></app-countries>
+    <app-country-picker [photos]="photos" (selected)="drawer.close()"></app-country-picker>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">

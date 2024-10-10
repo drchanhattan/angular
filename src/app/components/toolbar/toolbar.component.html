@@ -1,0 +1,12 @@
+@if (!isGame) {
+  <!-- Toolbar -->
+  <div class="fixed z-10 flex h-16 w-full items-center justify-between border-b border-mat-yellow bg-mat-black px-4">
+    <!-- Menu Button -->
+    <app-icon-button (click)="drawer.toggle()" [icon]="{ matIcon: 'menu' }"></app-icon-button>
+
+    @if (!isHome && !drawer.opened) {
+      <!-- Country Picker Button -->
+      <app-icon-button (click)="countryPickerService.toggle()" [icon]="{ matIcon: 'explore' }"></app-icon-button>
+    }
+  </div>
+}

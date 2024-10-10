@@ -1,7 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { AudioService } from '../../services/audio-service';
@@ -15,14 +14,7 @@ import { GameSettingsService } from './game-settings-service';
 @Component({
   selector: 'app-game-settings',
   standalone: true,
-  imports: [
-    GameButtonComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-  ],
+  imports: [GameButtonComponent, MatButtonModule, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
   templateUrl: './game-settings.component.html',
 })
 export class GameSettingsComponent {

@@ -1,11 +1,9 @@
 import { Component, HostBinding } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { GameTextService } from './game-text-service';
 
 @Component({
   selector: 'app-game-text',
   standalone: true,
-  imports: [MatIconModule],
   templateUrl: './game-text.component.html',
 })
 export class GameTextComponent {

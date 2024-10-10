@@ -1,21 +1,19 @@
 import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
-import { NavigationButtonComponent } from './navigation-button/navigation-button.component';
+import { NavigationButtonComponent } from '../navigation-button/navigation-button.component';
 import { SideNavLink, sideNavLinks } from './navigation-links';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [IconButtonComponent, MatDividerModule, NavigationButtonComponent],
+  imports: [NavigationButtonComponent],
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
   @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black/85';
   @Output() close = new EventEmitter();
-  currentRoute!: string;
+  currentRoute: string = '';
   links = sideNavLinks;
 
   constructor(private router: Router) {

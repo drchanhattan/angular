@@ -60,19 +60,21 @@ export class AudioService {
   }
 
   stopMusic() {
-    const audio = this.#activeMusic;
-    const duration = 3000;
-    const fadeStep = 0.05;
-    const interval = duration / (1 / fadeStep);
+    if (this.#activeMusic) {
+      const audio = this.#activeMusic;
+      const duration = 3000;
+      const fadeStep = 0.05;
+      const interval = duration / (1 / fadeStep);
 
-    const fade = setInterval(() => {
-      audio.volume = Math.max(0, audio.volume - fadeStep);
-      if (audio.volume === 0) {
-        audio.pause();
-        audio.currentTime = 0;
-        clearInterval(fade);
-      }
-    }, interval);
+      const fade = setInterval(() => {
+        audio.volume = Math.max(0, audio.volume - fadeStep);
+        if (audio.volume === 0) {
+          audio.pause();
+          audio.currentTime = 0;
+          clearInterval(fade);
+        }
+      }, interval);
+    }
   }
 
   setMusicSpeed(speed: number) {

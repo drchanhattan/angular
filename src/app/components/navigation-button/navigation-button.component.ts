@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Icon } from '../../icon/icon';
-import { IconComponent } from '../../icon/icon.component';
-import { SideNavGroup, SideNavLink } from '../navigation-links';
+import { Icon } from '../icon/icon';
+import { IconComponent } from '../icon/icon.component';
+import { SideNavGroup, SideNavLink } from '../navigation/navigation-links';
 
 @Component({
   selector: 'app-navigation-button',

@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class CountriesService {
+export class CountryPickerService {
   toggled = new EventEmitter();
   index!: number;
 

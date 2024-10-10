@@ -8,7 +8,7 @@ import { GameObjectService } from './game-object-service';
   providedIn: 'root',
 })
 export class DifficultyService {
-  level!: number;
+  level: number = 0;
   powerUpFrequency = 3;
 
   constructor(
