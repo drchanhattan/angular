@@ -9,14 +9,13 @@ import { OceaniaComponent } from './pages/oceania/oceania.component';
 import { SouthAmericaComponent } from './pages/south-america/south-america.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   { path: 'cv', component: CVComponent },
-  { path: 'home', component: HomeComponent },
   { path: 'europe', component: EuropeComponent },
   { path: 'asia', component: AsiaComponent },
   { path: 'north-america', component: NorthAmericaComponent },
   { path: 'south-america', component: SouthAmericaComponent },
   { path: 'oceania', component: OceaniaComponent },
   { path: 'avoid-the-cob', component: CobGameComponent },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: '' },
 ];

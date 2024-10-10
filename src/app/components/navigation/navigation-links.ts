@@ -18,7 +18,7 @@ export const sideNavLinks: SideNavGroup[] = [
   {
     label: 'Home',
     icon: { matIcon: 'home' },
-    link: { label: 'Home', url: '/home' },
+    link: { label: 'Home', url: '/' },
   },
   {
     label: 'LinkedIn',

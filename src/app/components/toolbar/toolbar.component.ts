@@ -24,6 +24,6 @@ export class ToolbarComponent {
   }
 
   get isHome() {
-    return this.router.url === '/home';
+    return this.router.url === '/';
   }
 }

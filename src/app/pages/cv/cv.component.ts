@@ -20,7 +20,7 @@ export class CVComponent {
       link.download = 'Chris Chan CV.pdf';
       link.click();
       window.URL.revokeObjectURL(url);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     });
   }
 }
