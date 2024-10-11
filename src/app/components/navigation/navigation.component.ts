@@ -32,7 +32,7 @@ export class NavigationComponent {
     }
   }
 
-  hasActiveSublink(links: SideNavLink[]) {
-    return links.map((link) => link.url).includes(this.currentRoute);
+  hasActiveSublink(links: SideNavLink[]): boolean {
+    return !!links.find((link) => this.currentRoute.includes(link.url));
   }
 }

@@ -12,7 +12,7 @@
 
   <mat-sidenav-content class="!overflow-hidden">
     <!-- Photo Grid -->
-    @if (photos && countriesService.isSelected) {
+    @if (photos && countriesService.isSelected && countriesService.index !== undefined) {
       <div
         class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pb-10 pt-28 sm:px-20 lg:columns-3">
         @for (url of photos[countriesService.index].urls; track $index) {

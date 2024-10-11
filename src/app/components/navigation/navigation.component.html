@@ -21,7 +21,7 @@
           <app-navigation-button
             class="ml-9"
             (click)="navigate(subLink.url)"
-            [active]="currentRoute === subLink.url"
+            [active]="currentRoute.includes(subLink.url)"
             [link]="subLink"></app-navigation-button>
         }
       }

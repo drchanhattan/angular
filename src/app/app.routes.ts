@@ -11,11 +11,27 @@ import { SouthAmericaComponent } from './pages/south-america/south-america.compo
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cv', component: CVComponent },
-  { path: 'europe', component: EuropeComponent },
-  { path: 'asia', component: AsiaComponent },
-  { path: 'north-america', component: NorthAmericaComponent },
-  { path: 'south-america', component: SouthAmericaComponent },
-  { path: 'oceania', component: OceaniaComponent },
+  { path: 'europe', component: EuropeComponent, children: [{ path: ':id', component: EuropeComponent }] },
+  {
+    path: 'asia',
+    component: AsiaComponent,
+    children: [{ path: ':id', component: AsiaComponent }],
+  },
+  {
+    path: 'north-america',
+    component: NorthAmericaComponent,
+    children: [{ path: ':id', component: NorthAmericaComponent }],
+  },
+  {
+    path: 'south-america',
+    component: SouthAmericaComponent,
+    children: [{ path: ':id', component: SouthAmericaComponent }],
+  },
+  {
+    path: 'oceania',
+    component: OceaniaComponent,
+    children: [{ path: ':id', component: OceaniaComponent }],
+  },
   { path: 'avoid-the-cob', component: CobGameComponent },
   { path: '**', redirectTo: '' },
 ];
