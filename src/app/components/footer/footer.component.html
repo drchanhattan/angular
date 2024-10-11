@@ -1,7 +1,7 @@
 <!-- Socials -->
-<div class="mb-20 flex items-center justify-center">
+<div class="mb-16 flex items-center justify-center">
   @for (link of links; track $index) {
-    <app-icon-button class="mx-4 scale-150" (click)="open(link.url)" [icon]="link.icon"></app-icon-button>
+    <app-icon-button class="mx-4 hover:scale-175" (click)="open(link.url)" [icon]="link.icon"></app-icon-button>
   }
 </div>
 

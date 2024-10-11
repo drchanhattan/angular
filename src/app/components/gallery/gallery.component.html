@@ -28,17 +28,30 @@
         }
       </div>
     } @else {
-      <div class="h-screen w-screen cursor-pointer" (click)="countriesService.toggle()">
-        <!-- Hero -->
-        <img class="fixed size-full animate-zoom object-cover" [src]="hero" />
-        <!-- Text -->
-        <div class="absolute top-0 flex size-full items-center justify-center">
-          <span
-            data-aos="zoom-out"
-            data-aos-duration="2000"
-            class="fixed mb-20 select-none text-center font-ink text-7xl text-mat-yellow drop-shadow-sm sm:text-9xl">
-            {{ name }}
-          </span>
+      <!-- Hero -->
+      <img class="absolute h-screen w-screen animate-zoom object-cover" [src]="hero" />
+
+      <div
+        class="flex h-screen w-full flex-col items-center justify-end pb-60 sm:pb-20"
+        data-aos="fade-out"
+        data-aos-duration="1000">
+        <!-- Continent Label -->
+        <span
+          class="text-center font-ink text-7xl font-semibold text-mat-yellow drop-shadow sm:text-9xl sm:font-medium">
+          {{ name }}
+        </span>
+
+        <!-- Countries -->
+        <div class="my-20 hidden flex-row items-center justify-center sm:flex">
+          @for (photo of photos; track $index; let index = $index) {
+            @for (icon of photo.icons; track $index) {
+              <app-icon-button
+                (click)="countriesService.select(index)"
+                class="mx-6 scale-175 hover:scale-200"
+                classes="mat-elevation-z1 rounded-full"
+                [icon]="{ svgIcon: icon }"></app-icon-button>
+            }
+          }
         </div>
       </div>
     }

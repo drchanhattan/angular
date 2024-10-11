@@ -9,7 +9,7 @@ export class Panda {
   x: number;
   y: number;
   size: number;
-  speed = 5;
+  speed = 8;
 
   constructor(deltaX: number, deltaY: number, posX: number, posY: number, size: number) {
     this.deltaX$ = new BehaviorSubject<number>(deltaX);

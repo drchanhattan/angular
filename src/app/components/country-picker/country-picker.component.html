@@ -1,10 +1,10 @@
 <div class="overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
   @for (group of photos; track $index; let index = $index) {
     <button mat-button class="!h-40 !w-full !rounded-none" (click)="select(index)">
-      <div class="mb-2">
-        <mat-icon [svgIcon]="group.icons[0]"></mat-icon>
+      <div class="mb-4 scale-175">
+        <mat-icon class="rounded-full" [svgIcon]="group.icons[0]"></mat-icon>
         @if (group.icons[1]) {
-          <mat-icon class="ml-4" [svgIcon]="group.icons[1]"></mat-icon>
+          <mat-icon class="ml-4 rounded-full" [svgIcon]="group.icons[1]"></mat-icon>
         }
       </div>
 

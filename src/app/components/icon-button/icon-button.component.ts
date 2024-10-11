@@ -11,7 +11,7 @@ import { IconComponent } from '../icon/icon.component';
   templateUrl: './icon-button.component.html',
 })
 export class IconButtonComponent {
-  @HostBinding('class') hostClasses = 'scale-125';
+  @HostBinding('class') hostClasses = 'scale-150';
   @Input() icon: Icon = { matIcon: 'face' };
   @Input() classes: string = '';
 }
