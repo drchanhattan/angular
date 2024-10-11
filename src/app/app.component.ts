@@ -69,8 +69,15 @@ export class AppComponent {
     public countryPickerService: CountryPickerService,
     public router: Router,
   ) {
+    this.redirectToHash();
     this.registerIcons();
     this.animateOnScroll();
+  }
+
+  redirectToHash() {
+    if (!window.location.hash) {
+      window.location.href = '/#' + window.location.pathname;
+    }
   }
 
   private registerIcons() {

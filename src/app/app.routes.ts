@@ -33,5 +33,5 @@ export const routes: Routes = [
     children: [{ path: ':id', component: OceaniaComponent }],
   },
   { path: 'avoid-the-cob', component: CobGameComponent },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
