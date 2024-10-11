@@ -69,7 +69,7 @@ export class NorthAmericaComponent {
       ],
     },
     {
-      header: 'USA',
+      header: 'United States',
       icons: ['usa'],
       urls: [
         'usa-1.jpg',
