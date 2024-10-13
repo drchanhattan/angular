@@ -1,6 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 import { GameButtonComponent } from '../game-button/game-button.component';
-import { LeaderboardService } from './leaderboard-service';
+import { LeaderboardService } from './leaderboard.service';
 
 @Component({
   selector: 'app-leaderboard',

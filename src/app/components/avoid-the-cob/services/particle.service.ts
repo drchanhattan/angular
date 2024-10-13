@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectType } from '../models/game-object/game-object-type';
-import { CanvasService } from './canvas-service';
+import { CanvasService } from './canvas.service';
 
 @Injectable({
   providedIn: 'root',

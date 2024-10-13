@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
-import { AvoidTheCobService } from '../../services/avoid-the-cob-service';
+import { AvoidTheCobService } from '../../services/avoid-the-cob.service';
 import { GameButtonComponent } from '../game-button/game-button.component';
-import { MainMenuService } from '../main-menu/main-menu-service';
-import { PlayerNameService } from './player-name-service';
+import { MainMenuService } from '../main-menu/main-menu.service';
+import { PlayerNameService } from './player-name.service';
 
 @Component({
   selector: 'app-player-name',

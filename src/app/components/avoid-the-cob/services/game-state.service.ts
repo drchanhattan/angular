@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { GameTextService } from '../components/game-text/game-text-service';
-import { LeaderboardService } from '../components/leaderboard/leaderboard-service';
-import { MainMenuService } from '../components/main-menu/main-menu-service';
+import { GameTextService } from '../components/game-text/game-text.service';
+import { LeaderboardService } from '../components/leaderboard/leaderboard.service';
+import { MainMenuService } from '../components/main-menu/main-menu.service';
 import { GameColor } from '../models/game-color/game-color';
-import { AudioFile, AudioService } from './audio-service';
-import { CanvasService } from './canvas-service';
-import { CheatService } from './cheat-service';
+import { AudioFile, AudioService } from './audio.service';
+import { CanvasService } from './canvas.service';
+import { CheatService } from './cheat.service';
 import { CursorService } from './cursor.service';
 import { DifficultyService } from './difficulty.service';
 import { FirebaseService } from './firebase.service';
-import { GameObjectService } from './game-object-service';
-import { ScoreService } from './score-service';
+import { GameObjectService } from './game-object.service';
+import { ScoreService } from './score.service';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { scaledSize } from '../models/device-scale/device-scale';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { CursorService } from './cursor.service';
-import { GameObjectService } from './game-object-service';
+import { GameObjectService } from './game-object.service';
 
 @Injectable({
   providedIn: 'root',

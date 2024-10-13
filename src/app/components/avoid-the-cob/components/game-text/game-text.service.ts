@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OverlayItem, OverlayService } from '../../services/overlay-service';
+import { OverlayItem, OverlayService } from '../../services/overlay.service';
 
 @Injectable({
   providedIn: 'root',

@@ -6,9 +6,9 @@ import { GameObject } from '../models/game-object/game-object';
 import { GameObjectDefaults } from '../models/game-object/game-object-defaults';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
-import { CanvasService } from './canvas-service';
-import { DeviceService } from './device-service';
-import { ParticleService } from './particle-service';
+import { CanvasService } from './canvas.service';
+import { DeviceService } from './device.service';
+import { ParticleService } from './particle.service';
 
 @Injectable({
   providedIn: 'root',

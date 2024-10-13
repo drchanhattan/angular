@@ -3,13 +3,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
-import { AudioService } from '../../services/audio-service';
-import { CheatService } from '../../services/cheat-service';
+import { AudioService } from '../../services/audio.service';
+import { CheatService } from '../../services/cheat.service';
 import { CursorService } from '../../services/cursor.service';
-import { ParticleService } from '../../services/particle-service';
+import { ParticleService } from '../../services/particle.service';
 import { GameButtonComponent } from '../game-button/game-button.component';
-import { PlayerNameService } from '../player-name/player-name-service';
-import { GameSettingsService } from './game-settings-service';
+import { PlayerNameService } from '../player-name/player-name.service';
+import { GameSettingsService } from './game-settings.service';
 
 @Component({
   selector: 'app-game-settings',

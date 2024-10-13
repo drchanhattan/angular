@@ -1,5 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
-import { GameTextService } from './game-text-service';
+import { GameTextService } from './game-text.service';
 
 @Component({
   selector: 'app-game-text',

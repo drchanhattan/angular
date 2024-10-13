@@ -5,23 +5,23 @@ import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { GameHelpComponent } from './components/game-help/game-help.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
-import { GameTextService } from './components/game-text/game-text-service';
 import { GameTextComponent } from './components/game-text/game-text.component';
+import { GameTextService } from './components/game-text/game-text.service';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import { MainMenuService } from './components/main-menu/main-menu-service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { PlayerNameService } from './components/player-name/player-name-service';
+import { MainMenuService } from './components/main-menu/main-menu.service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
-import { AudioService } from './services/audio-service';
-import { AvoidTheCobService } from './services/avoid-the-cob-service';
-import { CanvasService } from './services/canvas-service';
-import { DeviceService } from './services/device-service';
+import { PlayerNameService } from './components/player-name/player-name.service';
+import { AudioService } from './services/audio.service';
+import { AvoidTheCobService } from './services/avoid-the-cob.service';
+import { CanvasService } from './services/canvas.service';
+import { DeviceService } from './services/device.service';
 import { DifficultyService } from './services/difficulty.service';
-import { GameStateService } from './services/game-state-service';
-import { OverlayService } from './services/overlay-service';
-import { ParticleService } from './services/particle-service';
-import { ScoreService } from './services/score-service';
-import { SvgLoaderService } from './services/svg-loader-service';
+import { GameStateService } from './services/game-state.service';
+import { OverlayService } from './services/overlay.service';
+import { ParticleService } from './services/particle.service';
+import { ScoreService } from './services/score.service';
+import { SvgLoaderService } from './services/svg-loader.service';
 
 @Component({
   selector: 'app-avoid-the-cob',

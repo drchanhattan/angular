@@ -2,7 +2,7 @@ import { Component, HostBinding } from '@angular/core';
 import { IconButtonComponent } from '../../../icon-button/icon-button.component';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { GameHelpObject } from './game-help-object';
-import { GameHelpService } from './game-help-service';
+import { GameHelpService } from './game-help.service';
 
 @Component({
   selector: 'app-game-help',

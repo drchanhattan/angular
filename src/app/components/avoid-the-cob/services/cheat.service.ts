@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PowerUpService } from './power-up-service';
+import { PowerUpService } from './power-up.service';
 
 @Injectable({
   providedIn: 'root',

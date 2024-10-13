@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
-import { OverlayItem, OverlayService } from '../../services/overlay-service';
-import { ParticleService } from '../../services/particle-service';
+import { OverlayItem, OverlayService } from '../../services/overlay.service';
+import { ParticleService } from '../../services/particle.service';
 
 @Injectable({
   providedIn: 'root',

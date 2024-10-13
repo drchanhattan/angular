@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
-import { AudioFile, AudioService } from './audio-service';
-import { CanvasService } from './canvas-service';
+import { AudioFile, AudioService } from './audio.service';
+import { CanvasService } from './canvas.service';
 import { CursorService } from './cursor.service';
-import { GameStateService } from './game-state-service';
-import { ParticleService } from './particle-service';
-import { PowerUpService } from './power-up-service';
-import { ScoreService } from './score-service';
+import { GameStateService } from './game-state.service';
+import { ParticleService } from './particle.service';
+import { PowerUpService } from './power-up.service';
+import { ScoreService } from './score.service';
 
 @Injectable({
   providedIn: 'root',

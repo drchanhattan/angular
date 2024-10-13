@@ -7,10 +7,10 @@ import { GameObjectGroup } from '../models/game-object/game-object-group';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
 import { GameObjectShape } from '../models/game-object/game-object-shape';
 import { GameObjectType } from '../models/game-object/game-object-type';
-import { CanvasService } from './canvas-service';
-import { CollisionService } from './collision-service';
+import { CanvasService } from './canvas.service';
+import { CollisionService } from './collision.service';
 import { CursorService } from './cursor.service';
-import { ParticleService } from './particle-service';
+import { ParticleService } from './particle.service';
 
 @Injectable({
   providedIn: 'root',

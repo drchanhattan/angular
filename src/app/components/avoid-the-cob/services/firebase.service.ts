@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { PlayerNameService } from '../components/player-name/player-name-service';
+import { PlayerNameService } from '../components/player-name/player-name.service';
 import { GameScore } from '../models/game-score/game-score';
 
 @Injectable({
