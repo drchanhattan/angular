@@ -17,7 +17,7 @@ export enum AudioFile {
 export class AudioService {
   audio = new FormGroup({
     sfx: new FormControl<boolean>(true),
-    music: new FormControl<boolean>(false),
+    music: new FormControl<boolean>(true),
   });
 
   #audioCache: Map<AudioFile, string> = new Map();
@@ -85,7 +85,7 @@ export class AudioService {
 
   reset() {
     this.audio.get('sfx')?.setValue(true);
-    this.audio.get('music')?.setValue(false);
+    this.audio.get('music')?.setValue(true);
   }
 
   private play(src: AudioFile, loop: boolean) {

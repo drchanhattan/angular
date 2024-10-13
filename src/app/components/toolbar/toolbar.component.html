@@ -9,7 +9,8 @@
     <app-icon-button
       (click)="toggleMenu()"
       [ngClass]="{
-        'absolute left-8 top-8 rounded-full bg-mat-black/85 backdrop-blur-sm sm:left-16': !hideToolbar,
+        'absolute left-8 top-8 rounded-full border border-transparent bg-mat-black/85 hover:border-mat-yellow sm:left-16':
+          !hideToolbar,
       }"
       [icon]="{ matIcon: 'menu' }"></app-icon-button>
 
@@ -20,8 +21,7 @@
           mat-stroked-button
           onclick="blur()"
           (click)="toggleLocation()"
-          class="!rounded-xl !border !border-mat-yellow !bg-mat-black/85"
-          [ngClass]="[]">
+          class="!rounded-xl !border !border-mat-yellow !bg-mat-black/85">
           <mat-icon class="!mr-3 scale-125">place</mat-icon>
           <span class="text-base text-mat-yellow">
             {{ countryPickerService.country }}
@@ -30,7 +30,7 @@
       } @else {
         <app-icon-button
           (click)="toggleLocation()"
-          class="absolute right-8 top-8 rounded-full bg-mat-black/85 backdrop-blur-sm sm:right-16"
+          class="absolute right-8 top-8 rounded-full border border-transparent bg-mat-black/85 hover:border-mat-yellow sm:right-16"
           [icon]="{ matIcon: 'place' }"></app-icon-button>
       }
     }

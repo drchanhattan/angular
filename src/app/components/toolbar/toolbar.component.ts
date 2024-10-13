@@ -41,7 +41,7 @@ export class ToolbarComponent {
     return (
       !this.scrollTop ||
       this.drawer.opened ||
-      this.countryPickerService.drawer.opened ||
+      this.countryPickerService?.drawer?.opened ||
       this.countryPickerService.isSelected
     );
   }
