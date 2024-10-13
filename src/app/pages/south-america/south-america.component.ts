@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Country } from '../../components/country-picker/country';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
-  photos: { header: string; icons: string[]; urls: string[] }[] = [
+  countries: Country[] = [
     {
-      header: 'Argentina & Chile',
+      label: 'Argentina & Chile',
       icons: ['argentina', 'chile'],
       urls: [
         'argentina-chile-1.jpg',
@@ -26,7 +27,7 @@ export class SouthAmericaComponent {
       ],
     },
     {
-      header: 'Bolivia',
+      label: 'Bolivia',
       icons: ['bolivia'],
       urls: [
         'bolivia-1.jpg',
@@ -44,7 +45,7 @@ export class SouthAmericaComponent {
       ],
     },
     {
-      header: 'Brazil',
+      label: 'Brazil',
       icons: ['brazil'],
       urls: [
         'brazil-1.jpg',
@@ -59,7 +60,7 @@ export class SouthAmericaComponent {
       ],
     },
     {
-      header: 'Peru',
+      label: 'Peru',
       icons: ['peru'],
       urls: [
         'peru-1.jpg',

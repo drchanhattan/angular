@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Country } from '../../components/country-picker/country';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
-  photos: { header: string; icons: string[]; urls: string[] }[] = [
+  countries: Country[] = [
     {
-      header: 'Australia',
+      label: 'Australia',
       icons: ['australia'],
       urls: [
         'australia-1.jpg',
@@ -27,17 +28,17 @@ export class OceaniaComponent {
       ],
     },
     {
-      header: 'Fiji',
+      label: 'Fiji',
       icons: ['fiji'],
       urls: ['fiji-1.jpg', 'fiji-2.jpg', 'fiji-3.jpg', 'fiji-4.jpg'],
     },
     {
-      header: 'Hobbiton',
+      label: 'Hobbiton',
       icons: ['hobbiton'],
       urls: ['hobbiton-1.jpg', 'hobbiton-2.jpg', 'hobbiton-3.jpg', 'hobbiton-4.jpg', 'hobbiton-5.jpg'],
     },
     {
-      header: 'New Zealand',
+      label: 'New Zealand',
       icons: ['new zealand'],
       urls: [
         'new-zealand-1.jpg',

@@ -173,7 +173,7 @@ export class CursorService {
     });
   }
 
-  private randomizeColor(): void {
+  private randomizeColor() {
     setInterval(() => {
       if (this.invincible) {
         const colors = [GameColor.Red, GameColor.Green, GameColor.Blue, GameColor.Yellow];

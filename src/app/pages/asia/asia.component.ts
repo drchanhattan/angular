@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Country } from '../../components/country-picker/country';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './asia.component.html',
 })
 export class AsiaComponent {
-  photos: { header: string; icons: string[]; urls: string[] }[] = [
+  countries: Country[] = [
     {
-      header: 'Cambodia',
+      label: 'Cambodia',
       icons: ['cambodia'],
       urls: [
         'cambodia-1.jpg',
@@ -24,7 +25,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Hong Kong',
+      label: 'Hong Kong',
       icons: ['hong kong'],
       urls: [
         'hong-kong-1.jpg',
@@ -42,7 +43,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Laos & Vietnam',
+      label: 'Laos & Vietnam',
       icons: ['laos', 'vietnam'],
       urls: [
         'laos-vietnam-1.jpg',
@@ -61,7 +62,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Malaysia & Singapore',
+      label: 'Malaysia & Singapore',
       icons: ['malaysia', 'singapore'],
       urls: [
         'malaysia-singapore-1.jpg',
@@ -72,7 +73,7 @@ export class AsiaComponent {
       ],
     },
     {
-      header: 'Thailand',
+      label: 'Thailand',
       icons: ['thailand'],
       urls: [
         'thailand-1.jpg',

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { Component, HostBinding, Input } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import AOS from 'aos';
-import { CountryPickerService } from '../country-picker/country-picker-service';
+import { Country } from '../country-picker/country';
 import { CountryPickerComponent } from '../country-picker/country-picker.component';
+import { CountryPickerService } from '../country-picker/country-picker.service';
 import { FooterComponent } from '../footer/footer.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 
@@ -14,22 +15,13 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
   imports: [CommonModule, CountryPickerComponent, FooterComponent, MatSidenavModule, IconButtonComponent, RouterLink],
   templateUrl: './gallery.component.html',
 })
-export class GalleryComponent implements OnInit, AfterViewInit {
+export class GalleryComponent {
   @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';
-  @ViewChild('drawer') matSidenav!: MatSidenav;
   @Input() name: string = '';
-  @Input() hero?: string;
-  @Input() photos?: { header: string; urls: string[]; icons: string[] }[];
+  @Input() hero: string = '';
+  @Input() countries!: Country[];
 
   constructor(public countriesService: CountryPickerService) {}
-
-  ngOnInit() {
-    this.countriesService.unselect();
-  }
-
-  ngAfterViewInit() {
-    this.countriesService.toggled.subscribe(() => this.matSidenav.toggle());
-  }
 
   animate() {
     AOS.refresh();

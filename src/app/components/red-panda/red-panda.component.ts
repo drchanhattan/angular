@@ -57,7 +57,7 @@ export class RedPandaComponent {
     const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;
     if (this.jump$.value && !isJumping$.value) {
       isJumping$.next(true);
-      deltaX$.next(isflipped$.value ? -speed : speed);
+      deltaX$.next(isflipped$.value ? -speed / 2 : speed / 2);
       deltaY$.next(-jumpHeight);
     }
   }

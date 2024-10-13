@@ -1,6 +1,6 @@
 @if (!!group) {
   <!-- Group -->
-  <button #groupBtn mat-button class="mb-4 !rounded-lg" (click)="expandGroup(groupBtn)">
+  <button #groupBtn mat-button class="my-1 !rounded-lg" (click)="expandGroup(groupBtn)">
     @if (icon) {
       <app-icon matButtonIcon [icon]="icon" [classes]="['text-mat-cream', iconClasses]"></app-icon>
     }
@@ -13,7 +13,7 @@
   </button>
 } @else if (!!link) {
   <!-- Link -->
-  <button mat-button class="mb-4 !rounded-lg !px-4">
+  <button mat-button class="my-1 !rounded-lg !px-4">
     @if (icon) {
       <app-icon matButtonIcon [icon]="icon" [classes]="['text-mat-cream', iconClasses]"></app-icon>
     }

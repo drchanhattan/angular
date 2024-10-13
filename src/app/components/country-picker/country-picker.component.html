@@ -1,15 +1,17 @@
-<div class="overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
-  @for (group of photos; track $index; let index = $index) {
-    <button mat-button class="!h-40 !w-full !rounded-none" [routerLink]="index.toString()" (click)="select(index)">
+<div
+  class="overflow-y-auto overflow-x-hidden py-8 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
+  @for (country of countries; track $index; let index = $index) {
+    <button mat-button class="!h-36 !w-full !rounded-none" [routerLink]="index.toString()">
+      <!-- Icon -->
       <div class="mb-4 scale-150">
-        <mat-icon [svgIcon]="group.icons[0]"></mat-icon>
-        @if (group.icons[1]) {
-          <mat-icon class="ml-4" [svgIcon]="group.icons[1]"></mat-icon>
+        <mat-icon [svgIcon]="country.icons[0]"></mat-icon>
+        @if (country.icons[1]) {
+          <mat-icon class="ml-4" [svgIcon]="country.icons[1]"></mat-icon>
         }
       </div>
-
-      <span [ngClass]="[isSelected(index) ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']">
-        {{ group.header }}
+      <!-- Label -->
+      <span [ngClass]="[this.countriesService.id === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']">
+        {{ country.label }}
       </span>
     </button>
   }

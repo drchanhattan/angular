@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Country } from '../../components/country-picker/country';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './north-america.component.html',
 })
 export class NorthAmericaComponent {
-  photos: { header: string; icons: string[]; urls: string[] }[] = [
+  countries: Country[] = [
     {
-      header: 'Canada',
+      label: 'Canada',
       icons: ['canada'],
       urls: [
         'canada-1.jpg',
@@ -39,7 +40,7 @@ export class NorthAmericaComponent {
       ],
     },
     {
-      header: 'Guatemala & Costa Rica',
+      label: 'Guatemala & Costa Rica',
       icons: ['guatemala', 'costa rica'],
       urls: [
         'guatemala-costa-rica-1.jpg',
@@ -51,7 +52,7 @@ export class NorthAmericaComponent {
       ],
     },
     {
-      header: 'Mexico',
+      label: 'Mexico',
       icons: ['mexico'],
       urls: [
         'mexico-1.jpg',
@@ -69,7 +70,7 @@ export class NorthAmericaComponent {
       ],
     },
     {
-      header: 'United States',
+      label: 'United States',
       icons: ['usa'],
       urls: [
         'usa-1.jpg',

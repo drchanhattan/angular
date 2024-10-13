@@ -26,7 +26,7 @@ import { ParticleService } from './components/avoid-the-cob/services/particle-se
 import { PowerUpService } from './components/avoid-the-cob/services/power-up-service';
 import { ScoreService } from './components/avoid-the-cob/services/score-service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader-service';
-import { CountryPickerService } from './components/country-picker/country-picker-service';
+import { CountryPickerService } from './components/country-picker/country-picker.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { Icons } from './icons/icons';

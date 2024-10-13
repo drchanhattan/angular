@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Country } from '../../components/country-picker/country';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
@@ -8,9 +9,9 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './europe.component.html',
 })
 export class EuropeComponent {
-  photos: { header: string; icons: string[]; urls: string[] }[] = [
+  countries: Country[] = [
     {
-      header: 'Austria',
+      label: 'Austria',
       icons: ['austria'],
       urls: [
         'austria-1.jpg',
@@ -36,7 +37,7 @@ export class EuropeComponent {
       ],
     },
     {
-      header: 'Croatia',
+      label: 'Croatia',
       icons: ['croatia'],
       urls: [
         'croatia-1.jpg',
@@ -52,7 +53,7 @@ export class EuropeComponent {
       ],
     },
     {
-      header: 'Czech Republic',
+      label: 'Czech Republic',
       icons: ['czech republic'],
       urls: [
         'czech-1.jpg',
@@ -92,9 +93,8 @@ export class EuropeComponent {
         'czech-35.jpg',
       ],
     },
-
     {
-      header: 'England',
+      label: 'England',
       icons: ['england'],
       urls: [
         'england-1.jpg',
@@ -122,17 +122,17 @@ export class EuropeComponent {
       ],
     },
     {
-      header: 'Germany',
+      label: 'Germany',
       icons: ['germany'],
       urls: ['germany-1.jpg', 'germany-2.jpg', 'germany-3.jpg', 'germany-4.jpg', 'germany-5.jpg', 'germany-6.jpg'],
     },
     {
-      header: 'Hungary',
+      label: 'Hungary',
       icons: ['hungary'],
       urls: ['hungary-1.jpg', 'hungary-2.jpg', 'hungary-3.jpg', 'hungary-4.jpg', 'hungary-5.jpg', 'hungary-6.jpg'],
     },
     {
-      header: 'Italy',
+      label: 'Italy',
       icons: ['italy'],
       urls: [
         'italy-1.jpg',
@@ -153,7 +153,7 @@ export class EuropeComponent {
       ],
     },
     {
-      header: 'Slovenia',
+      label: 'Slovenia',
       icons: ['slovenia'],
       urls: [
         'slovenia-1.jpg',
