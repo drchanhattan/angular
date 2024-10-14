@@ -18,7 +18,7 @@ export class NavigationComponent {
 
   constructor(private router: Router) {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
-      this.currentRoute = event.url;
+      this.currentRoute = event.urlAfterRedirects;
       window.scrollTo(0, 0);
     });
   }
