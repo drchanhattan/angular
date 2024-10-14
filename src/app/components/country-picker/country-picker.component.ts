@@ -14,7 +14,7 @@ import { CountryPickerService } from './country-picker.service';
   templateUrl: './country-picker.component.html',
 })
 export class CountryPickerComponent implements OnInit {
-  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black/85';
+  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black';
   @Input() countries!: Country[];
   @Input() drawer!: MatSidenav;
 

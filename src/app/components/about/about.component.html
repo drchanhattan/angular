@@ -1,45 +1,37 @@
-<!-- Hero -->
-<div class="absolute size-full overflow-hidden">
-  <img class="size-full animate-zoom object-cover" src="hero-home.jpg" />
+<!-- Background -->
+<div class="absolute top-0">
+  <!-- Hero -->
+  <div class="h-[100vh] w-screen overflow-hidden">
+    <img class="size-full animate-zoom object-cover blur-sm" src="hero-home.jpg" />
+  </div>
+
+  <!-- Yellow Background -->
+  <div class="h-[200vh] border-t-2 border-mat-white bg-mat-yellow"></div>
 </div>
 
-<!-- About -->
-<div
-  class="z-10 mb-10 mt-20 flex h-fit max-w-min flex-col items-center justify-center self-center rounded-2xl bg-mat-black/85 backdrop-blur-sm">
-  <div class="flex flex-col items-center p-6 sm:p-8 md:flex-row md:p-12">
-    <ng-container [ngTemplateOutlet]="aboutText"></ng-container>
-    <ng-container [ngTemplateOutlet]="technology"></ng-container>
-  </div>
+<!-- Avatar -->
+<div class="z-10 flex h-[75vh] w-screen items-center justify-center">
+  <img src="avatar.svg" />
 </div>
 
 <!-- Text -->
-<ng-template #aboutText>
-  <div class="mx-6 my-4 sm:w-1/2 sm:min-w-80">
-    <div class="mb-2 text-4xl md:text-5xl">
-      <span>Hey, I'm</span>
-      <span class="text-mat-yellow">&nbsp;Chris</span>
-      <span>.</span>
-    </div>
-    <span class="text-base md:text-lg">
-      I'm a front-end developer with a passion for crafting intuitive and engaging single-page applications. This site
+<div class="z-10 flex h-[50vh] min-h-fit w-[90vw] items-center justify-center sm:w-[60vw]">
+  <div
+    class="flex h-fit w-full flex-col items-center justify-center rounded-3xl bg-mat-white p-6 text-center shadow-md sm:p-10 lg:p-20">
+    <span class="mb-4 text-4xl font-bold md:text-3xl">Hey, I'm Chris.</span>
+    <span class="text-base font-semibold md:text-lg">
+      A front-end developer with a passion for crafting intuitive and engaging single-page applications. This site
       features my photography portfolio and highlights my design and development skills. Check out the game I'm building
       and try to post a high score! I'm always open to new connections and work opportunities, so feel free to reach out
-      on
-      <a
-        class="inline-block text-mat-yellow"
-        href="https://www.linkedin.com/in/christopher-chan-941503a1/"
-        target="_blank">
-        LinkedIn
-      </a>
-      <span>!</span>
+      on LinkedIn!
     </span>
   </div>
-</ng-template>
+</div>
 
 <!-- Technology -->
-<ng-template #technology>
-  <div class="my-4 flex w-3/5 flex-col justify-center sm:m-6 sm:w-1/2">
-    <div class="mb-4 flex justify-center">
+<div class="z-10 my-20 w-screen">
+  <div class="flex size-full flex-col items-center">
+    <div class="mb-4 flex sm:mb-10">
       <ng-container
         *ngTemplateOutlet="techCard; context: { icon: 'angular', label: 'Angular', delay: 200 }"></ng-container>
       <ng-container
@@ -47,9 +39,10 @@
       <ng-container *ngTemplateOutlet="techCard; context: { icon: 'html', label: 'HTML', delay: 400 }"></ng-container>
     </div>
 
-    <div class="mb-4 flex justify-center">
+    <div class="mb-4 flex justify-center sm:mb-10">
       <ng-container *ngTemplateOutlet="techCard; context: { icon: 'sass', label: 'SCSS', delay: 500 }"></ng-container>
-      <ng-container *ngTemplateOutlet="techCard; context: { icon: 'git', label: 'Git', delay: 450 }"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="techCard; context: { icon: 'javascript', label: 'Javascript', delay: 450 }"></ng-container>
       <ng-container
         *ngTemplateOutlet="techCard; context: { icon: 'tailwind', label: 'Tailwind', delay: 500 }"></ng-container>
     </div>
@@ -57,19 +50,18 @@
     <div class="flex justify-center">
       <ng-container
         *ngTemplateOutlet="techCard; context: { icon: 'material', label: 'Material', delay: 400 }"></ng-container>
-      <ng-container
-        *ngTemplateOutlet="techCard; context: { icon: 'javascript', label: 'Javascript', delay: 300 }"></ng-container>
+      <ng-container *ngTemplateOutlet="techCard; context: { icon: 'git', label: 'Git', delay: 300 }"></ng-container>
       <ng-container *ngTemplateOutlet="techCard; context: { icon: 'rxjs', label: 'RXJS', delay: 200 }"></ng-container>
     </div>
   </div>
-</ng-template>
+</div>
 
 <!-- Tech Card-->
 <ng-template #techCard let-icon="icon" let-label="label" let-delay="delay">
   <div
     [@opacityAnimation]="{ value: '', params: { delay: delay } }"
-    class="mx-2 flex min-h-20 min-w-20 flex-col items-center justify-center rounded-lg border-2 border-mat-yellow sm:mx-4 sm:min-h-24 sm:min-w-24">
-    <mat-icon class="my-2 scale-150 sm:my-4 sm:scale-200" [svgIcon]="icon"></mat-icon>
-    <span class="text-sm">{{ label }}</span>
+    class="mx-2 flex min-h-24 min-w-24 flex-col items-center justify-center rounded-3xl bg-mat-white shadow-md sm:mx-4 sm:min-h-40 sm:min-w-40">
+    <mat-icon class="my-2 scale-150 sm:my-8 sm:scale-300" [svgIcon]="icon"></mat-icon>
+    <span class="text-base font-semibold">{{ label }}</span>
   </div>
 </ng-template>

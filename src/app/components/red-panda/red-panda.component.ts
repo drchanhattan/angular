@@ -24,7 +24,7 @@ export class RedPandaComponent {
 
   @HostListener('document:mousemove', ['$event'])
   handleMouseMove(event: MouseEvent) {
-    if (Math.abs(this.cursorX - event.clientX) > 50) {
+    if (event.clientY > window.innerHeight - this.panda.size * 2 && Math.abs(this.cursorX - event.clientX) > 50) {
       this.cursorX = event.clientX;
     }
   }
@@ -140,7 +140,7 @@ export class RedPandaComponent {
   }
 
   private moveY() {
-    const gravity = 0.2;
+    const gravity = 0.25;
     this.panda.deltaY$.next(this.panda.deltaY$.value + gravity);
     this.panda.y += this.panda.deltaY$.value;
   }

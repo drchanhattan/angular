@@ -1,16 +1,15 @@
 <!-- Toolbar -->
 @if (!isGame) {
   <div
-    class="fixed z-10 flex h-16 w-full select-none items-center justify-between border-mat-yellow px-4 sm:px-16"
+    class="fixed z-10 flex h-16 w-full select-none items-center justify-between px-4 sm:px-16"
     [ngClass]="{
-      'border-b bg-mat-black/85 backdrop-blur-sm': hideToolbar,
+      'border-b-2 border-mat-white bg-mat-black': hideToolbar,
     }">
     <!-- Menu Button -->
     <app-icon-button
       (click)="toggleMenu()"
       [ngClass]="{
-        'absolute left-8 top-8 rounded-full border border-transparent bg-mat-black/85 hover:border-mat-yellow sm:left-16':
-          !hideToolbar,
+        'absolute left-8 top-8 rounded-full border border-mat-white bg-mat-black sm:left-16': !hideToolbar,
       }"
       [icon]="{ matIcon: 'menu' }"></app-icon-button>
 
@@ -21,7 +20,7 @@
           mat-stroked-button
           onclick="blur()"
           (click)="toggleLocation()"
-          class="!rounded-xl !border !border-mat-yellow !bg-mat-black/85">
+          class="!rounded-xl !border !border-mat-white !bg-mat-black/85">
           <mat-icon class="!mr-3 scale-125">place</mat-icon>
           <span class="text-base text-mat-yellow">
             {{ countryPickerService.country }}
@@ -30,7 +29,7 @@
       } @else {
         <app-icon-button
           (click)="toggleLocation()"
-          class="absolute right-8 top-8 rounded-full border border-transparent bg-mat-black/85 hover:border-mat-yellow sm:right-16"
+          class="absolute right-8 top-8 rounded-full border border-mat-white bg-mat-black sm:right-16"
           [icon]="{ matIcon: 'place' }"></app-icon-button>
       }
     }

@@ -1,23 +1,29 @@
 @if (!!group) {
   <!-- Group -->
-  <button #groupBtn mat-button class="my-1 !rounded-lg" (click)="expandGroup(groupBtn)">
+  <button #groupBtn mat-button class="my-2 !rounded-lg" (click)="expandGroup(groupBtn)">
     @if (icon) {
-      <app-icon matButtonIcon [icon]="icon" [classes]="['text-mat-cream', iconClasses]"></app-icon>
+      <app-icon
+        matButtonIcon
+        [icon]="icon"
+        [classes]="[active ? 'text-mat-yellow' : 'text-mat-white', iconClasses]"></app-icon>
     }
-    <span class="text-nowrap text-xl text-mat-cream sm:text-lg">
+    <span class="text-nowrap text-xl" [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-white']">
       {{ group.label }}
     </span>
-    <mat-icon [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', iconClasses]" iconPositionEnd>
+    <mat-icon [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-white', iconClasses]" iconPositionEnd>
       {{ group.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}
     </mat-icon>
   </button>
 } @else if (!!link) {
   <!-- Link -->
-  <button mat-button class="my-1 !rounded-lg !px-4">
+  <button mat-button class="my-2 !rounded-lg !px-4">
     @if (icon) {
-      <app-icon matButtonIcon [icon]="icon" [classes]="['text-mat-cream', iconClasses]"></app-icon>
+      <app-icon
+        matButtonIcon
+        [icon]="icon"
+        [classes]="[active ? 'text-mat-yellow' : 'text-mat-white', iconClasses]"></app-icon>
     }
-    <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-cream', 'text-nowrap text-xl sm:text-lg']">
+    <span [ngClass]="[active ? 'text-mat-yellow' : 'text-mat-white', 'text-nowrap text-xl']">
       {{ link.label }}
     </span>
   </button>

@@ -5,11 +5,11 @@ export class Panda {
   deltaY$: BehaviorSubject<number>;
   isflipped$ = new BehaviorSubject<boolean>(false);
   isJumping$ = new BehaviorSubject<boolean>(false);
-  jumpHeight = 9;
+  jumpHeight = 10;
   x: number;
   y: number;
   size: number;
-  speed = 8;
+  speed = 5;
 
   constructor(deltaX: number, deltaY: number, posX: number, posY: number, size: number) {
     this.deltaX$ = new BehaviorSubject<number>(deltaX);
