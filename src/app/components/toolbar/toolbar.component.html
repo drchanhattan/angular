@@ -9,8 +9,9 @@
     <app-icon-button
       (click)="toggleMenu()"
       [ngClass]="{
-        'absolute left-8 top-8 rounded-full border border-mat-white bg-mat-black sm:left-16': !hideToolbar,
+        'absolute left-8 top-8 !scale-125 rounded-full bg-mat-yellow hover:!scale-150 sm:left-16': !hideToolbar,
       }"
+      [classes]="!hideToolbar ? 'text-mat-black' : ''"
       [icon]="{ matIcon: 'menu' }"></app-icon-button>
 
     <!-- Location Button -->
@@ -29,7 +30,8 @@
       } @else {
         <app-icon-button
           (click)="toggleLocation()"
-          class="absolute right-8 top-8 rounded-full border border-mat-white bg-mat-black sm:right-16"
+          class="absolute right-8 top-8 !scale-125 rounded-full bg-mat-yellow hover:!scale-150 sm:right-16"
+          [classes]="'text-mat-black'"
           [icon]="{ matIcon: 'place' }"></app-icon-button>
       }
     }
