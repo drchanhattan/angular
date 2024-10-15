@@ -20,7 +20,7 @@
 <!-- Avatar Template -->
 <ng-template #avatar>
   <div class="flex size-full flex-col items-center justify-end py-20">
-    <img class="size-60" src="avatar.svg" />
+    <img class="size-60 hover:animate-jiggle" src="avatar.svg" />
     <span class="m-4 rounded-full bg-mat-yellow px-4 py-2 text-center text-2xl font-bold text-mat-black shadow">
       Christopher Chan
     </span>
@@ -46,7 +46,9 @@
   <div class="my-4 grid w-full grid-cols-2 justify-items-center sm:my-12 sm:grid-cols-3 md:gap-8">
     @for (tech of techStack; track $index) {
       <div
-        class="my-4 flex size-36 flex-col items-center justify-center rounded-full border-2 border-mat-white bg-mat-black shadow hover:animate-jiggle sm:size-48">
+        class="my-4 flex size-36 flex-col items-center justify-center rounded-full border-2 border-mat-white bg-mat-black shadow hover:animate-jiggle sm:size-48"
+        data-aos="fade-up"
+        data-aos-once="true">
         <mat-icon class="my-4 scale-200 sm:my-6 md:my-8 md:scale-300" [svgIcon]="tech.icon"></mat-icon>
         <span class="text-sm text-mat-white sm:text-base sm:font-semibold">{{ tech.label }}</span>
       </div>
