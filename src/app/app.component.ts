@@ -27,9 +27,9 @@ import { PowerUpService } from './components/avoid-the-cob/services/power-up.ser
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader.service';
 import { CountryPickerService } from './components/country-picker/country-picker.service';
+import { Icons } from './components/icon/icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { Icons } from './icons/icons';
 
 @Component({
   selector: 'app-root',

@@ -19,7 +19,7 @@ export class ToolbarComponent {
 
   @HostListener('window:scroll', [])
   onScroll() {
-    this.scrollTop = window.scrollY === 0;
+    this.scrollTop = window.scrollY < 64;
   }
 
   constructor(

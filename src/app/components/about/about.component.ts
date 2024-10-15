@@ -22,5 +22,14 @@ export class AboutComponent {
     { icon: 'material', label: 'Material' },
     { icon: 'git', label: 'Git' },
     { icon: 'rxjs', label: 'RXJS' },
+    { icon: 'storybook', label: 'Storybook' },
+    { icon: 'npm', label: 'NPM' },
+    { icon: 'vs-code', label: 'Visual Studio' },
+    { icon: 'webstorm', label: 'Webstorm' },
+    { icon: 'jira', label: 'Jira' },
+    { icon: 'teams', label: 'Teams' },
+    { icon: 'slack', label: 'Slack' },
+    { icon: 'c-sharp', label: 'C#' },
+    { icon: 'selenium', label: 'Selenium' },
   ];
 }
