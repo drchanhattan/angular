@@ -11,7 +11,8 @@ import { SideNavLink, sideNavLinks } from './navigation-links';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black';
+  @HostBinding('class') hostClasses =
+    'flex h-full flex-col items-center overflow-y-auto bg-mat-black scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow';
   @Output() close = new EventEmitter();
   currentRoute: string = '';
   links = sideNavLinks;
