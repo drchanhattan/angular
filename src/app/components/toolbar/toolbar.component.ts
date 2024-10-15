@@ -38,12 +38,7 @@ export class ToolbarComponent {
   }
 
   get hideToolbar() {
-    return (
-      !this.scrollTop ||
-      this.drawer.opened ||
-      this.countryPickerService?.drawer?.opened ||
-      this.countryPickerService.isSelected
-    );
+    return !this.scrollTop || this.drawer.opened || this.countryPickerService?.drawer?.opened;
   }
 
   toggleMenu() {
