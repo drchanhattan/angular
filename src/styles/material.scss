@@ -32,6 +32,8 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 }
 
 @mixin mat-sidenav() {
+  --mat-sidenav-scrim-color: rgba(0, 0, 0, 0.5);
+
   mat-sidenav {
     background: transparent !important;
   }

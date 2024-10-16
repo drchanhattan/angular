@@ -14,4 +14,5 @@ export class IconButtonComponent {
   @HostBinding('class') hostClasses = 'scale-150';
   @Input() icon: Icon = { matIcon: 'face' };
   @Input() classes: string = '';
+  @Input() yellow: boolean = false;
 }

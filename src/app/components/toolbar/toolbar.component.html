@@ -1,39 +1,39 @@
 <!-- Toolbar -->
-@if (!isGame) {
-  <div
-    class="fixed z-10 flex h-16 w-full select-none items-center justify-between border-b-2 border-transparent px-4 duration-500 ease-out sm:px-16"
-    [ngClass]="{
-      '!border-mat-white bg-mat-black': hideToolbar,
-    }">
-    <!-- Menu Button -->
+<div
+  class="fixed z-10 flex h-16 w-full select-none items-center justify-between border-b-2 border-transparent px-4 duration-500 ease-out sm:px-16"
+  [ngClass]="{
+    '!border-mat-white !bg-mat-black': showToolbar,
+  }">
+  <!-- Menu Button -->
+  @if (showToolbar) {
+    <app-icon-button (click)="toggleMenu()" [icon]="{ matIcon: 'menu' }"></app-icon-button>
+  } @else if (gamePaused) {
     <app-icon-button
       (click)="toggleMenu()"
-      [ngClass]="{
-        'absolute left-8 top-8 !scale-125 rounded-full bg-mat-yellow hover:!scale-150 sm:left-16': !hideToolbar,
-      }"
-      [classes]="!hideToolbar ? 'text-mat-black' : ''"
-      [icon]="{ matIcon: 'menu' }"></app-icon-button>
+      class="absolute left-8 top-8 sm:left-16"
+      [icon]="{ matIcon: 'menu' }"
+      [yellow]="true"></app-icon-button>
+  }
 
-    <!-- Location Button -->
-    @if (!isHome) {
-      @if (hideToolbar) {
-        <button
-          mat-stroked-button
-          onclick="blur()"
-          (click)="toggleLocation()"
-          class="!rounded-xl !border !border-mat-white !bg-mat-black/85">
-          <mat-icon class="!mr-3 scale-125">place</mat-icon>
-          <span class="text-base text-mat-yellow">
-            {{ countryPickerService.country }}
-          </span>
-        </button>
-      } @else {
-        <app-icon-button
-          (click)="toggleLocation()"
-          class="absolute right-8 top-8 !scale-125 rounded-full bg-mat-yellow hover:!scale-150 sm:right-16"
-          [classes]="'text-mat-black'"
-          [icon]="{ matIcon: 'place' }"></app-icon-button>
-      }
+  <!-- Location Button -->
+  @if (!isHome && !isGame) {
+    @if (showToolbar) {
+      <button
+        mat-stroked-button
+        onclick="blur()"
+        (click)="toggleLocation()"
+        class="!rounded-xl !border !border-mat-white !bg-mat-black/85">
+        <mat-icon class="!mr-3 scale-125">place</mat-icon>
+        <span class="text-base text-mat-yellow">
+          {{ countryPickerService.country }}
+        </span>
+      </button>
+    } @else {
+      <app-icon-button
+        (click)="toggleLocation()"
+        class="absolute right-8 top-8 sm:right-16"
+        [icon]="{ matIcon: 'place' }"
+        [yellow]="true"></app-icon-button>
     }
-  </div>
-}
+  }
+</div>

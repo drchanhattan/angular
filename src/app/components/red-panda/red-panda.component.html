@@ -1,7 +1,11 @@
-<img
-  #sprite
+<div
   class="absolute overflow-hidden"
   (mouseover)="mouseover(true)"
   (mouseleave)="mouseover(false)"
-  [src]="sprite$.value"
-  [style]="pandaStyle" />
+  [style]="pandaStyle">
+  @if (sprite$ | async; as sprite) {
+    <img [ngClass]="{ hidden: sprite !== 'jump.gif' }" [src]="'jump.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'idle.gif' }" [src]="'idle.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'run.gif' }" [src]="'run.gif'" />
+  }
+</div>

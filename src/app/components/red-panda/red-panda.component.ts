@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { Component, HostBinding, HostListener } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, combineLatest, forkJoin, map } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { Panda } from './panda';
 
 enum Sprite {
@@ -13,6 +12,7 @@ enum Sprite {
 @Component({
   selector: 'app-red-panda',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {
@@ -29,14 +29,9 @@ export class RedPandaComponent {
     }
   }
 
-  constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
-  ) {
-    this.preloadSprites$().subscribe(() => {
-      this.updateSprite();
-      this.animate();
-    });
+  constructor() {
+    this.updateSprite();
+    this.animate();
   }
 
   get pandaStyle() {
@@ -62,32 +57,10 @@ export class RedPandaComponent {
     }
   }
 
-  private preloadSprites$() {
-    return forkJoin(
-      Object.values(Sprite).map((gif) =>
-        this.http
-          .get(gif, { responseType: 'blob' })
-          .pipe(map((blob) => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob)))),
-      ),
-    );
-  }
-
   private updateSprite() {
     combineLatest([this.panda.deltaX$, this.panda.deltaY$, this.panda.isJumping$]).subscribe(([x, y, jumping]) => {
-      if (jumping) {
-        this.setGif(Sprite.Jump);
-      } else if (x !== 0) {
-        this.setGif(Sprite.Run);
-      } else {
-        this.setGif(Sprite.Idle);
-      }
+      this.sprite$.next(jumping ? Sprite.Jump : x !== 0 ? Sprite.Run : Sprite.Idle);
     });
-  }
-
-  private setGif(gif: Sprite) {
-    if (this.sprite$.value !== gif) {
-      this.sprite$.next(gif);
-    }
   }
 
   private animate() {
