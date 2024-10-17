@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, firstValueFrom, map } from 'rxjs';
 import { Country } from './country';
 
 @Injectable({
@@ -11,7 +11,8 @@ export class CountryPickerService {
   countries$ = new BehaviorSubject<Country[]>([]);
   country: string = 'Location';
   drawer!: MatSidenav;
-  id: number | undefined;
+  id$ = new BehaviorSubject<number | null>(null);
+  isSelected$ = this.id$.pipe(map((id) => id !== null && !isNaN(id)));
 
   constructor(
     private route: ActivatedRoute,
@@ -21,10 +22,6 @@ export class CountryPickerService {
       this.countries$,
       this.router.events.pipe(filter((event) => event instanceof NavigationEnd)),
     ]).subscribe(async () => this.handleRouteParams());
-  }
-
-  get isSelected(): boolean {
-    return this.id !== undefined && !isNaN(this.id);
   }
 
   close() {
@@ -41,13 +38,13 @@ export class CountryPickerService {
 
   select(id: number) {
     window.scrollTo(0, 0);
-    this.id = id;
+    this.id$.next(id);
     this.country = this.countries$.value[id]?.label || 'Location';
     this.close();
   }
 
   deselect() {
-    this.id = undefined;
+    this.id$.next(null);
     this.country = 'Location';
   }
 
