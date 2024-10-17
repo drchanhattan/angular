@@ -66,8 +66,13 @@ export class FirebaseService {
 
   private sortAndLimit(scores: GameScore[]) {
     scores.sort((a, b) => (b.score === a.score ? a.date - b.date : b.score - a.score));
-    if (scores.length > 20) {
-      scores.length = 20;
+
+    if (scores.length > 30) {
+      scores.length = 30;
+    } else {
+      while (scores.length < 30) {
+        scores.push({ name: '-', score: 0, date: new Date().getTime() });
+      }
     }
   }
 }
