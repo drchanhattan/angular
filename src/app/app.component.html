@@ -9,7 +9,9 @@
     class="!w-80 !rounded-none"
     [autoFocus]="false"
     [fixedInViewport]="true"
-    [fixedTopGap]="64">
+    [fixedTopGap]="64"
+    [appSidenavOverflow]="drawer">
+    <!-- Navigation -->
     <app-navigation (close)="drawer.close()"></app-navigation>
   </mat-sidenav>
 

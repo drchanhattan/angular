@@ -31,11 +31,12 @@ import { Icons } from './components/icon/icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ToolbarService } from './components/toolbar/toolbar.service';
+import { SidenavOverflowDirective } from './directives/sidenav-overflow.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, ToolbarComponent],
+  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, SidenavOverflowDirective, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AudioService,

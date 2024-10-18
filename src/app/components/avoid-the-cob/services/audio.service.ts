@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { take } from 'rxjs';
 
 export enum AudioFile {
   Corn = 'corn.mp3',
@@ -104,6 +105,7 @@ export class AudioService {
   private preloadAudio(audio: AudioFile) {
     this.http
       .get(audio, { responseType: 'blob' })
+      .pipe(take(1))
       .subscribe((blob) => this.#audioCache.set(audio, URL.createObjectURL(blob)));
   }
 }

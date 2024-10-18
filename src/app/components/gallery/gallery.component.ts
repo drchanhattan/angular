@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import AOS from 'aos';
+import { SidenavOverflowDirective } from '../../directives/sidenav-overflow.directive';
 import { Country } from '../country-picker/country';
 import { CountryPickerComponent } from '../country-picker/country-picker.component';
 import { CountryPickerService } from '../country-picker/country-picker.service';
@@ -21,6 +22,7 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
     MatProgressSpinnerModule,
     MatSidenavModule,
     RouterLink,
+    SidenavOverflowDirective,
   ],
   templateUrl: './gallery.component.html',
 })
