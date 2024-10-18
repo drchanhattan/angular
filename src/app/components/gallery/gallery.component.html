@@ -4,9 +4,10 @@
     #drawer
     mode="over"
     position="end"
-    class="mt-16 !w-72 !rounded-none backdrop-blur"
+    class="!w-72 !rounded-none backdrop-blur"
     [autoFocus]="false"
-    [fixedInViewport]="true">
+    [fixedInViewport]="true"
+    [fixedTopGap]="64">
     <!-- Country Picker -->
     <app-country-picker [countries]="countries" [drawer]="drawer"></app-country-picker>
   </mat-sidenav>

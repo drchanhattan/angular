@@ -3,7 +3,13 @@
 
 <mat-sidenav-container>
   <!-- Side Nav -->
-  <mat-sidenav #drawer mode="over" class="!mt-16 !w-80 !rounded-none" [autoFocus]="false" [fixedInViewport]="true">
+  <mat-sidenav
+    #drawer
+    mode="over"
+    class="!w-80 !rounded-none"
+    [autoFocus]="false"
+    [fixedInViewport]="true"
+    [fixedTopGap]="64">
     <app-navigation (close)="drawer.close()"></app-navigation>
   </mat-sidenav>
 
