@@ -18,10 +18,10 @@ export class CountryPickerComponent implements OnInit {
   @Input() countries!: Country[];
   @Input() drawer!: MatSidenav;
 
-  constructor(public countriesService: CountryPickerService) {}
+  constructor(public countryPickerService: CountryPickerService) {}
 
   ngOnInit() {
-    this.countriesService.setCountries(this.countries);
-    this.countriesService.setDrawer(this.drawer);
+    this.countryPickerService.setCountries(this.countries);
+    this.countryPickerService.setDrawer(this.drawer);
   }
 }

@@ -10,7 +10,8 @@
         }
       </div>
       <!-- Label -->
-      <span [ngClass]="[this.countriesService.id$.value === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']">
+      <span
+        [ngClass]="[this.countryPickerService.id$.value === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']">
         {{ country.label }}
       </span>
     </button>

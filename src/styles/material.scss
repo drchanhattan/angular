@@ -9,6 +9,10 @@ $black: mat.get-theme-color($light-theme, neutral, 10) !important;
 $white: mat.get-theme-color($light-theme, neutral, 99) !important;
 $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 
+@mixin mat-progress-spinner() {
+  --mdc-circular-progress-active-indicator-color: #{$yellow};
+}
+
 @mixin mat-slide-toggle() {
   .yellow-slide-toggle {
     --mdc-switch-selected-focus-state-layer-color: #{$yellow};
@@ -49,4 +53,5 @@ html {
   @include mat-slide-toggle();
   @include mat-slider();
   @include mat-sidenav();
+  @include mat-progress-spinner();
 }
