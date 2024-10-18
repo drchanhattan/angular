@@ -3,10 +3,9 @@ import { Component, HostListener, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
-import { GameStateService } from '../avoid-the-cob/services/game-state.service';
 import { CountryPickerService } from '../country-picker/country-picker.service';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,25 +24,12 @@ export class ToolbarComponent {
 
   constructor(
     public countryPickerService: CountryPickerService,
-    private gameStateService: GameStateService,
-    private router: Router,
+    public toolbarService: ToolbarService,
   ) {
     this.onScroll();
   }
 
-  get gamePaused() {
-    return this.gameStateService.paused && !this.gameStateService.lives;
-  }
-
-  get isGame() {
-    return this.router.url === '/avoid-the-cob';
-  }
-
-  get isHome() {
-    return this.router.url === '/';
-  }
-
-  get showToolbar() {
+  get darkToolbar() {
     return !this.scrollTop || this.drawer.opened || this.countryPickerService?.drawer?.opened;
   }
 

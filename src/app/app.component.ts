@@ -30,6 +30,7 @@ import { CountryPickerService } from './components/country-picker/country-picker
 import { Icons } from './components/icon/icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ToolbarService } from './components/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     PowerUpService,
     ScoreService,
     SvgLoaderService,
+    ToolbarService,
   ],
 })
 export class AppComponent {

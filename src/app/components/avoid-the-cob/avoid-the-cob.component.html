@@ -32,17 +32,17 @@
 }
 
 <!-- Lives -->
-@if (gameStateService.lives > 0) {
+@if (gameStateService.lives$.value > 0) {
   <div
     [@opacityAnimation]
     class="pointer-events-none absolute left-0 top-0 m-4 flex items-center font-bold text-mat-cream">
     <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
-    <span class="ml-2 text-5xl">{{ gameStateService.lives }}</span>
+    <span class="ml-2 text-5xl">{{ gameStateService.lives$.value }}</span>
   </div>
 }
 
 <!-- Score -->
-@if (gameStateService.lives > 0 && !gameStateService.mobMode) {
+@if (gameStateService.lives$.value > 0 && !gameStateService.mobMode) {
   <div
     [@opacityAnimation]
     class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">

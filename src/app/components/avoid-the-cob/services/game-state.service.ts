@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { ToolbarService } from '../../toolbar/toolbar.service';
 import { GameTextService } from '../components/game-text/game-text.service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard.service';
 import { MainMenuService } from '../components/main-menu/main-menu.service';
@@ -17,7 +19,7 @@ import { ScoreService } from './score.service';
 })
 export class GameStateService {
   browserResized = false;
-  lives = 0;
+  lives$ = new BehaviorSubject<number>(0);
   paused = true;
   timer = '';
   timerInterval: any;
@@ -35,7 +37,10 @@ export class GameStateService {
     private mainMenuService: MainMenuService,
     private scoreService: ScoreService,
     private textService: GameTextService,
-  ) {}
+    private toolbarService: ToolbarService,
+  ) {
+    this.lives$.subscribe((lives) => this.toolbarService.hideMenuBtn$.next(!!lives));
+  }
 
   start() {
     this.paused = false;
@@ -56,7 +61,7 @@ export class GameStateService {
   gameOver() {
     const { cheatsEnabled } = this.cheatService;
 
-    this.lives = 0;
+    this.lives$.next(0);
     this.paused = true;
     this.clearTimer();
     this.audioService.stopMusic();
@@ -83,7 +88,7 @@ export class GameStateService {
 
   reset(mobMode: boolean) {
     this.mobMode = mobMode;
-    this.lives = mobMode ? 10 : 3;
+    this.lives$.next(mobMode ? 10 : 3);
     this.browserResized = false;
   }
 

@@ -61,13 +61,13 @@ export class CollisionService {
       corn.destroy();
 
       if (!this.cursor.invincible) {
-        this.gameStateService.lives--;
+        this.gameStateService.lives$.next(this.gameStateService.lives$.value - 1);
         this.canvasService.flash(500, GameColor.FlashRed, 'animate-jiggle');
         this.cursor.disableCollision(500);
         this.scoreService.resetCombo();
       }
 
-      if (this.gameStateService.lives === 0) {
+      if (this.gameStateService.lives$.value === 0) {
         this.gameStateService.gameOver();
       }
     }
@@ -87,7 +87,7 @@ export class CollisionService {
     if (heart.detectCollision(this.cursor.object)) {
       this.audioService.playSfx(AudioFile.Heart);
       this.cursor.blink(heart.color, 2, 100);
-      this.gameStateService.lives++;
+      this.gameStateService.lives$.next(this.gameStateService.lives$.value + 1);
       this.particleService.create(heart, 8);
       heart.destroy();
     }
