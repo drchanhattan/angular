@@ -1,35 +1,31 @@
 <mat-sidenav-container>
   <!-- Side Nav -->
   <mat-sidenav
-    #drawer
+    #sidenav
     mode="over"
     position="end"
     class="!w-72 !rounded-none"
     [autoFocus]="false"
     [fixedInViewport]="true"
-    [fixedTopGap]="64"
-    [appSidenavOverflow]="drawer">
-    <!-- Country Picker -->
-    <app-country-picker [countries]="countries" [drawer]="drawer"></app-country-picker>
+    [fixedTopGap]="64">
+    <!-- Photo Menu -->
+    <app-photo-menu [albums]="albums" [sidenav]="sidenav"></app-photo-menu>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">
     <!-- Content -->
-    @if (!(countryPickerService.isSelected$ | async)) {
+    @if (!(photoLibraryService.isSelected$ | async)) {
       <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
-      <ng-container [ngTemplateOutlet]="continent"></ng-container>
+      <ng-container [ngTemplateOutlet]="label"></ng-container>
     } @else {
-      <ng-container [ngTemplateOutlet]="photoGrid"></ng-container>
+      <ng-container [ngTemplateOutlet]="photoLibrary"></ng-container>
     }
-
-    <!-- Footer -->
-    <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<!-- Photo Grid -->
-<ng-template #photoGrid>
-  @if (countryPickerService.loading$ | async) {
+<!-- Photo Library -->
+<ng-template #photoLibrary>
+  @if (photoLibraryService.loading$ | async) {
     <!-- Spinner -->
     <div class="flex size-full min-h-screen items-center justify-center bg-neutral-white">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -38,7 +34,7 @@
     <!-- Photos -->
     <div
       class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pb-10 pt-28 sm:px-20 lg:columns-3 lg:gap-8">
-      @for (url of countryPickerService.urls$ | async; track $index) {
+      @for (url of photoLibraryService.urls$ | async; track $index) {
         <div
           class="mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8"
           data-aos="fade-up"
@@ -55,8 +51,8 @@
   <img class="absolute h-screen w-screen animate-zoom object-cover" [src]="hero" />
 </ng-template>
 
-<!-- Continent Label -->
-<ng-template #continent>
+<!-- Label -->
+<ng-template #label>
   <div class="flex h-screen w-full items-end justify-center">
     <span
       class="w-full bg-gradient-to-b from-transparent to-mat-black/25 pb-40 pt-10 text-center font-ink text-7xl font-semibold text-mat-yellow drop-shadow sm:text-9xl sm:font-medium">

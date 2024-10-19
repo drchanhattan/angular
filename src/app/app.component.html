@@ -1,18 +1,17 @@
 <!-- Toolbar -->
-<app-toolbar [drawer]="drawer"></app-toolbar>
+<app-toolbar></app-toolbar>
 
 <mat-sidenav-container>
   <!-- Side Nav -->
   <mat-sidenav
-    #drawer
+    #sidenav
     mode="over"
     class="!w-80 !rounded-none"
     [autoFocus]="false"
     [fixedInViewport]="true"
-    [fixedTopGap]="64"
-    [appSidenavOverflow]="drawer">
+    [fixedTopGap]="64">
     <!-- Navigation -->
-    <app-navigation (close)="drawer.close()"></app-navigation>
+    <app-navigation [sidenav]="sidenav"></app-navigation>
   </mat-sidenav>
 
   <!-- Content -->

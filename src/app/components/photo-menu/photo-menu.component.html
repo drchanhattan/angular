@@ -1,0 +1,18 @@
+<div
+  class="overflow-y-auto overflow-x-hidden py-8 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
+  @for (photoAlbum of albums; track $index; let index = $index) {
+    <button mat-button class="!h-36 !w-full !rounded-none" [routerLink]="index.toString()">
+      <!-- Icon -->
+      <div class="mb-4 scale-150">
+        <mat-icon [svgIcon]="photoAlbum.icons[0]"></mat-icon>
+        @if (photoAlbum.icons[1]) {
+          <mat-icon class="ml-4" [svgIcon]="photoAlbum.icons[1]"></mat-icon>
+        }
+      </div>
+      <!-- Label -->
+      <span [ngClass]="[photoLibraryService.id$.value === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']">
+        {{ photoAlbum.label }}
+      </span>
+    </button>
+  }
+</div>

@@ -7,32 +7,32 @@
   <!-- Menu Button -->
   @if (!(toolbarService.hideMenuBtn$ | async)) {
     @if (darkToolbar) {
-      <app-icon-button (click)="toggleMenu()" [icon]="{ matIcon: 'menu' }"></app-icon-button>
+      <app-icon-button (click)="toolbarService.toggleMenu(false)" [icon]="{ matIcon: 'menu' }"></app-icon-button>
     } @else {
       <app-icon-button
-        (click)="toggleMenu()"
+        (click)="toolbarService.toggleMenu(false)"
         class="absolute left-8 top-8 sm:left-16"
         [icon]="{ matIcon: 'menu' }"
         [yellow]="true"></app-icon-button>
     }
   }
 
-  <!-- Location Button -->
-  @if (toolbarService.showLocationBtn) {
+  <!-- Photo Menu Button -->
+  @if (toolbarService.showPhotoMenu) {
     @if (darkToolbar) {
       <button
         mat-stroked-button
         onclick="blur()"
-        (click)="toggleLocation()"
+        (click)="toolbarService.toggleMenu(true)"
         class="!rounded-xl !border !border-mat-white !bg-mat-black/85">
         <mat-icon class="!mr-3 scale-125">place</mat-icon>
         <span class="text-base text-mat-yellow">
-          {{ countryPickerService.country }}
+          {{ toolbarService.label$.value }}
         </span>
       </button>
     } @else {
       <app-icon-button
-        (click)="toggleLocation()"
+        (click)="toolbarService.toggleMenu(true)"
         class="absolute right-8 top-8 sm:right-16"
         [icon]="{ matIcon: 'place' }"
         [yellow]="true"></app-icon-button>

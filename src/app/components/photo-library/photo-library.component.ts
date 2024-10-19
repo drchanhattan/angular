@@ -4,35 +4,31 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import AOS from 'aos';
-import { SidenavOverflowDirective } from '../../directives/sidenav-overflow.directive';
-import { Country } from '../country-picker/country';
-import { CountryPickerComponent } from '../country-picker/country-picker.component';
-import { CountryPickerService } from '../country-picker/country-picker.service';
-import { FooterComponent } from '../footer/footer.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { PhotoMenuComponent } from '../photo-menu/photo-menu.component';
+import { PhotoAlbum } from './photo-album';
+import { PhotoLibraryService } from './photo-library.service';
 
 @Component({
-  selector: 'app-gallery',
+  selector: 'app-photo-library',
   standalone: true,
   imports: [
     CommonModule,
-    CountryPickerComponent,
-    FooterComponent,
     IconButtonComponent,
     MatProgressSpinnerModule,
     MatSidenavModule,
+    PhotoMenuComponent,
     RouterLink,
-    SidenavOverflowDirective,
   ],
-  templateUrl: './gallery.component.html',
+  templateUrl: './photo-library.component.html',
 })
-export class GalleryComponent {
+export class PhotoLibraryComponent {
   @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';
   @Input() name: string = '';
   @Input() hero: string = '';
-  @Input() countries!: Country[];
+  @Input() albums!: PhotoAlbum[];
 
-  constructor(public countryPickerService: CountryPickerService) {}
+  constructor(public photoLibraryService: PhotoLibraryService) {}
 
   animate() {
     AOS.refresh();

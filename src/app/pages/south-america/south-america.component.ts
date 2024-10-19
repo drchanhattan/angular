@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Country } from '../../components/country-picker/country';
-import { GalleryComponent } from '../../components/gallery/gallery.component';
+import { PhotoAlbum } from '../../components/photo-library/photo-album';
+import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
   selector: 'app-south-america',
   standalone: true,
-  imports: [GalleryComponent],
+  imports: [PhotoLibraryComponent],
   templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
-  countries: Country[] = [
+  albums: PhotoAlbum[] = [
     {
       label: 'Argentina & Chile',
       icons: ['argentina', 'chile'],

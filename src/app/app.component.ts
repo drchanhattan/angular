@@ -26,17 +26,16 @@ import { ParticleService } from './components/avoid-the-cob/services/particle.se
 import { PowerUpService } from './components/avoid-the-cob/services/power-up.service';
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
 import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader.service';
-import { CountryPickerService } from './components/country-picker/country-picker.service';
 import { Icons } from './components/icon/icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { PhotoLibraryService } from './components/photo-library/photo-library.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ToolbarService } from './components/toolbar/toolbar.service';
-import { SidenavOverflowDirective } from './directives/sidenav-overflow.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, SidenavOverflowDirective, ToolbarComponent],
+  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AudioService,
@@ -45,7 +44,6 @@ import { SidenavOverflowDirective } from './directives/sidenav-overflow.directiv
     CheatService,
     CursorService,
     CollisionService,
-    CountryPickerService,
     DeviceService,
     DifficultyService,
     FirebaseService,
@@ -55,6 +53,7 @@ import { SidenavOverflowDirective } from './directives/sidenav-overflow.directiv
     GameStateService,
     GameTextService,
     LeaderboardService,
+    PhotoLibraryService,
     MainMenuService,
     OverlayService,
     ParticleService,
@@ -69,7 +68,6 @@ export class AppComponent {
   constructor(
     private domSanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry,
-    public countryPickerService: CountryPickerService,
     public router: Router,
   ) {
     this.redirectToHash();

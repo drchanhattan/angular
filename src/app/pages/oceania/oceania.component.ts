@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Country } from '../../components/country-picker/country';
-import { GalleryComponent } from '../../components/gallery/gallery.component';
+import { PhotoAlbum } from '../../components/photo-library/photo-album';
+import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
   selector: 'app-oceania',
   standalone: true,
-  imports: [GalleryComponent],
+  imports: [PhotoLibraryComponent],
   templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
-  countries: Country[] = [
+  albums: PhotoAlbum[] = [
     {
       label: 'Australia',
       icons: ['australia'],

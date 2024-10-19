@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenav } from '@angular/material/sidenav';
-import { CountryPickerService } from '../country-picker/country-picker.service';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ToolbarService } from './toolbar.service';
 
@@ -14,7 +12,6 @@ import { ToolbarService } from './toolbar.service';
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {
-  @Input() drawer!: MatSidenav;
   scrollTop: boolean = false;
 
   @HostListener('window:scroll', [])
@@ -22,24 +19,11 @@ export class ToolbarComponent {
     this.scrollTop = window.scrollY < 64;
   }
 
-  constructor(
-    public countryPickerService: CountryPickerService,
-    public toolbarService: ToolbarService,
-  ) {
+  constructor(public toolbarService: ToolbarService) {
     this.onScroll();
   }
 
   get darkToolbar() {
-    return !this.scrollTop || this.drawer.opened || this.countryPickerService?.drawer?.opened;
-  }
-
-  toggleMenu() {
-    this.drawer.toggle();
-    this.countryPickerService.close();
-  }
-
-  toggleLocation() {
-    this.countryPickerService.toggle();
-    this.drawer.close();
+    return !this.scrollTop || this.toolbarService.menu?.opened || this.toolbarService.photoMenu?.opened;
   }
 }
