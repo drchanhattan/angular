@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { GameHelpComponent } from './components/game-help/game-help.component';
@@ -12,6 +13,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MainMenuService } from './components/main-menu/main-menu.service';
 import { PlayerNameComponent } from './components/player-name/player-name.component';
 import { PlayerNameService } from './components/player-name/player-name.service';
+import { AssetService } from './services/asset.service';
 import { AudioService } from './services/audio.service';
 import { AvoidTheCobService } from './services/avoid-the-cob.service';
 import { CanvasService } from './services/canvas.service';
@@ -21,7 +23,6 @@ import { GameStateService } from './services/game-state.service';
 import { OverlayService } from './services/overlay.service';
 import { ParticleService } from './services/particle.service';
 import { ScoreService } from './services/score.service';
-import { SvgLoaderService } from './services/svg-loader.service';
 
 @Component({
   selector: 'app-avoid-the-cob',
@@ -34,6 +35,7 @@ import { SvgLoaderService } from './services/svg-loader.service';
     LeaderboardComponent,
     MainMenuComponent,
     MatIconModule,
+    MatProgressSpinnerModule,
     PlayerNameComponent,
     RouterLink,
   ],
@@ -51,6 +53,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
   @HostBinding('style') background = `background-image: url('background.svg');`;
 
   constructor(
+    public assetService: AssetService,
     public audioService: AudioService,
     public avoidTheCob: AvoidTheCobService,
     public canvasService: CanvasService,
@@ -62,7 +65,6 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     public overlayService: OverlayService,
     public particleService: ParticleService,
     public scoreService: ScoreService,
-    public svgLoader: SvgLoaderService,
     public textService: GameTextService,
   ) {}
 

@@ -1,65 +1,71 @@
 <!-- Canvas -->
 <canvas #canvas class="overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
-<!-- Text -->
-@if (overlayService.gameText) {
-  <app-game-text [@opacityAnimation] class="pointer-events-none"></app-game-text>
-}
-
-<!-- Menu -->
-@if (overlayService.mainMenu && svgLoader.corn$.value && svgLoader.title$.value) {
-  <app-main-menu [@opacityAnimation] [corn]="svgLoader.corn$.value" [title]="svgLoader.title$.value"></app-main-menu>
-}
-
-<!-- Name Prompt -->
-@if (overlayService.playerName && svgLoader.pea$.value) {
-  <app-player-name [@opacityAnimation] [pea]="svgLoader.pea$.value"></app-player-name>
-}
-
-<!-- Help -->
-@if (overlayService.help) {
-  <app-game-help [@opacityAnimation]></app-game-help>
-}
-
-<!-- Leaderboard -->
-@if (overlayService.leaderboard) {
-  <app-leaderboard [@opacityAnimation]></app-leaderboard>
-}
-
-<!-- Settings -->
-@if (overlayService.settings) {
-  <app-game-settings [@opacityAnimation]></app-game-settings>
-}
-
-<!-- Lives -->
-@if (gameStateService.lives$.value > 0) {
-  <div
-    [@opacityAnimation]
-    class="pointer-events-none absolute left-0 top-0 m-4 flex items-center font-bold text-mat-cream">
-    <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
-    <span class="ml-2 text-5xl">{{ gameStateService.lives$.value }}</span>
+@if (assetService.loading$.value) {
+  <div class="absolute flex size-full items-center justify-center bg-mat-black">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-}
+} @else {
+  <!-- Text -->
+  @if (overlayService.gameText) {
+    <app-game-text [@opacityAnimation] class="pointer-events-none"></app-game-text>
+  }
 
-<!-- Score -->
-@if (gameStateService.lives$.value > 0 && !gameStateService.mobMode) {
-  <div
-    [@opacityAnimation]
-    class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">
-    <span>{{ scoreService.score }}</span>
-    @if (scoreService.comboMultiplier > 1) {
-      <span class="mr-1 animate-pulse overflow-hidden text-2xl font-bold text-mat-yellow">
-        x {{ scoreService.comboMultiplier }}
-      </span>
-    }
-  </div>
-}
+  <!-- Menu -->
+  @if (overlayService.mainMenu) {
+    <app-main-menu [@opacityAnimation]></app-main-menu>
+  }
 
-<!-- Timer -->
-@if (gameStateService.timer) {
-  <span
-    [@opacityAnimation]
-    class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
-    {{ gameStateService.timer }}
-  </span>
+  <!-- Name Prompt -->
+  @if (overlayService.playerName) {
+    <app-player-name [@opacityAnimation]></app-player-name>
+  }
+
+  <!-- Help -->
+  @if (overlayService.help) {
+    <app-game-help [@opacityAnimation]></app-game-help>
+  }
+
+  <!-- Leaderboard -->
+  @if (overlayService.leaderboard) {
+    <app-leaderboard [@opacityAnimation]></app-leaderboard>
+  }
+
+  <!-- Settings -->
+  @if (overlayService.settings) {
+    <app-game-settings [@opacityAnimation]></app-game-settings>
+  }
+
+  <!-- Lives -->
+  @if (gameStateService.lives$.value > 0) {
+    <div
+      [@opacityAnimation]
+      class="pointer-events-none absolute left-0 top-0 m-4 flex items-center font-bold text-mat-cream">
+      <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
+      <span class="ml-2 text-5xl">{{ gameStateService.lives$.value }}</span>
+    </div>
+  }
+
+  <!-- Score -->
+  @if (gameStateService.lives$.value > 0 && !gameStateService.mobMode) {
+    <div
+      [@opacityAnimation]
+      class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">
+      <span>{{ scoreService.score }}</span>
+      @if (scoreService.comboMultiplier > 1) {
+        <span class="mr-1 animate-pulse overflow-hidden text-2xl font-bold text-mat-yellow">
+          x {{ scoreService.comboMultiplier }}
+        </span>
+      }
+    </div>
+  }
+
+  <!-- Timer -->
+  @if (gameStateService.timer) {
+    <span
+      [@opacityAnimation]
+      class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
+      {{ gameStateService.timer }}
+    </span>
+  }
 }

@@ -1,16 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { take } from 'rxjs';
-
-export enum AudioFile {
-  Corn = 'corn.mp3',
-  Heart = 'heart.mp3',
-  LevelUp = 'levelup.mp3',
-  Music = 'music.mp3',
-  Pea = 'pea.mp3',
-  PowerUp = 'powerup.mp3',
-}
+import { GameAudio } from '../models/game-audio/game-audio';
+import { AssetService } from './asset.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +11,9 @@ export class AudioService {
     sfx: new FormControl<boolean>(true),
     music: new FormControl<boolean>(true),
   });
-
-  #audioCache: Map<AudioFile, string> = new Map();
   #activeMusic!: HTMLAudioElement;
 
-  constructor(private http: HttpClient) {
+  constructor(private assetService: AssetService) {
     const sfx = localStorage.getItem('sfx');
     const music = localStorage.getItem('music');
 
@@ -40,15 +29,13 @@ export class AudioService {
       localStorage.setItem('sfx', JSON.stringify(sfx));
       localStorage.setItem('music', JSON.stringify(music));
     });
-
-    Object.values(AudioFile).forEach((file) => this.preloadAudio(file));
   }
 
   get changed() {
     return !this.audio.get('sfx')?.value || !!this.audio.get('music')?.value;
   }
 
-  playSfx(src: AudioFile) {
+  playSfx(src: GameAudio) {
     if (this.audio.get('sfx')?.value) {
       this.play(src, false);
     }
@@ -56,7 +43,7 @@ export class AudioService {
 
   playMusic() {
     if (this.audio.get('music')?.value) {
-      this.play(AudioFile.Music, true);
+      this.play(GameAudio.Music, true);
     }
   }
 
@@ -89,10 +76,10 @@ export class AudioService {
     this.audio.get('music')?.setValue(true);
   }
 
-  private play(src: AudioFile, loop: boolean) {
-    const audioUrl = this.#audioCache.get(src);
-    if (audioUrl) {
-      const audio = new Audio(audioUrl);
+  private play(src: GameAudio, loop: boolean) {
+    const url = this.assetService.audio$.value.get(src);
+    if (url) {
+      const audio = new Audio(url);
       audio.loop = loop;
       audio.play();
 
@@ -100,12 +87,5 @@ export class AudioService {
         this.#activeMusic = audio;
       }
     }
-  }
-
-  private preloadAudio(audio: AudioFile) {
-    this.http
-      .get(audio, { responseType: 'blob' })
-      .pipe(take(1))
-      .subscribe((blob) => this.#audioCache.set(audio, URL.createObjectURL(blob)));
   }
 }

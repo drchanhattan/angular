@@ -1,21 +1,29 @@
-<!-- Hero -->
-<div class="absolute top-0 h-screen w-full overflow-hidden border-b-2 border-mat-white bg-mat-black">
-  <img class="size-full animate-zoom object-cover blur-sm" src="hero-home.jpg" />
-</div>
-
-<div class="z-10 mb-10">
-  <!-- Avatar -->
-  <div class="mb-[-25vh] h-screen pb-[25vh]">
-    <ng-container [ngTemplateOutlet]="avatar"></ng-container>
+@if (hero$.value) {
+  <!-- Hero -->
+  <div class="absolute top-0 h-screen w-full overflow-hidden border-b-2 border-mat-white bg-mat-black">
+    <img class="size-full animate-zoom object-cover blur-sm" [src]="hero$.value" />
   </div>
 
-  <div class="flex flex-col items-center justify-center">
-    <!-- Text -->
-    <ng-container [ngTemplateOutlet]="text"></ng-container>
-    <!-- Technology -->
-    <ng-container [ngTemplateOutlet]="technology"></ng-container>
+  <div class="z-10 mb-10">
+    <!-- Avatar -->
+    <div class="mb-[-25vh] h-screen pb-[25vh]">
+      <ng-container [ngTemplateOutlet]="avatar"></ng-container>
+    </div>
+
+    <div class="flex flex-col items-center justify-center">
+      <!-- Text -->
+      <ng-container [ngTemplateOutlet]="text"></ng-container>
+      <!-- Technology -->
+      <ng-container [ngTemplateOutlet]="technology"></ng-container>
+    </div>
   </div>
-</div>
+
+  <app-footer></app-footer>
+} @else {
+  <div class="flex h-screen w-full items-center justify-center bg-mat-black">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}
 
 <!-- Avatar Template -->
 <ng-template #avatar>

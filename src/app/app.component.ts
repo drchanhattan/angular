@@ -10,6 +10,7 @@ import { GameTextService } from './components/avoid-the-cob/components/game-text
 import { LeaderboardService } from './components/avoid-the-cob/components/leaderboard/leaderboard.service';
 import { MainMenuService } from './components/avoid-the-cob/components/main-menu/main-menu.service';
 import { PlayerNameService } from './components/avoid-the-cob/components/player-name/player-name.service';
+import { AssetService } from './components/avoid-the-cob/services/asset.service';
 import { AudioService } from './components/avoid-the-cob/services/audio.service';
 import { AvoidTheCobService } from './components/avoid-the-cob/services/avoid-the-cob.service';
 import { CanvasService } from './components/avoid-the-cob/services/canvas.service';
@@ -25,7 +26,6 @@ import { OverlayService } from './components/avoid-the-cob/services/overlay.serv
 import { ParticleService } from './components/avoid-the-cob/services/particle.service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up.service';
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
-import { SvgLoaderService } from './components/avoid-the-cob/services/svg-loader.service';
 import { Icons } from './components/icon/icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PhotoLibraryService } from './components/photo-library/photo-library.service';
@@ -38,6 +38,7 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
   imports: [MatSidenavModule, NavigationComponent, RouterOutlet, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
+    AssetService,
     AudioService,
     AvoidTheCobService,
     CanvasService,
@@ -60,7 +61,6 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
     PlayerNameService,
     PowerUpService,
     ScoreService,
-    SvgLoaderService,
     ToolbarService,
   ],
 })

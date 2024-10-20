@@ -4,8 +4,9 @@ import { ToolbarService } from '../../toolbar/toolbar.service';
 import { GameTextService } from '../components/game-text/game-text.service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard.service';
 import { MainMenuService } from '../components/main-menu/main-menu.service';
+import { GameAudio } from '../models/game-audio/game-audio';
 import { GameColor } from '../models/game-color/game-color';
-import { AudioFile, AudioService } from './audio.service';
+import { AudioService } from './audio.service';
 import { CanvasService } from './canvas.service';
 import { CheatService } from './cheat.service';
 import { CursorService } from './cursor.service';
@@ -104,7 +105,7 @@ export class GameStateService {
     this.paused = true;
     this.clearTimer();
     this.audioService.setMusicSpeed(1);
-    this.audioService.playSfx(AudioFile.LevelUp);
+    this.audioService.playSfx(GameAudio.LevelUp);
     this.canvasService.flash(200, GameColor.Cream);
     this.scoreService.levelIncrease();
     this.levelUpText().then(() => {

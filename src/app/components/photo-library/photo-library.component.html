@@ -15,8 +15,14 @@
   <mat-sidenav-content class="!overflow-hidden">
     <!-- Content -->
     @if (!(photoLibraryService.isSelected$ | async)) {
-      <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
-      <ng-container [ngTemplateOutlet]="label"></ng-container>
+      @if (hero$.value) {
+        <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
+        <ng-container [ngTemplateOutlet]="label"></ng-container>
+      } @else {
+        <div class="flex size-full min-h-screen items-center justify-center">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+      }
     } @else {
       <ng-container [ngTemplateOutlet]="photoLibrary"></ng-container>
     }
@@ -48,7 +54,9 @@
 
 <!-- Hero -->
 <ng-template #heroImage>
-  <img class="absolute h-screen w-screen animate-zoom object-cover" [src]="hero" />
+  @if (hero$.value) {
+    <img class="absolute h-screen w-screen animate-zoom object-cover" [src]="hero$.value" />
+  }
 </ng-template>
 
 <!-- Label -->

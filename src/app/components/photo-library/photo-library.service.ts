@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, firstValueFrom, forkJoin, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, firstValueFrom, forkJoin, map, take } from 'rxjs';
+import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { ToolbarService } from '../toolbar/toolbar.service';
 import { PhotoAlbum } from './photo-album';
 
@@ -58,14 +59,16 @@ export class PhotoLibraryService {
       this.loading$.next(true);
 
       const urls = id !== null ? this.albums$.value?.[id]?.urls || [] : [];
-      const requests = urls.map((url) => this.http.get(url, { responseType: 'blob' }));
-      forkJoin(requests).subscribe((blobs) => {
-        let urls: SafeUrl[] = [];
-        blobs.forEach((blob) => urls.push(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob))));
-        this.urls$.next(urls);
+      const requests = urls.map((url) => httpBlob$(url, this.http));
 
-        this.loading$.next(false);
-      });
+      forkJoin(requests)
+        .pipe(take(1))
+        .subscribe((blobs) => {
+          const safeUrls = blobs.map((blob) => sanitizeBlob(blob, this.sanitizer));
+          this.urls$.next(safeUrls);
+
+          this.loading$.next(false);
+        });
     });
   }
 }

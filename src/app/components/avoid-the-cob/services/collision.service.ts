@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { GameAudio } from '../models/game-audio/game-audio';
 import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
-import { AudioFile, AudioService } from './audio.service';
+import { AudioService } from './audio.service';
 import { CanvasService } from './canvas.service';
 import { CursorService } from './cursor.service';
 import { GameStateService } from './game-state.service';
@@ -47,7 +48,7 @@ export class CollisionService {
 
   private peaCollision(pea: GameObject) {
     if (pea.detectCollision(this.cursor.object)) {
-      this.audioService.playSfx(AudioFile.Pea);
+      this.audioService.playSfx(GameAudio.Pea);
       this.scoreService.peaCollected();
       this.particleService.create(pea, 20);
       pea.destroy();
@@ -56,7 +57,7 @@ export class CollisionService {
 
   private cornCollision(corn: GameObject) {
     if (corn.detectCollision(this.cursor.object)) {
-      this.audioService.playSfx(AudioFile.Corn);
+      this.audioService.playSfx(GameAudio.Corn);
       this.particleService.create(corn);
       corn.destroy();
 
@@ -75,7 +76,7 @@ export class CollisionService {
 
   private powerUpCollision(powerUp: GameObject) {
     if (powerUp.detectCollision(this.cursor.object)) {
-      this.audioService.playSfx(AudioFile.PowerUp);
+      this.audioService.playSfx(GameAudio.PowerUp);
       this.canvasService.flash(500, GameColor.FlashBlue, 'animate-pulse');
       this.particleService.create(powerUp, 100);
       this.powerUpService.randomPowerUp();
@@ -85,7 +86,7 @@ export class CollisionService {
 
   private heartCollision(heart: GameObject) {
     if (heart.detectCollision(this.cursor.object)) {
-      this.audioService.playSfx(AudioFile.Heart);
+      this.audioService.playSfx(GameAudio.Heart);
       this.cursor.blink(heart.color, 2, 100);
       this.gameStateService.lives$.next(this.gameStateService.lives$.value + 1);
       this.particleService.create(heart, 8);

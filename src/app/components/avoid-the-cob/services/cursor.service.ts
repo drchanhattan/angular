@@ -167,7 +167,7 @@ export class CursorService {
       this.donut.setValue(JSON.parse(donut));
     }
 
-    this.donut.valueChanges.pipe().subscribe((change) => {
+    this.donut.valueChanges.subscribe((change) => {
       this.object.shape = change ? GameObjectShape.Donut : GameObjectShape.Circle;
       localStorage.setItem('donut', JSON.stringify(change));
     });
