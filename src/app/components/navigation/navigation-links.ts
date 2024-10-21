@@ -43,4 +43,9 @@ export const sideNavLinks: SideNavGroup[] = [
     ],
     expanded: true,
   },
+  {
+    label: 'React',
+    icon: { svgIcon: 'react' },
+    link: { label: 'React', url: 'https://drchanhattan.github.io/react/', external: true },
+  },
 ];

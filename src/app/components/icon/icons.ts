@@ -36,6 +36,7 @@ export const Icons = [
   'new zealand',
   'npm',
   'peru',
+  'react',
   'rxjs',
   'sass',
   'selenium',
