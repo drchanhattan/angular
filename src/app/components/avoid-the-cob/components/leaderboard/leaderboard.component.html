@@ -6,7 +6,11 @@
       <span class="mr-4 font-inter text-lg text-mat-yellow sm:text-xl">
         {{ score.score ? score.score.toLocaleString('en-GB') : '' }}
       </span>
-      <span class="text-xl text-mat-cream sm:text-2xl">{{ score.name }}</span>
+      <span
+        class="text-xl text-mat-cream sm:text-2xl"
+        [ngClass]="nameService.name.value?.toUpperCase() === score.name ? 'text-mat-green' : 'text-mat-cream'">
+        {{ score.name }}
+      </span>
     </div>
   }
 </div>
