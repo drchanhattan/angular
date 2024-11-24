@@ -7,10 +7,9 @@ import { ToolbarService } from '../toolbar/toolbar.service';
 import { SideNavLink, sideNavLinks } from './navigation-links';
 
 @Component({
-  selector: 'app-navigation',
-  standalone: true,
-  imports: [NavigationButtonComponent],
-  templateUrl: './navigation.component.html',
+    selector: 'app-navigation',
+    imports: [NavigationButtonComponent],
+    templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
   @HostBinding('class') hostClasses =

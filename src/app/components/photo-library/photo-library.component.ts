@@ -14,17 +14,16 @@ import { PhotoAlbum } from './photo-album';
 import { PhotoLibraryService } from './photo-library.service';
 
 @Component({
-  selector: 'app-photo-library',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IconButtonComponent,
-    MatProgressSpinnerModule,
-    MatSidenavModule,
-    PhotoMenuComponent,
-    RouterLink,
-  ],
-  templateUrl: './photo-library.component.html',
+    selector: 'app-photo-library',
+    imports: [
+        CommonModule,
+        IconButtonComponent,
+        MatProgressSpinnerModule,
+        MatSidenavModule,
+        PhotoMenuComponent,
+        RouterLink,
+    ],
+    templateUrl: './photo-library.component.html'
 })
 export class PhotoLibraryComponent implements OnInit {
   @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';

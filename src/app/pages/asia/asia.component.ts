@@ -3,10 +3,9 @@ import { PhotoAlbum } from '../../components/photo-library/photo-album';
 import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
-  selector: 'app-asia',
-  standalone: true,
-  imports: [PhotoLibraryComponent],
-  templateUrl: './asia.component.html',
+    selector: 'app-asia',
+    imports: [PhotoLibraryComponent],
+    templateUrl: './asia.component.html'
 })
 export class AsiaComponent {
   albums: PhotoAlbum[] = [

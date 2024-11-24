@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
-  selector: 'app-cv',
-  standalone: true,
-  imports: [],
-  templateUrl: './cv.component.html',
+    selector: 'app-cv',
+    imports: [],
+    templateUrl: './cv.component.html'
 })
 export class CVComponent {
   constructor(

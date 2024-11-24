@@ -12,10 +12,9 @@ import { PlayerNameService } from '../player-name/player-name.service';
 import { GameSettingsService } from './game-settings.service';
 
 @Component({
-  selector: 'app-game-settings',
-  standalone: true,
-  imports: [GameButtonComponent, MatButtonModule, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
-  templateUrl: './game-settings.component.html',
+    selector: 'app-game-settings',
+    imports: [GameButtonComponent, MatButtonModule, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
+    templateUrl: './game-settings.component.html'
 })
 export class GameSettingsComponent {
   @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center';

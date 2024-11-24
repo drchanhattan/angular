@@ -6,10 +6,9 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ToolbarService } from './toolbar.service';
 
 @Component({
-  selector: 'app-toolbar',
-  standalone: true,
-  imports: [CommonModule, IconButtonComponent, MatButtonModule, MatIconModule],
-  templateUrl: './toolbar.component.html',
+    selector: 'app-toolbar',
+    imports: [CommonModule, IconButtonComponent, MatButtonModule, MatIconModule],
+    templateUrl: './toolbar.component.html'
 })
 export class ToolbarComponent {
   scrollTop: boolean = false;

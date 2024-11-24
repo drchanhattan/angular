@@ -9,10 +9,9 @@ type Link = {
 };
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [IconButtonComponent, RedPandaComponent],
-  templateUrl: './footer.component.html',
+    selector: 'app-footer',
+    imports: [IconButtonComponent, RedPandaComponent],
+    templateUrl: './footer.component.html'
 })
 export class FooterComponent {
   @HostBinding('class') hostClasses =

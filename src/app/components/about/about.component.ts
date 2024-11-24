@@ -10,10 +10,9 @@ import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [CommonModule, FooterComponent, MatIconModule, MatProgressSpinnerModule, RouterLink],
-  templateUrl: './about.component.html',
+    selector: 'app-about',
+    imports: [CommonModule, FooterComponent, MatIconModule, MatProgressSpinnerModule, RouterLink],
+    templateUrl: './about.component.html'
 })
 export class AboutComponent {
   @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center bg-mat-yellow text-mat-black';
