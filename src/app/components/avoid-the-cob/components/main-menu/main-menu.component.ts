@@ -10,9 +10,9 @@ import { GameSettingsService } from '../game-settings/game-settings.service';
 import { LeaderboardService } from '../leaderboard/leaderboard.service';
 
 @Component({
-    selector: 'app-main-menu',
-    imports: [GameButtonComponent, IconButtonComponent],
-    templateUrl: './main-menu.component.html'
+  selector: 'app-main-menu',
+  imports: [GameButtonComponent, IconButtonComponent],
+  templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {
   @HostBinding('class') hostClasses =

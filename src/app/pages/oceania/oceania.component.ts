@@ -3,9 +3,9 @@ import { PhotoAlbum } from '../../components/photo-library/photo-album';
 import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
-    selector: 'app-oceania',
-    imports: [PhotoLibraryComponent],
-    templateUrl: './oceania.component.html'
+  selector: 'app-oceania',
+  imports: [PhotoLibraryComponent],
+  templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
   albums: PhotoAlbum[] = [

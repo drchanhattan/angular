@@ -5,9 +5,9 @@ import { PlayerNameService } from '../player-name/player-name.service';
 import { LeaderboardService } from './leaderboard.service';
 
 @Component({
-    selector: 'app-leaderboard',
-    imports: [CommonModule, GameButtonComponent],
-    templateUrl: './leaderboard.component.html'
+  selector: 'app-leaderboard',
+  imports: [CommonModule, GameButtonComponent],
+  templateUrl: './leaderboard.component.html',
 })
 export class LeaderboardComponent {
   @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center';

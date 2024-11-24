@@ -4,15 +4,14 @@ import { Component, HostBinding } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 import { BehaviorSubject, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
-    selector: 'app-about',
-    imports: [CommonModule, FooterComponent, MatIconModule, MatProgressSpinnerModule, RouterLink],
-    templateUrl: './about.component.html'
+  selector: 'app-about',
+  imports: [CommonModule, FooterComponent, MatIconModule, MatProgressSpinnerModule],
+  templateUrl: './about.component.html',
 })
 export class AboutComponent {
   @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center bg-mat-yellow text-mat-black';

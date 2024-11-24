@@ -23,24 +23,24 @@ import { ParticleService } from './services/particle.service';
 import { ScoreService } from './services/score.service';
 
 @Component({
-    selector: 'app-avoid-the-cob',
-    imports: [
-        GameHelpComponent,
-        GameSettingsComponent,
-        GameTextComponent,
-        LeaderboardComponent,
-        MainMenuComponent,
-        MatIconModule,
-        MatProgressSpinnerModule,
-        PlayerNameComponent,
-    ],
-    templateUrl: './avoid-the-cob.component.html',
-    animations: [
-        trigger('opacityAnimation', [
-            transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
-            transition(':leave', [style({ opacity: 1 }), animate('500ms', style({ opacity: 0 }))]),
-        ]),
-    ]
+  selector: 'app-avoid-the-cob',
+  imports: [
+    GameHelpComponent,
+    GameSettingsComponent,
+    GameTextComponent,
+    LeaderboardComponent,
+    MainMenuComponent,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    PlayerNameComponent,
+  ],
+  templateUrl: './avoid-the-cob.component.html',
+  animations: [
+    trigger('opacityAnimation', [
+      transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
+      transition(':leave', [style({ opacity: 1 }), animate('500ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class AvoidTheCobComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClasses =

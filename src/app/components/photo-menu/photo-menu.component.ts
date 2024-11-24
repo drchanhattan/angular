@@ -9,9 +9,9 @@ import { PhotoLibraryService } from '../photo-library/photo-library.service';
 import { ToolbarService } from '../toolbar/toolbar.service';
 
 @Component({
-    selector: 'app-photo-menu',
-    imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
-    templateUrl: './photo-menu.component.html'
+  selector: 'app-photo-menu',
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterLink],
+  templateUrl: './photo-menu.component.html',
 })
 export class PhotoMenuComponent implements OnInit {
   @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black';

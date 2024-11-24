@@ -4,26 +4,17 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 import AOS from 'aos';
 import { BehaviorSubject, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { PhotoMenuComponent } from '../photo-menu/photo-menu.component';
 import { PhotoAlbum } from './photo-album';
 import { PhotoLibraryService } from './photo-library.service';
 
 @Component({
-    selector: 'app-photo-library',
-    imports: [
-        CommonModule,
-        IconButtonComponent,
-        MatProgressSpinnerModule,
-        MatSidenavModule,
-        PhotoMenuComponent,
-        RouterLink,
-    ],
-    templateUrl: './photo-library.component.html'
+  selector: 'app-photo-library',
+  imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoMenuComponent],
+  templateUrl: './photo-library.component.html',
 })
 export class PhotoLibraryComponent implements OnInit {
   @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';

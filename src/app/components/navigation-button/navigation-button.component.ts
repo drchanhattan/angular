@@ -7,9 +7,9 @@ import { IconComponent } from '../icon/icon.component';
 import { SideNavGroup, SideNavLink } from '../navigation/navigation-links';
 
 @Component({
-    selector: 'app-navigation-button',
-    imports: [CommonModule, IconComponent, MatButtonModule, MatIconModule],
-    templateUrl: './navigation-button.component.html'
+  selector: 'app-navigation-button',
+  imports: [CommonModule, IconComponent, MatButtonModule, MatIconModule],
+  templateUrl: './navigation-button.component.html',
 })
 export class NavigationButtonComponent {
   @Input() active?: boolean;

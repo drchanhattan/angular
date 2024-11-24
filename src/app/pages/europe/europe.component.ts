@@ -3,9 +3,9 @@ import { PhotoAlbum } from '../../components/photo-library/photo-album';
 import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
-    selector: 'app-europe',
-    imports: [PhotoLibraryComponent],
-    templateUrl: './europe.component.html'
+  selector: 'app-europe',
+  imports: [PhotoLibraryComponent],
+  templateUrl: './europe.component.html',
 })
 export class EuropeComponent {
   albums: PhotoAlbum[] = [

@@ -8,9 +8,9 @@ import { MainMenuService } from '../main-menu/main-menu.service';
 import { PlayerNameService } from './player-name.service';
 
 @Component({
-    selector: 'app-player-name',
-    imports: [GameButtonComponent, ReactiveFormsModule],
-    templateUrl: './player-name.component.html'
+  selector: 'app-player-name',
+  imports: [GameButtonComponent, ReactiveFormsModule],
+  templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {
   @HostBinding('class') hostClasses =

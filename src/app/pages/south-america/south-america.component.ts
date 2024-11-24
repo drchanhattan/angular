@@ -3,9 +3,9 @@ import { PhotoAlbum } from '../../components/photo-library/photo-album';
 import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
 
 @Component({
-    selector: 'app-south-america',
-    imports: [PhotoLibraryComponent],
-    templateUrl: './south-america.component.html'
+  selector: 'app-south-america',
+  imports: [PhotoLibraryComponent],
+  templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
   albums: PhotoAlbum[] = [

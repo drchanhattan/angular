@@ -5,9 +5,9 @@ import { Icon } from '../icon/icon';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
-    selector: 'app-icon-button',
-    imports: [CommonModule, IconComponent, MatButtonModule],
-    templateUrl: './icon-button.component.html'
+  selector: 'app-icon-button',
+  imports: [CommonModule, IconComponent, MatButtonModule],
+  templateUrl: './icon-button.component.html',
 })
 export class IconButtonComponent {
   @HostBinding('class') hostClasses = 'scale-150';

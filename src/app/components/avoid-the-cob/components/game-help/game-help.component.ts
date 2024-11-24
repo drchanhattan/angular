@@ -5,9 +5,9 @@ import { GameHelpObject } from './game-help-object';
 import { GameHelpService } from './game-help.service';
 
 @Component({
-    selector: 'app-game-help',
-    imports: [GameButtonComponent, IconButtonComponent],
-    templateUrl: './game-help.component.html'
+  selector: 'app-game-help',
+  imports: [GameButtonComponent, IconButtonComponent],
+  templateUrl: './game-help.component.html',
 })
 export class GameHelpComponent {
   @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center overflow-hidden';

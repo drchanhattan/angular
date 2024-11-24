@@ -10,9 +10,9 @@ enum Sprite {
 }
 
 @Component({
-    selector: 'app-red-panda',
-    imports: [CommonModule],
-    templateUrl: './red-panda.component.html'
+  selector: 'app-red-panda',
+  imports: [CommonModule],
+  templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {
   @HostBinding('class') hostClasses = 'absolute w-full select-none';
