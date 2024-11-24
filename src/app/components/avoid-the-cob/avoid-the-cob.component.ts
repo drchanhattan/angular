@@ -2,8 +2,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterLink } from '@angular/router';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { GameHelpComponent } from './components/game-help/game-help.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextComponent } from './components/game-text/game-text.component';
@@ -31,13 +29,11 @@ import { ScoreService } from './services/score.service';
     GameHelpComponent,
     GameSettingsComponent,
     GameTextComponent,
-    IconButtonComponent,
     LeaderboardComponent,
     MainMenuComponent,
     MatIconModule,
     MatProgressSpinnerModule,
     PlayerNameComponent,
-    RouterLink,
   ],
   templateUrl: './avoid-the-cob.component.html',
   animations: [
