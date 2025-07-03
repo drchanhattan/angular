@@ -1,17 +1,17 @@
 <div class="mt-20 flex w-full flex-1 flex-col items-center justify-center">
   <!-- Pea SVG -->
-  <img [src]="pea" class="max-h-[30vh] animate-float sm:max-h-[40vh]" id="peaSvg" />
+  <img [src]="pea" class="animate-float max-h-[30vh] sm:max-h-[40vh]" id="peaSvg" />
 
   <!-- Name -->
   <div class="flex w-full flex-col items-center">
     <input
       contenteditable
-      class="flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center font-ink text-2xl font-bold uppercase tracking-wider text-mat-cream outline-none md:text-3xl lg:text-4xl"
+      class="font-ink text-mat-cream flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center text-2xl font-bold tracking-wider uppercase outline-none md:text-3xl lg:text-4xl"
       [formControl]="playerNameService.name"
       (keypress)="keyPressed($event)" />
 
     <!-- Validation -->
-    <div class="mt-4 text-center font-inter text-sm">
+    <div class="font-inter mt-4 text-center text-sm">
       <span class="text-mat-cream">
         @if (playerNameService.name.valid) {
           &nbsp;

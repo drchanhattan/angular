@@ -2,7 +2,7 @@
 <canvas #canvas class="overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
 @if (assetService.loading$.value) {
-  <div class="absolute flex size-full items-center justify-center bg-mat-black">
+  <div class="bg-mat-black absolute flex size-full items-center justify-center">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
 } @else {
@@ -40,8 +40,8 @@
   @if (gameStateService.lives$.value > 0) {
     <div
       [@opacityAnimation]
-      class="pointer-events-none absolute left-0 top-0 m-4 flex items-center font-bold text-mat-cream">
-      <mat-icon class="!size-auto text-5xl text-mat-red">favorite</mat-icon>
+      class="text-mat-cream pointer-events-none absolute top-0 left-0 m-4 flex items-center font-bold">
+      <mat-icon class="text-mat-red !size-auto text-5xl">favorite</mat-icon>
       <span class="ml-2 text-5xl">{{ gameStateService.lives$.value }}</span>
     </div>
   }
@@ -50,10 +50,10 @@
   @if (gameStateService.lives$.value > 0 && !gameStateService.mobMode) {
     <div
       [@opacityAnimation]
-      class="pointer-events-none absolute right-0 top-0 m-4 flex flex-col text-end text-5xl font-bold text-mat-cream">
+      class="text-mat-cream pointer-events-none absolute top-0 right-0 m-4 flex flex-col text-end text-5xl font-bold">
       <span>{{ scoreService.score }}</span>
       @if (scoreService.comboMultiplier > 1) {
-        <span class="mr-1 animate-pulse overflow-hidden text-2xl font-bold text-mat-yellow">
+        <span class="text-mat-yellow mr-1 animate-pulse overflow-hidden text-2xl font-bold">
           x {{ scoreService.comboMultiplier }}
         </span>
       }
@@ -64,7 +64,7 @@
   @if (gameStateService.timer) {
     <span
       [@opacityAnimation]
-      class="pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold text-mat-cream opacity-50">
+      class="text-mat-cream pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold opacity-50">
       {{ gameStateService.timer }}
     </span>
   }

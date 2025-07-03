@@ -1,5 +1,5 @@
 <div
-  class="overflow-y-auto overflow-x-hidden py-8 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
+  class="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow overflow-x-hidden overflow-y-auto py-8">
   @for (photoAlbum of albums; track $index; let index = $index) {
     <button mat-button class="!h-36 !w-full !rounded-none" [routerLink]="index.toString()">
       <!-- Icon -->

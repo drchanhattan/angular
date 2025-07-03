@@ -17,7 +17,7 @@ export class ToolbarService {
   constructor(private router: Router) {}
 
   get showPhotoMenu() {
-    return this.router.url !== '/' && this.router.url !== '/avoid-the-cob';
+    return this.router.url !== '/about' && this.router.url !== '/avoid-the-cob';
   }
 
   setMenu(sidenav: MatSidenav, photoMenu: boolean) {

@@ -1,9 +1,8 @@
+@use 'tailwindcss';
+@use './animations';
 @use './fonts.scss';
 @use './material.scss';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use './variables.scss';
 
 html,
 body {

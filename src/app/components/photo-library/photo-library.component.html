@@ -33,13 +33,13 @@
 <ng-template #photoLibrary>
   @if (photoLibraryService.loading$ | async) {
     <!-- Spinner -->
-    <div class="flex size-full min-h-screen items-center justify-center bg-neutral-white">
+    <div class="bg-neutral-white flex size-full min-h-screen items-center justify-center">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
   } @else {
     <!-- Photos -->
     <div
-      class="mx-auto min-h-screen columns-1 gap-16 overflow-hidden bg-neutral-white px-4 pb-10 pt-28 sm:px-20 lg:columns-3 lg:gap-8">
+      class="bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8">
       @for (url of photoLibraryService.urls$ | async; track $index) {
         <div
           class="mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8"
@@ -55,7 +55,7 @@
 <!-- Hero -->
 <ng-template #heroImage>
   @if (hero$.value) {
-    <img class="absolute h-screen w-screen animate-zoom object-cover" [src]="hero$.value" />
+    <img class="animate-zoom absolute h-screen w-screen object-cover" [src]="hero$.value" />
   }
 </ng-template>
 
@@ -63,7 +63,7 @@
 <ng-template #label>
   <div class="flex h-screen w-full items-end justify-center">
     <span
-      class="w-full bg-gradient-to-b from-transparent to-mat-black/25 pb-40 pt-10 text-center font-ink text-7xl font-semibold text-mat-yellow drop-shadow sm:text-9xl sm:font-medium">
+      class="to-mat-black/25 font-ink text-mat-yellow w-full bg-gradient-to-b from-transparent pt-10 pb-40 text-center text-7xl font-semibold drop-shadow sm:text-9xl sm:font-medium">
       {{ name }}
     </span>
   </div>

@@ -1,7 +1,7 @@
 <!-- Corn SVG -->
 <div class="relative mb-20 flex-none overflow-hidden">
   <img [src]="title" class="absolute inset-0 m-auto max-h-[60dvh] lg:max-h-[80dvh]" />
-  <img [src]="corn" class="relative m-auto max-h-[60dvh] animate-heartbeat lg:max-h-[80dvh]" id="cornSvg" />
+  <img [src]="corn" class="animate-heartbeat relative m-auto max-h-[60dvh] lg:max-h-[80dvh]" id="cornSvg" />
 </div>
 
 <!-- Desktop Buttons -->
@@ -25,10 +25,10 @@
     class="scale-175 hover:!scale-200 lg:hidden"
     (click)="leaderboardService.show()"
     [icon]="{ matIcon: 'leaderboard' }"
-    [classes]="'text-mat-cream'"></app-icon-button>
+    [classes]="'!text-mat-cream'"></app-icon-button>
   <!-- Mobile Play Button -->
   <app-game-button
-    class="rounded-full border-2 border-mat-yellow pb-1 lg:hidden"
+    class="border-mat-yellow rounded-full border-2 pb-1 lg:hidden"
     (click)="avoidTheCob.play(false)"
     [text]="'Play'"></app-game-button>
   <!-- Settings icon -->
@@ -36,5 +36,5 @@
     class="scale-175 hover:!scale-200 lg:hidden"
     (click)="gameSettingsService.show()"
     [icon]="{ matIcon: 'settings' }"
-    [classes]="'text-mat-cream'"></app-icon-button>
+    [classes]="'!text-mat-cream'"></app-icon-button>
 </div>

@@ -1,11 +1,11 @@
 @if (!small) {
   <button
     mat-stroked-button
-    class="origin-center !rounded-full !border-none !py-8 !text-5xl !text-mat-cream !transition-transform !duration-200 hover:!text-mat-yellow lg:!text-4xl lg:hover:scale-105">
+    class="!text-mat-cream hover:!text-mat-yellow origin-center !rounded-full !border-none !py-8 !text-5xl !transition-transform !duration-200 lg:!text-4xl lg:hover:scale-105">
     <span class="font-ink font-semibold tracking-wider">{{ text }}</span>
   </button>
 } @else {
-  <button mat-stroked-button class="!border-2 !border-mat-yellow !py-6">
+  <button mat-stroked-button class="!border-mat-yellow !border-2 !py-6">
     <span class="text-mat-cream">{{ text }}</span>
   </button>
 }

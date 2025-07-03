@@ -12,8 +12,7 @@ import { SideNavLink, sideNavLinks } from './navigation-links';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  @HostBinding('class') hostClasses =
-    'flex h-full flex-col items-center overflow-y-auto bg-mat-black scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow';
+  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-y-auto bg-mat-black';
   @Input() sidenav!: MatSidenav;
   currentRoute: string = '';
   links = sideNavLinks;

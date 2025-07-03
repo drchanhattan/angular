@@ -1,13 +1,13 @@
 <!-- Scores -->
 <div
-  class="mt-24 flex w-full flex-1 flex-col overflow-y-scroll text-pretty font-ink scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow">
+  class="font-ink scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow mt-24 flex w-full flex-1 flex-col overflow-y-scroll text-pretty">
   @for (score of leaderboardService.scores; track $index) {
     <div class="mb-4 flex justify-center font-bold tracking-widest">
-      <span class="mr-4 font-inter text-lg text-mat-yellow sm:text-xl">
+      <span class="font-inter text-mat-yellow mr-4 text-lg sm:text-xl">
         {{ score.score ? score.score.toLocaleString('en-GB') : '' }}
       </span>
       <span
-        class="text-xl text-mat-cream sm:text-2xl"
+        class="text-mat-cream text-xl sm:text-2xl"
         [ngClass]="nameService.name.value?.toUpperCase() === score.name ? 'text-mat-green' : 'text-mat-cream'">
         {{ score.name }}
       </span>

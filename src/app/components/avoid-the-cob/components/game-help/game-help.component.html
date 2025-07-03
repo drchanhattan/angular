@@ -1,4 +1,4 @@
-<div class="flex flex-1 flex-col items-center justify-center p-8 text-mat-cream">
+<div class="text-mat-cream flex flex-1 flex-col items-center justify-center p-8">
   <!-- Label -->
   <span class="text-2xl font-bold">{{ gameHelpObjects[selectedIndex].gameObject }}</span>
 
@@ -10,15 +10,15 @@
       [icon]="{ matIcon: 'arrow_back_ios_new' }"
       [classes]="'text-mat-cream'"></app-icon-button>
 
-    <div class="mx-12 flex size-32 items-center justify-center rounded-xl border-2 border-mat-cream">
+    <div class="border-mat-cream mx-12 flex size-32 items-center justify-center rounded-xl border-2">
       @if (selectedIndex === 0) {
-        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-green"></div>
+        <div class="animate-shake bg-mat-green mx-2 size-8 rounded-full"></div>
       } @else if (selectedIndex === 1) {
-        <div class="mx-2 size-8 animate-shake rounded-lg bg-mat-yellow"></div>
+        <div class="animate-shake bg-mat-yellow mx-2 size-8 rounded-lg"></div>
       } @else if (selectedIndex === 2) {
-        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-blue"></div>
+        <div class="animate-shake bg-mat-blue mx-2 size-8 rounded-full"></div>
       } @else if (selectedIndex === 3) {
-        <div class="mx-2 size-8 animate-shake rounded-full bg-mat-red"></div>
+        <div class="animate-shake bg-mat-red mx-2 size-8 rounded-full"></div>
       }
     </div>
 
