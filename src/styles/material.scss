@@ -12,29 +12,27 @@ $yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
 
 @mixin mat-progress-spinner() {
   & {
-    --mdc-circular-progress-active-indicator-color: #{$yellow};
+    --mat-progress-spinner-active-indicator-color: #{$yellow};
   }
 }
 
 @mixin mat-slide-toggle() {
   .yellow-slide-toggle {
-    --mdc-switch-selected-focus-state-layer-color: #{$yellow};
-    --mdc-switch-selected-hover-state-layer-color: #{$yellow};
-    --mdc-switch-selected-pressed-state-layer-color: #{$yellow};
-    --mdc-switch-selected-focus-track-color: #{$yellow};
-    --mdc-switch-selected-hover-track-color: #{$yellow};
-    --mdc-switch-selected-pressed-track-color: #{$yellow};
-    --mdc-switch-selected-track-color: #{$yellow};
+    --mat-slide-toggle-selected-pressed-state-layer-color: #{$yellow};
+    --mat-slide-toggle-selected-focus-track-color: #{$yellow};
+    --mat-slide-toggle-selected-hover-track-color: #{$yellow};
+    --mat-slide-toggle-selected-pressed-track-color: #{$yellow};
+    --mat-slide-toggle-selected-track-color: #{$yellow};
   }
 }
 
 @mixin mat-slider() {
   .yellow-slider {
-    --mdc-slider-handle-color: #{$yellow};
-    --mdc-slider-focus-handle-color: #{$yellow};
-    --mdc-slider-hover-handle-color: #{$yellow};
-    --mdc-slider-active-track-color: #{$yellow};
-    --mdc-slider-label-container-color: #{$yellow};
+    --mat-slider-handle-color: #{$yellow};
+    --mat-slider-focus-handle-color: #{$yellow};
+    --mat-slider-hover-handle-color: #{$yellow};
+    --mat-slider-active-track-color: #{$yellow};
+    --mat-slider-label-container-color: #{$yellow};
   }
 }
 
