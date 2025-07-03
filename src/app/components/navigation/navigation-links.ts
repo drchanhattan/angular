@@ -16,9 +16,9 @@ export interface SideNavGroup {
 
 export const sideNavLinks: SideNavGroup[] = [
   {
-    label: 'Home',
+    label: 'About',
     icon: { matIcon: 'home' },
-    link: { label: 'Home', url: '/' },
+    link: { label: 'About', url: '/about' },
   },
   {
     label: 'LinkedIn',
