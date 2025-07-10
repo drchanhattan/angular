@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { GameAudio } from '../models/game-audio/game-audio';
 import { AssetService } from './asset.service';
 
@@ -7,42 +6,37 @@ import { AssetService } from './asset.service';
   providedIn: 'root',
 })
 export class AudioService {
-  audio = new FormGroup({
-    sfx: new FormControl<boolean>(true),
-    music: new FormControl<boolean>(true),
-  });
+  sfx = signal<boolean>(true);
+  music = signal<boolean>(true);
   #activeMusic!: HTMLAudioElement;
+  changed = computed(() => !this.sfx() || !this.music());
 
   constructor(private assetService: AssetService) {
     const sfx = localStorage.getItem('sfx');
     const music = localStorage.getItem('music');
 
     if (sfx) {
-      this.audio.get('sfx')?.setValue(JSON.parse(sfx));
+      this.sfx.set(JSON.parse(sfx));
     }
 
     if (music) {
-      this.audio.get('music')?.setValue(JSON.parse(music));
+      this.music.set(JSON.parse(music));
     }
 
-    this.audio.valueChanges.subscribe(({ sfx, music }) => {
-      localStorage.setItem('sfx', JSON.stringify(sfx));
-      localStorage.setItem('music', JSON.stringify(music));
+    effect(() => {
+      localStorage.setItem('sfx', JSON.stringify(this.sfx()));
+      localStorage.setItem('music', JSON.stringify(this.music()));
     });
   }
 
-  get changed() {
-    return !this.audio.get('sfx')?.value || !!this.audio.get('music')?.value;
-  }
-
   playSfx(src: GameAudio) {
-    if (this.audio.get('sfx')?.value) {
+    if (this.sfx()) {
       this.play(src, false);
     }
   }
 
   playMusic() {
-    if (this.audio.get('music')?.value) {
+    if (this.music()) {
       this.play(GameAudio.Music, true);
     }
   }
@@ -72,8 +66,8 @@ export class AudioService {
   }
 
   reset() {
-    this.audio.get('sfx')?.setValue(true);
-    this.audio.get('music')?.setValue(true);
+    this.sfx.set(true);
+    this.music.set(true);
   }
 
   private play(src: GameAudio, loop: boolean) {

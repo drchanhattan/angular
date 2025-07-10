@@ -21,7 +21,7 @@ export class GameSettingsService {
 
   get settingsChanged() {
     return (
-      this.audioService.changed ||
+      this.audioService.changed() ||
       this.cheatService.cheatsEnabled ||
       this.particleService.maxCountChanged ||
       !!this.cursorService.donut.value

@@ -4,11 +4,15 @@
     <div class="flex flex-col items-center justify-center">
       <mat-slide-toggle
         class="yellow-slide-toggle"
-        [formControl]="audioService.audio.controls.music"></mat-slide-toggle>
+        [checked]="audioService.music()"
+        (change)="audioService.music.set($event.checked)"></mat-slide-toggle>
       <span>Music</span>
     </div>
     <div class="flex flex-col items-center justify-center">
-      <mat-slide-toggle class="yellow-slide-toggle" [formControl]="audioService.audio.controls.sfx"></mat-slide-toggle>
+      <mat-slide-toggle
+        class="yellow-slide-toggle"
+        [checked]="audioService.sfx()"
+        (change)="audioService.sfx.set($event.checked)"></mat-slide-toggle>
       <span>SFX</span>
     </div>
   </div>
