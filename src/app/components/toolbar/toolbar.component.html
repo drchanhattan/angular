@@ -7,10 +7,10 @@
   <!-- Menu Button -->
   @if (!(toolbarService.hideMenuBtn$ | async)) {
     @if (darkToolbar) {
-      <app-icon-button (click)="toolbarService.toggleMenu(false)" [icon]="{ matIcon: 'menu' }"></app-icon-button>
+      <app-icon-button (click)="toolbarService.toggleMenu(1)" [icon]="{ matIcon: 'menu' }"></app-icon-button>
     } @else {
       <app-icon-button
-        (click)="toolbarService.toggleMenu(false)"
+        (click)="toolbarService.toggleMenu(1)"
         class="absolute top-8 left-8 sm:left-16"
         [icon]="{ matIcon: 'menu' }"
         [yellow]="true"></app-icon-button>
@@ -23,7 +23,7 @@
       <button
         mat-stroked-button
         onclick="blur()"
-        (click)="toolbarService.toggleMenu(true)"
+        (click)="toolbarService.toggleMenu(2)"
         class="!border-mat-white !bg-mat-black/85 !rounded-xl !border">
         <mat-icon class="!mr-3 scale-125">place</mat-icon>
         <span class="text-mat-yellow text-base">
@@ -32,7 +32,7 @@
       </button>
     } @else {
       <app-icon-button
-        (click)="toolbarService.toggleMenu(true)"
+        (click)="toolbarService.toggleMenu(2)"
         class="absolute top-8 right-8 sm:right-16"
         [icon]="{ matIcon: 'place' }"
         [yellow]="true"></app-icon-button>

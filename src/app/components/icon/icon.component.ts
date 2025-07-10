@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Icon } from './icon';
 
@@ -9,6 +9,6 @@ import { Icon } from './icon';
   templateUrl: './icon.component.html',
 })
 export class IconComponent {
-  @Input() icon: Icon = { matIcon: 'face' };
-  @Input() classes: string[] = [];
+  icon = input<Icon>({ matIcon: 'face' });
+  classes = input<string[]>([]);
 }

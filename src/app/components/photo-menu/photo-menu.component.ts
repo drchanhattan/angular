@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { PhotoAlbum } from '../photo-library/photo-album';
 import { PhotoLibraryService } from '../photo-library/photo-library.service';
+import { MenuType } from '../toolbar/menu-type';
 import { ToolbarService } from '../toolbar/toolbar.service';
 
 @Component({
@@ -15,8 +16,8 @@ import { ToolbarService } from '../toolbar/toolbar.service';
 })
 export class PhotoMenuComponent implements OnInit {
   @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-hidden bg-mat-black';
-  @Input() sidenav!: MatSidenav;
-  @Input() albums!: PhotoAlbum[];
+  sidenav = input.required<MatSidenav>();
+  albums = input.required<PhotoAlbum[]>();
 
   constructor(
     public photoLibraryService: PhotoLibraryService,
@@ -24,7 +25,7 @@ export class PhotoMenuComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.toolbarService.setMenu(this.sidenav, true);
-    this.photoLibraryService.albums$.next(this.albums);
+    this.toolbarService.setMenu(this.sidenav(), MenuType.Photo);
+    this.photoLibraryService.albums$.next(this.albums());
   }
 }

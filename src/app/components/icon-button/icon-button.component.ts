@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Icon } from '../icon/icon';
 import { IconComponent } from '../icon/icon.component';
@@ -11,7 +11,8 @@ import { IconComponent } from '../icon/icon.component';
 })
 export class IconButtonComponent {
   @HostBinding('class') hostClasses = 'scale-150';
-  @Input() icon: Icon = { matIcon: 'face' };
-  @Input() classes: string = '';
-  @Input() yellow: boolean = false;
+
+  icon = input<Icon>({ matIcon: 'face' });
+  classes = input<string>('');
+  yellow = input<boolean>(false);
 }

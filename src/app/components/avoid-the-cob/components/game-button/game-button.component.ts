@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -7,6 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './game-button.component.html',
 })
 export class GameButtonComponent {
-  @Input() text: string = '';
-  @Input() small: boolean = false;
+  text = input<string>('');
+  small = input<boolean>(false);
 }

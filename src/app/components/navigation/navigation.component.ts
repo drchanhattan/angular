@@ -1,8 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { NavigationButtonComponent } from '../navigation-button/navigation-button.component';
+import { MenuType } from '../toolbar/menu-type';
 import { ToolbarService } from '../toolbar/toolbar.service';
 import { SideNavLink, sideNavLinks } from './navigation-links';
 
@@ -13,7 +14,7 @@ import { SideNavLink, sideNavLinks } from './navigation-links';
 })
 export class NavigationComponent {
   @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-y-auto bg-mat-black';
-  @Input() sidenav!: MatSidenav;
+  sidenav = input.required<MatSidenav>();
   currentRoute: string = '';
   links = sideNavLinks;
 
@@ -28,14 +29,14 @@ export class NavigationComponent {
   }
 
   ngOnInit() {
-    this.toolbarService.setMenu(this.sidenav, false);
+    this.toolbarService.setMenu(this.sidenav(), MenuType.Navigation);
   }
 
   navigate(path: string, external = false) {
     if (external) {
       window.open(path);
     } else if (this.currentRoute !== path) {
-      this.sidenav.close();
+      this.sidenav().close();
       this.router.navigate([path]);
     }
   }

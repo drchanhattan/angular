@@ -9,7 +9,7 @@
     [fixedInViewport]="true"
     [fixedTopGap]="64">
     <!-- Photo Menu -->
-    <app-photo-menu [albums]="albums" [sidenav]="sidenav"></app-photo-menu>
+    <app-photo-menu [albums]="albums()" [sidenav]="sidenav"></app-photo-menu>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">
@@ -55,7 +55,10 @@
 <!-- Hero -->
 <ng-template #heroImage>
   @if (hero$.value) {
-    <img class="animate-zoom absolute h-screen w-screen object-cover" [src]="hero$.value" />
+    <img
+      class="animate-zoom absolute h-screen w-screen cursor-pointer object-cover"
+      (click)="toolbarService.toggleMenu(2)"
+      [src]="hero$.value" />
   }
 </ng-template>
 
@@ -64,7 +67,7 @@
   <div class="flex h-screen w-full items-end justify-center">
     <span
       class="to-mat-black/25 font-ink text-mat-yellow w-full bg-gradient-to-b from-transparent pt-10 pb-40 text-center text-7xl font-semibold drop-shadow sm:text-9xl sm:font-medium">
-      {{ name }}
+      {{ name() }}
     </span>
   </div>
 </ng-template>

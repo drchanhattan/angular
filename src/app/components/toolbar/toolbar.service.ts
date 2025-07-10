@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, startWith } from 'rxjs';
+import { MenuType } from './menu-type';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,8 @@ export class ToolbarService {
     return this.router.url !== '/about' && this.router.url !== '/avoid-the-cob';
   }
 
-  setMenu(sidenav: MatSidenav, photoMenu: boolean) {
-    if (photoMenu) {
+  setMenu(sidenav: MatSidenav, menuType: MenuType) {
+    if (menuType === MenuType.Photo) {
       this.photoMenu = sidenav;
     } else {
       this.menu = sidenav;
@@ -30,8 +31,8 @@ export class ToolbarService {
     this.hideOverflow(sidenav);
   }
 
-  toggleMenu(photoMenu: boolean) {
-    if (photoMenu) {
+  toggleMenu(menuType: MenuType) {
+    if (menuType === MenuType.Photo) {
       this.menu?.close();
       this.photoMenu?.toggle();
     } else {
