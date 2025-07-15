@@ -6,7 +6,7 @@
     "locate-circular-deps": "npx madge --circular --extensions ts ./",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
     "build": "ng build --configuration production --output-path docs --base-href .",
-    "docs": "xcopy docs\\browser docs /E /I /Y",
+    "docs": "robocopy docs\\browser docs /E /MOVE && rmdir /s /q docs\\browser || exit 0",
     "cname": "echo christopherchan.co.uk > docs\\CNAME",
     "commit": "git add . && git commit -m \"commit\"",
     "push": "git push -u origin master",
