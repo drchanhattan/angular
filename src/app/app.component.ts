@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameHelpService } from './components/avoid-the-cob/components/game-help/game-help.service';
@@ -26,7 +24,7 @@ import { OverlayService } from './components/avoid-the-cob/services/overlay.serv
 import { ParticleService } from './components/avoid-the-cob/services/particle.service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up.service';
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
-import { Icons } from './components/icon/icons';
+import { SvgIconRegistryModule } from './components/icon/svg-icon-registry.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PhotoLibraryService } from './components/photo-library/photo-library.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -34,7 +32,7 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-root',
-  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, ToolbarComponent],
+  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, SvgIconRegistryModule, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AssetService,
@@ -64,13 +62,8 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
   ],
 })
 export class AppComponent {
-  constructor(
-    private domSanitizer: DomSanitizer,
-    private matIconRegistry: MatIconRegistry,
-    public router: Router,
-  ) {
+  constructor(public router: Router) {
     this.redirectToHash();
-    this.registerIcons();
     this.animateOnScroll();
   }
 
@@ -78,12 +71,6 @@ export class AppComponent {
     if (!window.location.hash) {
       window.location.href = '/#' + window.location.pathname;
     }
-  }
-
-  private registerIcons() {
-    Icons.forEach((icon) => {
-      this.matIconRegistry.addSvgIcon(icon, this.domSanitizer.bypassSecurityTrustResourceUrl(`/${icon}.svg`));
-    });
   }
 
   private animateOnScroll() {
