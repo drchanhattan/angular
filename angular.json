@@ -27,46 +27,6 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/fonts"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/game"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/icons"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/asia"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/europe"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/heroes"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/north-america"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/oceania"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/photos/south-america"
-              },
-              {
-                "glob": "**/*",
-                "input": "public/panda"
               }
             ],
             "styles": [

@@ -1,8 +1,8 @@
 export enum GameAudio {
-  Corn = 'corn.mp3',
-  Heart = 'heart.mp3',
-  LevelUp = 'levelup.mp3',
-  Music = 'music.mp3',
-  Pea = 'pea.mp3',
-  PowerUp = 'powerup.mp3',
+  Corn = 'game/corn.mp3',
+  Heart = 'game/heart.mp3',
+  LevelUp = 'game/levelup.mp3',
+  Music = 'game/music.mp3',
+  Pea = 'game/pea.mp3',
+  PowerUp = 'game/powerup.mp3',
 }

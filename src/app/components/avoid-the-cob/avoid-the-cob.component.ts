@@ -45,7 +45,7 @@ import { ScoreService } from './services/score.service';
 export class AvoidTheCobComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClasses =
     'flex size-full select-none items-center justify-center overflow-hidden bg-mat-black bg-cover bg-center bg-blend-darken';
-  @HostBinding('style') background = `background-image: url('background.svg');`;
+  @HostBinding('style') background = `background-image: url('game/background.svg');`;
 
   constructor(
     public assetService: AssetService,

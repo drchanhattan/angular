@@ -42,7 +42,7 @@ export class AboutComponent {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
   ) {
-    httpBlob$('hero-home.jpg', this.http)
+    httpBlob$('photos/heroes/hero-home.jpg', this.http)
       .pipe(take(1))
       .subscribe((blob) => this.hero$.next(sanitizeBlob(blob, this.sanitizer)));
   }

@@ -31,7 +31,7 @@ export class AssetService {
   }
 
   private preloadImages$(): Observable<SafeUrl[]> {
-    const imageBlobs$ = ['corn.svg', 'pea.svg', 'title.svg'].map((url) => httpBlob$(url, this.http));
+    const imageBlobs$ = ['game/corn.svg', 'game/pea.svg', 'game/title.svg'].map((url) => httpBlob$(url, this.http));
     return forkJoin(imageBlobs$).pipe(map((images) => images.map((i) => sanitizeBlob(i, this.sanitizer))));
   }
 
