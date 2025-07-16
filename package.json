@@ -4,6 +4,7 @@
   "scripts": {
     "storybook": "ng run website:storybook",
     "build-storybook": "ng run website:build-storybook",
+    "move-storybook": "xcopy /E /I /Y storybook-static public\\storybook-static && rmdir /s /q storybook-static",
     "404": "copy docs\\index.html docs\\404.html",
     "locate-circular-deps": "npx madge --circular --extensions ts ./",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
