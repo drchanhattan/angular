@@ -7,7 +7,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { NorthAmericaComponent } from './pages/north-america/north-america.component';
 import { OceaniaComponent } from './pages/oceania/oceania.component';
 import { SouthAmericaComponent } from './pages/south-america/south-america.component';
-import { StorybookComponent } from './pages/storybook/storybook.component';
 
 export const routes: Routes = [
   { path: 'avoid-the-cob', component: CobGameComponent },
@@ -33,11 +32,6 @@ export const routes: Routes = [
     path: 'oceania',
     component: OceaniaComponent,
     children: [{ path: ':id', component: OceaniaComponent }],
-  },
-  {
-    path: 'storybook',
-    component: StorybookComponent,
-    children: [{ path: ':id', component: StorybookComponent }],
   },
   { path: '**', redirectTo: '/avoid-the-cob', pathMatch: 'full' },
 ];

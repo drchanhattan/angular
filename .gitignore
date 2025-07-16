@@ -43,6 +43,3 @@ Thumbs.db
 
 # Environment Files
 src/environments/
-
-# Storybook
-*storybook.log

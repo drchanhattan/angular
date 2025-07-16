@@ -90,28 +90,6 @@
             "styles": ["@angular/material/prebuilt-themes/azure-blue.css", "src/styles/styles.scss"],
             "scripts": []
           }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "website:build",
-            "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "."],
-            "port": 6006,
-            "styles": ["src/styles/styles.scss"]
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "website:build",
-            "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "."],
-            "outputDir": "storybook-static",
-            "styles": ["src/styles/styles.scss"]
-          }
         }
       }
     }
