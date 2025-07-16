@@ -5173,7 +5173,7 @@
         },
         {
             "name": "ToolbarService",
-            "id": "injectable-ToolbarService-da2801e69a03611bab348a3a61b5c3d112264073d7583bca4c89e2799262138be0eb1cdd9bccfee2a7182a7f599ff8b90a13910d5c8ffdea05988dc278c7cbbc",
+            "id": "injectable-ToolbarService-2fd58be8e13d2570601a65e4e774af8f853e2509838edf60b924406b6f5fec026af4e88f0162e86e08f703920c58f3ea94d8682bd25112e6e1fb68deb855eeb6",
             "file": "src/app/components/toolbar/toolbar.service.ts",
             "properties": [
                 {
@@ -5339,7 +5339,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { DestroyRef, inject, Injectable } from '@angular/core';\nimport { takeUntilDestroyed } from '@angular/core/rxjs-interop';\nimport { MatSidenav } from '@angular/material/sidenav';\nimport { Router } from '@angular/router';\nimport { BehaviorSubject, combineLatest, startWith } from 'rxjs';\nimport { MenuType } from './menu-type';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ToolbarService {\n  hideMenuBtn$ = new BehaviorSubject<boolean>(false);\n  label$ = new BehaviorSubject<string>('Location');\n  menu!: MatSidenav;\n  photoMenu!: MatSidenav;\n  readonly #destroyRef = inject(DestroyRef);\n\n  constructor(private router: Router) {}\n\n  get showPhotoMenu() {\n    return this.router.url !== '/about' && this.router.url !== '/avoid-the-cob';\n  }\n\n  setMenu(sidenav: MatSidenav, menuType: MenuType) {\n    if (menuType === MenuType.Photo) {\n      this.photoMenu = sidenav;\n    } else {\n      this.menu = sidenav;\n    }\n\n    this.hideOverflow(sidenav);\n  }\n\n  toggleMenu(menuType: MenuType) {\n    if (menuType === MenuType.Photo) {\n      this.menu?.close();\n      this.photoMenu?.toggle();\n    } else {\n      this.menu?.toggle();\n      this.photoMenu?.close();\n    }\n  }\n\n  hideOverflow(sidenav: MatSidenav) {\n    const open$ = sidenav.openedStart.pipe(startWith({}));\n    const close$ = sidenav.closedStart.pipe(startWith({}));\n\n    combineLatest([open$, close$])\n      .pipe(takeUntilDestroyed(this.#destroyRef))\n      .subscribe(() => {\n        if (this.menu?.opened || this.photoMenu?.opened) {\n          document.querySelector('body')?.classList.add('overflow-hidden');\n        } else {\n          document.querySelector('body')?.classList.remove('overflow-hidden');\n        }\n      });\n  }\n}\n",
+            "sourceCode": "import { DestroyRef, inject, Injectable } from '@angular/core';\nimport { takeUntilDestroyed } from '@angular/core/rxjs-interop';\nimport { MatSidenav } from '@angular/material/sidenav';\nimport { Router } from '@angular/router';\nimport { BehaviorSubject, combineLatest, startWith } from 'rxjs';\nimport { MenuType } from './menu-type';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ToolbarService {\n  hideMenuBtn$ = new BehaviorSubject<boolean>(false);\n  label$ = new BehaviorSubject<string>('Location');\n  menu!: MatSidenav;\n  photoMenu!: MatSidenav;\n  readonly #destroyRef = inject(DestroyRef);\n\n  constructor(private router: Router) {}\n\n  get showPhotoMenu() {\n    return this.router.url !== '/about' && this.router.url !== '/avoid-the-cob' && this.router.url !== '/storybook';\n  }\n\n  setMenu(sidenav: MatSidenav, menuType: MenuType) {\n    if (menuType === MenuType.Photo) {\n      this.photoMenu = sidenav;\n    } else {\n      this.menu = sidenav;\n    }\n\n    this.hideOverflow(sidenav);\n  }\n\n  toggleMenu(menuType: MenuType) {\n    if (menuType === MenuType.Photo) {\n      this.menu?.close();\n      this.photoMenu?.toggle();\n    } else {\n      this.menu?.toggle();\n      this.photoMenu?.close();\n    }\n  }\n\n  hideOverflow(sidenav: MatSidenav) {\n    const open$ = sidenav.openedStart.pipe(startWith({}));\n    const close$ = sidenav.closedStart.pipe(startWith({}));\n\n    combineLatest([open$, close$])\n      .pipe(takeUntilDestroyed(this.#destroyRef))\n      .subscribe(() => {\n        if (this.menu?.opened || this.photoMenu?.opened) {\n          document.querySelector('body')?.classList.add('overflow-hidden');\n        } else {\n          document.querySelector('body')?.classList.remove('overflow-hidden');\n        }\n      });\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -7909,7 +7909,7 @@
         },
         {
             "name": "FooterComponent",
-            "id": "component-FooterComponent-3ff1f293971a7af2f0405176d8e233266e9840a60f55954fe922990ab5f9e387312d6ca4ededf401155030df1d5c77408d18064eabf17ff9f49f7cd3df437b01",
+            "id": "component-FooterComponent-b2db7cc9d17fa13e49670d38a509aa53c20fc1ad73b15e9f2f89bf184f23280ed76bf0ad25b4b603f73ce9404d0e995af713b486d65c05abe4e58238f6dcac1e",
             "file": "src/app/components/footer/footer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7949,7 +7949,7 @@
                 },
                 {
                     "name": "links",
-                    "defaultValue": "[\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\n  ]",
+                    "defaultValue": "[\r\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\r\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\r\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\r\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\r\n  ]",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Link[]",
@@ -8028,7 +8028,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, HostBinding } from '@angular/core';\nimport { IconButtonComponent } from '../icon-button/icon-button.component';\nimport { Icon } from '../icon/icon';\nimport { RedPandaComponent } from '../red-panda/red-panda.component';\n\ntype Link = {\n  url: string;\n  icon: Icon;\n};\n\n@Component({\n  selector: 'app-footer',\n  imports: [IconButtonComponent, RedPandaComponent],\n  templateUrl: './footer.component.html',\n})\nexport class FooterComponent {\n  @HostBinding('class') hostClasses =\n    'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';\n\n  showPanda = false;\n  links: Link[] = [\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\n  ];\n\n  open(url: string) {\n    window.open(url);\n  }\n}\n",
+            "sourceCode": "import { Component, HostBinding } from '@angular/core';\r\nimport { IconButtonComponent } from '../icon-button/icon-button.component';\r\nimport { Icon } from '../icon/icon';\r\nimport { RedPandaComponent } from '../red-panda/red-panda.component';\r\n\r\ntype Link = {\r\n  url: string;\r\n  icon: Icon;\r\n};\r\n\r\n@Component({\r\n  selector: 'app-footer',\r\n  imports: [IconButtonComponent, RedPandaComponent],\r\n  templateUrl: './footer.component.html',\r\n})\r\nexport class FooterComponent {\r\n  @HostBinding('class') hostClasses =\r\n    'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';\r\n\r\n  showPanda = false;\r\n  links: Link[] = [\r\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\r\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\r\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\r\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\r\n  ];\r\n\r\n  open(url: string) {\r\n    window.open(url);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -8734,7 +8734,7 @@
         },
         {
             "name": "IconButtonComponent",
-            "id": "component-IconButtonComponent-621ce3213536f7c63a6e9920d2f9769718eedc1b673646870d2d0eb3f7e5205fc870e98373b611fc4c89763e51afdf2c016b06dc23d8abd4e7289df498f660ec",
+            "id": "component-IconButtonComponent-7f378a74b2623980a20104560284561993c294c699d077e7f4ed1d2a1b657591633dfe7e73c30ecfba24f92ccc9104a76816d3b09d335a3261e10d3c4b70ee30",
             "file": "src/app/components/icon-button/icon-button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -8750,6 +8750,17 @@
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
+                {
+                    "name": "icon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 15,
+                    "required": true
+                },
                 {
                     "name": "yellow",
                     "defaultValue": "false",
@@ -8798,14 +8809,14 @@
                 },
                 {
                     "name": "icon",
-                    "defaultValue": "input<Icon>({ matIcon: 'face' })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 15,
+                    "required": true
                 },
                 {
                     "name": "yellow",
@@ -8853,16 +8864,16 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, HostBinding, input } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { Icon } from '../icon/icon';\nimport { IconComponent } from '../icon/icon.component';\n\n@Component({\n  selector: 'app-icon-button',\n  imports: [CommonModule, IconComponent, MatButtonModule],\n  templateUrl: './icon-button.component.html',\n})\nexport class IconButtonComponent {\n  @HostBinding('class') hostClasses = 'scale-150';\n\n  icon = input<Icon>({ matIcon: 'face' });\n  classes = input<string>('');\n  yellow = input<boolean>(false);\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, HostBinding, input } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { Icon } from '../icon/icon';\nimport { IconComponent } from '../icon/icon.component';\n\n@Component({\n  selector: 'app-icon-button',\n  imports: [CommonModule, IconComponent, MatButtonModule],\n  templateUrl: './icon-button.component.html',\n})\nexport class IconButtonComponent {\n  @HostBinding('class') hostClasses = 'scale-150';\n\n  icon = input.required<Icon>();\n  classes = input<string>('');\n  yellow = input<boolean>(false);\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<button mat-icon-button onclick=\"blur()\" [ngClass]=\"[yellow() ? '!bg-mat-yellow !scale-90 !rounded-full' : '']\">\n  <app-icon [icon]=\"icon()\" [classes]=\"[classes(), '!flex !size-auto', yellow() ? '!text-mat-black' : '']\"></app-icon>\n</button>\n"
+            "templateData": "<button mat-icon-button onclick=\"blur()\" [ngClass]=\"[yellow() ? '!bg-mat-yellow !scale-90 !rounded-full' : '']\">\n  <app-icon\n    [icon]=\"icon()\"\n    [classes]=\"[classes(), '!size-auto', yellow() ? '!text-mat-black' : '!text-mat-yellow']\"></app-icon>\n</button>\n"
         },
         {
             "name": "IconComponent",
-            "id": "component-IconComponent-a76f63a73a837cfb92e61c15525d9e6db59510bf044111d63ea00d31fc0bd0f058721a974ae135aecc244da9a1ffbc9c60589d60e9184b286a0c21b91e6a9749",
+            "id": "component-IconComponent-55b0440bfc3ca984082b0cf9394a82ad3f5afd4adaaf8f8bf599b298ebc9c23dab4209b8288a1784e05239285176148a9d66594545e9e853934d9af552d91bf8",
             "file": "src/app/components/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -8877,7 +8888,19 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 15,
+                    "required": true
+                }
+            ],
             "outputsClass": [],
             "propertiesClass": [
                 {
@@ -8889,26 +8912,56 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 16
+                },
+                {
+                    "name": "hostClasses",
+                    "defaultValue": "'flex'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "decorators": [
+                        {
+                            "name": "HostBinding",
+                            "stringifiedArguments": "'class'"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
                 },
                 {
                     "name": "icon",
-                    "defaultValue": "input<Icon>({ matIcon: 'face' })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 15,
+                    "required": true
                 }
             ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
-            "hostBindings": [],
+            "hostBindings": [
+                {
+                    "name": "class",
+                    "defaultValue": "'flex'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
             "hostListeners": [],
-            "standalone": false,
+            "standalone": true,
             "imports": [
                 {
                     "name": "CommonModule",
@@ -8922,12 +8975,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, input } from '@angular/core';\nimport { MatIconModule } from '@angular/material/icon';\nimport { Icon } from './icon';\n\n@Component({\n  selector: 'app-icon',\n  imports: [CommonModule, MatIconModule],\n  templateUrl: './icon.component.html',\n})\nexport class IconComponent {\n  icon = input<Icon>({ matIcon: 'face' });\n  classes = input<string[]>([]);\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, HostBinding, input } from '@angular/core';\nimport { MatIconModule } from '@angular/material/icon';\nimport { Icon } from './icon';\n\n@Component({\n  selector: 'app-icon',\n  standalone: true,\n  imports: [CommonModule, MatIconModule],\n  templateUrl: './icon.component.html',\n})\nexport class IconComponent {\n  @HostBinding('class') hostClasses = 'flex';\n\n  icon = input.required<Icon>();\n  classes = input<string[]>([]);\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "@let svgIcon = icon().svgIcon;\n@let matIcon = icon().matIcon;\n\n@if (svgIcon) {\n  <mat-icon [svgIcon]=\"svgIcon\" [ngClass]=\"classes()\"></mat-icon>\n} @else {\n  <mat-icon [ngClass]=\"classes()\">{{ matIcon }}</mat-icon>\n}\n"
+            "templateData": "@let svgIcon = icon().svgIcon;\r\n@let matIcon = icon().matIcon;\r\n\r\n@if (svgIcon) {\r\n  <mat-icon class=\"scale-80\" [ngClass]=\"classes()\" [svgIcon]=\"svgIcon\"></mat-icon>\r\n} @else {\r\n  <mat-icon [ngClass]=\"classes()\">{{ matIcon }}</mat-icon>\r\n}\r\n"
         },
         {
             "name": "LeaderboardComponent",
@@ -9533,7 +9586,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "@if (group(); as g) {\n  <!-- Group -->\n  <button #groupBtn mat-button class=\"my-1 !rounded-lg\" (click)=\"expandGroup(groupBtn)\">\n    @if (icon(); as i) {\n      <app-icon\n        matButtonIcon\n        [icon]=\"i\"\n        [classes]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]\"></app-icon>\n    }\n    <span class=\"text-xl text-nowrap\" [ngClass]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream']\">\n      {{ g.label }}\n    </span>\n    <mat-icon [ngClass]=\"[active() ? '!text-mat-yellow' : '!app-icon', iconClasses]\" iconPositionEnd>\n      {{ g.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}\n    </mat-icon>\n  </button>\n} @else if (!!link()) {\n  <!-- Link -->\n  <button mat-button class=\"my-1 !rounded-lg !px-4\">\n    @if (icon(); as i) {\n      <app-icon\n        matButtonIcon\n        [icon]=\"i\"\n        [classes]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]\"></app-icon>\n    }\n    <span [ngClass]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', 'text-xl text-nowrap']\">\n      {{ link()?.label }}\n    </span>\n  </button>\n}\n"
+            "templateData": "@if (group(); as g) {\n  <!-- Group -->\n  <button #groupBtn mat-button class=\"my-1 !rounded-lg\" (click)=\"expandGroup(groupBtn)\">\n    <div class=\"flex items-center justify-center\">\n      @if (icon(); as i) {\n        <app-icon [icon]=\"i\" [classes]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]\"></app-icon>\n      }\n      <span class=\"text-xl text-nowrap\" [ngClass]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream']\">\n        {{ g.label }}\n      </span>\n      <app-icon\n        [icon]=\"{ matIcon: g.expanded ? 'keyboard_arrow_down' : 'chevron_right' }\"\n        [classes]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', 'ml-1']\"></app-icon>\n    </div>\n  </button>\n} @else if (!!link()) {\n  <!-- Link -->\n  <button mat-button class=\"my-1 !rounded-lg !px-4\">\n    <div class=\"flex items-center justify-center\">\n      @if (icon(); as i) {\n        <app-icon [icon]=\"i\" [classes]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]\"></app-icon>\n      }\n      <span [ngClass]=\"[active() ? '!text-mat-yellow' : '!text-mat-cream', 'text-xl text-nowrap']\">\n        {{ link()?.label }}\n      </span>\n    </div>\n  </button>\n}\n"
         },
         {
             "name": "NavigationComponent",
@@ -10134,7 +10187,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<mat-sidenav-container>\n  <!-- Side Nav -->\n  <mat-sidenav\n    #sidenav\n    mode=\"over\"\n    position=\"end\"\n    class=\"!w-72 !rounded-none\"\n    [autoFocus]=\"false\"\n    [fixedInViewport]=\"true\"\n    [fixedTopGap]=\"64\">\n    <!-- Photo Menu -->\n    <app-photo-menu [albums]=\"albums()\" [sidenav]=\"sidenav\"></app-photo-menu>\n  </mat-sidenav>\n\n  <mat-sidenav-content class=\"!overflow-hidden\">\n    <!-- Content -->\n    @if (!(photoLibraryService.isSelected$ | async)) {\n      @if (hero$.value) {\n        <ng-container [ngTemplateOutlet]=\"heroImage\"></ng-container>\n        <ng-container [ngTemplateOutlet]=\"label\"></ng-container>\n      } @else {\n        <div class=\"flex size-full min-h-screen items-center justify-center\">\n          <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\n        </div>\n      }\n    } @else {\n      <ng-container [ngTemplateOutlet]=\"photoLibrary\"></ng-container>\n    }\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n<!-- Photo Library -->\n<ng-template #photoLibrary>\n  @if (photoLibraryService.loading$ | async) {\n    <!-- Spinner -->\n    <div class=\"bg-neutral-white flex size-full min-h-screen items-center justify-center\">\n      <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\n    </div>\n  } @else {\n    <!-- Photos -->\n    <div\n      class=\"bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8\">\n      @for (url of photoLibraryService.urls$ | async; track $index) {\n        <div\n          class=\"mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8\"\n          data-aos=\"fade-up\"\n          data-aos-anchor-placement=\"top-bottom\">\n          <img [src]=\"url\" class=\"!scale-100 !duration-1000 hover:!scale-110\" (load)=\"animate()\" />\n        </div>\n      }\n    </div>\n  }\n</ng-template>\n\n<!-- Hero -->\n<ng-template #heroImage>\n  @if (hero$.value) {\n    <img\n      class=\"animate-zoom absolute h-screen w-screen cursor-pointer object-cover\"\n      (click)=\"toolbarService.toggleMenu(2)\"\n      [src]=\"hero$.value\" />\n  }\n</ng-template>\n\n<!-- Label -->\n<ng-template #label>\n  <div class=\"flex h-screen w-full items-end justify-center\">\n    <span\n      class=\"to-mat-black/25 font-ink text-mat-yellow w-full bg-gradient-to-b from-transparent pt-10 pb-40 text-center text-7xl font-semibold drop-shadow sm:text-9xl sm:font-medium\">\n      {{ name() }}\n    </span>\n  </div>\n</ng-template>\n"
+            "templateData": "<mat-sidenav-container>\n  <!-- Side Nav -->\n  <mat-sidenav\n    #sidenav\n    mode=\"over\"\n    position=\"end\"\n    class=\"!w-72 !rounded-none\"\n    [autoFocus]=\"false\"\n    [fixedInViewport]=\"true\"\n    [fixedTopGap]=\"64\">\n    <!-- Photo Menu -->\n    <app-photo-menu [albums]=\"albums()\" [sidenav]=\"sidenav\"></app-photo-menu>\n  </mat-sidenav>\n\n  <mat-sidenav-content class=\"!overflow-hidden\">\n    <!-- Content -->\n    @if (!(photoLibraryService.isSelected$ | async)) {\n      @if (hero$.value) {\n        <ng-container [ngTemplateOutlet]=\"heroImage\"></ng-container>\n        <ng-container [ngTemplateOutlet]=\"label\"></ng-container>\n      } @else {\n        <div class=\"flex size-full min-h-screen items-center justify-center\">\n          <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\n        </div>\n      }\n    } @else {\n      <ng-container [ngTemplateOutlet]=\"photoLibrary\"></ng-container>\n    }\n  </mat-sidenav-content>\n</mat-sidenav-container>\n\n<!-- Photo Library -->\n<ng-template #photoLibrary>\n  @if (photoLibraryService.loading$ | async) {\n    <!-- Spinner -->\n    <div class=\"bg-neutral-white flex size-full min-h-screen items-center justify-center\">\n      <mat-progress-spinner mode=\"indeterminate\"></mat-progress-spinner>\n    </div>\n  } @else {\n    <!-- Photos -->\n    <div\n      class=\"bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8\">\n      @for (url of photoLibraryService.urls$ | async; track $index) {\n        <div\n          class=\"mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8\"\n          data-aos=\"fade-up\"\n          data-aos-anchor-placement=\"top-bottom\">\n          <img [src]=\"url\" class=\"!scale-100 !duration-1000 hover:!scale-110\" (load)=\"animate()\" />\n        </div>\n      }\n    </div>\n  }\n</ng-template>\n\n<!-- Hero -->\n<ng-template #heroImage>\n  @if (hero$.value) {\n    <img\n      class=\"animate-zoom absolute h-screen w-screen cursor-pointer object-cover\"\n      (click)=\"toolbarService.toggleMenu(2)\"\n      [src]=\"hero$.value\" />\n  }\n</ng-template>\n\n<!-- Label -->\n<ng-template #label>\n  <div class=\"pointer-events-none flex h-screen w-full items-end justify-center\">\n    <span\n      class=\"to-mat-black/25 font-ink text-mat-yellow w-full bg-gradient-to-b from-transparent pt-10 pb-40 text-center text-7xl font-semibold drop-shadow sm:text-9xl sm:font-medium\">\n      {{ name() }}\n    </span>\n  </div>\n</ng-template>\n"
         },
         {
             "name": "PhotoMenuComponent",
@@ -10320,7 +10373,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div\n  class=\"scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow overflow-x-hidden overflow-y-auto py-8\">\n  @for (photoAlbum of albums(); track $index; let index = $index) {\n    <button mat-button class=\"!h-36 !w-full !rounded-none\" [routerLink]=\"index.toString()\">\n      <!-- Icon -->\n      <div class=\"mb-4 scale-150\">\n        <mat-icon [svgIcon]=\"photoAlbum.icons[0]\"></mat-icon>\n        @if (photoAlbum.icons[1]) {\n          <mat-icon class=\"ml-4\" [svgIcon]=\"photoAlbum.icons[1]\"></mat-icon>\n        }\n      </div>\n      <!-- Label -->\n      <span [ngClass]=\"[photoLibraryService.id$.value === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']\">\n        {{ photoAlbum.label }}\n      </span>\n    </button>\n  }\n</div>\n"
+            "templateData": "<div\n  class=\"scrollbar-thin scrollbar-track-transparent scrollbar-thumb-mat-yellow overflow-x-hidden overflow-y-auto py-8\">\n  @for (photoAlbum of albums(); track $index; let index = $index) {\n    <button mat-button class=\"!h-36 !w-full !rounded-none\" [routerLink]=\"index.toString()\">\n      <!-- Icon -->\n      <div class=\"mb-6 flex scale-150 justify-center\">\n        <mat-icon [svgIcon]=\"photoAlbum.icons[0]\"></mat-icon>\n        @if (photoAlbum.icons[1]) {\n          <mat-icon class=\"ml-4\" [svgIcon]=\"photoAlbum.icons[1]\"></mat-icon>\n        }\n      </div>\n      <!-- Label -->\n      <span [ngClass]=\"[photoLibraryService.id$.value === index ? 'text-mat-yellow' : 'text-mat-cream', 'text-base']\">\n        {{ photoAlbum.label }}\n      </span>\n    </button>\n  }\n</div>\n"
         },
         {
             "name": "PlayerNameComponent",
@@ -10948,6 +11001,43 @@
             "templateData": "<app-photo-library\n  [name]=\"'South America'\"\n  [hero]=\"'photos/heroes/hero-south-america.jpg'\"\n  [albums]=\"albums\"></app-photo-library>\n"
         },
         {
+            "name": "StorybookComponent",
+            "id": "component-StorybookComponent-eaf879f84050e4170973d1598e41ce95a076b819068a5c450bbb9a34a46d30d0486103c8eec548db3a43163976043525d29bbed16e0afda72e6acad657f0433d",
+            "file": "src/app/pages/storybook/storybook.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-storybook",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./storybook.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-storybook',\n  templateUrl: './storybook.component.html',\n})\nexport class StorybookComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<iframe src=\"/storybook-static/index.html\" class=\"flex size-full min-h-screen p-8 pt-24\" title=\"Storybook\"></iframe>\n"
+        },
+        {
             "name": "ToolbarComponent",
             "id": "component-ToolbarComponent-d868dd19f74fceb25fe33d0b3e57ab35c76938f3a2255a65939f30c87e5375a89beafc03e0fae78412f391d63d9b14b85ec46b8e9ef466512b8627b42cde2289",
             "file": "src/app/components/toolbar/toolbar.component.ts",
@@ -11155,7 +11245,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\n  providers: [\n    { provide: LocationStrategy, useClass: HashLocationStrategy },\n    provideZoneChangeDetection({ eventCoalescing: true }),\n    provideRouter(routes),\n    provideAnimationsAsync(),\n    provideHttpClient(),\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideFirestore(() => getFirestore()),\n  ],\n}"
+                "defaultValue": "{\n  providers: [\n    { provide: LocationStrategy, useClass: HashLocationStrategy },\n    provideZoneChangeDetection({ eventCoalescing: true }),\n    provideRouter(routes),\n    provideAnimationsAsync(),\n    provideHttpClient(withFetch()),\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideFirestore(() => getFirestore()),\n  ],\n}"
             },
             {
                 "name": "environment",
@@ -11679,7 +11769,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\n  providers: [\n    { provide: LocationStrategy, useClass: HashLocationStrategy },\n    provideZoneChangeDetection({ eventCoalescing: true }),\n    provideRouter(routes),\n    provideAnimationsAsync(),\n    provideHttpClient(),\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideFirestore(() => getFirestore()),\n  ],\n}"
+                    "defaultValue": "{\n  providers: [\n    { provide: LocationStrategy, useClass: HashLocationStrategy },\n    provideZoneChangeDetection({ eventCoalescing: true }),\n    provideRouter(routes),\n    provideAnimationsAsync(),\n    provideHttpClient(withFetch()),\n    provideFirebaseApp(() => initializeApp(environment.firebase)),\n    provideFirestore(() => getFirestore()),\n  ],\n}"
                 }
             ],
             "src/environments/environment.ts": [
@@ -12635,7 +12725,7 @@
                 "linktype": "component",
                 "name": "IconButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -12644,7 +12734,7 @@
                 "linktype": "component",
                 "name": "IconComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -12854,6 +12944,15 @@
                 "name": "SouthAmericaComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/storybook/storybook.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "StorybookComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

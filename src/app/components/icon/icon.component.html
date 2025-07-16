@@ -2,7 +2,7 @@
 @let matIcon = icon().matIcon;
 
 @if (svgIcon) {
-  <mat-icon [svgIcon]="svgIcon" [ngClass]="classes()"></mat-icon>
+  <mat-icon class="scale-80" [ngClass]="classes()" [svgIcon]="svgIcon"></mat-icon>
 } @else {
   <mat-icon [ngClass]="classes()">{{ matIcon }}</mat-icon>
 }

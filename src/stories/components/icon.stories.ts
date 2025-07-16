@@ -15,7 +15,12 @@ const meta: Meta<IconComponent> = {
 export default meta;
 type Story = StoryObj<IconComponent>;
 
-export const MatIcon: Story = {};
+export const MatIcon: Story = {
+  args: {
+    icon: { matIcon: 'face' },
+    classes: ['!text-mat-yellow'],
+  },
+};
 
 export const SvgIcon: Story = {
   args: {

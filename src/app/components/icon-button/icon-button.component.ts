@@ -12,7 +12,7 @@ import { IconComponent } from '../icon/icon.component';
 export class IconButtonComponent {
   @HostBinding('class') hostClasses = 'scale-150';
 
-  icon = input<Icon>({ matIcon: 'face' });
+  icon = input.required<Icon>();
   classes = input<string>('');
   yellow = input<boolean>(false);
 }

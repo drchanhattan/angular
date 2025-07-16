@@ -3,7 +3,7 @@
   @for (photoAlbum of albums(); track $index; let index = $index) {
     <button mat-button class="!h-36 !w-full !rounded-none" [routerLink]="index.toString()">
       <!-- Icon -->
-      <div class="mb-4 scale-150">
+      <div class="mb-6 flex scale-150 justify-center">
         <mat-icon [svgIcon]="photoAlbum.icons[0]"></mat-icon>
         @if (photoAlbum.icons[1]) {
           <mat-icon class="ml-4" [svgIcon]="photoAlbum.icons[1]"></mat-icon>
