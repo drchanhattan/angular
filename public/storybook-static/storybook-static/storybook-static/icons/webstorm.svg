@@ -14,7 +14,7 @@
       <stop stop-color="#2086D7" offset="0.94"/>
     </linearGradient>
   </defs>
-  <g transform="matrix(0.15625, 0, 0, 0.15625, 4, 4)">
+  <g transform="matrix(0.1875, 0, 0, 0.1875, 0, 0)">
     <polygon fill="url(#linearGradient-1)" points="34.4 231.2 0 26.8 64 0.4 104.4 24.4 142 4.4 219.6 34.4 176 256"/>
     <polygon fill="url(#linearGradient-2)" points="256 86.8 222.8 5.2 163.2 0 70.4 88.8 95.2 203.6 142 236 256 168.4 228 116"/>
     <polygon fill="url(#linearGradient-3)" points="204.8 74.4 228 116 256 86.8 235.6 36"/>
