@@ -1,28 +1,29 @@
 @if (group(); as g) {
   <!-- Group -->
-  <button #groupBtn mat-button class="my-1 !rounded-lg" (click)="expandGroup(groupBtn)">
+  <button matButton #groupBtn class="!rounded-lg" (click)="expandGroup(groupBtn)">
     <div class="flex items-center justify-center">
+      <!-- Icon -->
       @if (icon(); as i) {
-        <app-icon [icon]="i" [classes]="[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]"></app-icon>
+        <app-icon [icon]="i" [classes]="iconClasses()"></app-icon>
       }
-      <span class="text-xl text-nowrap" [ngClass]="[active() ? '!text-mat-yellow' : '!text-mat-cream']">
-        {{ g.label }}
-      </span>
-      <app-icon
-        [icon]="{ matIcon: g.expanded ? 'keyboard_arrow_down' : 'chevron_right' }"
-        [classes]="[active() ? '!text-mat-yellow' : '!text-mat-cream', 'ml-1']"></app-icon>
+      <!-- Label -->
+      <span [ngClass]="labelClasses()">{{ g.label }}</span>
+      <!-- Chevron -->
+      <mat-icon [ngClass]="[textColor(), 'ml-1']">
+        {{ g.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}
+      </mat-icon>
     </div>
   </button>
 } @else if (!!link()) {
   <!-- Link -->
-  <button mat-button class="my-1 !rounded-lg !px-4">
+  <button matButton class="!rounded-lg !px-4">
     <div class="flex items-center justify-center">
+      <!-- Icon -->
       @if (icon(); as i) {
-        <app-icon [icon]="i" [classes]="[active() ? '!text-mat-yellow' : '!text-mat-cream', iconClasses]"></app-icon>
+        <app-icon [icon]="i" [classes]="iconClasses()"></app-icon>
       }
-      <span [ngClass]="[active() ? '!text-mat-yellow' : '!text-mat-cream', 'text-xl text-nowrap']">
-        {{ link()?.label }}
-      </span>
+      <!-- Label -->
+      <span [ngClass]="labelClasses()">{{ link()?.label }}</span>
     </div>
   </button>
 }

@@ -17,7 +17,10 @@ export class FooterComponent {
   @HostBinding('class') hostClasses =
     'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';
 
-  showPanda = false;
+  panda = false;
+
+  year = new Date().getFullYear();
+
   links: Link[] = [
     { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },
     { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },

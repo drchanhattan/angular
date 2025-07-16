@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Icon } from '../icon/icon';
@@ -17,7 +17,19 @@ export class NavigationButtonComponent {
   link = input<SideNavLink>();
   group = input<SideNavGroup>();
 
-  iconClasses = 'mr-3 !flex !items-center !justify-center !overflow-visible !text-2xl';
+  textColor = computed(() => (this.active() ? '!text-mat-yellow' : '!text-mat-cream'));
+
+  iconClasses = computed(() => [
+    this.textColor(),
+    'mr-3',
+    '!flex',
+    '!items-center',
+    '!justify-center',
+    '!overflow-visible',
+    '!text-2xl',
+  ]);
+
+  labelClasses = computed(() => [this.textColor(), 'text-lg', 'text-nowrap']);
 
   expandGroup(button: MatButton) {
     const group = this.group();

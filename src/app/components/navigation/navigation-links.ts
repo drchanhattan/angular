@@ -21,17 +21,6 @@ export const sideNavLinks: SideNavGroup[] = [
     link: { label: 'About', url: '/about' },
   },
   {
-    label: 'LinkedIn',
-    icon: { svgIcon: 'linkedin' },
-    link: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', external: true },
-  },
-  {
-    label: 'Games',
-    icon: { matIcon: 'sports_esports' },
-    sublinks: [{ label: 'Avoid the Cob', url: '/avoid-the-cob' }],
-    expanded: true,
-  },
-  {
     label: 'Photography',
     icon: { matIcon: 'photo_camera' },
     sublinks: [
@@ -42,6 +31,27 @@ export const sideNavLinks: SideNavGroup[] = [
       { label: 'Oceania', url: '/oceania' },
     ],
     expanded: true,
+  },
+  {
+    label: 'Games',
+    icon: { matIcon: 'sports_esports' },
+    sublinks: [{ label: 'Avoid the Cob', url: '/avoid-the-cob' }],
+    expanded: true,
+  },
+  {
+    label: 'LinkedIn',
+    icon: { svgIcon: 'linkedin' },
+    link: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', external: true },
+  },
+  {
+    label: 'Github',
+    icon: { svgIcon: 'github' },
+    link: { label: 'Github', url: 'https://github.com/drchanhattan/', external: true },
+  },
+  {
+    label: 'Instagram',
+    icon: { svgIcon: 'instagram' },
+    link: { label: 'Instagram', url: 'https://www.instagram.com/drchanhattan/', external: true },
   },
   {
     label: 'React',

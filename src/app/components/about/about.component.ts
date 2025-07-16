@@ -4,7 +4,7 @@ import { Component, HostBinding } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { BehaviorSubject, take } from 'rxjs';
+import { map, Observable, of, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { FooterComponent } from '../footer/footer.component';
 
@@ -15,7 +15,7 @@ import { FooterComponent } from '../footer/footer.component';
 })
 export class AboutComponent {
   @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center bg-mat-yellow text-mat-black';
-  hero$ = new BehaviorSubject<SafeUrl | null>(null);
+  hero$: Observable<SafeUrl | null> = of(null);
 
   techStack = [
     { icon: 'angular', label: 'Angular' },
@@ -42,8 +42,13 @@ export class AboutComponent {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
   ) {
-    httpBlob$('photos/heroes/hero-home.jpg', this.http)
-      .pipe(take(1))
-      .subscribe((blob) => this.hero$.next(sanitizeBlob(blob, this.sanitizer)));
+    this.fetchHero();
+  }
+
+  fetchHero() {
+    this.hero$ = httpBlob$('photos/heroes/hero-home.jpg', this.http).pipe(
+      take(1),
+      map((blob) => sanitizeBlob(blob, this.sanitizer)),
+    );
   }
 }

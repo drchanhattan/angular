@@ -1,7 +1,7 @@
-@if (hero$.value) {
+@if (hero$ | async) {
   <!-- Hero -->
   <div class="border-mat-white bg-mat-black absolute top-0 h-screen w-full overflow-hidden border-b-2">
-    <img class="animate-zoom size-full object-cover blur-sm" [src]="hero$.value" />
+    <img class="animate-zoom size-full object-cover blur-sm" [src]="hero$ | async" />
   </div>
 
   <div class="z-10 mb-10">

@@ -8,7 +8,7 @@
 
   <!-- Copyright -->
   <div class="text-mat-cream flex flex-col items-center justify-center">
-    <span>Copyright © 2024 Christopher Chan.</span>
+    <span>{{ `Copyright © ${year} Christopher Chan.` }}</span>
     <span class="text-xs">Powered by Ramen Noodles.</span>
   </div>
 </div>
@@ -16,8 +16,8 @@
 <!-- Panda -->
 <div
   class="border-mat-white bg-mat-yellow mt-20 hidden h-10 w-full cursor-pointer border-t-2 lg:flex"
-  (click)="showPanda = !showPanda">
-  @if (showPanda) {
+  (click)="panda = !panda">
+  @if (panda) {
     <app-red-panda class="-mt-5"></app-red-panda>
   }
 </div>
