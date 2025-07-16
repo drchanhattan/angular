@@ -5,13 +5,13 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, filter, firstValueFrom, forkJoin, map, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { ToolbarService } from '../toolbar/toolbar.service';
-import { PhotoAlbum } from './photo-album';
+import { Album } from './album';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PhotoLibraryService {
-  albums$ = new BehaviorSubject<PhotoAlbum[]>([]);
+export class GalleryService {
+  albums$ = new BehaviorSubject<Album[]>([]);
   id$ = new BehaviorSubject<number | null>(null);
   isSelected$ = this.id$.pipe(map((id) => id !== null));
   loading$ = new BehaviorSubject<boolean>(false);
@@ -32,7 +32,7 @@ export class PhotoLibraryService {
     window.scrollTo(0, 0);
     this.id$.next(id);
     this.toolbarService.label$.next(this.albums$.value[id]?.label || 'Location');
-    this.toolbarService.photoMenu?.close();
+    this.toolbarService.photoNav?.close();
   }
 
   deselect() {

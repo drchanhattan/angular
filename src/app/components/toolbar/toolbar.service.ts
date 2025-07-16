@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, startWith } from 'rxjs';
-import { MenuType } from './menu-type';
+import { NavType } from './nav-type';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ import { MenuType } from './menu-type';
 export class ToolbarService {
   hideMenuBtn$ = new BehaviorSubject<boolean>(false);
   label$ = new BehaviorSubject<string>('Location');
-  menu!: MatSidenav;
-  photoMenu!: MatSidenav;
+  nav!: MatSidenav;
+  photoNav!: MatSidenav;
   readonly #destroyRef = inject(DestroyRef);
 
   constructor(private router: Router) {}
@@ -21,23 +21,23 @@ export class ToolbarService {
     return this.router.url !== '/about' && this.router.url !== '/avoid-the-cob';
   }
 
-  setMenu(sidenav: MatSidenav, menuType: MenuType) {
-    if (menuType === MenuType.Photo) {
-      this.photoMenu = sidenav;
+  setNav(sidenav: MatSidenav, navType: NavType) {
+    if (navType === NavType.Photos) {
+      this.photoNav = sidenav;
     } else {
-      this.menu = sidenav;
+      this.nav = sidenav;
     }
 
     this.hideOverflow(sidenav);
   }
 
-  toggleMenu(menuType: MenuType) {
-    if (menuType === MenuType.Photo) {
-      this.menu?.close();
-      this.photoMenu?.toggle();
+  toggleMenu(menuType: NavType) {
+    if (menuType === NavType.Photos) {
+      this.nav?.close();
+      this.photoNav?.toggle();
     } else {
-      this.menu?.toggle();
-      this.photoMenu?.close();
+      this.nav?.toggle();
+      this.photoNav?.close();
     }
   }
 
@@ -48,7 +48,7 @@ export class ToolbarService {
     combineLatest([open$, close$])
       .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe(() => {
-        if (this.menu?.opened || this.photoMenu?.opened) {
+        if (this.nav?.opened || this.photoNav?.opened) {
           document.querySelector('body')?.classList.add('overflow-hidden');
         } else {
           document.querySelector('body')?.classList.remove('overflow-hidden');

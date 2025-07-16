@@ -1,0 +1,26 @@
+<!-- Links -->
+<div class="flex flex-col items-start py-12">
+  @for (group of groups; track $index) {
+    @if (group.link) {
+      <!-- Link -->
+      <app-nav-button
+        (click)="navigate(group.link.url, group.link.external)"
+        [active]="currentRoute === group.link.url"
+        [icon]="group.icon"
+        [link]="group.link"></app-nav-button>
+    } @else if (group.sublinks) {
+      <!-- Link Group -->
+      <app-nav-button [icon]="group.icon" [group]="group" [active]="hasActiveSublink(group.sublinks)"></app-nav-button>
+      @if (group.expanded) {
+        @for (subLink of group.sublinks; track $index) {
+          <!-- SubLink -->
+          <app-nav-button
+            class="ml-9"
+            (click)="navigate(subLink.url)"
+            [active]="currentRoute.includes(subLink.url)"
+            [link]="subLink"></app-nav-button>
+        }
+      }
+    }
+  }
+</div>

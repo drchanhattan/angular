@@ -1,20 +1,20 @@
-import { Icon } from '../icon/icon';
+import { Icon } from '../../icon/icon';
 
-export interface SideNavLink {
+export interface NavLink {
   label: string;
   url: string;
   external?: boolean;
 }
 
-export interface SideNavGroup {
+export interface NavGroup {
   label: string;
   icon: Icon;
-  link?: SideNavLink;
-  sublinks?: SideNavLink[];
+  link?: NavLink;
+  sublinks?: NavLink[];
   expanded?: boolean;
 }
 
-export const sideNavLinks: SideNavGroup[] = [
+export const navGroups: NavGroup[] = [
   {
     label: 'About',
     icon: { matIcon: 'home' },

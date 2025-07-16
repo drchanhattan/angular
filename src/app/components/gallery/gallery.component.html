@@ -8,13 +8,13 @@
     [autoFocus]="false"
     [fixedInViewport]="true"
     [fixedTopGap]="64">
-    <!-- Photo Menu -->
-    <app-photo-menu [albums]="albums()" [sidenav]="sidenav"></app-photo-menu>
+    <!-- Photo Navigation -->
+    <app-photo-nav [albums]="albums()" [sidenav]="sidenav"></app-photo-nav>
   </mat-sidenav>
 
   <mat-sidenav-content class="!overflow-hidden">
     <!-- Content -->
-    @if (!(photoLibraryService.isSelected$ | async)) {
+    @if (!(galleryService.isSelected$ | async)) {
       @if (hero$.value) {
         <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
         <ng-container [ngTemplateOutlet]="label"></ng-container>
@@ -31,7 +31,7 @@
 
 <!-- Photo Library -->
 <ng-template #photoLibrary>
-  @if (photoLibraryService.loading$ | async) {
+  @if (galleryService.loading$ | async) {
     <!-- Spinner -->
     <div class="bg-neutral-white flex size-full min-h-screen items-center justify-center">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -40,7 +40,7 @@
     <!-- Photos -->
     <div
       class="bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8">
-      @for (url of photoLibraryService.urls$ | async; track $index) {
+      @for (url of galleryService.urls$ | async; track $index) {
         <div
           class="mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8"
           data-aos="fade-up"

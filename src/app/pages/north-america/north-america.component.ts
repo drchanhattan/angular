@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { PhotoAlbum } from '../../components/photo-library/photo-album';
-import { PhotoLibraryComponent } from '../../components/photo-library/photo-library.component';
+import { Album } from '../../components/gallery/album';
+import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
   selector: 'app-north-america',
-  imports: [PhotoLibraryComponent],
+  imports: [GalleryComponent],
   templateUrl: './north-america.component.html',
 })
 export class NorthAmericaComponent {
-  albums: PhotoAlbum[] = [
+  albums: Album[] = [
     {
       label: 'Canada',
       icons: ['canada'],

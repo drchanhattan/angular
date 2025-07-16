@@ -7,27 +7,27 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import AOS from 'aos';
 import { BehaviorSubject, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
-import { PhotoMenuComponent } from '../photo-menu/photo-menu.component';
+import { PhotoNavComponent } from '../navigation/photo-nav/photo-nav.component';
 import { ToolbarService } from '../toolbar/toolbar.service';
-import { PhotoAlbum } from './photo-album';
-import { PhotoLibraryService } from './photo-library.service';
+import { Album } from './album';
+import { GalleryService } from './gallery.service';
 
 @Component({
-  selector: 'app-photo-library',
-  imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoMenuComponent],
-  templateUrl: './photo-library.component.html',
+  selector: 'app-gallery',
+  imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoNavComponent],
+  templateUrl: './gallery.component.html',
 })
-export class PhotoLibraryComponent implements OnInit {
+export class GalleryComponent implements OnInit {
   @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';
   name = input<string>('');
   hero = input<string>('');
-  albums = input.required<PhotoAlbum[]>();
+  albums = input.required<Album[]>();
   hero$ = new BehaviorSubject<SafeUrl | null>(null);
 
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    public photoLibraryService: PhotoLibraryService,
+    public galleryService: GalleryService,
     public toolbarService: ToolbarService,
   ) {}
 

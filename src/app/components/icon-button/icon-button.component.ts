@@ -14,5 +14,5 @@ export class IconButtonComponent {
 
   icon = input.required<Icon>();
   classes = input<string>('');
-  yellow = input<boolean>(false);
+  filled = input<boolean>(false);
 }

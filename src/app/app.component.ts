@@ -24,15 +24,15 @@ import { OverlayService } from './components/avoid-the-cob/services/overlay.serv
 import { ParticleService } from './components/avoid-the-cob/services/particle.service';
 import { PowerUpService } from './components/avoid-the-cob/services/power-up.service';
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
+import { GalleryService } from './components/gallery/gallery.service';
 import { SvgIconRegistryModule } from './components/icon/svg-icon-registry.module';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { PhotoLibraryService } from './components/photo-library/photo-library.service';
+import { LinkNavComponent } from './components/navigation/link-nav/link-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ToolbarService } from './components/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-root',
-  imports: [MatSidenavModule, NavigationComponent, RouterOutlet, SvgIconRegistryModule, ToolbarComponent],
+  imports: [MatSidenavModule, LinkNavComponent, RouterOutlet, SvgIconRegistryModule, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AssetService,
@@ -45,13 +45,13 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
     DeviceService,
     DifficultyService,
     FirebaseService,
+    GalleryService,
     GameHelpService,
     GameObjectService,
     GameSettingsService,
     GameStateService,
     GameTextService,
     LeaderboardService,
-    PhotoLibraryService,
     MainMenuService,
     OverlayService,
     ParticleService,

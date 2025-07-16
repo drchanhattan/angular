@@ -5,7 +5,6 @@ import { Icon } from './icon';
 
 @Component({
   selector: 'app-icon',
-  standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './icon.component.html',
 })

@@ -2,21 +2,21 @@ import { Component, HostBinding, input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { NavigationButtonComponent } from '../navigation-button/navigation-button.component';
-import { MenuType } from '../toolbar/menu-type';
-import { ToolbarService } from '../toolbar/toolbar.service';
-import { SideNavLink, sideNavLinks } from './navigation-links';
+import { NavType } from '../../toolbar/nav-type';
+import { ToolbarService } from '../../toolbar/toolbar.service';
+import { NavButtonComponent } from '../nav-button/nav-button.component';
+import { NavLink, navGroups } from './links';
 
 @Component({
-  selector: 'app-navigation',
-  imports: [NavigationButtonComponent],
-  templateUrl: './navigation.component.html',
+  selector: 'app-link-nav',
+  imports: [NavButtonComponent],
+  templateUrl: './link-nav.component.html',
 })
-export class NavigationComponent {
+export class LinkNavComponent {
   @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-y-auto bg-mat-black';
   sidenav = input.required<MatSidenav>();
   currentRoute: string = '';
-  links = sideNavLinks;
+  groups = navGroups;
 
   constructor(
     private router: Router,
@@ -29,7 +29,7 @@ export class NavigationComponent {
   }
 
   ngOnInit() {
-    this.toolbarService.setMenu(this.sidenav(), MenuType.Navigation);
+    this.toolbarService.setNav(this.sidenav(), NavType.Links);
   }
 
   navigate(path: string, external = false) {
@@ -41,7 +41,7 @@ export class NavigationComponent {
     }
   }
 
-  hasActiveSublink(links: SideNavLink[]): boolean {
+  hasActiveSublink(links: NavLink[]): boolean {
     return !!links.find((link) => this.currentRoute.includes(link.url));
   }
 }

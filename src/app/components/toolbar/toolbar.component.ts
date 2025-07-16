@@ -23,6 +23,6 @@ export class ToolbarComponent {
   }
 
   get darkToolbar() {
-    return !this.scrollTop || this.toolbarService.menu?.opened || this.toolbarService.photoMenu?.opened;
+    return !this.scrollTop || this.toolbarService.nav?.opened || this.toolbarService.photoNav?.opened;
   }
 }
