@@ -41,7 +41,6 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@types/aos": "^3.0.7",
     "autoprefixer": "^10.4.19",
-    "firebase-tools": "^14.10.1",
     "postcss": "^8.5.6",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.13",
