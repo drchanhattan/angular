@@ -4,8 +4,8 @@
   (mouseleave)="mouseover(false)"
   [style]="pandaStyle">
   @if (sprite$ | async; as sprite) {
-    <img [ngClass]="{ hidden: sprite !== 'jump.gif' }" [src]="'jump.gif'" />
-    <img [ngClass]="{ hidden: sprite !== 'idle.gif' }" [src]="'idle.gif'" />
-    <img [ngClass]="{ hidden: sprite !== 'run.gif' }" [src]="'run.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'panda/jump.gif' }" [src]="'panda/jump.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'panda/idle.gif' }" [src]="'panda/idle.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'panda/run.gif' }" [src]="'panda/run.gif'" />
   }
 </div>

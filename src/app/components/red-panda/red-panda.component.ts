@@ -4,9 +4,9 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 import { Panda } from './panda';
 
 enum Sprite {
-  Idle = 'idle.gif',
-  Run = 'run.gif',
-  Jump = 'jump.gif',
+  Idle = 'panda/idle.gif',
+  Run = 'panda/run.gif',
+  Jump = 'panda/jump.gif',
 }
 
 @Component({

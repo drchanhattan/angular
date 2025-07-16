@@ -7909,7 +7909,7 @@
         },
         {
             "name": "FooterComponent",
-            "id": "component-FooterComponent-b2db7cc9d17fa13e49670d38a509aa53c20fc1ad73b15e9f2f89bf184f23280ed76bf0ad25b4b603f73ce9404d0e995af713b486d65c05abe4e58238f6dcac1e",
+            "id": "component-FooterComponent-3ff1f293971a7af2f0405176d8e233266e9840a60f55954fe922990ab5f9e387312d6ca4ededf401155030df1d5c77408d18064eabf17ff9f49f7cd3df437b01",
             "file": "src/app/components/footer/footer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7949,7 +7949,7 @@
                 },
                 {
                     "name": "links",
-                    "defaultValue": "[\r\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\r\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\r\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\r\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\r\n  ]",
+                    "defaultValue": "[\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\n  ]",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Link[]",
@@ -8028,7 +8028,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, HostBinding } from '@angular/core';\r\nimport { IconButtonComponent } from '../icon-button/icon-button.component';\r\nimport { Icon } from '../icon/icon';\r\nimport { RedPandaComponent } from '../red-panda/red-panda.component';\r\n\r\ntype Link = {\r\n  url: string;\r\n  icon: Icon;\r\n};\r\n\r\n@Component({\r\n  selector: 'app-footer',\r\n  imports: [IconButtonComponent, RedPandaComponent],\r\n  templateUrl: './footer.component.html',\r\n})\r\nexport class FooterComponent {\r\n  @HostBinding('class') hostClasses =\r\n    'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';\r\n\r\n  showPanda = false;\r\n  links: Link[] = [\r\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\r\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\r\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\r\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\r\n  ];\r\n\r\n  open(url: string) {\r\n    window.open(url);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, HostBinding } from '@angular/core';\nimport { IconButtonComponent } from '../icon-button/icon-button.component';\nimport { Icon } from '../icon/icon';\nimport { RedPandaComponent } from '../red-panda/red-panda.component';\n\ntype Link = {\n  url: string;\n  icon: Icon;\n};\n\n@Component({\n  selector: 'app-footer',\n  imports: [IconButtonComponent, RedPandaComponent],\n  templateUrl: './footer.component.html',\n})\nexport class FooterComponent {\n  @HostBinding('class') hostClasses =\n    'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';\n\n  showPanda = false;\n  links: Link[] = [\n    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },\n    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },\n    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },\n    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },\n  ];\n\n  open(url: string) {\n    window.open(url);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -8980,7 +8980,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "@let svgIcon = icon().svgIcon;\r\n@let matIcon = icon().matIcon;\r\n\r\n@if (svgIcon) {\r\n  <mat-icon class=\"scale-80\" [ngClass]=\"classes()\" [svgIcon]=\"svgIcon\"></mat-icon>\r\n} @else {\r\n  <mat-icon [ngClass]=\"classes()\">{{ matIcon }}</mat-icon>\r\n}\r\n"
+            "templateData": "@let svgIcon = icon().svgIcon;\n@let matIcon = icon().matIcon;\n\n@if (svgIcon) {\n  <mat-icon class=\"scale-80\" [ngClass]=\"classes()\" [svgIcon]=\"svgIcon\"></mat-icon>\n} @else {\n  <mat-icon [ngClass]=\"classes()\">{{ matIcon }}</mat-icon>\n}\n"
         },
         {
             "name": "LeaderboardComponent",
@@ -10611,7 +10611,7 @@
         },
         {
             "name": "RedPandaComponent",
-            "id": "component-RedPandaComponent-54d550117df9298d82d7e86f91af2b2d1864712f5738c7ee4536445840c69bd5a0aebe84297425bb6229b7f33aafb121cb76f225b2a3ff5b2629d05979dc9b8f",
+            "id": "component-RedPandaComponent-537766358d1aa7ec7fa29f436c6d5f9b29e4be52c263b8ceafa74388bda8d39b9b45c7dba96d86c058e8db1c0c28a82abff456199133ac65e67945ed43fb51b8",
             "file": "src/app/components/red-panda/red-panda.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -10920,7 +10920,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, HostBinding, HostListener } from '@angular/core';\nimport { BehaviorSubject, combineLatest } from 'rxjs';\nimport { Panda } from './panda';\n\nenum Sprite {\n  Idle = 'idle.gif',\n  Run = 'run.gif',\n  Jump = 'jump.gif',\n}\n\n@Component({\n  selector: 'app-red-panda',\n  imports: [CommonModule],\n  templateUrl: './red-panda.component.html',\n})\nexport class RedPandaComponent {\n  @HostBinding('class') hostClasses = 'absolute w-full select-none';\n  cursorX = 0;\n  panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);\n  sprite$ = new BehaviorSubject<string>(Sprite.Idle);\n  jump$ = new BehaviorSubject<boolean>(false);\n\n  @HostListener('document:mousemove', ['$event'])\n  handleMouseMove(event: MouseEvent) {\n    if (event.clientY > window.innerHeight - this.panda.size * 2 && Math.abs(this.cursorX - event.clientX) > 50) {\n      this.cursorX = event.clientX;\n    }\n  }\n\n  constructor() {\n    this.updateSprite();\n    this.animate();\n  }\n\n  get pandaStyle() {\n    const { isflipped$, size, x, y } = this.panda;\n    const top = `top: ${y - size}px;`;\n    const left = `left: ${x}px;`;\n    const width = `width: ${size}px;`;\n    const height = `height: ${size}px;`;\n    const direction = `transform: scaleX(${isflipped$.value ? -1 : 1});`;\n    return `${width} ${height} ${top} ${left} ${direction}`;\n  }\n\n  mouseover(value: boolean) {\n    this.jump$.next(value);\n  }\n\n  private jump() {\n    const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;\n    if (this.jump$.value && !isJumping$.value) {\n      isJumping$.next(true);\n      deltaX$.next(isflipped$.value ? -speed / 2 : speed / 2);\n      deltaY$.next(-jumpHeight);\n    }\n  }\n\n  private updateSprite() {\n    combineLatest([this.panda.deltaX$, this.panda.deltaY$, this.panda.isJumping$]).subscribe(([x, y, jumping]) => {\n      this.sprite$.next(jumping ? Sprite.Jump : x !== 0 ? Sprite.Run : Sprite.Idle);\n    });\n  }\n\n  private animate() {\n    const animateFrame = () => {\n      this.updateX();\n      this.updateY();\n      this.jump();\n      requestAnimationFrame(animateFrame);\n    };\n\n    requestAnimationFrame(animateFrame);\n  }\n\n  private updateX() {\n    this.updateDirection();\n    this.moveX();\n  }\n\n  private updateDirection() {\n    const { deltaX$, isflipped$, isJumping$, speed, size, x } = this.panda;\n    const windowWidth = window.innerWidth;\n    const pandaX = x + size / 2;\n    const cursorDiff = this.cursorX - pandaX;\n    const negativeDiff = cursorDiff < 0;\n    const tooFarLeft = windowWidth - pandaX > windowWidth - size;\n    const tooFarRight = windowWidth - pandaX < size;\n\n    if (!isJumping$.value) {\n      const canMove = Math.abs(cursorDiff) < windowWidth / 3;\n      const fixed = !canMove || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);\n\n      deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);\n    }\n\n    isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);\n  }\n\n  private moveX() {\n    const moveLeft = this.panda.deltaX$.value < 0;\n    const canMoveLeft = moveLeft && this.panda.x > this.panda.size / 2;\n    const canMoveRight = !moveLeft && window.innerWidth - this.panda.size > this.panda.x + this.panda.size / 2;\n    if (this.panda.deltaX$.value && (canMoveLeft || canMoveRight)) {\n      this.panda.x += this.panda.deltaX$.value;\n    }\n  }\n\n  private updateY() {\n    this.moveY();\n    this.floorCollision();\n  }\n\n  private moveY() {\n    const gravity = 0.25;\n    this.panda.deltaY$.next(this.panda.deltaY$.value + gravity);\n    this.panda.y += this.panda.deltaY$.value;\n  }\n\n  private floorCollision() {\n    const { deltaY$, isJumping$, size, y } = this.panda;\n    const parentHeight = document.querySelector('app-red-panda')?.clientHeight || 0;\n    const floor = parentHeight / 2 + size / 2;\n\n    if (y > floor) {\n      this.panda.y = floor;\n      deltaY$.next(0);\n      isJumping$.next(false);\n    }\n  }\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, HostBinding, HostListener } from '@angular/core';\nimport { BehaviorSubject, combineLatest } from 'rxjs';\nimport { Panda } from './panda';\n\nenum Sprite {\n  Idle = 'panda/idle.gif',\n  Run = 'panda/run.gif',\n  Jump = 'panda/jump.gif',\n}\n\n@Component({\n  selector: 'app-red-panda',\n  imports: [CommonModule],\n  templateUrl: './red-panda.component.html',\n})\nexport class RedPandaComponent {\n  @HostBinding('class') hostClasses = 'absolute w-full select-none';\n  cursorX = 0;\n  panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);\n  sprite$ = new BehaviorSubject<string>(Sprite.Idle);\n  jump$ = new BehaviorSubject<boolean>(false);\n\n  @HostListener('document:mousemove', ['$event'])\n  handleMouseMove(event: MouseEvent) {\n    if (event.clientY > window.innerHeight - this.panda.size * 2 && Math.abs(this.cursorX - event.clientX) > 50) {\n      this.cursorX = event.clientX;\n    }\n  }\n\n  constructor() {\n    this.updateSprite();\n    this.animate();\n  }\n\n  get pandaStyle() {\n    const { isflipped$, size, x, y } = this.panda;\n    const top = `top: ${y - size}px;`;\n    const left = `left: ${x}px;`;\n    const width = `width: ${size}px;`;\n    const height = `height: ${size}px;`;\n    const direction = `transform: scaleX(${isflipped$.value ? -1 : 1});`;\n    return `${width} ${height} ${top} ${left} ${direction}`;\n  }\n\n  mouseover(value: boolean) {\n    this.jump$.next(value);\n  }\n\n  private jump() {\n    const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;\n    if (this.jump$.value && !isJumping$.value) {\n      isJumping$.next(true);\n      deltaX$.next(isflipped$.value ? -speed / 2 : speed / 2);\n      deltaY$.next(-jumpHeight);\n    }\n  }\n\n  private updateSprite() {\n    combineLatest([this.panda.deltaX$, this.panda.deltaY$, this.panda.isJumping$]).subscribe(([x, y, jumping]) => {\n      this.sprite$.next(jumping ? Sprite.Jump : x !== 0 ? Sprite.Run : Sprite.Idle);\n    });\n  }\n\n  private animate() {\n    const animateFrame = () => {\n      this.updateX();\n      this.updateY();\n      this.jump();\n      requestAnimationFrame(animateFrame);\n    };\n\n    requestAnimationFrame(animateFrame);\n  }\n\n  private updateX() {\n    this.updateDirection();\n    this.moveX();\n  }\n\n  private updateDirection() {\n    const { deltaX$, isflipped$, isJumping$, speed, size, x } = this.panda;\n    const windowWidth = window.innerWidth;\n    const pandaX = x + size / 2;\n    const cursorDiff = this.cursorX - pandaX;\n    const negativeDiff = cursorDiff < 0;\n    const tooFarLeft = windowWidth - pandaX > windowWidth - size;\n    const tooFarRight = windowWidth - pandaX < size;\n\n    if (!isJumping$.value) {\n      const canMove = Math.abs(cursorDiff) < windowWidth / 3;\n      const fixed = !canMove || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);\n\n      deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);\n    }\n\n    isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);\n  }\n\n  private moveX() {\n    const moveLeft = this.panda.deltaX$.value < 0;\n    const canMoveLeft = moveLeft && this.panda.x > this.panda.size / 2;\n    const canMoveRight = !moveLeft && window.innerWidth - this.panda.size > this.panda.x + this.panda.size / 2;\n    if (this.panda.deltaX$.value && (canMoveLeft || canMoveRight)) {\n      this.panda.x += this.panda.deltaX$.value;\n    }\n  }\n\n  private updateY() {\n    this.moveY();\n    this.floorCollision();\n  }\n\n  private moveY() {\n    const gravity = 0.25;\n    this.panda.deltaY$.next(this.panda.deltaY$.value + gravity);\n    this.panda.y += this.panda.deltaY$.value;\n  }\n\n  private floorCollision() {\n    const { deltaY$, isJumping$, size, y } = this.panda;\n    const parentHeight = document.querySelector('app-red-panda')?.clientHeight || 0;\n    const floor = parentHeight / 2 + size / 2;\n\n    if (y > floor) {\n      this.panda.y = floor;\n      deltaY$.next(0);\n      isJumping$.next(false);\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -10944,7 +10944,7 @@
                     }
                 }
             },
-            "templateData": "<div\n  class=\"absolute overflow-hidden\"\n  (mouseover)=\"mouseover(true)\"\n  (mouseleave)=\"mouseover(false)\"\n  [style]=\"pandaStyle\">\n  @if (sprite$ | async; as sprite) {\n    <img [ngClass]=\"{ hidden: sprite !== 'jump.gif' }\" [src]=\"'jump.gif'\" />\n    <img [ngClass]=\"{ hidden: sprite !== 'idle.gif' }\" [src]=\"'idle.gif'\" />\n    <img [ngClass]=\"{ hidden: sprite !== 'run.gif' }\" [src]=\"'run.gif'\" />\n  }\n</div>\n"
+            "templateData": "<div\n  class=\"absolute overflow-hidden\"\n  (mouseover)=\"mouseover(true)\"\n  (mouseleave)=\"mouseover(false)\"\n  [style]=\"pandaStyle\">\n  @if (sprite$ | async; as sprite) {\n    <img [ngClass]=\"{ hidden: sprite !== 'panda/jump.gif' }\" [src]=\"'panda/jump.gif'\" />\n    <img [ngClass]=\"{ hidden: sprite !== 'panda/idle.gif' }\" [src]=\"'panda/idle.gif'\" />\n    <img [ngClass]=\"{ hidden: sprite !== 'panda/run.gif' }\" [src]=\"'panda/run.gif'\" />\n  }\n</div>\n"
         },
         {
             "name": "SouthAmericaComponent",
@@ -11736,19 +11736,19 @@
                         "name": "Idle",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "value": "idle.gif"
+                        "value": "panda/idle.gif"
                     },
                     {
                         "name": "Run",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "value": "run.gif"
+                        "value": "panda/run.gif"
                     },
                     {
                         "name": "Jump",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "value": "jump.gif"
+                        "value": "panda/jump.gif"
                     }
                 ],
                 "ctype": "miscellaneous",
@@ -12273,19 +12273,19 @@
                             "name": "Idle",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "value": "idle.gif"
+                            "value": "panda/idle.gif"
                         },
                         {
                             "name": "Run",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "value": "run.gif"
+                            "value": "panda/run.gif"
                         },
                         {
                             "name": "Jump",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "value": "jump.gif"
+                            "value": "panda/jump.gif"
                         }
                     ],
                     "ctype": "miscellaneous",
