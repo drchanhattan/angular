@@ -4,6 +4,7 @@
   "scripts": {
     "storybook": "ng run website:storybook",
     "build-storybook": "ng run website:build-storybook",
+    "delete-storybook": "rmdir /s /q public\\storybook-static",
     "move-storybook": "rmdir /s /q public\\storybook-static && xcopy /E /I /Y storybook-static public\\storybook-static && rmdir /s /q storybook-static",
     "404": "copy docs\\index.html docs\\404.html",
     "locate-circular-deps": "npx madge --circular --extensions ts ./",
@@ -13,7 +14,7 @@
     "cname": "echo christopherchan.co.uk > docs\\CNAME",
     "commit": "git add . && git commit -m \"commit\"",
     "push": "git push -u origin master",
-    "upload": "npm run prettier && npm run build && npm run build-storybook && npm run move-storybook && npm run docs && npm run 404 && npm run cname && npm run commit && npm run push"
+    "upload": "npm run prettier && npm run build && npm run docs && npm run 404 && npm run cname && npm run commit && npm run push"
   },
   "private": true,
   "dependencies": {
