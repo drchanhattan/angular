@@ -2,7 +2,9 @@
   <!-- Socials -->
   <div class="mb-10 flex items-center justify-center">
     @for (link of links; track $index) {
-      <app-icon-button class="mx-6 scale-175" (click)="open(link.url)" [icon]="link.icon"></app-icon-button>
+      <button class="mx-6 scale-175" (click)="open(link.url)">
+        <span class="text-mat-yellow" [icon]="link.icon"></span>
+      </button>
     }
   </div>
 

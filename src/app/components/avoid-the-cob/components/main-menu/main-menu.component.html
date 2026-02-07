@@ -21,20 +21,16 @@
 <!-- Icon Buttons -->
 <div class="absolute bottom-0 mb-20 flex w-full flex-row items-center justify-evenly">
   <!-- Leaderboard icon -->
-  <app-icon-button
-    class="scale-175 hover:!scale-200 lg:hidden"
-    (click)="leaderboardService.show()"
-    [icon]="{ matIcon: 'leaderboard' }"
-    [classes]="'!text-mat-cream'"></app-icon-button>
+  <button class="scale-175 hover:scale-200 lg:hidden" (click)="leaderboardService.show()">
+    <span icon="leaderboard" class="text-mat-yellow"></span>
+  </button>
   <!-- Mobile Play Button -->
   <app-game-button
-    class="border-mat-yellow rounded-full border-2 pb-1 lg:hidden"
+    class="[&>button]:border-mat-yellow lg:hidden [&>button]:border-2"
     (click)="avoidTheCob.play(false)"
     [text]="'Play'"></app-game-button>
   <!-- Settings icon -->
-  <app-icon-button
-    class="scale-175 hover:!scale-200 lg:hidden"
-    (click)="gameSettingsService.show()"
-    [icon]="{ matIcon: 'settings' }"
-    [classes]="'!text-mat-cream'"></app-icon-button>
+  <button class="scale-175 hover:scale-200 lg:hidden" (click)="gameSettingsService.show()">
+    <span icon="settings" class="text-mat-yellow"></span>
+  </button>
 </div>

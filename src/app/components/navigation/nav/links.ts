@@ -1,5 +1,3 @@
-import { Icon } from '../../icon/icon';
-
 export interface NavLink {
   label: string;
   url: string;
@@ -8,7 +6,7 @@ export interface NavLink {
 
 export interface NavGroup {
   label: string;
-  icon: Icon;
+  icon: string;
   link?: NavLink;
   sublinks?: NavLink[];
   expanded?: boolean;
@@ -17,12 +15,12 @@ export interface NavGroup {
 export const navGroups: NavGroup[] = [
   {
     label: 'About',
-    icon: { matIcon: 'home' },
+    icon: 'home',
     link: { label: 'About', url: '/about' },
   },
   {
     label: 'Photography',
-    icon: { matIcon: 'photo_camera' },
+    icon: 'photo-camera',
     sublinks: [
       { label: 'Europe', url: '/europe' },
       { label: 'Asia', url: '/asia' },
@@ -34,28 +32,28 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: 'Games',
-    icon: { matIcon: 'sports_esports' },
+    icon: 'sports-esports',
     sublinks: [{ label: 'Avoid the Cob', url: '/avoid-the-cob' }],
     expanded: true,
   },
   {
     label: 'LinkedIn',
-    icon: { svgIcon: 'linkedin' },
+    icon: 'linkedin',
     link: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', external: true },
   },
   {
     label: 'Github',
-    icon: { svgIcon: 'github' },
+    icon: 'github',
     link: { label: 'Github', url: 'https://github.com/drchanhattan/', external: true },
   },
   {
     label: 'Instagram',
-    icon: { svgIcon: 'instagram' },
+    icon: 'instagram',
     link: { label: 'Instagram', url: 'https://www.instagram.com/drchanhattan/', external: true },
   },
   {
     label: 'React',
-    icon: { svgIcon: 'react' },
+    icon: 'react',
     link: { label: 'React', url: 'https://drchanhattan.github.io/react/', external: true },
   },
 ];

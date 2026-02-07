@@ -25,14 +25,13 @@ import { ParticleService } from './components/avoid-the-cob/services/particle.se
 import { PowerUpService } from './components/avoid-the-cob/services/power-up.service';
 import { ScoreService } from './components/avoid-the-cob/services/score.service';
 import { GalleryService } from './components/gallery/gallery.service';
-import { SvgIconRegistryModule } from './components/icon/svg-icon-registry.module';
-import { LinkNavComponent } from './components/navigation/link-nav/link-nav.component';
+import { NavComponent } from './components/navigation/nav/nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ToolbarService } from './components/toolbar/toolbar.service';
 
 @Component({
   selector: 'app-root',
-  imports: [MatSidenavModule, LinkNavComponent, RouterOutlet, SvgIconRegistryModule, ToolbarComponent],
+  imports: [MatSidenavModule, NavComponent, RouterOutlet, ToolbarComponent],
   templateUrl: './app.component.html',
   providers: [
     AssetService,

@@ -25,7 +25,7 @@ export class AsiaComponent {
     },
     {
       label: 'Hong Kong',
-      icons: ['hong kong'],
+      icons: ['hong-kong'],
       urls: [
         'photos/asia/hong-kong-1.jpg',
         'photos/asia/hong-kong-2.jpg',

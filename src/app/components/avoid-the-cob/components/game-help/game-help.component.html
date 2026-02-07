@@ -5,12 +5,11 @@
   <!-- Object -->
   <div class="my-8 flex w-full items-center justify-center">
     <!-- Left -->
-    <app-icon-button
-      (click)="backward()"
-      [icon]="{ matIcon: 'arrow_back_ios_new' }"
-      [classes]="'text-mat-cream'"></app-icon-button>
+    <button class="hover:bg-mat-white/5 size-14 rounded-full" (click)="backward()">
+      <span icon="arrow-back-ios" class="text-mat-yellow scale-150"></span>
+    </button>
 
-    <div class="border-mat-cream mx-12 flex size-32 items-center justify-center rounded-xl border-2">
+    <div class="border-mat-cream mx-10 flex size-32 items-center justify-center rounded-xl border-2">
       @if (selectedIndex === 0) {
         <div class="animate-shake bg-mat-green mx-2 size-8 rounded-full"></div>
       } @else if (selectedIndex === 1) {
@@ -23,10 +22,9 @@
     </div>
 
     <!-- Right -->
-    <app-icon-button
-      (click)="forward()"
-      [icon]="{ matIcon: 'arrow_forward_ios' }"
-      [classes]="'text-mat-cream'"></app-icon-button>
+    <button class="hover:bg-mat-white/5 size-14 rounded-full" (click)="forward()">
+      <span icon="arrow-forward-ios" class="text-mat-yellow scale-150"></span>
+    </button>
   </div>
 
   <!-- Description -->

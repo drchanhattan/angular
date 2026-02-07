@@ -53,7 +53,7 @@ export class EuropeComponent {
     },
     {
       label: 'Czech Republic',
-      icons: ['czech republic'],
+      icons: ['czech-republic'],
       urls: [
         'photos/europe/czech-1.jpg',
         'photos/europe/czech-2.jpg',

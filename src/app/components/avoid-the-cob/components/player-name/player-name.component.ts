@@ -13,8 +13,22 @@ import { PlayerNameService } from './player-name.service';
   templateUrl: './player-name.component.html',
 })
 export class PlayerNameComponent {
-  @HostBinding('class') hostClasses =
-    'absolute flex h-full w-4/5 flex-col items-center justify-center sm:w-1/2 md:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-4/12';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'flex',
+    'h-full',
+    'w-4/5',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'sm:w-1/2',
+    'md:w-3/5',
+    'lg:w-1/2',
+    'xl:w-2/5',
+    '2xl:w-4/12',
+  ].join(' ');
+
   pea: SafeUrl = this.assetService.images$.value[1];
 
   constructor(

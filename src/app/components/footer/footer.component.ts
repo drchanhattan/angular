@@ -1,31 +1,45 @@
 import { Component, HostBinding } from '@angular/core';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
-import { Icon } from '../icon/icon';
+import { IconDirective } from '../../utils/icon/icon.directive';
 import { RedPandaComponent } from '../red-panda/red-panda.component';
 
 type Link = {
   url: string;
-  icon: Icon;
+  icon: string;
 };
 
 @Component({
   selector: 'app-footer',
-  imports: [IconButtonComponent, RedPandaComponent],
+  imports: [IconDirective, RedPandaComponent],
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  @HostBinding('class') hostClasses =
-    'relative flex h-fit w-full flex-col items-center justify-center border-t-2 border-mat-white bg-mat-black';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'relative',
+    'flex',
+    'h-fit',
+    'w-full',
+    'flex-col',
+    'items-center',
+    'justify-center',
+
+    // Border
+    'border-t-2',
+    'border-mat-white',
+
+    // Background
+    'bg-mat-black',
+  ].join(' ');
 
   panda = false;
 
   year = new Date().getFullYear();
 
   links: Link[] = [
-    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: { svgIcon: 'linkedin' } },
-    { url: 'https://github.com/drchanhattan/', icon: { svgIcon: 'github' } },
-    { url: 'https://www.youtube.com/@drchanhattan/', icon: { svgIcon: 'youtube' } },
-    { url: 'https://www.instagram.com/drchanhattan/', icon: { svgIcon: 'instagram' } },
+    { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: 'linkedin' },
+    { url: 'https://github.com/drchanhattan/', icon: 'github' },
+    { url: 'https://www.youtube.com/@drchanhattan/', icon: 'youtube' },
+    { url: 'https://www.instagram.com/drchanhattan/', icon: 'instagram' },
   ];
 
   open(url: string) {

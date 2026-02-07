@@ -1,29 +1,25 @@
-@if (group(); as g) {
+@if (group(); as group) {
   <!-- Group -->
-  <button matButton #groupBtn class="!rounded-lg" (click)="expandGroup(groupBtn)">
-    <div class="flex items-center justify-center">
-      <!-- Icon -->
-      @if (icon(); as i) {
-        <app-icon [icon]="i" [classes]="iconClasses()"></app-icon>
-      }
-      <!-- Label -->
-      <span [ngClass]="labelClasses()">{{ g.label }}</span>
-      <!-- Chevron -->
-      <mat-icon [ngClass]="[textColor(), 'ml-1']">
-        {{ g.expanded ? 'keyboard_arrow_down' : 'chevron_right' }}
-      </mat-icon>
-    </div>
+  <button #groupBtn class="flex h-10 items-center justify-center" (click)="expandGroup(groupBtn)">
+    <!-- Icon -->
+    @if (icon(); as icon) {
+      <span [icon]="icon" [class]="iconClasses()"></span>
+    }
+    <!-- Label -->
+    <span [ngClass]="labelClasses()">{{ group.label }}</span>
+    <!-- Chevron -->
+    <span
+      [ngClass]="[textColor(), 'ml-1', 'mr-2']"
+      [icon]="group.expanded ? 'keyboard-arrow-down' : 'chevron-right'"></span>
   </button>
 } @else if (!!link()) {
   <!-- Link -->
-  <button matButton class="!rounded-lg !px-4">
-    <div class="flex items-center justify-center">
-      <!-- Icon -->
-      @if (icon(); as i) {
-        <app-icon [icon]="i" [classes]="iconClasses()"></app-icon>
-      }
-      <!-- Label -->
-      <span [ngClass]="labelClasses()">{{ link()?.label }}</span>
-    </div>
+  <button class="flex h-10 items-center justify-center" [ngClass]="icon() ? 'pr-3' : 'px-3'">
+    <!-- Icon -->
+    @if (icon(); as icon) {
+      <span [icon]="icon" [class]="iconClasses()"></span>
+    }
+    <!-- Label -->
+    <span [ngClass]="labelClasses()">{{ link()?.label }}</span>
   </button>
 }

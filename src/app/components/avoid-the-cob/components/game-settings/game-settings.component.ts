@@ -1,6 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { AudioService } from '../../services/audio.service';
@@ -13,11 +12,19 @@ import { GameSettingsService } from './game-settings.service';
 
 @Component({
   selector: 'app-game-settings',
-  imports: [GameButtonComponent, MatButtonModule, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
+  imports: [GameButtonComponent, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
   templateUrl: './game-settings.component.html',
 })
 export class GameSettingsComponent {
-  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'flex',
+    'size-full',
+    'flex-col',
+    'items-center',
+    'justify-center',
+  ].join(' ');
 
   constructor(
     public audioService: AudioService,

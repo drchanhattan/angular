@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IconDirective } from '../../utils/icon/icon.directive';
 import { GameHelpComponent } from './components/game-help/game-help.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextComponent } from './components/game-text/game-text.component';
@@ -28,9 +28,9 @@ import { ScoreService } from './services/score.service';
     GameHelpComponent,
     GameSettingsComponent,
     GameTextComponent,
+    IconDirective,
     LeaderboardComponent,
     MainMenuComponent,
-    MatIconModule,
     MatProgressSpinnerModule,
     PlayerNameComponent,
   ],
@@ -43,8 +43,24 @@ import { ScoreService } from './services/score.service';
   ],
 })
 export class AvoidTheCobComponent implements OnInit, OnDestroy {
-  @HostBinding('class') hostClasses =
-    'flex size-full select-none items-center justify-center overflow-hidden bg-mat-black bg-cover bg-center bg-blend-darken';
+  @HostBinding('class') hostClasses = [
+    //Layout
+    'flex',
+    'size-full',
+    'items-center',
+    'justify-center',
+    'overflow-hidden',
+
+    // Background
+    'bg-mat-black',
+    'bg-cover',
+    'bg-center',
+    'bg-blend-darken',
+
+    // Select
+    'select-none',
+  ].join(' ');
+
   @HostBinding('style') background = `background-image: url('game/background.svg');`;
 
   constructor(

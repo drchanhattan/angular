@@ -1,16 +1,25 @@
 import { Component, HostBinding } from '@angular/core';
-import { IconButtonComponent } from '../../../icon-button/icon-button.component';
+import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { GameHelpObject } from './game-help-object';
 import { GameHelpService } from './game-help.service';
 
 @Component({
   selector: 'app-game-help',
-  imports: [GameButtonComponent, IconButtonComponent],
+  imports: [GameButtonComponent, IconDirective],
   templateUrl: './game-help.component.html',
 })
 export class GameHelpComponent {
-  @HostBinding('class') hostClasses = 'absolute flex size-full flex-col items-center justify-center overflow-hidden';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'flex',
+    'size-full',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'overflow-hidden',
+  ].join(' ');
 
   selectedIndex = 0;
   gameHelpObjects: GameHelpObject[] = [

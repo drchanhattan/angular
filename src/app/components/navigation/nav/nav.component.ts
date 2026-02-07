@@ -8,12 +8,23 @@ import { NavButtonComponent } from '../nav-button/nav-button.component';
 import { NavLink, navGroups } from './links';
 
 @Component({
-  selector: 'app-link-nav',
+  selector: 'app-nav',
   imports: [NavButtonComponent],
-  templateUrl: './link-nav.component.html',
+  templateUrl: './nav.component.html',
 })
-export class LinkNavComponent {
-  @HostBinding('class') hostClasses = 'flex h-full flex-col items-center overflow-y-auto bg-mat-black';
+export class NavComponent {
+  @HostBinding('class') hostClasses = [
+    //Layout
+    'flex',
+    'h-full',
+    'flex-col',
+    'items-center',
+    'overflow-y-auto',
+
+    // Background
+    'bg-mat-black',
+  ].join(' ');
+
   sidenav = input.required<MatSidenav>();
   currentRoute: string = '';
   groups = navGroups;

@@ -40,7 +40,7 @@ export class NorthAmericaComponent {
     },
     {
       label: 'Guatemala & Costa Rica',
-      icons: ['guatemala', 'costa rica'],
+      icons: ['guatemala', 'costa-rica'],
       urls: [
         'photos/north-america/guatemala-costa-rica-1.jpg',
         'photos/north-america/guatemala-costa-rica-2.jpg',

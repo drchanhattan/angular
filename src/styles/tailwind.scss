@@ -1,0 +1,6 @@
+// Apply curor-pointer to all buttons except disabled ones
+@layer base {
+  button:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}

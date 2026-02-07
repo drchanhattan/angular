@@ -1,11 +1,11 @@
 <div class="overflow-x-hidden overflow-y-auto py-8">
   @for (photoAlbum of albums(); track $index; let index = $index) {
-    <button mat-button class="!h-36 !w-full !rounded-none" [routerLink]="index.toString()">
+    <button class="hover:bg-mat-white/10 h-36 w-full" [routerLink]="index.toString()">
       <!-- Icon -->
-      <div class="mb-6 flex scale-150 justify-center">
-        <mat-icon [svgIcon]="photoAlbum.icons[0]"></mat-icon>
+      <div class="mb-6 flex justify-center">
+        <span class="size-10" [icon]="photoAlbum.icons[0]"></span>
         @if (photoAlbum.icons[1]) {
-          <mat-icon class="ml-4" [svgIcon]="photoAlbum.icons[1]"></mat-icon>
+          <span class="ml-4 size-10" [icon]="photoAlbum.icons[1]"></span>
         }
       </div>
       <!-- Label -->

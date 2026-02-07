@@ -1,19 +1,21 @@
 <!-- Toolbar -->
 <div
-  class="fixed z-10 flex h-16 w-full items-center justify-between border-b-2 border-transparent px-4 duration-500 ease-out select-none sm:px-16"
+  class="fixed z-10 flex h-16 w-full items-center justify-between border-b-2 border-transparent px-4 duration-500 ease-out select-none sm:px-14"
   [ngClass]="{
-    '!border-mat-white !bg-mat-black': darkToolbar,
+    'border-mat-white! bg-mat-black!': darkToolbar,
   }">
   <!-- Menu Button -->
   @if (!(toolbarService.hideMenuBtn$ | async)) {
     @if (darkToolbar) {
-      <app-icon-button (click)="toolbarService.toggleMenu(1)" [icon]="{ matIcon: 'menu' }"></app-icon-button>
+      <button class="hover:bg-mat-white/10 size-12 rounded-full" (click)="toolbarService.toggleMenu(1)">
+        <span icon="menu" class="text-mat-yellow scale-150"></span>
+      </button>
     } @else {
-      <app-icon-button
-        (click)="toolbarService.toggleMenu(1)"
-        class="absolute top-8 left-8 sm:left-16"
-        [icon]="{ matIcon: 'menu' }"
-        [filled]="true"></app-icon-button>
+      <button
+        class="bg-mat-yellow absolute top-6 left-8 size-14 rounded-full sm:left-14"
+        (click)="toolbarService.toggleMenu(1)">
+        <span class="scale-150" icon="menu"></span>
+      </button>
     }
   }
 
@@ -21,21 +23,20 @@
   @if (toolbarService.showPhotoMenu) {
     @if (darkToolbar) {
       <button
-        mat-stroked-button
         onclick="blur()"
         (click)="toolbarService.toggleMenu(2)"
-        class="!border-mat-white !bg-mat-black/85 !rounded-xl !border">
-        <mat-icon class="!mr-3 scale-125">place</mat-icon>
-        <span class="text-mat-yellow text-base">
+        class="border-mat-white hover:bg-mat-white/10 bg-mat-black/85 flex items-center justify-center rounded-xl border px-4 py-2">
+        <span class="text-mat-yellow" icon="place"></span>
+        <span class="text-mat-yellow font-inter px-2 text-base font-medium">
           {{ toolbarService.label$.value }}
         </span>
       </button>
     } @else {
-      <app-icon-button
-        (click)="toolbarService.toggleMenu(2)"
-        class="absolute top-8 right-8 sm:right-16"
-        [icon]="{ matIcon: 'place' }"
-        [filled]="true"></app-icon-button>
+      <button
+        class="bg-mat-yellow absolute top-6 right-8 size-14 rounded-full sm:right-14"
+        (click)="toolbarService.toggleMenu(2)">
+        <span class="scale-150" icon="place"></span>
+      </button>
     }
   }
 </div>

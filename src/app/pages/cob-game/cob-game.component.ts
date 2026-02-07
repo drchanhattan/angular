@@ -7,5 +7,9 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   templateUrl: './cob-game.component.html',
 })
 export class CobGameComponent {
-  @HostBinding('class') hostClasses = 'flex h-dvh';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'flex',
+    'h-dvh',
+  ].join(' ');
 }

@@ -15,7 +15,15 @@ enum Sprite {
   templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {
-  @HostBinding('class') hostClasses = 'absolute w-full select-none';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'w-full',
+
+    // Select
+    'select-none',
+  ].join(' ');
+
   cursorX = 0;
   panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
   sprite$ = new BehaviorSubject<string>(Sprite.Idle);

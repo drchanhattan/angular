@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { IconDirective } from '../../utils/icon/icon.directive';
 import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'app-toolbar',
-  imports: [CommonModule, IconButtonComponent, MatButtonModule, MatIconModule],
+  imports: [CommonModule, IconDirective],
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {

@@ -70,10 +70,16 @@
   <!-- Reset -->
   <div class="flex h-8 items-center justify-center space-x-4">
     @if (gameSettingsService.settingsChanged) {
-      <app-game-button (click)="reset()" [text]="'Restore Default'" [small]="true"></app-game-button>
+      <app-game-button
+        class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
+        (click)="reset()"
+        [text]="'Restore Default'"></app-game-button>
     }
     @if (nameService.name.value) {
-      <app-game-button (click)="nameService.reset()" [text]="'Erase Name'" [small]="true"></app-game-button>
+      <app-game-button
+        class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
+        (click)="nameService.reset()"
+        [text]="'Logout'"></app-game-button>
     }
   </div>
 </div>

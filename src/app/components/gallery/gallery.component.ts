@@ -18,7 +18,15 @@ import { GalleryService } from './gallery.service';
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements OnInit {
-  @HostBinding('class') hostClasses = 'flex flex-col bg-neutral-white';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'flex',
+    'flex-col',
+
+    // Background
+    'bg-neutral-white',
+  ].join(' ');
+
   name = input<string>('');
   hero = input<string>('');
   albums = input.required<Album[]>();

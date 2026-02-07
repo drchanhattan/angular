@@ -7,7 +7,18 @@ import { GameTextService } from './game-text.service';
   templateUrl: './game-text.component.html',
 })
 export class GameTextComponent {
-  @HostBinding('class') hostClasses = 'absolute flex flex-col items-center justify-center font-inter text-mat-cream';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+
+    // Font
+    'font-inter',
+    'text-mat-cream',
+  ].join(' ');
 
   constructor(public textService: GameTextService) {}
 }

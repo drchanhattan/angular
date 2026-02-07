@@ -1,20 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostBinding } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { map, Observable, of, take } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
+import { IconDirective } from '../../utils/icon/icon.directive';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, FooterComponent, MatIconModule, MatProgressSpinnerModule],
+  imports: [CommonModule, FooterComponent, IconDirective, MatProgressSpinnerModule],
   templateUrl: './about.component.html',
 })
 export class AboutComponent {
-  @HostBinding('class') hostClasses = 'flex flex-col items-center justify-center bg-mat-yellow text-mat-black';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'flex',
+    'flex-col',
+    'items-center',
+    'justify-center',
+
+    // Background
+    'bg-mat-yellow',
+
+    // Text
+    'text-mat-black',
+  ].join(' ');
+
   hero$: Observable<SafeUrl | null> = of(null);
 
   techStack = [

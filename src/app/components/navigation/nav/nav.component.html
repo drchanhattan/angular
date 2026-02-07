@@ -15,7 +15,7 @@
         @for (subLink of group.sublinks; track $index) {
           <!-- SubLink -->
           <app-nav-button
-            class="ml-9"
+            class="ml-8"
             (click)="navigate(subLink.url)"
             [active]="currentRoute.includes(subLink.url)"
             [link]="subLink"></app-nav-button>

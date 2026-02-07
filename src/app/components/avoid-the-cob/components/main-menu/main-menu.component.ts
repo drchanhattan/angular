@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { IconButtonComponent } from '../../../icon-button/icon-button.component';
+import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { AssetService } from '../../services/asset.service';
 import { AvoidTheCobService } from '../../services/avoid-the-cob.service';
 import { GameButtonComponent } from '../game-button/game-button.component';
@@ -11,12 +11,21 @@ import { LeaderboardService } from '../leaderboard/leaderboard.service';
 
 @Component({
   selector: 'app-main-menu',
-  imports: [GameButtonComponent, IconButtonComponent],
+  imports: [GameButtonComponent, IconDirective],
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {
-  @HostBinding('class') hostClasses =
-    'absolute flex size-full flex-col items-center justify-center lg:flex-row [&>button>mat-icon]:!text-mat-yellow';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'absolute',
+    'flex',
+    'size-full',
+    'flex-col',
+    'items-center',
+    'justify-center',
+    'lg:flex-row',
+  ];
+
   corn: SafeUrl = this.assetService.images$.value[0];
   title: SafeUrl = this.assetService.images$.value[2];
 

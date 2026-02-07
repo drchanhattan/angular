@@ -7,5 +7,10 @@ import { AboutComponent } from '../../components/about/about.component';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  @HostBinding('class') hostClasses = 'flex flex-col overflow-hidden';
+  @HostBinding('class') hostClasses = [
+    // Layout
+    'flex',
+    'flex-col',
+    'overflow-hidden',
+  ].join(' ');
 }
