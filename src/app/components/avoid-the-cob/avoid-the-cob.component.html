@@ -36,6 +36,14 @@
     <app-game-settings [@opacityAnimation]></app-game-settings>
   }
 
+  <!-- Name -->
+  @if (!gameStateService.lives$.value && !overlayService.playerName) {
+    <!-- Name -->
+    <span class="font-inter text-mat-yellow absolute top-0 right-0 mx-4 my-2 text-xs">
+      {{ nameService.name.value?.toUpperCase() }}
+    </span>
+  }
+
   <!-- Lives -->
   @if (gameStateService.lives$.value > 0) {
     <div

@@ -40,12 +40,12 @@
   </div>
 </div>
 
-<div class="my-12 flex w-full justify-evenly">
+<div class="my-12 flex w-full scale-75 justify-center sm:scale-100 sm:justify-evenly">
   <!-- Back Button -->
-  <app-game-button class="flex flex-1 justify-center" (click)="back()" [text]="'Back'"></app-game-button>
+  <app-game-button (click)="back()" [text]="'Back'"></app-game-button>
 
   <!-- Next Button -->
   @if (playerNameService.name.valid) {
-    <app-game-button class="flex flex-1 justify-center" (click)="enterName()" [text]="'Next'"></app-game-button>
+    <app-game-button (click)="enterName()" [text]="'Next'"></app-game-button>
   }
 </div>
