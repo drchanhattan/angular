@@ -13,11 +13,11 @@ export interface NavGroup {
 }
 
 export const navGroups: NavGroup[] = [
-  {
-    label: 'About',
-    icon: 'home',
-    link: { label: 'About', url: '/about' },
-  },
+  // {
+  //   label: 'About',
+  //   icon: 'home',
+  //   link: { label: 'About', url: '/about' },
+  // },
   {
     label: 'Photography',
     icon: 'photo-camera',
@@ -41,11 +41,11 @@ export const navGroups: NavGroup[] = [
     icon: 'linkedin',
     link: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', external: true },
   },
-  {
-    label: 'Github',
-    icon: 'github',
-    link: { label: 'Github', url: 'https://github.com/drchanhattan/', external: true },
-  },
+  // {
+  //   label: 'Github',
+  //   icon: 'github',
+  //   link: { label: 'Github', url: 'https://github.com/drchanhattan/', external: true },
+  // },
   {
     label: 'Instagram',
     icon: 'instagram',
