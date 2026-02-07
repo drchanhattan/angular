@@ -7,9 +7,9 @@ import { AssetService } from './asset.service';
 })
 export class AudioService {
   sfx = signal<boolean>(true);
-  music = signal<boolean>(true);
+  music = signal<boolean>(false);
   #activeMusic!: HTMLAudioElement;
-  changed = computed(() => !this.sfx() || !this.music());
+  changed = computed(() => !this.sfx() || this.music());
 
   constructor(private assetService: AssetService) {
     const sfx = localStorage.getItem('sfx');
@@ -67,7 +67,7 @@ export class AudioService {
 
   reset() {
     this.sfx.set(true);
-    this.music.set(true);
+    this.music.set(false);
   }
 
   private play(src: GameAudio, loop: boolean) {

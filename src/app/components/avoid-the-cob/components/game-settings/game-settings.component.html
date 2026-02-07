@@ -54,7 +54,7 @@
   <div class="mb-8 flex items-start">
     <!-- Particles -->
     <div class="mx-2 flex w-full flex-col items-center">
-      <mat-slider class="yellow-slider !w-40" min="0" max="3000" step="100">
+      <mat-slider class="yellow-slider w-40!" min="0" max="3000" step="100">
         <input matSliderThumb [formControl]="particleService.maxCount" />
       </mat-slider>
       <span>Particles ( {{ particleService.maxCount.value }} )</span>
