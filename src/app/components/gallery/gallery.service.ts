@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, firstValueFrom, forkJoin, map, take } from 'rxjs';
+import { combineLatest, filter, firstValueFrom, forkJoin, map, of, switchMap } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { ToolbarService } from '../toolbar/toolbar.service';
 import { Album } from './album';
@@ -11,11 +12,11 @@ import { Album } from './album';
   providedIn: 'root',
 })
 export class GalleryService {
-  albums$ = new BehaviorSubject<Album[]>([]);
-  id$ = new BehaviorSubject<number | null>(null);
-  isSelected$ = this.id$.pipe(map((id) => id !== null));
-  loading$ = new BehaviorSubject<boolean>(false);
-  urls$: BehaviorSubject<SafeUrl[]> = new BehaviorSubject<SafeUrl[]>([]);
+  albums = signal<Album[]>([]);
+  id = signal<number | null>(null);
+  isSelected = computed(() => this.id() !== null);
+  loading = signal<boolean>(false);
+  urls = signal<SafeUrl[]>([]);
 
   constructor(
     private http: HttpClient,
@@ -30,45 +31,45 @@ export class GalleryService {
 
   select(id: number) {
     window.scrollTo(0, 0);
-    this.id$.next(id);
-    this.toolbarService.label$.next(this.albums$.value[id]?.label || 'Location');
+    this.id.set(id);
+    this.toolbarService.label$.next(this.albums()[id]?.label || 'Location');
     this.toolbarService.photoNav?.close();
   }
 
   deselect() {
-    this.id$.next(null);
+    this.id.set(null);
     this.toolbarService.label$.next('Location');
   }
 
   private handleRouteParams() {
-    combineLatest([this.albums$, this.router.events.pipe(filter((event) => event instanceof NavigationEnd))]).subscribe(
-      async () => {
-        const route$ = this.route?.children[0]?.children[0];
-        if (route$ && this.albums$.value) {
-          const id = (await firstValueFrom(route$.url))[0].path;
-          this.select(Number(id));
-        } else {
-          this.deselect();
-        }
-      },
-    );
+    combineLatest([
+      toObservable(this.albums),
+      this.router.events.pipe(filter((event) => event instanceof NavigationEnd)),
+    ]).subscribe(async () => {
+      const route$ = this.route?.children[0]?.children[0];
+      if (route$ && this.albums()) {
+        const id = (await firstValueFrom(route$.url))[0].path;
+        this.select(Number(id));
+      } else {
+        this.deselect();
+      }
+    });
   }
 
   private preloadImages() {
-    this.id$.subscribe((id) => {
-      this.loading$.next(true);
-
-      const urls = id !== null ? this.albums$.value?.[id]?.urls || [] : [];
-      const requests = urls.map((url) => httpBlob$(url, this.http));
-
-      forkJoin(requests)
-        .pipe(take(1))
-        .subscribe((blobs) => {
-          const safeUrls = blobs.map((blob) => sanitizeBlob(blob, this.sanitizer));
-          this.urls$.next(safeUrls);
-
-          this.loading$.next(false);
-        });
-    });
+    toObservable(this.id)
+      .pipe(
+        switchMap((id) => {
+          this.loading.set(true);
+          const urls = id !== null ? this.albums()?.[id]?.urls || [] : [];
+          if (!urls.length) return of([] as Blob[]);
+          return forkJoin(urls.map((url) => httpBlob$(url, this.http)));
+        }),
+        map((blobs) => blobs.map((blob) => sanitizeBlob(blob, this.sanitizer))),
+      )
+      .subscribe((safeUrls) => {
+        this.urls.set(safeUrls);
+        this.loading.set(false);
+      });
   }
 }

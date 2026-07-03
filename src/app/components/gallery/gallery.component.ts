@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostBinding, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, input } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import AOS from 'aos';
-import { BehaviorSubject, take } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { PhotoNavComponent } from '../navigation/photo-nav/photo-nav.component';
 import { ToolbarService } from '../toolbar/toolbar.service';
@@ -15,10 +16,10 @@ import { GalleryService } from './gallery.service';
 @Component({
   selector: 'app-gallery',
   imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoNavComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './gallery.component.html',
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent {
   @HostBinding('class') hostClasses = [
     // Layout
     'flex',
@@ -31,20 +32,20 @@ export class GalleryComponent implements OnInit {
   name = input<string>('');
   hero = input<string>('');
   albums = input.required<Album[]>();
-  hero$ = new BehaviorSubject<SafeUrl | null>(null);
 
-  constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
-    public galleryService: GalleryService,
-    public toolbarService: ToolbarService,
-  ) {}
+  private http = inject(HttpClient);
+  private sanitizer = inject(DomSanitizer);
+  galleryService = inject(GalleryService);
+  toolbarService = inject(ToolbarService);
 
-  ngOnInit() {
-    httpBlob$(this.hero(), this.http)
-      .pipe(take(1))
-      .subscribe((blob) => this.hero$.next(sanitizeBlob(blob, this.sanitizer)));
-  }
+  heroImage = toSignal(
+    toObservable(this.hero).pipe(
+      switchMap((url) =>
+        url ? httpBlob$(url, this.http).pipe(map((blob) => sanitizeBlob(blob, this.sanitizer))) : of(null),
+      ),
+    ),
+    { initialValue: null },
+  );
 
   animate() {
     AOS.refresh();

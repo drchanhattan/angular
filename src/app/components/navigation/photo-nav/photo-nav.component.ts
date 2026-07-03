@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../../utils/icon/icon.directive';
@@ -37,6 +37,6 @@ export class PhotoNavComponent implements OnInit {
 
   ngOnInit() {
     this.toolbarService.setNav(this.sidenav(), NavType.Photos);
-    this.galleryService.albums$.next(this.albums());
+    this.galleryService.albums.set(this.albums());
   }
 }

@@ -14,9 +14,9 @@
 
   <mat-sidenav-content class="overflow-hidden!">
     <!-- Content -->
-    @if (!(galleryService.isSelected$ | async)) {
-      @if (hero$.value) {
-        <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
+    @if (!galleryService.isSelected()) {
+      @if (heroImage()) {
+        <ng-container [ngTemplateOutlet]="heroTemplate"></ng-container>
         <ng-container [ngTemplateOutlet]="label"></ng-container>
       } @else {
         <div class="flex size-full min-h-screen items-center justify-center">
@@ -31,7 +31,7 @@
 
 <!-- Photo Library -->
 <ng-template #photoLibrary>
-  @if (galleryService.loading$ | async) {
+  @if (galleryService.loading()) {
     <!-- Spinner -->
     <div class="bg-neutral-white flex size-full min-h-screen items-center justify-center">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -40,7 +40,7 @@
     <!-- Photos -->
     <div
       class="bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8">
-      @for (url of galleryService.urls$ | async; track $index) {
+      @for (url of galleryService.urls(); track $index) {
         <div
           class="mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8"
           data-aos="fade-up"
@@ -53,13 +53,11 @@
 </ng-template>
 
 <!-- Hero -->
-<ng-template #heroImage>
-  @if (hero$.value) {
-    <img
-      class="animate-zoom absolute h-screen w-screen cursor-pointer object-cover"
-      (click)="toolbarService.toggleMenu(2)"
-      [src]="hero$.value" />
-  }
+<ng-template #heroTemplate>
+  <img
+    class="animate-zoom absolute h-screen w-screen cursor-pointer object-cover"
+    (click)="toolbarService.toggleMenu(2)"
+    [src]="heroImage()" />
 </ng-template>
 
 <!-- Label -->
