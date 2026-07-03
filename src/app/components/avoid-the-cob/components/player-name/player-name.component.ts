@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { AssetService } from '../../services/asset.service';
@@ -30,7 +30,7 @@ export class PlayerNameComponent {
     '2xl:w-4/12',
   ].join(' ');
 
-  pea: SafeUrl = this.assetService.images$.value[1];
+  pea: SafeUrl = this.assetService.images()[1];
 
   constructor(
     public assetService: AssetService,

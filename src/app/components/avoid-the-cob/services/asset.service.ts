@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { BehaviorSubject, combineLatest, forkJoin, map, Observable, take } from 'rxjs';
+import { combineLatest, forkJoin, map, Observable, shareReplay } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../../utils/blob-handler';
 import { GameAudio } from '../models/game-audio/game-audio';
 
@@ -9,26 +10,14 @@ import { GameAudio } from '../models/game-audio/game-audio';
   providedIn: 'root',
 })
 export class AssetService {
-  audio$ = new BehaviorSubject<Map<GameAudio, string>>(new Map());
-  images$ = new BehaviorSubject<SafeUrl[]>([]);
-  loading$ = new BehaviorSubject<boolean>(true);
+  private http = inject(HttpClient);
+  private sanitizer = inject(DomSanitizer);
 
-  constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
-  ) {
-    this.preloadAssets();
-  }
+  private assets$ = combineLatest([this.preloadAudio$(), this.preloadImages$()]).pipe(shareReplay(1));
 
-  preloadAssets() {
-    combineLatest([this.preloadAudio$(), this.preloadImages$()])
-      .pipe(take(1))
-      .subscribe(([audio, images]) => {
-        this.audio$.next(audio);
-        this.images$.next(images);
-        this.loading$.next(false);
-      });
-  }
+  audio = toSignal(this.assets$.pipe(map(([audio]) => audio)), { initialValue: new Map<GameAudio, string>() });
+  images = toSignal(this.assets$.pipe(map(([, images]) => images)), { initialValue: [] as SafeUrl[] });
+  loading = toSignal(this.assets$.pipe(map(() => false)), { initialValue: true });
 
   private preloadImages$(): Observable<SafeUrl[]> {
     const imageBlobs$ = ['game/corn.svg', 'game/pea.svg', 'game/title.svg'].map((url) => httpBlob$(url, this.http));

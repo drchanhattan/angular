@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
@@ -27,8 +27,8 @@ export class MainMenuComponent {
     'lg:flex-row',
   ];
 
-  corn: SafeUrl = this.assetService.images$.value[0];
-  title: SafeUrl = this.assetService.images$.value[2];
+  corn: SafeUrl = this.assetService.images()[0];
+  title: SafeUrl = this.assetService.images()[2];
 
   constructor(
     public assetService: AssetService,

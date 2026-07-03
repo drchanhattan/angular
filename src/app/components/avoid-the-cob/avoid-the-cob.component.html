@@ -1,7 +1,7 @@
 <!-- Canvas -->
 <canvas #canvas class="overflow-hidden transition-all duration-500 ease-in-out"></canvas>
 
-@if (assetService.loading$.value) {
+@if (assetService.loading()) {
   <div class="bg-mat-black absolute flex size-full items-center justify-center">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>

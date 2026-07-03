@@ -71,7 +71,7 @@ export class AudioService {
   }
 
   private play(src: GameAudio, loop: boolean) {
-    const url = this.assetService.audio$.value.get(src);
+    const url = this.assetService.audio().get(src);
     if (url) {
       const audio = new Audio(url);
       audio.loop = loop;
