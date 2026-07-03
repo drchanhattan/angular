@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostBinding, input } from '@angular/core';
+import { Component, computed, HostBinding, input, ChangeDetectionStrategy } from '@angular/core';
 import { IconDirective } from '../../../utils/icon/icon.directive';
 import { NavGroup, NavLink } from '../nav/links';
 
 @Component({
   selector: 'app-nav-button',
   imports: [CommonModule, IconDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './nav-button.component.html',
 })
 export class NavButtonComponent {

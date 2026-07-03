@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, HostBinding, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { GameHelpComponent } from './components/game-help/game-help.component';
@@ -35,6 +35,7 @@ import { ScoreService } from './services/score.service';
     PlayerNameComponent,
   ],
   templateUrl: './avoid-the-cob.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('opacityAnimation', [
       transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),

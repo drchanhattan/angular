@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Album } from '../../components/gallery/album';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 
 @Component({
   selector: 'app-oceania',
   imports: [GalleryComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {

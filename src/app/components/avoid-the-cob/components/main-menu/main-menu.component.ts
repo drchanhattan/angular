@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
@@ -12,6 +12,7 @@ import { LeaderboardService } from '../leaderboard/leaderboard.service';
 @Component({
   selector: 'app-main-menu',
   imports: [GameButtonComponent, IconDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './main-menu.component.html',
 })
 export class MainMenuComponent {

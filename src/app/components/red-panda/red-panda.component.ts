@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener } from '@angular/core';
+import { Component, HostBinding, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { Panda } from './panda';
 
@@ -12,6 +12,7 @@ enum Sprite {
 @Component({
   selector: 'app-red-panda',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './red-panda.component.html',
 })
 export class RedPandaComponent {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostBinding, input, OnInit } from '@angular/core';
+import { Component, HostBinding, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { GalleryService } from './gallery.service';
 @Component({
   selector: 'app-gallery',
   imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoNavComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements OnInit {

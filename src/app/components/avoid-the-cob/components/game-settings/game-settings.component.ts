@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -13,6 +13,7 @@ import { GameSettingsService } from './game-settings.service';
 @Component({
   selector: 'app-game-settings',
   imports: [GameButtonComponent, MatSliderModule, MatSlideToggleModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './game-settings.component.html',
 })
 export class GameSettingsComponent {

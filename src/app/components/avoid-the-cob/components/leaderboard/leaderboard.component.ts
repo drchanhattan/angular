@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { PlayerNameService } from '../player-name/player-name.service';
 import { LeaderboardService } from './leaderboard.service';
@@ -7,6 +7,7 @@ import { LeaderboardService } from './leaderboard.service';
 @Component({
   selector: 'app-leaderboard',
   imports: [CommonModule, GameButtonComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './leaderboard.component.html',
 })
 export class LeaderboardComponent {

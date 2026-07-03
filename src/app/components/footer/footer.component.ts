@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { RedPandaComponent } from '../red-panda/red-panda.component';
 
@@ -10,6 +10,7 @@ type Link = {
 @Component({
   selector: 'app-footer',
   imports: [IconDirective, RedPandaComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {

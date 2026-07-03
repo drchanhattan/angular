@@ -1,9 +1,10 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { AboutComponent } from '../../components/about/about.component';
 
 @Component({
   selector: 'app-home',
   imports: [AboutComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './home.component.html',
 })
 export class HomeComponent {

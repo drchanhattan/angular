@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
@@ -33,6 +33,7 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
   selector: 'app-root',
   imports: [MatSidenavModule, NavComponent, RouterOutlet, ToolbarComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     AssetService,
     AudioService,

@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
   selector: 'app-cv',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './cv.component.html',
 })
 export class CVComponent {

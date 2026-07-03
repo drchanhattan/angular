@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, HostBinding, input, ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -10,6 +10,7 @@ import { NavLink, navGroups } from './links';
 @Component({
   selector: 'app-nav',
   imports: [NavButtonComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './nav.component.html',
 })
 export class NavComponent {

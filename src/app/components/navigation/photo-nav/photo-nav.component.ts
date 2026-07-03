@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, input, OnInit } from '@angular/core';
+import { Component, HostBinding, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../../utils/icon/icon.directive';
@@ -11,6 +11,7 @@ import { ToolbarService } from '../../toolbar/toolbar.service';
 @Component({
   selector: 'app-photo-nav',
   imports: [CommonModule, IconDirective, RouterLink],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './photo-nav.component.html',
 })
 export class PhotoNavComponent implements OnInit {

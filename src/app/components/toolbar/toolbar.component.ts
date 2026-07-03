@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'app-toolbar',
   imports: [CommonModule, IconDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {

@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { GameHelpObject } from './game-help-object';
@@ -7,6 +7,7 @@ import { GameHelpService } from './game-help.service';
 @Component({
   selector: 'app-game-help',
   imports: [GameButtonComponent, IconDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './game-help.component.html',
 })
 export class GameHelpComponent {

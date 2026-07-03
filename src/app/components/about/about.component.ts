@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { map, Observable, of, take } from 'rxjs';
@@ -11,6 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-about',
   imports: [CommonModule, FooterComponent, IconDirective, MatProgressSpinnerModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './about.component.html',
 })
 export class AboutComponent {
