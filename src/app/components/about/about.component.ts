@@ -17,7 +17,7 @@ import { FooterComponent } from '../footer/footer.component';
   host: { '[class]': 'hostClasses()' },
 })
 export class AboutComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'flex-col',
@@ -31,12 +31,12 @@ export class AboutComponent {
     'text-mat-black',
   ]);
 
-  hero = toSignal(
+  protected readonly hero = toSignal(
     httpBlob$('photos/heroes/hero-home.jpg', this.http).pipe(map((blob) => sanitizeBlob(blob, this.sanitizer))),
     { initialValue: null },
   );
 
-  techStack = [
+  protected readonly techStack = [
     { icon: 'angular', label: 'Angular' },
     { icon: 'typescript', label: 'Typescript' },
     { icon: 'html', label: 'HTML' },
@@ -58,7 +58,7 @@ export class AboutComponent {
   ];
 
   constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
+    private readonly http: HttpClient,
+    private readonly sanitizer: DomSanitizer,
   ) {}
 }

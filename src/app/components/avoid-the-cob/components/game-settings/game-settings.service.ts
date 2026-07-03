@@ -11,15 +11,15 @@ import { MainMenuService } from '../main-menu/main-menu.service';
 })
 export class GameSettingsService {
   constructor(
-    private audioService: AudioService,
-    private cheatService: CheatService,
-    public cursorService: CursorService,
-    private mainMenuService: MainMenuService,
-    private overlayService: OverlayService,
-    private particleService: ParticleService,
+    private readonly audioService: AudioService,
+    private readonly cheatService: CheatService,
+    private readonly cursorService: CursorService,
+    private readonly mainMenuService: MainMenuService,
+    private readonly overlayService: OverlayService,
+    private readonly particleService: ParticleService,
   ) {}
 
-  get settingsChanged() {
+  public get settingsChanged() {
     return (
       this.audioService.changed() ||
       this.cheatService.cheatsEnabled ||
@@ -28,12 +28,12 @@ export class GameSettingsService {
     );
   }
 
-  show() {
+  public show() {
     this.mainMenuService.hide();
     this.overlayService.toggle(OverlayItem.Settings, false);
   }
 
-  hide() {
+  public hide() {
     this.overlayService.toggle(OverlayItem.Settings, true);
     this.mainMenuService.show();
   }

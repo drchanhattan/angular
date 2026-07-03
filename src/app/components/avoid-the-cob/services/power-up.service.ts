@@ -9,7 +9,7 @@ import { GameObjectService } from './game-object.service';
   providedIn: 'root',
 })
 export class PowerUpService {
-  powerUps = [
+  public powerUps = [
     this.powerInvincible.bind(this),
     this.powerMagnetise.bind(this),
     this.powerForceField.bind(this),
@@ -18,17 +18,17 @@ export class PowerUpService {
   ];
 
   constructor(
-    private audioService: AudioService,
-    private cursor: CursorService,
-    private difficultyService: DifficultyService,
-    private gameObjectService: GameObjectService,
+    private readonly audioService: AudioService,
+    private readonly cursor: CursorService,
+    private readonly difficultyService: DifficultyService,
+    private readonly gameObjectService: GameObjectService,
   ) {}
 
-  shufflePowerUps() {
+  public shufflePowerUps() {
     this.powerUps = this.powerUps.sort(() => Math.random() - 0.5);
   }
 
-  randomPowerUp() {
+  public randomPowerUp() {
     const level = this.difficultyService.level;
     const frequency = this.difficultyService.powerUpFrequency;
 
@@ -38,26 +38,26 @@ export class PowerUpService {
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Blueify);
   }
 
-  powerInvincible() {
+  public powerInvincible() {
     this.cursor.setInvincibility(true);
   }
 
-  powerMagnetise() {
+  public powerMagnetise() {
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Magnetise);
   }
 
-  powerForceField() {
+  public powerForceField() {
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.ForceField);
     this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.ForceField);
   }
 
-  powerTimeLock() {
+  public powerTimeLock() {
     this.audioService.setMusicSpeed(0.75);
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.TimeLock);
     this.gameObjectService.mobs.setBehaviour(GameObjectBehaviour.TimeLock);
   }
 
-  powerBlueCorn() {
+  public powerBlueCorn() {
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Blueify);
     this.gameObjectService.corns.setBehaviour(GameObjectBehaviour.Magnetise);
     this.gameObjectService.peas.setBehaviour(GameObjectBehaviour.Magnetise);

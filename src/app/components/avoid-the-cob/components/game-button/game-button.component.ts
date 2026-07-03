@@ -6,5 +6,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   templateUrl: './game-button.component.html',
 })
 export class GameButtonComponent {
-  text = input<string>('');
+  public readonly text = input<string>('');
 }

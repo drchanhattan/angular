@@ -7,19 +7,19 @@ import { IconRegistry } from './svg-icon-registry.module';
   host: { '[class]': 'hostClasses()' },
 })
 export class IconDirective {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'items-center',
     'justify-center',
   ]);
 
-  icon = input.required<string>();
+  public readonly icon = input.required<string>();
 
   constructor(
-    private el: ElementRef<HTMLElement>,
-    private renderer: Renderer2,
-    private registry: IconRegistry,
+    private readonly el: ElementRef<HTMLElement>,
+    private readonly renderer: Renderer2,
+    private readonly registry: IconRegistry,
   ) {
     effect(async () => {
       const name = this.icon();

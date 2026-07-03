@@ -18,31 +18,31 @@ import { ScoreService } from './score.service';
   providedIn: 'root',
 })
 export class GameStateService {
-  browserResized = false;
-  lives = signal<number>(0);
-  paused = true;
-  timer = signal('');
-  timerInterval: any;
-  mobMode = signal(false);
+  public browserResized = false;
+  public readonly lives = signal<number>(0);
+  public paused = true;
+  public readonly timer = signal('');
+  private timerInterval: any;
+  public readonly mobMode = signal(false);
 
   constructor(
-    private audioService: AudioService,
-    private canvasService: CanvasService,
-    private cheatService: CheatService,
-    private cursor: CursorService,
-    private difficultyService: DifficultyService,
-    private firebaseService: FirebaseService,
-    private gameObjectService: GameObjectService,
-    private leaderboardService: LeaderboardService,
-    private mainMenuService: MainMenuService,
-    private scoreService: ScoreService,
-    private textService: GameTextService,
-    private toolbarService: ToolbarService,
+    private readonly audioService: AudioService,
+    private readonly canvasService: CanvasService,
+    private readonly cheatService: CheatService,
+    private readonly cursor: CursorService,
+    private readonly difficultyService: DifficultyService,
+    private readonly firebaseService: FirebaseService,
+    private readonly gameObjectService: GameObjectService,
+    private readonly leaderboardService: LeaderboardService,
+    private readonly mainMenuService: MainMenuService,
+    private readonly scoreService: ScoreService,
+    private readonly textService: GameTextService,
+    private readonly toolbarService: ToolbarService,
   ) {
     effect(() => this.toolbarService.hideMenuBtn.set(!!this.lives()));
   }
 
-  start() {
+  public start() {
     this.paused = false;
     this.cursor.blink(GameColor.Transparent, 4, 125);
     this.cursor.disableCollision(1000);
@@ -58,7 +58,7 @@ export class GameStateService {
     this.cheatService.execute();
   }
 
-  gameOver() {
+  public gameOver() {
     const { cheatsEnabled } = this.cheatService;
 
     this.lives.set(0);
@@ -86,13 +86,13 @@ export class GameStateService {
     });
   }
 
-  reset(mobMode: boolean) {
+  public reset(mobMode: boolean) {
     this.mobMode.set(mobMode);
     this.lives.set(mobMode ? 10 : 3);
     this.browserResized = false;
   }
 
-  checkLevelComplete(mobMode: boolean) {
+  public checkLevelComplete(mobMode: boolean) {
     if (!this.paused && ((mobMode && !this.timer()) || (!mobMode && this.gameObjectService.objectsCleared()))) {
       this.cursor.collisionEnabled = false;
       this.cursor.setInvincibility(false);
@@ -100,7 +100,7 @@ export class GameStateService {
     }
   }
 
-  levelUp() {
+  public levelUp() {
     this.paused = true;
     this.clearTimer();
     this.audioService.setMusicSpeed(1);

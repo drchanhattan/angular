@@ -9,7 +9,7 @@ import { GameTextService } from './game-text.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class GameTextComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -22,5 +22,5 @@ export class GameTextComponent {
     'text-mat-cream',
   ]);
 
-  constructor(public textService: GameTextService) {}
+  constructor(protected textService: GameTextService) {}
 }

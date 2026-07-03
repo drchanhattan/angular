@@ -7,12 +7,12 @@ import { GameScore } from '../models/game-score/game-score';
   providedIn: 'root',
 })
 export class FirebaseService {
-  private firestore = getFirestore();
-  private scoresDocRef = doc(this.firestore, 'gameData/highScores');
+  private readonly firestore = getFirestore();
+  private readonly scoresDocRef = doc(this.firestore, 'gameData/highScores');
 
-  constructor(private nameService: PlayerNameService) {}
+  constructor(private readonly nameService: PlayerNameService) {}
 
-  async save(score: number): Promise<void> {
+  public async save(score: number): Promise<void> {
     const name = this.nameService.name.value?.toUpperCase();
 
     if (!name) {
@@ -44,7 +44,7 @@ export class FirebaseService {
     }
   }
 
-  async get(): Promise<GameScore[]> {
+  public async get(): Promise<GameScore[]> {
     try {
       const docSnapshot = await getDoc(this.scoresDocRef);
       if (docSnapshot.exists()) {

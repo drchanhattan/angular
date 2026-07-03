@@ -2,13 +2,13 @@ import { GameObjectShape } from './game-object-shape';
 import { GameObjectType } from './game-object-type';
 
 export class GameObjectSettings {
-  type: GameObjectType;
-  color: string;
-  size: number;
-  shape: GameObjectShape;
-  speed: number;
-  gravity: number;
-  rotation?: number;
+  public type: GameObjectType;
+  public color: string;
+  public size: number;
+  public shape: GameObjectShape;
+  public speed: number;
+  public gravity: number;
+  public rotation?: number;
 
   constructor(
     type: GameObjectType,

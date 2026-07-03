@@ -6,9 +6,9 @@ import { GameObjectShape } from '../models/game-object/game-object-shape';
   providedIn: 'root',
 })
 export class CanvasService {
-  context!: CanvasRenderingContext2D;
+  public context!: CanvasRenderingContext2D;
 
-  init() {
+  public init() {
     const canvas = document.querySelector('canvas') as HTMLCanvasElement;
     canvas.width = window.innerWidth * devicePixelRatio;
     canvas.height = window.innerHeight * devicePixelRatio;
@@ -16,7 +16,7 @@ export class CanvasService {
     this.context.scale(devicePixelRatio, devicePixelRatio);
   }
 
-  drawObject(object: GameObject, scale = 1, transparency = 1) {
+  public drawObject(object: GameObject, scale = 1, transparency = 1) {
     this.context.globalAlpha = transparency;
     this.context.fillStyle = object.color;
     this.context.beginPath();
@@ -28,7 +28,7 @@ export class CanvasService {
     this.context.closePath();
   }
 
-  flash(duration: number, color: string, animationClass?: string) {
+  public flash(duration: number, color: string, animationClass?: string) {
     const canvasClass = this.context.canvas.classList;
     const canvasStyles = this.context.canvas.style;
     canvasStyles.backgroundColor = color;

@@ -16,7 +16,7 @@ import { ToolbarService } from '../../toolbar/toolbar.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class PhotoNavComponent implements OnInit {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'h-full',
@@ -28,15 +28,15 @@ export class PhotoNavComponent implements OnInit {
     'bg-mat-black',
   ]);
 
-  sidenav = input.required<MatSidenav>();
-  albums = input.required<Album[]>();
+  public readonly sidenav = input.required<MatSidenav>();
+  public readonly albums = input.required<Album[]>();
 
   constructor(
-    public galleryService: GalleryService,
-    private toolbarService: ToolbarService,
+    protected galleryService: GalleryService,
+    private readonly toolbarService: ToolbarService,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.toolbarService.setNav(this.sidenav(), NavType.Photos);
     this.galleryService.albums.set(this.albums());
   }

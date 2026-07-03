@@ -13,7 +13,7 @@ import { LeaderboardService } from './leaderboard.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class LeaderboardComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -23,7 +23,9 @@ export class LeaderboardComponent {
     'justify-center',
   ]);
 
-  leaderboardService = inject(LeaderboardService);
-  nameService = inject(PlayerNameService);
-  playerName = toSignal(this.nameService.name.valueChanges, { initialValue: this.nameService.name.value ?? '' });
+  protected readonly leaderboardService = inject(LeaderboardService);
+  private readonly nameService = inject(PlayerNameService);
+  protected readonly playerName = toSignal(this.nameService.name.valueChanges, {
+    initialValue: this.nameService.name.value ?? '',
+  });
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { AssetService } from '../../services/asset.service';
 import { AvoidTheCobService } from '../../services/avoid-the-cob.service';
@@ -17,7 +16,7 @@ import { LeaderboardService } from '../leaderboard/leaderboard.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class MainMenuComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -28,15 +27,14 @@ export class MainMenuComponent {
     'lg:flex-row',
   ]);
 
-  corn: SafeUrl = this.assetService.images()[0];
-  title: SafeUrl = this.assetService.images()[2];
+  protected readonly corn: SafeUrl = this.assetService.images()[0];
+  protected readonly title: SafeUrl = this.assetService.images()[2];
 
   constructor(
-    public assetService: AssetService,
-    public avoidTheCob: AvoidTheCobService,
-    public gameHelpService: GameHelpService,
-    public gameSettingsService: GameSettingsService,
-    public leaderboardService: LeaderboardService,
-    public router: Router,
+    private readonly assetService: AssetService,
+    protected avoidTheCob: AvoidTheCobService,
+    protected gameHelpService: GameHelpService,
+    protected gameSettingsService: GameSettingsService,
+    protected leaderboardService: LeaderboardService,
   ) {}
 }

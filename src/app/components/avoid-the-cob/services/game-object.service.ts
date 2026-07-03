@@ -16,16 +16,16 @@ import { ParticleService } from './particle.service';
   providedIn: 'root',
 })
 export class GameObjectService {
-  peas: GameObjectGroup;
-  corns: GameObjectGroup;
-  powerUps: GameObjectGroup;
-  hearts: GameObjectGroup;
-  mobs: GameObjectGroup;
+  public readonly peas: GameObjectGroup;
+  public readonly corns: GameObjectGroup;
+  public readonly powerUps: GameObjectGroup;
+  public readonly hearts: GameObjectGroup;
+  public readonly mobs: GameObjectGroup;
 
   constructor(
-    private canvasService: CanvasService,
-    private cursor: CursorService,
-    private particleService: ParticleService,
+    private readonly canvasService: CanvasService,
+    private readonly cursor: CursorService,
+    private readonly particleService: ParticleService,
   ) {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
     this.corns = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
@@ -34,7 +34,7 @@ export class GameObjectService {
     this.mobs = new GameObjectGroup(GameObjectDefaults.mob().count, GameObjectDefaults.mob().settings);
   }
 
-  processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
+  public processGameObjects(paused: boolean, collisionService: CollisionService, mobMode: boolean) {
     this.allObjects().forEach((obj: GameObject) => {
       if (!obj.isDestroyed) {
         this.applyRotation(obj, mobMode);
@@ -52,7 +52,7 @@ export class GameObjectService {
     });
   }
 
-  destroyAll() {
+  public destroyAll() {
     this.peas.objects = [];
     this.corns.objects = [];
     this.powerUps.objects = [];
@@ -60,14 +60,14 @@ export class GameObjectService {
     this.mobs.objects = [];
   }
 
-  objectsCleared() {
+  public objectsCleared() {
     const peas = this.peas.objects;
     const blueCorn = this.corns.objects.filter((corn) => corn.isPea);
 
     return ![...peas, ...blueCorn].some((obj) => !obj.isDestroyed && obj.isWithinViewport);
   }
 
-  reset() {
+  public reset() {
     this.resetObjectGroup(this.peas, GameObjectDefaults.pea());
     this.resetObjectGroup(this.corns, GameObjectDefaults.corn());
     this.resetObjectGroup(this.powerUps, GameObjectDefaults.powerUp());

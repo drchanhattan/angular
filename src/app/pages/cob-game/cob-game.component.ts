@@ -9,7 +9,7 @@ import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-c
   host: { '[class]': 'hostClasses()' },
 })
 export class CobGameComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'h-dvh',

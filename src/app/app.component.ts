@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import * as AOS from 'aos';
 import { GameHelpService } from './components/avoid-the-cob/components/game-help/game-help.service';
 import { GameSettingsService } from './components/avoid-the-cob/components/game-settings/game-settings.service';
@@ -62,12 +62,12 @@ import { ToolbarService } from './components/toolbar/toolbar.service';
   ],
 })
 export class AppComponent {
-  constructor(public router: Router) {
+  constructor() {
     this.redirectToHash();
     this.animateOnScroll();
   }
 
-  redirectToHash() {
+  private redirectToHash() {
     if (!window.location.hash) {
       window.location.href = '/#' + window.location.pathname;
     }

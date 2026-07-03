@@ -12,7 +12,7 @@ import { GameHelpService } from './game-help.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class GameHelpComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -23,8 +23,8 @@ export class GameHelpComponent {
     'overflow-hidden',
   ]);
 
-  selectedIndex = signal(0);
-  gameHelpObjects: GameHelpObject[] = [
+  protected readonly selectedIndex = signal(0);
+  protected readonly gameHelpObjects: GameHelpObject[] = [
     {
       gameObject: 'Pea',
       description:
@@ -47,13 +47,13 @@ export class GameHelpComponent {
     },
   ];
 
-  constructor(public gameHelpService: GameHelpService) {}
+  constructor(protected gameHelpService: GameHelpService) {}
 
-  forward() {
+  protected forward() {
     this.selectedIndex.update((i) => (i + 1 < this.gameHelpObjects.length ? i + 1 : 0));
   }
 
-  backward() {
+  protected backward() {
     this.selectedIndex.update((i) => (i > 0 ? i - 1 : this.gameHelpObjects.length - 1));
   }
 }

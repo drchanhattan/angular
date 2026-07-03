@@ -5,7 +5,7 @@ import { GameObjectShape } from './game-object-shape';
 import { GameObjectType } from './game-object-type';
 
 export class GameObjectDefaults {
-  static cursor() {
+  public static cursor() {
     return {
       type: GameObjectType.Cursor,
       color: GameColor.White,
@@ -16,7 +16,7 @@ export class GameObjectDefaults {
     };
   }
 
-  static pea() {
+  public static pea() {
     const size = scaledSize(20);
     const count = 10;
     const speed = scaledSpeed(3);
@@ -27,7 +27,7 @@ export class GameObjectDefaults {
     };
   }
 
-  static corn() {
+  public static corn() {
     const size = scaledSize(40);
     const count = 10;
     const speed = scaledSpeed(3);
@@ -46,7 +46,7 @@ export class GameObjectDefaults {
     };
   }
 
-  static powerUp() {
+  public static powerUp() {
     const size = scaledSize(20);
     const speed = scaledSpeed(15);
 
@@ -56,7 +56,7 @@ export class GameObjectDefaults {
     };
   }
 
-  static heart() {
+  public static heart() {
     const size = scaledSize(20);
     const speed = scaledSpeed(3);
 
@@ -66,7 +66,7 @@ export class GameObjectDefaults {
     };
   }
 
-  static mob() {
+  public static mob() {
     const size = scaledSize(20);
     const count = 20;
     const speed = scaledSpeed(1.5);

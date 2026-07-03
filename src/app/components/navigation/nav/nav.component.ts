@@ -16,7 +16,7 @@ import { NavLink, navGroups } from './links';
   host: { '[class]': 'hostClasses()' },
 })
 export class NavComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     //Layout
     'flex',
     'h-full',
@@ -28,12 +28,12 @@ export class NavComponent {
     'bg-mat-black',
   ]);
 
-  sidenav = input.required<MatSidenav>();
-  groups = navGroups;
-  private router = inject(Router);
-  private toolbarService = inject(ToolbarService);
+  public readonly sidenav = input.required<MatSidenav>();
+  protected readonly groups = navGroups;
+  private readonly router = inject(Router);
+  private readonly toolbarService = inject(ToolbarService);
 
-  currentRoute = toSignal(
+  protected readonly currentRoute = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map((event) => event.urlAfterRedirects),
@@ -42,11 +42,11 @@ export class NavComponent {
     { initialValue: this.router.url },
   );
 
-  ngOnInit() {
+  public ngOnInit() {
     this.toolbarService.setNav(this.sidenav(), NavType.Links);
   }
 
-  navigate(path: string, external = false) {
+  protected navigate(path: string, external = false) {
     if (external) {
       window.open(path);
     } else if (this.currentRoute() !== path) {
@@ -55,7 +55,7 @@ export class NavComponent {
     }
   }
 
-  hasActiveSublink(links: NavLink[]): boolean {
+  protected hasActiveSublink(links: NavLink[]): boolean {
     return !!links.find((link) => this.currentRoute().includes(link.url));
   }
 }

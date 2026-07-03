@@ -9,9 +9,9 @@ import { ParticleService } from '../../services/particle.service';
   providedIn: 'root',
 })
 export class PlayerNameService {
-  minLength = 3;
-  maxLength = 16;
-  name = new FormControl<string>('', [
+  public readonly minLength = 3;
+  public readonly maxLength = 16;
+  public readonly name = new FormControl<string>('', [
     Validators.required,
     Validators.minLength(this.minLength),
     Validators.maxLength(this.maxLength),
@@ -21,8 +21,8 @@ export class PlayerNameService {
   ]);
 
   constructor(
-    private particleService: ParticleService,
-    private overlayService: OverlayService,
+    private readonly particleService: ParticleService,
+    private readonly overlayService: OverlayService,
   ) {
     const name = localStorage.getItem('name');
 
@@ -31,18 +31,18 @@ export class PlayerNameService {
     }
   }
 
-  show() {
+  public show() {
     const settings = GameObjectDefaults.powerUp().settings;
     settings.gravity = -0.015;
     this.particleService.menuParticles('peaSvg', settings, 20);
     this.overlayService.toggle(OverlayItem.NewPlayer, false);
   }
 
-  hide() {
+  public hide() {
     this.overlayService.toggle(OverlayItem.NewPlayer, true);
   }
 
-  reset() {
+  public reset() {
     this.name.reset('');
     localStorage.removeItem('name');
   }

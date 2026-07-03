@@ -10,14 +10,14 @@ import { ToolbarService } from './toolbar.service';
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {
-  private scrollTop = signal(window.scrollY < 64);
+  private readonly scrollTop = signal(window.scrollY < 64);
 
-  darkToolbar = computed(
+  protected readonly darkToolbar = computed(
     () => !this.scrollTop() || this.toolbarService.navOpen() || this.toolbarService.photoNavOpen(),
   );
 
   @HostListener('window:scroll', [])
-  onScroll() {
+  protected onScroll() {
     this.scrollTop.set(window.scrollY < 64);
   }
 

@@ -14,59 +14,59 @@ import { ParticleService } from './particle.service';
   providedIn: 'root',
 })
 export class CursorService {
-  collisionEnabled: boolean = true;
-  donut = new FormControl(false);
-  invincible: boolean = false;
-  object = new GameObject(window.innerWidth / 2, window.innerHeight / 4, GameObjectDefaults.cursor());
+  public collisionEnabled: boolean = true;
+  public readonly donut = new FormControl(false);
+  public invincible: boolean = false;
+  public readonly object = new GameObject(window.innerWidth / 2, window.innerHeight / 4, GameObjectDefaults.cursor());
 
-  #lastTouch: { x: number; y: number } | null = null;
-  #randomColor!: GameColor;
+  private lastTouch: { x: number; y: number } | null = null;
+  private randomColor!: GameColor;
 
   constructor(
-    private canvasService: CanvasService,
-    private deviceService: DeviceService,
-    private particleService: ParticleService,
+    private readonly canvasService: CanvasService,
+    private readonly deviceService: DeviceService,
+    private readonly particleService: ParticleService,
   ) {
     this.deviceService.isTouch ? this.handleTouch() : this.handleMouse();
     this.setShape();
     this.randomizeColor();
   }
 
-  draw() {
+  public draw() {
     if (this.invincible) {
-      this.halo(this.#randomColor, 1.25, false);
+      this.halo(this.randomColor, 1.25, false);
     }
 
     this.canvasService.drawObject(this.object);
   }
 
-  cursorSize(mobMode: boolean) {
+  public cursorSize(mobMode: boolean) {
     return mobMode ? scaledSize(8) : scaledSize(20);
   }
 
-  showPointer() {
+  public showPointer() {
     this.canvasService.context.canvas.classList.remove('cursor-none');
   }
 
-  hidePointer() {
+  public hidePointer() {
     this.canvasService.context.canvas.classList.add('cursor-none');
   }
 
-  reset(mobMode: boolean) {
+  public reset(mobMode: boolean) {
     this.object.size = this.cursorSize(mobMode);
     this.hidePointer();
   }
 
-  disableCollision(duration: number) {
+  public disableCollision(duration: number) {
     this.collisionEnabled = false;
     setTimeout(() => (this.collisionEnabled = true), duration);
   }
 
-  setInvincibility(enabled: boolean) {
+  public setInvincibility(enabled: boolean) {
     this.invincible = enabled;
   }
 
-  blink(color: string, blinks: number, interval: number) {
+  public blink(color: string, blinks: number, interval: number) {
     const changeColor = (color: string, delay: number | undefined) => {
       setTimeout(() => {
         this.object.color = color;
@@ -79,7 +79,7 @@ export class CursorService {
     }
   }
 
-  halo(color: GameColor, scale = 1.5, blink = true) {
+  public halo(color: GameColor, scale = 1.5, blink = true) {
     const blinkActive = blink && Math.floor(Date.now() / 50) % 2 === 0;
     const size = this.object.size * (blinkActive ? 0 : scale);
     const settings = new GameObjectSettings(this.object.type, color, size, GameObjectShape.Circle, 0, 0);
@@ -87,7 +87,7 @@ export class CursorService {
     this.canvasService.drawObject(new GameObject(this.object.x, this.object.y, settings));
   }
 
-  pulse(color: GameColor, scale: number) {
+  public pulse(color: GameColor, scale: number) {
     const settings = new GameObjectSettings(
       this.object.type,
       color,
@@ -100,7 +100,7 @@ export class CursorService {
     this.canvasService.drawObject(new GameObject(this.object.x, this.object.y, settings));
   }
 
-  particles(color: GameColor, speed: number, spawnChance: number) {
+  public particles(color: GameColor, speed: number, spawnChance: number) {
     if (Math.random() < spawnChance) {
       const cursor = Object.assign({}, this.object);
       cursor.color = color;
@@ -133,15 +133,15 @@ export class CursorService {
         const touchX = touch.clientX;
         const touchY = touch.clientY;
 
-        if (this.#lastTouch) {
-          const deltaX = touchX - this.#lastTouch.x;
-          const deltaY = touchY - this.#lastTouch.y;
+        if (this.lastTouch) {
+          const deltaX = touchX - this.lastTouch.x;
+          const deltaY = touchY - this.lastTouch.y;
 
           this.object.x = Math.min(Math.max(0, this.object.x + deltaX), window.innerWidth);
           this.object.y = Math.min(Math.max(0, this.object.y + deltaY), window.innerHeight);
         }
 
-        this.#lastTouch = { x: touchX, y: touchY };
+        this.lastTouch = { x: touchX, y: touchY };
 
         if (event.target === this.canvasService.context?.canvas) {
           event.preventDefault();
@@ -150,7 +150,7 @@ export class CursorService {
     };
 
     const touchEndHandler = () => {
-      this.#lastTouch = null;
+      this.lastTouch = null;
     };
 
     document.addEventListener('touchmove', touchHandler, { passive: false });
@@ -178,7 +178,7 @@ export class CursorService {
       if (this.invincible) {
         const colors = [GameColor.Red, GameColor.Green, GameColor.Blue, GameColor.Yellow];
         const randomIndex = Math.floor(Math.random() * colors.length);
-        this.#randomColor = colors[randomIndex] as GameColor;
+        this.randomColor = colors[randomIndex] as GameColor;
       }
     }, 20);
   }

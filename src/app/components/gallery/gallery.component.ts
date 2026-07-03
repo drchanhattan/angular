@@ -21,7 +21,7 @@ import { GalleryService } from './gallery.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class GalleryComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'flex-col',
@@ -30,16 +30,16 @@ export class GalleryComponent {
     'bg-neutral-white',
   ]);
 
-  name = input<string>('');
-  hero = input<string>('');
-  albums = input.required<Album[]>();
+  public readonly name = input<string>('');
+  public readonly hero = input<string>('');
+  public readonly albums = input.required<Album[]>();
 
-  private http = inject(HttpClient);
-  private sanitizer = inject(DomSanitizer);
-  galleryService = inject(GalleryService);
-  toolbarService = inject(ToolbarService);
+  private readonly http = inject(HttpClient);
+  private readonly sanitizer = inject(DomSanitizer);
+  protected readonly galleryService = inject(GalleryService);
+  protected readonly toolbarService = inject(ToolbarService);
 
-  heroImage = toSignal(
+  protected readonly heroImage = toSignal(
     toObservable(this.hero).pipe(
       switchMap((url) =>
         url ? httpBlob$(url, this.http).pipe(map((blob) => sanitizeBlob(blob, this.sanitizer))) : of(null),
@@ -48,7 +48,7 @@ export class GalleryComponent {
     { initialValue: null },
   );
 
-  animate() {
+  protected animate() {
     AOS.refresh();
   }
 }

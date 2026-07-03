@@ -6,20 +6,20 @@ import { PowerUpService } from './power-up.service';
   providedIn: 'root',
 })
 export class CheatService {
-  cheats = new FormGroup({
+  public readonly cheats = new FormGroup({
     invincibility: new FormControl<boolean>(false),
     magnetise: new FormControl<boolean>(false),
     forceField: new FormControl<boolean>(false),
     timeLock: new FormControl<boolean>(false),
   });
 
-  constructor(private powerUpService: PowerUpService) {}
+  constructor(private readonly powerUpService: PowerUpService) {}
 
-  get cheatsEnabled(): boolean {
+  public get cheatsEnabled(): boolean {
     return Object.values(this.cheats.value).some((cheat) => !!cheat);
   }
 
-  execute() {
+  public execute() {
     const { invincibility, magnetise, forceField, timeLock } = this.cheats.value;
 
     if (!!invincibility) {

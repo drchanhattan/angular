@@ -15,16 +15,16 @@ import { ScoreService } from './score.service';
 })
 export class CollisionService {
   constructor(
-    private audioService: AudioService,
-    private canvasService: CanvasService,
-    private cursor: CursorService,
-    private gameStateService: GameStateService,
-    private particleService: ParticleService,
-    private powerUpService: PowerUpService,
-    private scoreService: ScoreService,
+    private readonly audioService: AudioService,
+    private readonly canvasService: CanvasService,
+    private readonly cursor: CursorService,
+    private readonly gameStateService: GameStateService,
+    private readonly particleService: ParticleService,
+    private readonly powerUpService: PowerUpService,
+    private readonly scoreService: ScoreService,
   ) {}
 
-  processCollisions(obj: GameObject) {
+  public processCollisions(obj: GameObject) {
     obj.processWallCollision();
     this.processCursorCollisions(obj);
   }

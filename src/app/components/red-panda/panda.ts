@@ -1,13 +1,13 @@
 export class Panda {
-  deltaX: number;
-  deltaY: number;
-  isflipped = false;
-  isJumping = false;
-  jumpHeight = 10;
-  x: number;
-  y: number;
-  size: number;
-  speed = 5;
+  public deltaX: number;
+  public deltaY: number;
+  public isflipped = false;
+  public isJumping = false;
+  public jumpHeight = 10;
+  public x: number;
+  public y: number;
+  public size: number;
+  public speed = 5;
 
   constructor(deltaX: number, deltaY: number, posX: number, posY: number, size: number) {
     this.deltaX = deltaX;

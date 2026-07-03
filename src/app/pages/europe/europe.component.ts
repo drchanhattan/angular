@@ -9,7 +9,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './europe.component.html',
 })
 export class EuropeComponent {
-  albums: Album[] = [
+  protected readonly albums: Album[] = [
     {
       label: 'Austria',
       icons: ['austria'],

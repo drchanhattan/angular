@@ -9,7 +9,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './oceania.component.html',
 })
 export class OceaniaComponent {
-  albums: Album[] = [
+  protected readonly albums: Album[] = [
     {
       label: 'Australia',
       icons: ['australia'],

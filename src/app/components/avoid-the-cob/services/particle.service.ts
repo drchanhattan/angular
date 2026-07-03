@@ -9,11 +9,11 @@ import { CanvasService } from './canvas.service';
   providedIn: 'root',
 })
 export class ParticleService {
-  particles: GameObject[] = [];
-  default = 2000;
-  maxCount = new FormControl<number>(this.default);
+  public particles: GameObject[] = [];
+  public readonly default = 2000;
+  public readonly maxCount = new FormControl<number>(this.default);
 
-  constructor(private canvasService: CanvasService) {
+  constructor(private readonly canvasService: CanvasService) {
     const max = localStorage.getItem('particles');
 
     if (max) {
@@ -25,11 +25,11 @@ export class ParticleService {
     });
   }
 
-  get maxCountChanged() {
+  public get maxCountChanged() {
     return this.maxCount.value !== this.default;
   }
 
-  draw() {
+  public draw() {
     this.particles.forEach((p) => {
       this.canvasService.drawObject(p, 0.25, 0.8);
       p.deltaY = p.deltaY + p.gravity;
@@ -39,7 +39,7 @@ export class ParticleService {
     this.decay();
   }
 
-  create(object: GameObject, count = 25, speed = 1) {
+  public create(object: GameObject, count = 25, speed = 1) {
     const maxCount = this.maxCount.value;
     if (maxCount) {
       for (let i = 0; i < count; i++) {
@@ -63,7 +63,7 @@ export class ParticleService {
     }
   }
 
-  menuParticles(elementId: string, objSettings: GameObjectSettings, count: number) {
+  public menuParticles(elementId: string, objSettings: GameObjectSettings, count: number) {
     setTimeout(() => {
       const interval = setInterval(() => {
         const svg = document.getElementById(elementId);

@@ -3,16 +3,16 @@ import { GameObjectBehaviour } from './game-object-behaviour';
 import { GameObjectSettings } from './game-object-setttings';
 
 export class GameObjectGroup {
-  settings: GameObjectSettings;
-  count: number;
-  objects: GameObject[] = [];
+  public settings: GameObjectSettings;
+  public count: number;
+  public objects: GameObject[] = [];
 
   constructor(count: number, settings: GameObjectSettings) {
     this.count = count;
     this.settings = settings;
   }
 
-  createObjects() {
+  public createObjects() {
     for (let i = 0; i < this.count; i++) {
       const xSpawn = Math.random() * window.innerWidth;
       const ySpawn = Math.random() * window.innerHeight;
@@ -20,17 +20,17 @@ export class GameObjectGroup {
     }
   }
 
-  editSettings(size: number, speed: number, count: number) {
+  public editSettings(size: number, speed: number, count: number) {
     this.settings.size = size;
     this.settings.speed = speed;
     this.count = Math.round(count);
   }
 
-  setBehaviour(behaviour: GameObjectBehaviour) {
+  public setBehaviour(behaviour: GameObjectBehaviour) {
     this.objects.forEach((object) => object.toggleBehaviour(behaviour));
   }
 
-  destroyObjects() {
+  public destroyObjects() {
     this.objects = [];
   }
 }

@@ -5,12 +5,12 @@ import { OverlayItem, OverlayService } from '../../services/overlay.service';
   providedIn: 'root',
 })
 export class GameTextService {
-  text = signal('');
-  subtext = signal('');
+  public readonly text = signal('');
+  public readonly subtext = signal('');
 
-  constructor(private overlayService: OverlayService) {}
+  constructor(private readonly overlayService: OverlayService) {}
 
-  async show(text: string, subtext: string, duration: number) {
+  public async show(text: string, subtext: string, duration: number) {
     this.text.set(text);
     this.subtext.set(subtext);
 

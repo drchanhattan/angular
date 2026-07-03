@@ -8,15 +8,15 @@ import { GameObjectService } from './game-object.service';
   providedIn: 'root',
 })
 export class DifficultyService {
-  level: number = 0;
-  powerUpFrequency = 3;
+  public level: number = 0;
+  public readonly powerUpFrequency = 3;
 
   constructor(
-    private cursor: CursorService,
-    private gameObjectService: GameObjectService,
+    private readonly cursor: CursorService,
+    private readonly gameObjectService: GameObjectService,
   ) {}
 
-  increase(mobMode: boolean, cheatsEnabled: boolean) {
+  public increase(mobMode: boolean, cheatsEnabled: boolean) {
     this.level++;
 
     if (mobMode) {
@@ -33,7 +33,7 @@ export class DifficultyService {
     }
   }
 
-  resetLevel() {
+  public resetLevel() {
     this.level = 1;
   }
 

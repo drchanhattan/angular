@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DeviceService {
-  readonly isTouch: boolean = window.matchMedia('(pointer: coarse)').matches;
+  public readonly isTouch: boolean = window.matchMedia('(pointer: coarse)').matches;
 }

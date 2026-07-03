@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class IconRegistry {
-  private cache = new Map<string, string>();
+  private readonly cache = new Map<string, string>();
 
-  async get(name: string): Promise<string> {
+  public async get(name: string): Promise<string> {
     if (this.cache.has(name)) return this.cache.get(name)!;
 
     const raw = await fetch(`/icons/${name}.svg`).then((r) => r.text());

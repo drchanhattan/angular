@@ -16,20 +16,20 @@ import { PowerUpService } from './power-up.service';
 })
 export class AvoidTheCobService {
   constructor(
-    private audioService: AudioService,
-    private collisionService: CollisionService,
-    private cursor: CursorService,
-    private difficultyService: DifficultyService,
-    private gameObjectService: GameObjectService,
-    private gameStateService: GameStateService,
-    private mainMenuService: MainMenuService,
-    private nameService: PlayerNameService,
-    private particleService: ParticleService,
-    private powerUpService: PowerUpService,
-    private textService: GameTextService,
+    private readonly audioService: AudioService,
+    private readonly collisionService: CollisionService,
+    private readonly cursor: CursorService,
+    private readonly difficultyService: DifficultyService,
+    private readonly gameObjectService: GameObjectService,
+    private readonly gameStateService: GameStateService,
+    private readonly mainMenuService: MainMenuService,
+    private readonly nameService: PlayerNameService,
+    private readonly particleService: ParticleService,
+    private readonly powerUpService: PowerUpService,
+    private readonly textService: GameTextService,
   ) {}
 
-  draw() {
+  public draw() {
     const { mobMode, paused } = this.gameStateService;
 
     this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode());
@@ -44,7 +44,7 @@ export class AvoidTheCobService {
     }
   }
 
-  play(mobMode: boolean) {
+  public play(mobMode: boolean) {
     const name = localStorage.getItem('name');
     this.mainMenuService.hide();
 
@@ -60,7 +60,7 @@ export class AvoidTheCobService {
     }
   }
 
-  newGame(mobMode: boolean) {
+  public newGame(mobMode: boolean) {
     this.cursor.reset(mobMode);
     this.gameStateService.reset(mobMode);
     this.gameObjectService.reset();

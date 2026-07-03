@@ -12,31 +12,31 @@ import { Album } from './album';
   providedIn: 'root',
 })
 export class GalleryService {
-  albums = signal<Album[]>([]);
-  id = signal<number | null>(null);
-  isSelected = computed(() => this.id() !== null);
-  loading = signal<boolean>(false);
-  urls = signal<SafeUrl[]>([]);
+  public readonly albums = signal<Album[]>([]);
+  public readonly id = signal<number | null>(null);
+  public readonly isSelected = computed(() => this.id() !== null);
+  public readonly loading = signal<boolean>(false);
+  public readonly urls = signal<SafeUrl[]>([]);
 
   constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private router: Router,
-    private sanitizer: DomSanitizer,
-    private toolbarService: ToolbarService,
+    private readonly http: HttpClient,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly sanitizer: DomSanitizer,
+    private readonly toolbarService: ToolbarService,
   ) {
     this.handleRouteParams();
     this.preloadImages();
   }
 
-  select(id: number) {
+  public select(id: number) {
     window.scrollTo(0, 0);
     this.id.set(id);
     this.toolbarService.label.set(this.albums()[id]?.label || 'Location');
     this.toolbarService.photoNav?.close();
   }
 
-  deselect() {
+  public deselect() {
     this.id.set(null);
     this.toolbarService.label.set('Location');
   }

@@ -15,7 +15,7 @@ type Link = {
   host: { '[class]': 'hostClasses()' },
 })
 export class FooterComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'relative',
     'flex',
@@ -33,18 +33,18 @@ export class FooterComponent {
     'bg-mat-black',
   ]);
 
-  panda = false;
+  protected panda = false;
 
-  year = new Date().getFullYear();
+  protected readonly year = new Date().getFullYear();
 
-  links: Link[] = [
+  protected readonly links: Link[] = [
     { url: 'https://www.linkedin.com/in/christopher-chan-941503a1/', icon: 'linkedin' },
     { url: 'https://github.com/drchanhattan/', icon: 'github' },
     { url: 'https://www.youtube.com/@drchanhattan/', icon: 'youtube' },
     { url: 'https://www.instagram.com/drchanhattan/', icon: 'instagram' },
   ];
 
-  open(url: string) {
+  protected open(url: string) {
     window.open(url);
   }
 }

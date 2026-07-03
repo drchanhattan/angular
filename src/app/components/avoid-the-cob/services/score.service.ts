@@ -4,23 +4,23 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class ScoreService {
-  score = signal(0);
-  comboMultiplier = signal(0);
+  public readonly score = signal(0);
+  public readonly comboMultiplier = signal(0);
 
-  levelIncrease() {
+  public levelIncrease() {
     this.score.update((v) => v + 1000);
   }
 
-  peaCollected() {
+  public peaCollected() {
     this.score.update((v) => v + (this.comboMultiplier() || 1));
     this.comboMultiplier.update((v) => v + 1);
   }
 
-  resetCombo() {
+  public resetCombo() {
     this.comboMultiplier.set(0);
   }
 
-  resetScore() {
+  public resetScore() {
     this.score.set(0);
   }
 }

@@ -8,16 +8,16 @@ import { ParticleService } from '../../services/particle.service';
 })
 export class MainMenuService {
   constructor(
-    private overlayService: OverlayService,
-    private particleService: ParticleService,
+    private readonly overlayService: OverlayService,
+    private readonly particleService: ParticleService,
   ) {}
 
-  show() {
+  public show() {
     this.overlayService.toggle(OverlayItem.MainMenu, false);
     this.particleService.menuParticles('cornSvg', GameObjectDefaults.corn().settings, 30);
   }
 
-  hide() {
+  public hide() {
     this.overlayService.toggle(OverlayItem.MainMenu, true);
   }
 }

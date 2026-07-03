@@ -16,7 +16,7 @@ import { PlayerNameService } from './player-name.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class PlayerNameComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -32,23 +32,23 @@ export class PlayerNameComponent {
     '2xl:w-4/12',
   ]);
 
-  assetService = inject(AssetService);
-  playerNameService = inject(PlayerNameService);
-  private avoidTheCob = inject(AvoidTheCobService);
-  private mainMenuService = inject(MainMenuService);
+  private readonly assetService = inject(AssetService);
+  protected readonly playerNameService = inject(PlayerNameService);
+  private readonly avoidTheCob = inject(AvoidTheCobService);
+  private readonly mainMenuService = inject(MainMenuService);
 
-  pea: SafeUrl = this.assetService.images()[1];
-  nameValue = toSignal(this.playerNameService.name.valueChanges, {
+  protected readonly pea: SafeUrl = this.assetService.images()[1];
+  protected readonly nameValue = toSignal(this.playerNameService.name.valueChanges, {
     initialValue: this.playerNameService.name.value ?? '',
   });
 
-  back() {
+  protected back() {
     this.playerNameService.name.setValue('');
     this.playerNameService.hide();
     this.mainMenuService.show();
   }
 
-  enterName() {
+  protected enterName() {
     const name = this.playerNameService.name;
 
     if (name.value && name.valid) {
@@ -57,7 +57,7 @@ export class PlayerNameComponent {
     }
   }
 
-  keyPressed(event: KeyboardEvent) {
+  protected keyPressed(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       this.enterName();
     }

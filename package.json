@@ -4,8 +4,13 @@
   "scripts": {
     "locate-circular-deps": "npx madge --circular --extensions ts ./",
     "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
+    "lint": "eslint \"src/**/*.ts\"",
     "build": "ng build --configuration production --output-path docs --base-href .",
-    "serve": "ng serve"
+    "serve": "ng serve",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.ts": "eslint"
   },
   "private": true,
   "dependencies": {
@@ -34,8 +39,13 @@
     "@tailwindcss/postcss": "^4.3.2",
     "@types/aos": "^3.0.8",
     "@types/node": "^26.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
     "autoprefixer": "^10.5.2",
+    "eslint": "^10.6.0",
+    "husky": "^9.1.7",
     "istanbul-lib-instrument": "^6.0.3",
+    "lint-staged": "^17.0.8",
     "postcss": "^8.5.3",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",

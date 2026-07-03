@@ -9,7 +9,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './north-america.component.html',
 })
 export class NorthAmericaComponent {
-  albums: Album[] = [
+  protected readonly albums: Album[] = [
     {
       label: 'Canada',
       icons: ['canada'],

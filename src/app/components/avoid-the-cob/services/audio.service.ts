@@ -6,12 +6,12 @@ import { AssetService } from './asset.service';
   providedIn: 'root',
 })
 export class AudioService {
-  sfx = signal<boolean>(true);
-  music = signal<boolean>(false);
-  #activeMusic!: HTMLAudioElement;
-  changed = computed(() => !this.sfx() || this.music());
+  public readonly sfx = signal<boolean>(true);
+  public readonly music = signal<boolean>(false);
+  private activeMusic!: HTMLAudioElement;
+  public readonly changed = computed(() => !this.sfx() || this.music());
 
-  constructor(private assetService: AssetService) {
+  constructor(private readonly assetService: AssetService) {
     const sfx = localStorage.getItem('sfx');
     const music = localStorage.getItem('music');
 
@@ -29,21 +29,21 @@ export class AudioService {
     });
   }
 
-  playSfx(src: GameAudio) {
+  public playSfx(src: GameAudio) {
     if (this.sfx()) {
       this.play(src, false);
     }
   }
 
-  playMusic() {
+  public playMusic() {
     if (this.music()) {
       this.play(GameAudio.Music, true);
     }
   }
 
-  stopMusic() {
-    if (this.#activeMusic) {
-      const audio = this.#activeMusic;
+  public stopMusic() {
+    if (this.activeMusic) {
+      const audio = this.activeMusic;
       const duration = 3000;
       const fadeStep = 0.05;
       const interval = duration / (1 / fadeStep);
@@ -59,13 +59,13 @@ export class AudioService {
     }
   }
 
-  setMusicSpeed(speed: number) {
-    if (this.#activeMusic) {
-      this.#activeMusic.playbackRate = speed;
+  public setMusicSpeed(speed: number) {
+    if (this.activeMusic) {
+      this.activeMusic.playbackRate = speed;
     }
   }
 
-  reset() {
+  public reset() {
     this.sfx.set(true);
     this.music.set(false);
   }
@@ -78,7 +78,7 @@ export class AudioService {
       audio.play();
 
       if (loop) {
-        this.#activeMusic = audio;
+        this.activeMusic = audio;
       }
     }
   }

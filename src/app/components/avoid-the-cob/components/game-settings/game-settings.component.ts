@@ -19,7 +19,7 @@ import { GameSettingsService } from './game-settings.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class GameSettingsComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -29,23 +29,27 @@ export class GameSettingsComponent {
     'justify-center',
   ]);
 
-  audioService = inject(AudioService);
-  cheatService = inject(CheatService);
-  cursorService = inject(CursorService);
-  gameSettingsService = inject(GameSettingsService);
-  particleService = inject(ParticleService);
-  nameService = inject(PlayerNameService);
+  protected readonly audioService = inject(AudioService);
+  protected readonly cheatService = inject(CheatService);
+  protected readonly cursorService = inject(CursorService);
+  protected readonly gameSettingsService = inject(GameSettingsService);
+  protected readonly particleService = inject(ParticleService);
+  protected readonly nameService = inject(PlayerNameService);
 
-  particleCount = toSignal(this.particleService.maxCount.valueChanges, {
+  protected readonly particleCount = toSignal(this.particleService.maxCount.valueChanges, {
     initialValue: this.particleService.maxCount.value ?? this.particleService.default,
   });
-  donut = toSignal(this.cursorService.donut.valueChanges, { initialValue: this.cursorService.donut.value ?? false });
-  playerName = toSignal(this.nameService.name.valueChanges, { initialValue: this.nameService.name.value ?? '' });
-  cheatsEnabled = toSignal(this.cheatService.cheats.valueChanges.pipe(), {
+  protected readonly donut = toSignal(this.cursorService.donut.valueChanges, {
+    initialValue: this.cursorService.donut.value ?? false,
+  });
+  protected readonly playerName = toSignal(this.nameService.name.valueChanges, {
+    initialValue: this.nameService.name.value ?? '',
+  });
+  protected readonly cheatsEnabled = toSignal(this.cheatService.cheats.valueChanges.pipe(), {
     initialValue: this.cheatService.cheats.value,
   });
 
-  settingsChanged = computed(
+  protected readonly settingsChanged = computed(
     () =>
       this.audioService.changed() ||
       Object.values(this.cheatsEnabled()).some((v) => !!v) ||
@@ -53,7 +57,7 @@ export class GameSettingsComponent {
       !!this.donut(),
   );
 
-  reset() {
+  protected reset() {
     this.audioService.reset();
     this.cheatService.cheats.reset();
     this.cursorService.donut.reset();

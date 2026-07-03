@@ -8,21 +8,21 @@ import { MainMenuService } from '../main-menu/main-menu.service';
   providedIn: 'root',
 })
 export class LeaderboardService {
-  scores = signal<GameScore[]>([]);
+  public readonly scores = signal<GameScore[]>([]);
 
   constructor(
-    private firebaseService: FirebaseService,
-    private mainMenuService: MainMenuService,
-    private overlayService: OverlayService,
+    private readonly firebaseService: FirebaseService,
+    private readonly mainMenuService: MainMenuService,
+    private readonly overlayService: OverlayService,
   ) {}
 
-  async show() {
+  public async show() {
     this.mainMenuService.hide();
     this.overlayService.toggle(OverlayItem.Leaderboard, false);
     this.scores.set(await this.firebaseService.get());
   }
 
-  hide() {
+  public hide() {
     this.overlayService.toggle(OverlayItem.Leaderboard, true);
     this.mainMenuService.show();
   }

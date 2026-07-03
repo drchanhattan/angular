@@ -4,18 +4,18 @@ import { GameObjectShape } from './game-object-shape';
 import { GameObjectType } from './game-object-type';
 
 export class GameObject {
-  type: GameObjectType;
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-  shape: GameObjectShape;
-  deltaX: number;
-  deltaY: number;
-  gravity: number;
-  behaviours: GameObjectBehaviour[];
-  expiration?: number;
-  rotation?: number;
+  public type: GameObjectType;
+  public x: number;
+  public y: number;
+  public size: number;
+  public color: string;
+  public shape: GameObjectShape;
+  public deltaX: number;
+  public deltaY: number;
+  public gravity: number;
+  public behaviours: GameObjectBehaviour[];
+  public expiration?: number;
+  public rotation?: number;
 
   constructor(x: number, y: number, settings: GameObjectSettings) {
     this.x = x;
@@ -31,46 +31,46 @@ export class GameObject {
     this.behaviours = [GameObjectBehaviour.Default];
   }
 
-  get isPea() {
+  public get isPea() {
     return this.type === GameObjectType.Pea;
   }
 
-  get isCorn() {
+  public get isCorn() {
     return this.type === GameObjectType.Corn;
   }
 
-  get isPowerUp() {
+  public get isPowerUp() {
     return this.type === GameObjectType.PowerUp;
   }
 
-  get isHeart() {
+  public get isHeart() {
     return this.type === GameObjectType.Heart;
   }
 
-  get isDestroyed() {
+  public get isDestroyed() {
     return this.behaviourIncludes(GameObjectBehaviour.Destroyed);
   }
 
-  get isWithinViewport() {
+  public get isWithinViewport() {
     return this.x >= 0 && this.x <= window.innerWidth && this.y >= 0 && this.y <= window.innerHeight;
   }
 
   // Movement and Positioning
   // ==============================
 
-  move() {
+  public move() {
     this.x += this.deltaX;
     this.y += this.deltaY;
   }
 
-  applyForce(axis: 'x' | 'y', force: number) {
+  public applyForce(axis: 'x' | 'y', force: number) {
     this[axis] += force;
   }
 
   // Collision Detection
   // ==============================
 
-  detectCollision(object: GameObject): boolean {
+  public detectCollision(object: GameObject): boolean {
     return this.shape === GameObjectShape.Square
       ? this.detectRectCollision(object)
       : this.detectCircleCollision(object);
@@ -101,7 +101,7 @@ export class GameObject {
     return distance <= object.size + this.size + 0.1;
   }
 
-  detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
+  public detectWallCollisionOnAxis(axis: 'x' | 'y', canvasSize: number): boolean {
     const position = this[axis];
     return position + this.size / 2 > canvasSize || position - this.size / 2 < 0;
   }
@@ -109,7 +109,7 @@ export class GameObject {
   // Wall Collision
   // ==============================
 
-  processWallCollision() {
+  public processWallCollision() {
     if (this.detectWallCollisionOnAxis('x', window.innerWidth)) {
       this.processWallCollisionOnAxis('x', window.innerWidth / 2);
     }
@@ -134,11 +134,11 @@ export class GameObject {
   // Behaviour Handling
   // ==============================
 
-  behaviourIncludes(behaviour: GameObjectBehaviour): boolean {
+  public behaviourIncludes(behaviour: GameObjectBehaviour): boolean {
     return this.behaviours.includes(behaviour);
   }
 
-  toggleBehaviour(behaviour: GameObjectBehaviour) {
+  public toggleBehaviour(behaviour: GameObjectBehaviour) {
     if (this.behaviourIncludes(behaviour)) {
       this.behaviours = this.behaviours.filter((b) => b !== behaviour);
       if (!this.behaviours.length) {
@@ -149,7 +149,7 @@ export class GameObject {
     }
   }
 
-  destroy() {
+  public destroy() {
     this.toggleBehaviour(GameObjectBehaviour.Destroyed);
   }
 }

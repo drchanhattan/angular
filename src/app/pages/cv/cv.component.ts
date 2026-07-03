@@ -11,8 +11,8 @@ import { take } from 'rxjs';
 })
 export class CVComponent {
   constructor(
-    private http: HttpClient,
-    private router: Router,
+    private readonly http: HttpClient,
+    private readonly router: Router,
   ) {
     this.http
       .get('cv.pdf', { responseType: 'blob' })

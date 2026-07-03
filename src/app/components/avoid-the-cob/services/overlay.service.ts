@@ -13,14 +13,14 @@ export enum OverlayItem {
   providedIn: 'root',
 })
 export class OverlayService {
-  gameText = signal(false);
-  help = signal(false);
-  leaderboard = signal(false);
-  mainMenu = signal(false);
-  playerName = signal(false);
-  settings = signal(false);
+  public readonly gameText = signal(false);
+  public readonly help = signal(false);
+  public readonly leaderboard = signal(false);
+  public readonly mainMenu = signal(false);
+  public readonly playerName = signal(false);
+  public readonly settings = signal(false);
 
-  toggle(item: OverlayItem, hide: boolean) {
+  public toggle(item: OverlayItem, hide: boolean) {
     switch (item) {
       case OverlayItem.GameText: {
         this.gameText.set(!hide);

@@ -9,7 +9,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
   templateUrl: './south-america.component.html',
 })
 export class SouthAmericaComponent {
-  albums: Album[] = [
+  protected readonly albums: Album[] = [
     {
       label: 'Argentina & Chile',
       icons: ['argentina', 'chile'],

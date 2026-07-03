@@ -9,7 +9,7 @@ import { AboutComponent } from '../../components/about/about.component';
   host: { '[class]': 'hostClasses()' },
 })
 export class HomeComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
     'flex-col',

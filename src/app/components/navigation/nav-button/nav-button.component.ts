@@ -11,12 +11,12 @@ import { NavGroup, NavLink } from '../nav/links';
   host: { '[class]': 'hostClasses()' },
 })
 export class NavButtonComponent {
-  active = input.required<boolean>();
-  icon = input<string>();
-  link = input<NavLink>();
-  group = input<NavGroup>();
+  public readonly active = input.required<boolean>();
+  public readonly icon = input<string>();
+  public readonly link = input<NavLink>();
+  public readonly group = input<NavGroup>();
 
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Radius
     'rounded-lg',
 
@@ -24,9 +24,9 @@ export class NavButtonComponent {
     'hover:bg-mat-white/10',
   ]);
 
-  textColor = computed(() => (this.active() ? '!text-mat-yellow' : '!text-mat-cream'));
+  protected readonly textColor = computed(() => (this.active() ? '!text-mat-yellow' : '!text-mat-cream'));
 
-  iconClasses = computed(() => [
+  protected readonly iconClasses = computed(() => [
     this.textColor(),
     'size-10',
     'mr-1',
@@ -37,9 +37,9 @@ export class NavButtonComponent {
     'text-2xl',
   ]);
 
-  labelClasses = computed(() => [this.textColor(), 'text-lg', 'text-nowrap', 'font-medium']);
+  protected readonly labelClasses = computed(() => [this.textColor(), 'text-lg', 'text-nowrap', 'font-medium']);
 
-  expandGroup(button: HTMLElement) {
+  protected expandGroup(button: HTMLElement) {
     const group = this.group();
     if (!!group) {
       group.expanded = !group.expanded;

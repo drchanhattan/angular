@@ -7,16 +7,16 @@ import { MainMenuService } from '../main-menu/main-menu.service';
 })
 export class GameHelpService {
   constructor(
-    private mainMenuService: MainMenuService,
-    private overlayService: OverlayService,
+    private readonly mainMenuService: MainMenuService,
+    private readonly overlayService: OverlayService,
   ) {}
 
-  show() {
+  public show() {
     this.mainMenuService.hide();
     this.overlayService.toggle(OverlayItem.Help, false);
   }
 
-  hide() {
+  public hide() {
     this.overlayService.toggle(OverlayItem.Help, true);
     this.mainMenuService.show();
   }

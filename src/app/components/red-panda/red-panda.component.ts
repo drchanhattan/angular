@@ -23,7 +23,7 @@ enum Sprite {
   host: { '[class]': 'hostClasses()' },
 })
 export class RedPandaComponent {
-  protected hostClasses = computed(() => [
+  protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
     'w-full',
@@ -32,34 +32,29 @@ export class RedPandaComponent {
     'select-none',
   ]);
 
-  @ViewChild('pandaDiv') pandaDiv!: ElementRef<HTMLDivElement>;
-  @ViewChild('imgJump') imgJump!: ElementRef<HTMLImageElement>;
-  @ViewChild('imgIdle') imgIdle!: ElementRef<HTMLImageElement>;
-  @ViewChild('imgRun') imgRun!: ElementRef<HTMLImageElement>;
+  @ViewChild('pandaDiv') private readonly pandaDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('imgJump') private readonly imgJump!: ElementRef<HTMLImageElement>;
+  @ViewChild('imgIdle') private readonly imgIdle!: ElementRef<HTMLImageElement>;
+  @ViewChild('imgRun') private readonly imgRun!: ElementRef<HTMLImageElement>;
 
-  cursorX = 0;
-  panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
+  private cursorX = 0;
+  private readonly panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
   private jumping = false;
 
   @HostListener('document:mousemove', ['$event'])
-  handleMouseMove(event: MouseEvent) {
+  protected handleMouseMove(event: MouseEvent) {
     if (event.clientY > window.innerHeight - this.panda.size * 2 && Math.abs(this.cursorX - event.clientX) > 50) {
       this.cursorX = event.clientX;
     }
   }
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private readonly ngZone: NgZone) {}
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     this.ngZone.runOutsideAngular(() => this.animate());
   }
 
-  get pandaStyle() {
-    const { isflipped, size, x, y } = this.panda;
-    return `width: ${size}px; height: ${size}px; top: ${y - size}px; left: ${x}px; transform: scaleX(${isflipped ? -1 : 1});`;
-  }
-
-  mouseover(value: boolean) {
+  protected mouseover(value: boolean) {
     this.jumping = value;
   }
 
