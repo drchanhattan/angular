@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { map, Observable, of, take } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { map } from 'rxjs';
 import { httpBlob$, sanitizeBlob } from '../../utils/blob-handler';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { FooterComponent } from '../footer/footer.component';
@@ -11,7 +12,7 @@ import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-about',
   imports: [CommonModule, FooterComponent, IconDirective, MatProgressSpinnerModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about.component.html',
 })
 export class AboutComponent {
@@ -29,7 +30,10 @@ export class AboutComponent {
     'text-mat-black',
   ].join(' ');
 
-  hero$: Observable<SafeUrl | null> = of(null);
+  hero = toSignal(
+    httpBlob$('photos/heroes/hero-home.jpg', this.http).pipe(map((blob) => sanitizeBlob(blob, this.sanitizer))),
+    { initialValue: null },
+  );
 
   techStack = [
     { icon: 'angular', label: 'Angular' },
@@ -55,14 +59,5 @@ export class AboutComponent {
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-  ) {
-    this.fetchHero();
-  }
-
-  fetchHero() {
-    this.hero$ = httpBlob$('photos/heroes/hero-home.jpg', this.http).pipe(
-      take(1),
-      map((blob) => sanitizeBlob(blob, this.sanitizer)),
-    );
-  }
+  ) {}
 }
