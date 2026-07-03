@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -14,9 +14,10 @@ import { FooterComponent } from '../footer/footer.component';
   imports: [CommonModule, FooterComponent, IconDirective, MatProgressSpinnerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class AboutComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'flex',
     'flex-col',
@@ -28,7 +29,7 @@ export class AboutComponent {
 
     // Text
     'text-mat-black',
-  ].join(' ');
+  ]);
 
   hero = toSignal(
     httpBlob$('photos/heroes/hero-home.jpg', this.http).pipe(map((blob) => sanitizeBlob(blob, this.sanitizer))),

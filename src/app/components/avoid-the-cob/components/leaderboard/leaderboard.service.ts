@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
 import { FirebaseService } from '../../services/firebase.service';
 import { OverlayItem, OverlayService } from '../../services/overlay.service';
@@ -8,7 +8,7 @@ import { MainMenuService } from '../main-menu/main-menu.service';
   providedIn: 'root',
 })
 export class LeaderboardService {
-  scores: GameScore[] = [];
+  scores = signal<GameScore[]>([]);
 
   constructor(
     private firebaseService: FirebaseService,
@@ -19,7 +19,7 @@ export class LeaderboardService {
   async show() {
     this.mainMenuService.hide();
     this.overlayService.toggle(OverlayItem.Leaderboard, false);
-    this.scores = await this.firebaseService.get();
+    this.scores.set(await this.firebaseService.get());
   }
 
   hide() {

@@ -1,10 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
-
 export class Panda {
-  deltaX$: BehaviorSubject<number>;
-  deltaY$: BehaviorSubject<number>;
-  isflipped$ = new BehaviorSubject<boolean>(false);
-  isJumping$ = new BehaviorSubject<boolean>(false);
+  deltaX: number;
+  deltaY: number;
+  isflipped = false;
+  isJumping = false;
   jumpHeight = 10;
   x: number;
   y: number;
@@ -12,8 +10,8 @@ export class Panda {
   speed = 5;
 
   constructor(deltaX: number, deltaY: number, posX: number, posY: number, size: number) {
-    this.deltaX$ = new BehaviorSubject<number>(deltaX);
-    this.deltaY$ = new BehaviorSubject<number>(deltaY);
+    this.deltaX = deltaX;
+    this.deltaY = deltaY;
     this.x = posX;
     this.y = posY;
     this.size = size;

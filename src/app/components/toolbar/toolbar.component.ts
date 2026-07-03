@@ -1,27 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, HostListener, computed, signal } from '@angular/core';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'app-toolbar',
-  imports: [CommonModule, IconDirective],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [NgClass, IconDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {
-  scrollTop: boolean = false;
+  private scrollTop = signal(window.scrollY < 64);
+
+  darkToolbar = computed(
+    () => !this.scrollTop() || this.toolbarService.navOpen() || this.toolbarService.photoNavOpen(),
+  );
 
   @HostListener('window:scroll', [])
   onScroll() {
-    this.scrollTop = window.scrollY < 64;
+    this.scrollTop.set(window.scrollY < 64);
   }
 
-  constructor(public toolbarService: ToolbarService) {
-    this.onScroll();
-  }
-
-  get darkToolbar() {
-    return !this.scrollTop || this.toolbarService.nav?.opened || this.toolbarService.photoNav?.opened;
-  }
+  constructor(public toolbarService: ToolbarService) {}
 }

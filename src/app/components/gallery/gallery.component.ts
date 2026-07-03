@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, HostBinding, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -18,16 +18,17 @@ import { GalleryService } from './gallery.service';
   imports: [CommonModule, MatProgressSpinnerModule, MatSidenavModule, PhotoNavComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './gallery.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class GalleryComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'flex',
     'flex-col',
 
     // Background
     'bg-neutral-white',
-  ].join(' ');
+  ]);
 
   name = input<string>('');
   hero = input<string>('');

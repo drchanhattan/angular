@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
   selector: 'app-cv',
   imports: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cv.component.html',
 })
 export class CVComponent {

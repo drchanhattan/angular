@@ -1,6 +1,6 @@
 <div class="text-mat-cream flex flex-1 flex-col items-center justify-center p-8">
   <!-- Label -->
-  <span class="text-2xl font-bold">{{ gameHelpObjects[selectedIndex].gameObject }}</span>
+  <span class="text-2xl font-bold">{{ gameHelpObjects[selectedIndex()].gameObject }}</span>
 
   <!-- Object -->
   <div class="my-8 flex w-full items-center justify-center">
@@ -10,13 +10,13 @@
     </button>
 
     <div class="border-mat-cream mx-10 flex size-32 items-center justify-center rounded-xl border-2">
-      @if (selectedIndex === 0) {
+      @if (selectedIndex() === 0) {
         <div class="animate-shake bg-mat-green mx-2 size-8 rounded-full"></div>
-      } @else if (selectedIndex === 1) {
+      } @else if (selectedIndex() === 1) {
         <div class="animate-shake bg-mat-yellow mx-2 size-8 rounded-lg"></div>
-      } @else if (selectedIndex === 2) {
+      } @else if (selectedIndex() === 2) {
         <div class="animate-shake bg-mat-blue mx-2 size-8 rounded-full"></div>
-      } @else if (selectedIndex === 3) {
+      } @else if (selectedIndex() === 3) {
         <div class="animate-shake bg-mat-red mx-2 size-8 rounded-full"></div>
       }
     </div>
@@ -29,7 +29,7 @@
 
   <!-- Description -->
   <span class="max-w-80 text-center">
-    {{ gameHelpObjects[selectedIndex].description }}
+    {{ gameHelpObjects[selectedIndex()].description }}
   </span>
 </div>
 

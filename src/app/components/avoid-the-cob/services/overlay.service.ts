@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export enum OverlayItem {
   GameText = 1,
@@ -13,37 +13,37 @@ export enum OverlayItem {
   providedIn: 'root',
 })
 export class OverlayService {
-  gameText = false;
-  help = false;
-  leaderboard = false;
-  mainMenu = false;
-  playerName = false;
-  settings = false;
+  gameText = signal(false);
+  help = signal(false);
+  leaderboard = signal(false);
+  mainMenu = signal(false);
+  playerName = signal(false);
+  settings = signal(false);
 
   toggle(item: OverlayItem, hide: boolean) {
     switch (item) {
       case OverlayItem.GameText: {
-        this.gameText = !hide;
+        this.gameText.set(!hide);
         break;
       }
       case OverlayItem.Help: {
-        this.help = !hide;
+        this.help.set(!hide);
         break;
       }
       case OverlayItem.Leaderboard: {
-        this.leaderboard = !hide;
+        this.leaderboard.set(!hide);
         break;
       }
       case OverlayItem.MainMenu: {
-        this.mainMenu = !hide;
+        this.mainMenu.set(!hide);
         break;
       }
       case OverlayItem.NewPlayer: {
-        this.playerName = !hide;
+        this.playerName.set(!hide);
         break;
       }
       case OverlayItem.Settings: {
-        this.settings = !hide;
+        this.settings.set(!hide);
         break;
       }
     }

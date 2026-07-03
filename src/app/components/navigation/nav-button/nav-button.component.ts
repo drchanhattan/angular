@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostBinding, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { IconDirective } from '../../../utils/icon/icon.directive';
 import { NavGroup, NavLink } from '../nav/links';
 
 @Component({
   selector: 'app-nav-button',
   imports: [CommonModule, IconDirective],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './nav-button.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class NavButtonComponent {
   active = input.required<boolean>();
@@ -15,13 +16,13 @@ export class NavButtonComponent {
   link = input<NavLink>();
   group = input<NavGroup>();
 
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Radius
     'rounded-lg',
 
     // Hover
     'hover:bg-mat-white/10',
-  ].join(' ');
+  ]);
 
   textColor = computed(() => (this.active() ? '!text-mat-yellow' : '!text-mat-cream'));
 

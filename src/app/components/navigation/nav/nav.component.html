@@ -5,7 +5,7 @@
       <!-- Link -->
       <app-nav-button
         (click)="navigate(group.link.url, group.link.external)"
-        [active]="currentRoute === group.link.url"
+        [active]="currentRoute() === group.link.url"
         [icon]="group.icon"
         [link]="group.link"></app-nav-button>
     } @else if (group.sublinks) {
@@ -17,7 +17,7 @@
           <app-nav-button
             class="ml-8"
             (click)="navigate(subLink.url)"
-            [active]="currentRoute.includes(subLink.url)"
+            [active]="currentRoute().includes(subLink.url)"
             [link]="subLink"></app-nav-button>
         }
       }

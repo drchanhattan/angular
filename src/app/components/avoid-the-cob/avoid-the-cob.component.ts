@@ -1,5 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, HostBinding, HostListener, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  computed,
+} from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { GameHelpComponent } from './components/game-help/game-help.component';
@@ -35,7 +43,8 @@ import { ScoreService } from './services/score.service';
     PlayerNameComponent,
   ],
   templateUrl: './avoid-the-cob.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class]': 'hostClasses()' },
   animations: [
     trigger('opacityAnimation', [
       transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
@@ -44,7 +53,7 @@ import { ScoreService } from './services/score.service';
   ],
 })
 export class AvoidTheCobComponent implements OnInit, OnDestroy {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     //Layout
     'flex',
     'size-full',
@@ -60,7 +69,7 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
 
     // Select
     'select-none',
-  ].join(' ');
+  ]);
 
   @HostBinding('style') background = `background-image: url('game/background.svg');`;
 

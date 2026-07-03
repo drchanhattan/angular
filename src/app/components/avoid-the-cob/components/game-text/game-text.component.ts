@@ -1,14 +1,15 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { GameTextService } from './game-text.service';
 
 @Component({
   selector: 'app-game-text',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './game-text.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class GameTextComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -19,7 +20,7 @@ export class GameTextComponent {
     // Font
     'font-inter',
     'text-mat-cream',
-  ].join(' ');
+  ]);
 
   constructor(public textService: GameTextService) {}
 }

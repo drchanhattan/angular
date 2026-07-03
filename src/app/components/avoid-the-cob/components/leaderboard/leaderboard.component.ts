@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { PlayerNameService } from '../player-name/player-name.service';
 import { LeaderboardService } from './leaderboard.service';
@@ -7,11 +8,12 @@ import { LeaderboardService } from './leaderboard.service';
 @Component({
   selector: 'app-leaderboard',
   imports: [CommonModule, GameButtonComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './leaderboard.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class LeaderboardComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -19,10 +21,9 @@ export class LeaderboardComponent {
     'flex-col',
     'items-center',
     'justify-center',
-  ].join(' ');
+  ]);
 
-  constructor(
-    public leaderboardService: LeaderboardService,
-    public nameService: PlayerNameService,
-  ) {}
+  leaderboardService = inject(LeaderboardService);
+  nameService = inject(PlayerNameService);
+  playerName = toSignal(this.nameService.name.valueChanges, { initialValue: this.nameService.name.value ?? '' });
 }

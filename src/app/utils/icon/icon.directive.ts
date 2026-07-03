@@ -1,17 +1,18 @@
-import { Directive, ElementRef, HostBinding, Renderer2, effect, input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, computed, effect, input } from '@angular/core';
 import { IconRegistry } from './svg-icon-registry.module';
 
 @Directive({
   selector: '[icon]',
   providers: [IconRegistry],
+  host: { '[class]': 'hostClasses()' },
 })
 export class IconDirective {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'flex',
     'items-center',
     'justify-center',
-  ].join(' ');
+  ]);
 
   icon = input.required<string>();
 

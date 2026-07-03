@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { OverlayItem, OverlayService } from '../../services/overlay.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameTextService {
-  text: string = '';
-  subtext: string = '';
+  text = signal('');
+  subtext = signal('');
+
   constructor(private overlayService: OverlayService) {}
 
   async show(text: string, subtext: string, duration: number) {
-    this.text = text;
-    this.subtext = subtext;
+    this.text.set(text);
+    this.subtext.set(subtext);
 
     this.overlayService.toggle(OverlayItem.GameText, false);
     await new Promise((resolve) => setTimeout(resolve, duration));

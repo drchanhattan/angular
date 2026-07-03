@@ -32,13 +32,13 @@ export class GalleryService {
   select(id: number) {
     window.scrollTo(0, 0);
     this.id.set(id);
-    this.toolbarService.label$.next(this.albums()[id]?.label || 'Location');
+    this.toolbarService.label.set(this.albums()[id]?.label || 'Location');
     this.toolbarService.photoNav?.close();
   }
 
   deselect() {
     this.id.set(null);
-    this.toolbarService.label$.next('Location');
+    this.toolbarService.label.set('Location');
   }
 
   private handleRouteParams() {

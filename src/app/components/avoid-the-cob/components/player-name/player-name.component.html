@@ -18,12 +18,12 @@
         } @else if (playerNameService.name.hasError('required')) {
           What should I call you?
         } @else if (playerNameService.name.hasError('minlength')) {
-          You need at least {{ playerNameService.minLength - playerNameService.name.value!.length }} more character{{
-            playerNameService.name.value!.length < playerNameService.minLength - 1 ? 's' : ''
+          You need at least {{ playerNameService.minLength - (nameValue()?.length ?? 0) }} more character{{
+            (nameValue()?.length ?? 0) < playerNameService.minLength - 1 ? 's' : ''
           }}
         } @else if (playerNameService.name.hasError('maxlength')) {
-          Thats {{ playerNameService.name.value!.length - playerNameService.maxLength }} character{{
-            playerNameService.name.value!.length > playerNameService.maxLength + 1 ? 's' : ''
+          Thats {{ (nameValue()?.length ?? 0) - playerNameService.maxLength }} character{{
+            (nameValue()?.length ?? 0) > playerNameService.maxLength + 1 ? 's' : ''
           }}
           too many!
         } @else if (playerNameService.name.hasError('letters')) {

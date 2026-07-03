@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { GameHelpObject } from './game-help-object';
@@ -7,11 +7,12 @@ import { GameHelpService } from './game-help.service';
 @Component({
   selector: 'app-game-help',
   imports: [GameButtonComponent, IconDirective],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './game-help.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class GameHelpComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -20,9 +21,9 @@ export class GameHelpComponent {
     'items-center',
     'justify-center',
     'overflow-hidden',
-  ].join(' ');
+  ]);
 
-  selectedIndex = 0;
+  selectedIndex = signal(0);
   gameHelpObjects: GameHelpObject[] = [
     {
       gameObject: 'Pea',
@@ -49,10 +50,10 @@ export class GameHelpComponent {
   constructor(public gameHelpService: GameHelpService) {}
 
   forward() {
-    this.selectedIndex + 1 < this.gameHelpObjects.length ? this.selectedIndex++ : (this.selectedIndex = 0);
+    this.selectedIndex.update((i) => (i + 1 < this.gameHelpObjects.length ? i + 1 : 0));
   }
 
   backward() {
-    this.selectedIndex > 0 ? this.selectedIndex-- : (this.selectedIndex = this.gameHelpObjects.length - 1);
+    this.selectedIndex.update((i) => (i > 0 ? i - 1 : this.gameHelpObjects.length - 1));
   }
 }

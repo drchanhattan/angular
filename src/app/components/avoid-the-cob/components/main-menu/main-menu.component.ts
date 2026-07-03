@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
@@ -12,11 +12,12 @@ import { LeaderboardService } from '../leaderboard/leaderboard.service';
 @Component({
   selector: 'app-main-menu',
   imports: [GameButtonComponent, IconDirective],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main-menu.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class MainMenuComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -25,7 +26,7 @@ export class MainMenuComponent {
     'items-center',
     'justify-center',
     'lg:flex-row',
-  ];
+  ]);
 
   corn: SafeUrl = this.assetService.images()[0];
   title: SafeUrl = this.assetService.images()[2];

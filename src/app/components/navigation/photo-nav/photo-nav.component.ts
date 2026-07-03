@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostBinding, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../../utils/icon/icon.directive';
@@ -11,11 +11,12 @@ import { ToolbarService } from '../../toolbar/toolbar.service';
 @Component({
   selector: 'app-photo-nav',
   imports: [CommonModule, IconDirective, RouterLink],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './photo-nav.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class PhotoNavComponent implements OnInit {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'flex',
     'h-full',
@@ -25,7 +26,7 @@ export class PhotoNavComponent implements OnInit {
 
     // Background
     'bg-mat-black',
-  ].join(' ');
+  ]);
 
   sidenav = input.required<MatSidenav>();
   albums = input.required<Album[]>();

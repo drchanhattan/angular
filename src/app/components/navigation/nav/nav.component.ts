@@ -1,7 +1,8 @@
-import { Component, HostBinding, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map, startWith } from 'rxjs';
 import { NavType } from '../../toolbar/nav-type';
 import { ToolbarService } from '../../toolbar/toolbar.service';
 import { NavButtonComponent } from '../nav-button/nav-button.component';
@@ -10,11 +11,12 @@ import { NavLink, navGroups } from './links';
 @Component({
   selector: 'app-nav',
   imports: [NavButtonComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './nav.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class NavComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     //Layout
     'flex',
     'h-full',
@@ -24,21 +26,21 @@ export class NavComponent {
 
     // Background
     'bg-mat-black',
-  ].join(' ');
+  ]);
 
   sidenav = input.required<MatSidenav>();
-  currentRoute: string = '';
   groups = navGroups;
+  private router = inject(Router);
+  private toolbarService = inject(ToolbarService);
 
-  constructor(
-    private router: Router,
-    private toolbarService: ToolbarService,
-  ) {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
-      this.currentRoute = event.urlAfterRedirects;
-      window.scrollTo(0, 0);
-    });
-  }
+  currentRoute = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects),
+      startWith(this.router.url),
+    ),
+    { initialValue: this.router.url },
+  );
 
   ngOnInit() {
     this.toolbarService.setNav(this.sidenav(), NavType.Links);
@@ -47,13 +49,13 @@ export class NavComponent {
   navigate(path: string, external = false) {
     if (external) {
       window.open(path);
-    } else if (this.currentRoute !== path) {
+    } else if (this.currentRoute() !== path) {
       this.sidenav().close();
       this.router.navigate([path]);
     }
   }
 
   hasActiveSublink(links: NavLink[]): boolean {
-    return !!links.find((link) => this.currentRoute.includes(link.url));
+    return !!links.find((link) => this.currentRoute().includes(link.url));
   }
 }

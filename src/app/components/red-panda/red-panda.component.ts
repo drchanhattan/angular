@@ -1,6 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostBinding, HostListener, ChangeDetectionStrategy } from '@angular/core';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  NgZone,
+  ViewChild,
+  computed,
+} from '@angular/core';
 import { Panda } from './panda';
 
 enum Sprite {
@@ -11,24 +17,29 @@ enum Sprite {
 
 @Component({
   selector: 'app-red-panda',
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './red-panda.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class RedPandaComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'w-full',
 
     // Select
     'select-none',
-  ].join(' ');
+  ]);
+
+  @ViewChild('pandaDiv') pandaDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('imgJump') imgJump!: ElementRef<HTMLImageElement>;
+  @ViewChild('imgIdle') imgIdle!: ElementRef<HTMLImageElement>;
+  @ViewChild('imgRun') imgRun!: ElementRef<HTMLImageElement>;
 
   cursorX = 0;
   panda = new Panda(0, 0, window.innerWidth / 2 - 75, 9999, 150);
-  sprite$ = new BehaviorSubject<string>(Sprite.Idle);
-  jump$ = new BehaviorSubject<boolean>(false);
+  private jumping = false;
 
   @HostListener('document:mousemove', ['$event'])
   handleMouseMove(event: MouseEvent) {
@@ -37,38 +48,28 @@ export class RedPandaComponent {
     }
   }
 
-  constructor() {
-    this.updateSprite();
-    this.animate();
+  constructor(private ngZone: NgZone) {}
+
+  ngAfterViewInit() {
+    this.ngZone.runOutsideAngular(() => this.animate());
   }
 
   get pandaStyle() {
-    const { isflipped$, size, x, y } = this.panda;
-    const top = `top: ${y - size}px;`;
-    const left = `left: ${x}px;`;
-    const width = `width: ${size}px;`;
-    const height = `height: ${size}px;`;
-    const direction = `transform: scaleX(${isflipped$.value ? -1 : 1});`;
-    return `${width} ${height} ${top} ${left} ${direction}`;
+    const { isflipped, size, x, y } = this.panda;
+    return `width: ${size}px; height: ${size}px; top: ${y - size}px; left: ${x}px; transform: scaleX(${isflipped ? -1 : 1});`;
   }
 
   mouseover(value: boolean) {
-    this.jump$.next(value);
+    this.jumping = value;
   }
 
   private jump() {
-    const { deltaX$, deltaY$, isflipped$, isJumping$, jumpHeight, speed } = this.panda;
-    if (this.jump$.value && !isJumping$.value) {
-      isJumping$.next(true);
-      deltaX$.next(isflipped$.value ? -speed / 2 : speed / 2);
-      deltaY$.next(-jumpHeight);
+    const { isflipped, isJumping, jumpHeight, speed } = this.panda;
+    if (this.jumping && !isJumping) {
+      this.panda.isJumping = true;
+      this.panda.deltaX = isflipped ? -speed / 2 : speed / 2;
+      this.panda.deltaY = -jumpHeight;
     }
-  }
-
-  private updateSprite() {
-    combineLatest([this.panda.deltaX$, this.panda.deltaY$, this.panda.isJumping$]).subscribe(([x, y, jumping]) => {
-      this.sprite$.next(jumping ? Sprite.Jump : x !== 0 ? Sprite.Run : Sprite.Idle);
-    });
   }
 
   private animate() {
@@ -76,10 +77,19 @@ export class RedPandaComponent {
       this.updateX();
       this.updateY();
       this.jump();
+      this.render();
       requestAnimationFrame(animateFrame);
     };
-
     requestAnimationFrame(animateFrame);
+  }
+
+  private render() {
+    const { isflipped, size, x, y, isJumping, deltaX } = this.panda;
+    this.pandaDiv.nativeElement.style.cssText = `width:${size}px;height:${size}px;top:${y - size}px;left:${x}px;transform:scaleX(${isflipped ? -1 : 1});`;
+    const sprite = isJumping ? Sprite.Jump : deltaX !== 0 ? Sprite.Run : Sprite.Idle;
+    this.imgJump.nativeElement.classList.toggle('hidden', sprite !== Sprite.Jump);
+    this.imgIdle.nativeElement.classList.toggle('hidden', sprite !== Sprite.Idle);
+    this.imgRun.nativeElement.classList.toggle('hidden', sprite !== Sprite.Run);
   }
 
   private updateX() {
@@ -88,7 +98,7 @@ export class RedPandaComponent {
   }
 
   private updateDirection() {
-    const { deltaX$, isflipped$, isJumping$, speed, size, x } = this.panda;
+    const { isJumping, speed, size, x } = this.panda;
     const windowWidth = window.innerWidth;
     const pandaX = x + size / 2;
     const cursorDiff = this.cursorX - pandaX;
@@ -96,22 +106,21 @@ export class RedPandaComponent {
     const tooFarLeft = windowWidth - pandaX > windowWidth - size;
     const tooFarRight = windowWidth - pandaX < size;
 
-    if (!isJumping$.value) {
+    if (!isJumping) {
       const canMove = Math.abs(cursorDiff) < windowWidth / 3;
       const fixed = !canMove || (tooFarLeft && !negativeDiff) || (tooFarRight && negativeDiff);
-
-      deltaX$.next(fixed ? 0 : negativeDiff ? speed : -speed);
+      this.panda.deltaX = fixed ? 0 : negativeDiff ? speed : -speed;
     }
 
-    isflipped$.next(tooFarLeft ? false : tooFarRight ? true : !negativeDiff);
+    this.panda.isflipped = tooFarLeft ? false : tooFarRight ? true : !negativeDiff;
   }
 
   private moveX() {
-    const moveLeft = this.panda.deltaX$.value < 0;
+    const moveLeft = this.panda.deltaX < 0;
     const canMoveLeft = moveLeft && this.panda.x > this.panda.size / 2;
     const canMoveRight = !moveLeft && window.innerWidth - this.panda.size > this.panda.x + this.panda.size / 2;
-    if (this.panda.deltaX$.value && (canMoveLeft || canMoveRight)) {
-      this.panda.x += this.panda.deltaX$.value;
+    if (this.panda.deltaX && (canMoveLeft || canMoveRight)) {
+      this.panda.x += this.panda.deltaX;
     }
   }
 
@@ -122,19 +131,19 @@ export class RedPandaComponent {
 
   private moveY() {
     const gravity = 0.25;
-    this.panda.deltaY$.next(this.panda.deltaY$.value + gravity);
-    this.panda.y += this.panda.deltaY$.value;
+    this.panda.deltaY += gravity;
+    this.panda.y += this.panda.deltaY;
   }
 
   private floorCollision() {
-    const { deltaY$, isJumping$, size, y } = this.panda;
+    const { size, y } = this.panda;
     const parentHeight = document.querySelector('app-red-panda')?.clientHeight || 0;
     const floor = parentHeight / 2 + size / 2;
 
     if (y > floor) {
       this.panda.y = floor;
-      deltaY$.next(0);
-      isJumping$.next(false);
+      this.panda.deltaY = 0;
+      this.panda.isJumping = false;
     }
   }
 }

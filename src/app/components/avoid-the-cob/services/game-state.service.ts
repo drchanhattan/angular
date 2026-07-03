@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { effect, Injectable, signal } from '@angular/core';
 import { ToolbarService } from '../../toolbar/toolbar.service';
 import { GameTextService } from '../components/game-text/game-text.service';
 import { LeaderboardService } from '../components/leaderboard/leaderboard.service';
@@ -20,11 +19,11 @@ import { ScoreService } from './score.service';
 })
 export class GameStateService {
   browserResized = false;
-  lives$ = new BehaviorSubject<number>(0);
+  lives = signal<number>(0);
   paused = true;
-  timer = '';
+  timer = signal('');
   timerInterval: any;
-  mobMode = false;
+  mobMode = signal(false);
 
   constructor(
     private audioService: AudioService,
@@ -40,7 +39,7 @@ export class GameStateService {
     private textService: GameTextService,
     private toolbarService: ToolbarService,
   ) {
-    this.lives$.subscribe((lives) => this.toolbarService.hideMenuBtn$.next(!!lives));
+    effect(() => this.toolbarService.hideMenuBtn.set(!!this.lives()));
   }
 
   start() {
@@ -48,7 +47,7 @@ export class GameStateService {
     this.cursor.blink(GameColor.Transparent, 4, 125);
     this.cursor.disableCollision(1000);
 
-    if (this.mobMode) {
+    if (this.mobMode()) {
       this.lifeTimer();
       this.gameObjectService.mobs.createObjects();
     } else {
@@ -62,39 +61,39 @@ export class GameStateService {
   gameOver() {
     const { cheatsEnabled } = this.cheatService;
 
-    this.lives$.next(0);
+    this.lives.set(0);
     this.paused = true;
     this.clearTimer();
     this.audioService.stopMusic();
 
-    if (!cheatsEnabled && !this.browserResized && !this.mobMode) {
-      this.firebaseService.save(this.scoreService.score);
+    if (!cheatsEnabled && !this.browserResized && !this.mobMode()) {
+      this.firebaseService.save(this.scoreService.score());
     }
 
     const subtext = this.browserResized
       ? 'Browser window resize detected'
-      : this.mobMode
+      : this.mobMode()
         ? `You reached level: ${this.difficultyService.level}`
-        : `Score: ${this.scoreService.score}`;
+        : `Score: ${this.scoreService.score()}`;
     this.textService.show('Game Over', subtext, 5000).then(() => {
       this.scoreService.resetScore();
       this.gameObjectService.destroyAll();
       this.difficultyService.level = 0;
       this.cursor.showPointer();
-      cheatsEnabled || this.browserResized || this.mobMode
+      cheatsEnabled || this.browserResized || this.mobMode()
         ? this.mainMenuService.show()
         : this.leaderboardService.show();
     });
   }
 
   reset(mobMode: boolean) {
-    this.mobMode = mobMode;
-    this.lives$.next(mobMode ? 10 : 3);
+    this.mobMode.set(mobMode);
+    this.lives.set(mobMode ? 10 : 3);
     this.browserResized = false;
   }
 
   checkLevelComplete(mobMode: boolean) {
-    if (!this.paused && ((mobMode && !this.timer) || (!mobMode && this.gameObjectService.objectsCleared()))) {
+    if (!this.paused && ((mobMode && !this.timer()) || (!mobMode && this.gameObjectService.objectsCleared()))) {
       this.cursor.collisionEnabled = false;
       this.cursor.setInvincibility(false);
       this.browserResized ? this.gameOver() : this.levelUp();
@@ -109,7 +108,7 @@ export class GameStateService {
     this.canvasService.flash(200, GameColor.Cream);
     this.scoreService.levelIncrease();
     this.levelUpText().then(() => {
-      this.difficultyService.increase(this.mobMode, this.cheatService.cheatsEnabled);
+      this.difficultyService.increase(this.mobMode(), this.cheatService.cheatsEnabled);
       this.start();
     });
   }
@@ -121,11 +120,11 @@ export class GameStateService {
 
   private lifeTimer() {
     let timeLeft = 10;
-    this.timer = timeLeft.toString();
+    this.timer.set(timeLeft.toString());
 
     this.timerInterval = setInterval(() => {
       timeLeft -= 1;
-      this.timer = timeLeft.toString();
+      this.timer.set(timeLeft.toString());
 
       if (timeLeft <= 0) {
         this.clearTimer();
@@ -135,7 +134,7 @@ export class GameStateService {
   }
 
   private clearTimer() {
-    this.timer = '';
+    this.timer.set('');
     clearInterval(this.timerInterval);
   }
 }

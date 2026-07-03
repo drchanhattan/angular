@@ -1,16 +1,17 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { AvoidTheCobComponent } from '../../components/avoid-the-cob/avoid-the-cob.component';
 
 @Component({
   selector: 'app-cob-game',
   imports: [AvoidTheCobComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cob-game.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class CobGameComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'flex',
     'h-dvh',
-  ].join(' ');
+  ]);
 }

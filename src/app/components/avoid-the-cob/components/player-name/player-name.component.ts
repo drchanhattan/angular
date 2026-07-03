@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { AssetService } from '../../services/asset.service';
@@ -10,11 +11,12 @@ import { PlayerNameService } from './player-name.service';
 @Component({
   selector: 'app-player-name',
   imports: [GameButtonComponent, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './player-name.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class PlayerNameComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'absolute',
     'flex',
@@ -28,16 +30,17 @@ export class PlayerNameComponent {
     'lg:w-1/2',
     'xl:w-2/5',
     '2xl:w-4/12',
-  ].join(' ');
+  ]);
+
+  assetService = inject(AssetService);
+  playerNameService = inject(PlayerNameService);
+  private avoidTheCob = inject(AvoidTheCobService);
+  private mainMenuService = inject(MainMenuService);
 
   pea: SafeUrl = this.assetService.images()[1];
-
-  constructor(
-    public assetService: AssetService,
-    private avoidTheCob: AvoidTheCobService,
-    private mainMenuService: MainMenuService,
-    public playerNameService: PlayerNameService,
-  ) {}
+  nameValue = toSignal(this.playerNameService.name.valueChanges, {
+    initialValue: this.playerNameService.name.value ?? '',
+  });
 
   back() {
     this.playerNameService.name.setValue('');

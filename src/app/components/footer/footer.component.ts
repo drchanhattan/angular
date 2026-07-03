@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { RedPandaComponent } from '../red-panda/red-panda.component';
 
@@ -10,11 +10,12 @@ type Link = {
 @Component({
   selector: 'app-footer',
   imports: [IconDirective, RedPandaComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './footer.component.html',
+  host: { '[class]': 'hostClasses()' },
 })
 export class FooterComponent {
-  @HostBinding('class') hostClasses = [
+  protected hostClasses = computed(() => [
     // Layout
     'relative',
     'flex',
@@ -30,7 +31,7 @@ export class FooterComponent {
 
     // Background
     'bg-mat-black',
-  ].join(' ');
+  ]);
 
   panda = false;
 

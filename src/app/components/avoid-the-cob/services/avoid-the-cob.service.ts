@@ -32,7 +32,7 @@ export class AvoidTheCobService {
   draw() {
     const { mobMode, paused } = this.gameStateService;
 
-    this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode);
+    this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode());
     this.particleService.draw();
 
     if (this.difficultyService.level > 0) {
@@ -40,7 +40,7 @@ export class AvoidTheCobService {
     }
 
     if (!paused) {
-      this.gameStateService.checkLevelComplete(mobMode);
+      this.gameStateService.checkLevelComplete(mobMode());
     }
   }
 

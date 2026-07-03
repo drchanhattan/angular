@@ -57,25 +57,25 @@
       <mat-slider class="yellow-slider w-40!" min="0" max="3000" step="100">
         <input matSliderThumb [formControl]="particleService.maxCount" />
       </mat-slider>
-      <span>Particles ( {{ particleService.maxCount.value }} )</span>
+      <span>Particles ( {{ particleCount() }} )</span>
     </div>
 
     <!-- Donut -->
     <div class="mx-2 mt-2 flex flex-col items-center">
       <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="cursorService.donut"></mat-slide-toggle>
-      <span class="text-nowrap">Cursor Style {{ !cursorService.donut.value ? 1 : 2 }}</span>
+      <span class="text-nowrap">Cursor Style {{ !donut() ? 1 : 2 }}</span>
     </div>
   </div>
 
   <!-- Reset -->
   <div class="flex h-8 items-center justify-center space-x-4">
-    @if (gameSettingsService.settingsChanged) {
+    @if (settingsChanged()) {
       <app-game-button
         class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
         (click)="reset()"
         [text]="'Restore Default'"></app-game-button>
     }
-    @if (nameService.name.value) {
+    @if (playerName()) {
       <app-game-button
         class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
         (click)="nameService.reset()"
