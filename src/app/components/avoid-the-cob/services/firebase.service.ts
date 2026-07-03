@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { PlayerNameService } from '../components/player-name/player-name.service';
 import { GameScore } from '../models/game-score/game-score';
 
@@ -7,7 +7,7 @@ import { GameScore } from '../models/game-score/game-score';
   providedIn: 'root',
 })
 export class FirebaseService {
-  private firestore: Firestore = inject(Firestore);
+  private firestore = getFirestore();
   private scoresDocRef = doc(this.firestore, 'gameData/highScores');
 
   constructor(private nameService: PlayerNameService) {}
