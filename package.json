@@ -10,7 +10,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.ts": "eslint"
+    "src/**/*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "**/*.html": "prettier --write"
   },
   "private": true,
   "dependencies": {
