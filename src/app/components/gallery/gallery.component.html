@@ -1,0 +1,73 @@
+<mat-sidenav-container>
+  <!-- Side Nav -->
+  <mat-sidenav
+    #sidenav
+    mode="over"
+    position="end"
+    class="w-72! rounded-none!"
+    [autoFocus]="false"
+    [fixedInViewport]="true"
+    [fixedTopGap]="64">
+    <!-- Photo Navigation -->
+    <app-photo-nav [albums]="albums()" [sidenav]="sidenav"></app-photo-nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="overflow-hidden!">
+    <!-- Content -->
+    @if (!(galleryService.isSelected$ | async)) {
+      @if (hero$.value) {
+        <ng-container [ngTemplateOutlet]="heroImage"></ng-container>
+        <ng-container [ngTemplateOutlet]="label"></ng-container>
+      } @else {
+        <div class="flex size-full min-h-screen items-center justify-center">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+      }
+    } @else {
+      <ng-container [ngTemplateOutlet]="photoLibrary"></ng-container>
+    }
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Photo Library -->
+<ng-template #photoLibrary>
+  @if (galleryService.loading$ | async) {
+    <!-- Spinner -->
+    <div class="bg-neutral-white flex size-full min-h-screen items-center justify-center">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  } @else {
+    <!-- Photos -->
+    <div
+      class="bg-neutral-white mx-auto min-h-screen columns-1 gap-16 overflow-hidden px-4 pt-28 pb-10 sm:px-20 lg:columns-3 lg:gap-8">
+      @for (url of galleryService.urls$ | async; track $index) {
+        <div
+          class="mb-16 overflow-hidden rounded-lg shadow-md lg:mb-8"
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-bottom">
+          <img [src]="url" class="scale-100! duration-1000! hover:scale-110!" (load)="animate()" />
+        </div>
+      }
+    </div>
+  }
+</ng-template>
+
+<!-- Hero -->
+<ng-template #heroImage>
+  @if (hero$.value) {
+    <img
+      class="animate-zoom absolute h-screen w-screen cursor-pointer object-cover"
+      (click)="toolbarService.toggleMenu(2)"
+      [src]="hero$.value" />
+  }
+</ng-template>
+
+<!-- Label -->
+<ng-template #label>
+  <div class="pointer-events-none flex h-screen w-full items-end justify-center">
+    <span
+      class="to-mat-black/25 font-ink text-mat-yellow w-full bg-gradient-to-b from-transparent pt-10 pb-40 text-center text-7xl font-semibold drop-shadow sm:text-9xl sm:font-medium">
+      {{ name() }}
+    </span>
+  </div>
+</ng-template>

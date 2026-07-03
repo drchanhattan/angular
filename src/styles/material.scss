@@ -1,0 +1,62 @@
+@use '@angular/material' as mat;
+@use '../../m3-theme.scss' as m3-theme;
+
+@include mat.elevation-classes();
+@include mat.app-background();
+
+$light-theme: m3-theme.$light-theme;
+$dark-theme: m3-theme.$dark-theme;
+$black: mat.get-theme-color($light-theme, neutral, 10) !important;
+$white: mat.get-theme-color($light-theme, neutral, 99) !important;
+$yellow: mat.get-theme-color($dark-theme, tertiary, 80) !important;
+
+@mixin mat-progress-spinner() {
+  & {
+    --mat-progress-spinner-active-indicator-color: #{$yellow};
+  }
+}
+
+@mixin mat-slide-toggle() {
+  .yellow-slide-toggle {
+    --mat-slide-toggle-selected-pressed-state-layer-color: #{$yellow};
+    --mat-slide-toggle-selected-focus-track-color: #{$yellow};
+    --mat-slide-toggle-selected-hover-track-color: #{$yellow};
+    --mat-slide-toggle-selected-pressed-track-color: #{$yellow};
+    --mat-slide-toggle-selected-track-color: #{$yellow};
+  }
+}
+
+@mixin mat-slider() {
+  .yellow-slider {
+    --mat-slider-handle-color: #{$yellow};
+    --mat-slider-focus-handle-color: #{$yellow};
+    --mat-slider-hover-handle-color: #{$yellow};
+    --mat-slider-active-track-color: #{$yellow};
+    --mat-slider-label-container-color: #{$yellow};
+  }
+}
+
+@mixin mat-sidenav() {
+  & {
+    --mat-sidenav-scrim-color: rgba(0, 0, 0, 0.5);
+  }
+
+  mat-sidenav {
+    background: transparent !important;
+  }
+}
+
+html {
+  @include mat.elevation-classes();
+  @include mat.app-background();
+  @include mat.elevation-classes();
+  @include mat.app-background();
+  @include mat.all-component-colors($dark-theme);
+  @include mat.all-component-typographies($dark-theme);
+  @include mat.icon-color($dark-theme, $color-variant: tertiary);
+
+  @include mat-slide-toggle();
+  @include mat-slider();
+  @include mat-sidenav();
+  @include mat-progress-spinner();
+}

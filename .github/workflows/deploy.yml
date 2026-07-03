@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Format code
+        run: npm run prettier
+
+      - name: Inject API key
+        run: node -e "const fs=require('fs'); const path='src/environments/environment.ts'; const text=fs.readFileSync(path,'utf8'); fs.writeFileSync(path, text.replace('API_KEY', '${{ secrets.FIREBASE_API_KEY }}'))"
+
+      - name: Build
+        run: npm run build
+
+      - name: Restore Environment file
+        run: git restore src/environments/environment.ts
+
+      - name: Create 404.html
+        run: cp docs/browser/index.html docs/browser/404.html
+
+      - name: Create CNAME
+        run: echo "christopherchan.co.uk" > docs/browser/CNAME
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

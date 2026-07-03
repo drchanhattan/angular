@@ -1,0 +1,44 @@
+{
+  "name": "website",
+  "version": "0.0.0",
+  "scripts": {
+    "locate-circular-deps": "npx madge --circular --extensions ts ./",
+    "prettier": "npx prettier --write \"**/*.ts\" \"**/*.html\"",
+    "build": "ng build --configuration production --output-path docs --base-href .",
+    "serve": "ng serve"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^21.1.3",
+    "@angular/cdk": "^21.1.3",
+    "@angular/common": "^21.1.3",
+    "@angular/compiler": "^21.1.3",
+    "@angular/core": "^21.1.3",
+    "@angular/fire": "^21.0.0-rc.0",
+    "@angular/forms": "^21.1.3",
+    "@angular/material": "^21.1.3",
+    "@angular/platform-browser": "^21.1.3",
+    "@angular/platform-browser-dynamic": "^21.1.3",
+    "@angular/router": "^21.1.3",
+    "aos": "^2.3.4",
+    "firebase": "^12.9.0",
+    "obscenity": "^0.4.6",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "typescript": "^5.9.3",
+    "zone.js": "^0.16.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.1.3",
+    "@angular/cli": "^21.1.3",
+    "@angular/compiler-cli": "^21.1.3",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/aos": "^3.0.7",
+    "@types/node": "^26.1.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.5.3",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4.1.11"
+  }
+}

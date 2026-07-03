@@ -1,0 +1,11 @@
+<div
+  class="absolute overflow-hidden"
+  (mouseover)="mouseover(true)"
+  (mouseleave)="mouseover(false)"
+  [style]="pandaStyle">
+  @if (sprite$ | async; as sprite) {
+    <img [ngClass]="{ hidden: sprite !== 'panda/jump.gif' }" [src]="'panda/jump.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'panda/idle.gif' }" [src]="'panda/idle.gif'" />
+    <img [ngClass]="{ hidden: sprite !== 'panda/run.gif' }" [src]="'panda/run.gif'" />
+  }
+</div>

@@ -1,0 +1,65 @@
+@if (hero$ | async) {
+  <!-- Hero -->
+  <div class="border-mat-white bg-mat-black absolute top-0 h-screen w-full overflow-hidden border-b-2">
+    <img class="animate-zoom size-full object-cover blur-sm" [src]="hero$ | async" />
+  </div>
+
+  <div class="z-10 mb-10">
+    <!-- Avatar -->
+    <div class="mb-[-25vh] h-screen pb-[25vh]">
+      <ng-container [ngTemplateOutlet]="avatar"></ng-container>
+    </div>
+
+    <div class="flex flex-col items-center justify-center">
+      <!-- Text -->
+      <ng-container [ngTemplateOutlet]="text"></ng-container>
+      <!-- Technology -->
+      <ng-container [ngTemplateOutlet]="technology"></ng-container>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+} @else {
+  <div class="bg-mat-black flex h-screen w-full items-center justify-center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}
+
+<!-- Avatar Template -->
+<ng-template #avatar>
+  <div class="flex size-full flex-col items-center justify-end py-20">
+    <img class="hover:animate-jiggle size-60" src="avatar.svg" />
+    <span class="bg-mat-yellow text-mat-black m-4 rounded-full px-4 py-2 text-center text-2xl font-bold shadow">
+      Christopher Chan
+    </span>
+  </div>
+</ng-template>
+
+<!-- Text Template -->
+<ng-template #text>
+  <div
+    class="bg-mat-white flex h-fit min-h-[50vh] w-[90vw] flex-col items-center justify-center rounded-3xl p-6 text-center shadow sm:p-10 md:w-[60vw] lg:p-20">
+    <span class="text-5xl font-bold">Hey!</span>
+    <span class="my-6 text-lg font-medium">
+      I'm a frontend developer with a passion for crafting intuitive and engaging single page applications in Angular.
+      This site features my personal photography portfolio and highlights my design and development skills. Check out
+      the game I'm building and try to post a high score! I'm always open to new connections and work opportunities, so
+      feel free to reach out on LinkedIn!
+    </span>
+  </div>
+</ng-template>
+
+<!-- Technology Template -->
+<ng-template #technology>
+  <div class="my-4 grid w-full grid-cols-2 justify-items-center sm:my-12 sm:grid-cols-3 md:gap-8">
+    @for (tech of techStack; track $index) {
+      <div
+        class="border-mat-white bg-mat-black hover:animate-jiggle my-4 flex size-36 flex-col items-center justify-center rounded-full border-2 shadow sm:size-48"
+        data-aos="fade-up"
+        data-aos-once="true">
+        <span class="my-4 scale-100 sm:my-6 md:my-8 md:scale-150" [icon]="tech.icon"></span>
+        <span class="text-mat-cream text-sm sm:text-base sm:font-semibold">{{ tech.label }}</span>
+      </div>
+    }
+  </div>
+</ng-template>

@@ -1,0 +1,25 @@
+<div class="my-40 flex flex-col items-center lg:mb-20">
+  <!-- Socials -->
+  <div class="mb-10 flex items-center justify-center">
+    @for (link of links; track $index) {
+      <button class="mx-6 scale-175" (click)="open(link.url)">
+        <span class="text-mat-yellow" [icon]="link.icon"></span>
+      </button>
+    }
+  </div>
+
+  <!-- Copyright -->
+  <div class="text-mat-cream flex flex-col items-center justify-center">
+    <span>{{ `Copyright © ${year} Christopher Chan.` }}</span>
+    <span class="text-xs">Powered by Ramen Noodles.</span>
+  </div>
+</div>
+
+<!-- Panda -->
+<div
+  class="border-mat-white bg-mat-yellow mt-20 hidden h-10 w-full cursor-pointer border-t-2 lg:flex"
+  (click)="panda = !panda">
+  @if (panda) {
+    <app-red-panda class="-mt-5"></app-red-panda>
+  }
+</div>

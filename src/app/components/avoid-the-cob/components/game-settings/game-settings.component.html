@@ -1,0 +1,88 @@
+<div class="font-inter text-mat-cream mt-10 flex w-80 flex-1 flex-col items-center justify-center">
+  <!-- Audio -->
+  <div class="my-4 flex w-full justify-evenly">
+    <div class="flex flex-col items-center justify-center">
+      <mat-slide-toggle
+        class="yellow-slide-toggle"
+        [checked]="audioService.music()"
+        (change)="audioService.music.set($event.checked)"></mat-slide-toggle>
+      <span>Music</span>
+    </div>
+    <div class="flex flex-col items-center justify-center">
+      <mat-slide-toggle
+        class="yellow-slide-toggle"
+        [checked]="audioService.sfx()"
+        (change)="audioService.sfx.set($event.checked)"></mat-slide-toggle>
+      <span>SFX</span>
+    </div>
+  </div>
+
+  <!-- Cheats -->
+  <div
+    class="border-mat-cream mt-2 mb-4 flex w-full flex-col items-center rounded-xl border-2 py-6"
+    [formGroup]="cheatService.cheats">
+    <span class="mb-6 text-xs">Enabling cheats will disable highscores</span>
+    <div class="flex w-full items-center justify-evenly">
+      <div class="flex flex-col space-y-8">
+        <!-- Invincibility -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="invincibility"></mat-slide-toggle>
+          <span>Invincibility</span>
+        </div>
+        <!-- Time Lock -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="timeLock"></mat-slide-toggle>
+          <span>Time Lock</span>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-8">
+        <!-- Force Field -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="forceField"></mat-slide-toggle>
+          <span class="text-nowrap">Force Field</span>
+        </div>
+        <!-- Magnetise -->
+        <div class="flex flex-col items-center">
+          <mat-slide-toggle class="yellow-slide-toggle mb-2" formControlName="magnetise"></mat-slide-toggle>
+          <span>Magnetise</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other -->
+  <div class="mb-8 flex items-start">
+    <!-- Particles -->
+    <div class="mx-2 flex w-full flex-col items-center">
+      <mat-slider class="yellow-slider w-40!" min="0" max="3000" step="100">
+        <input matSliderThumb [formControl]="particleService.maxCount" />
+      </mat-slider>
+      <span>Particles ( {{ particleService.maxCount.value }} )</span>
+    </div>
+
+    <!-- Donut -->
+    <div class="mx-2 mt-2 flex flex-col items-center">
+      <mat-slide-toggle class="yellow-slide-toggle mb-2" [formControl]="cursorService.donut"></mat-slide-toggle>
+      <span class="text-nowrap">Cursor Style {{ !cursorService.donut.value ? 1 : 2 }}</span>
+    </div>
+  </div>
+
+  <!-- Reset -->
+  <div class="flex h-8 items-center justify-center space-x-4">
+    @if (gameSettingsService.settingsChanged) {
+      <app-game-button
+        class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
+        (click)="reset()"
+        [text]="'Restore Default'"></app-game-button>
+    }
+    @if (nameService.name.value) {
+      <app-game-button
+        class="[&>button]:border-mat-yellow [&>button>span]:font-inter! [&>button]:border-2 [&>button]:text-sm"
+        (click)="nameService.reset()"
+        [text]="'Logout'"></app-game-button>
+    }
+  </div>
+</div>
+
+<!-- Back -->
+<app-game-button class="mb-12" (click)="gameSettingsService.hide()" [text]="'Back'"></app-game-button>

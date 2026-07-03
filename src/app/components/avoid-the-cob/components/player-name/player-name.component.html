@@ -1,0 +1,51 @@
+<div class="mt-20 flex w-full flex-1 flex-col items-center justify-center">
+  <!-- Pea SVG -->
+  <img [src]="pea" class="animate-float max-h-[30vh] sm:max-h-[40vh]" id="peaSvg" />
+
+  <!-- Name -->
+  <div class="flex w-full flex-col items-center">
+    <input
+      contenteditable
+      class="font-ink text-mat-cream flex w-full rounded-xl bg-[rgba(255,255,255,0.05)] p-2 text-center text-2xl font-bold tracking-wider uppercase outline-none md:text-3xl lg:text-4xl"
+      [formControl]="playerNameService.name"
+      (keypress)="keyPressed($event)" />
+
+    <!-- Validation -->
+    <div class="font-inter mt-4 text-center text-sm">
+      <span class="text-mat-cream">
+        @if (playerNameService.name.valid) {
+          &nbsp;
+        } @else if (playerNameService.name.hasError('required')) {
+          What should I call you?
+        } @else if (playerNameService.name.hasError('minlength')) {
+          You need at least {{ playerNameService.minLength - playerNameService.name.value!.length }} more character{{
+            playerNameService.name.value!.length < playerNameService.minLength - 1 ? 's' : ''
+          }}
+        } @else if (playerNameService.name.hasError('maxlength')) {
+          Thats {{ playerNameService.name.value!.length - playerNameService.maxLength }} character{{
+            playerNameService.name.value!.length > playerNameService.maxLength + 1 ? 's' : ''
+          }}
+          too many!
+        } @else if (playerNameService.name.hasError('letters')) {
+          Sorry, letters and hyphens only
+        } @else if (playerNameService.name.hasError('consecutive')) {
+          Sorry, no consecutive spaces or hyphens
+        } @else if (playerNameService.name.hasError('edge')) {
+          Sorry, no leading or trailing spaces
+        } @else if (playerNameService.name.hasError('profanity')) {
+          Ummm.. Seriously?
+        }
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="my-12 flex w-full scale-75 justify-center sm:scale-100 sm:justify-evenly">
+  <!-- Back Button -->
+  <app-game-button (click)="back()" [text]="'Back'"></app-game-button>
+
+  <!-- Next Button -->
+  @if (playerNameService.name.valid) {
+    <app-game-button (click)="enterName()" [text]="'Next'"></app-game-button>
+  }
+</div>
