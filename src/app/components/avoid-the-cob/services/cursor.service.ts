@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { scaledSize } from '../models/device-scale/device-scale';
 import { GameColor } from '../models/game-color/game-color';
@@ -14,6 +14,11 @@ import { ParticleService } from './particle.service';
   providedIn: 'root',
 })
 export class CursorService {
+  private readonly canvasService = inject(CanvasService);
+  private readonly deviceService = inject(DeviceService);
+  private readonly ngZone = inject(NgZone);
+  private readonly particleService = inject(ParticleService);
+
   public collisionEnabled: boolean = true;
   public readonly donut = new FormControl(false);
   public invincible: boolean = false;
@@ -22,14 +27,12 @@ export class CursorService {
   private lastTouch: { x: number; y: number } | null = null;
   private randomColor!: GameColor;
 
-  constructor(
-    private readonly canvasService: CanvasService,
-    private readonly deviceService: DeviceService,
-    private readonly particleService: ParticleService,
-  ) {
-    this.deviceService.isTouch ? this.handleTouch() : this.handleMouse();
+  constructor() {
+    this.ngZone.runOutsideAngular(() => {
+      this.deviceService.isTouch ? this.handleTouch() : this.handleMouse();
+      this.randomizeColor();
+    });
     this.setShape();
-    this.randomizeColor();
   }
 
   public draw() {

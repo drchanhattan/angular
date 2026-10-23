@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, computed, effect, input } from '@angular/core';
+import { Directive, ElementRef, Renderer2, computed, effect, inject, input } from '@angular/core';
 import { IconRegistry } from './svg-icon-registry.module';
 
 @Directive({
@@ -7,6 +7,10 @@ import { IconRegistry } from './svg-icon-registry.module';
   host: { '[class]': 'hostClasses()' },
 })
 export class IconDirective {
+  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly renderer = inject(Renderer2);
+  private readonly registry = inject(IconRegistry);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
@@ -16,11 +20,7 @@ export class IconDirective {
 
   public readonly icon = input.required<string>();
 
-  constructor(
-    private readonly el: ElementRef<HTMLElement>,
-    private readonly renderer: Renderer2,
-    private readonly registry: IconRegistry,
-  ) {
+  constructor() {
     effect(async () => {
       const name = this.icon();
       const svg = await this.registry.get(name);

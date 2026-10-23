@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { GameTextService } from './game-text.service';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { GameTextStore } from './game-text.store';
 
 @Component({
   selector: 'app-game-text',
@@ -22,5 +22,5 @@ export class GameTextComponent {
     'text-mat-cream',
   ]);
 
-  constructor(protected textService: GameTextService) {}
+  protected readonly textStore = inject(GameTextStore);
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { GameButtonComponent } from '../game-button/game-button.component';
 import { GameHelpObject } from './game-help-object';
@@ -12,6 +12,8 @@ import { GameHelpService } from './game-help.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class GameHelpComponent {
+  protected readonly gameHelpService = inject(GameHelpService);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
@@ -46,8 +48,6 @@ export class GameHelpComponent {
         "Extra lives will help you stay in the game. Tip: They appear frequently, but be sure to collect them first, or you'll miss your chance!",
     },
   ];
-
-  constructor(protected gameHelpService: GameHelpService) {}
 
   protected forward() {
     this.selectedIndex.update((i) => (i + 1 < this.gameHelpObjects.length ? i + 1 : 0));

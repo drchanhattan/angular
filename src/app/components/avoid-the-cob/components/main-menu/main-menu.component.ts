@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { IconDirective } from '../../../../utils/icon/icon.directive';
 import { AssetService } from '../../services/asset.service';
@@ -16,6 +16,12 @@ import { LeaderboardService } from '../leaderboard/leaderboard.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class MainMenuComponent {
+  private readonly assetService = inject(AssetService);
+  protected readonly avoidTheCob = inject(AvoidTheCobService);
+  protected readonly gameHelpService = inject(GameHelpService);
+  protected readonly gameSettingsService = inject(GameSettingsService);
+  protected readonly leaderboardService = inject(LeaderboardService);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
@@ -29,12 +35,4 @@ export class MainMenuComponent {
 
   protected readonly corn: SafeUrl = this.assetService.images()[0];
   protected readonly title: SafeUrl = this.assetService.images()[2];
-
-  constructor(
-    private readonly assetService: AssetService,
-    protected avoidTheCob: AvoidTheCobService,
-    protected gameHelpService: GameHelpService,
-    protected gameSettingsService: GameSettingsService,
-    protected leaderboardService: LeaderboardService,
-  ) {}
 }

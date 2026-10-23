@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { GameTextService } from '../components/game-text/game-text.service';
+import { inject, Injectable } from '@angular/core';
+import { GameTextStore } from '../components/game-text/game-text.store';
 import { MainMenuService } from '../components/main-menu/main-menu.service';
 import { PlayerNameService } from '../components/player-name/player-name.service';
+import { GameStateStore } from '../store/game-state.store';
 import { AudioService } from './audio.service';
 import { CollisionService } from './collision.service';
 import { CursorService } from './cursor.service';
-import { DifficultyService } from './difficulty.service';
+import { GameFlowService } from './game-flow.service';
 import { GameObjectService } from './game-object.service';
-import { GameStateService } from './game-state.service';
 import { ParticleService } from './particle.service';
 import { PowerUpService } from './power-up.service';
 
@@ -15,32 +15,30 @@ import { PowerUpService } from './power-up.service';
   providedIn: 'root',
 })
 export class AvoidTheCobService {
-  constructor(
-    private readonly audioService: AudioService,
-    private readonly collisionService: CollisionService,
-    private readonly cursor: CursorService,
-    private readonly difficultyService: DifficultyService,
-    private readonly gameObjectService: GameObjectService,
-    private readonly gameStateService: GameStateService,
-    private readonly mainMenuService: MainMenuService,
-    private readonly nameService: PlayerNameService,
-    private readonly particleService: ParticleService,
-    private readonly powerUpService: PowerUpService,
-    private readonly textService: GameTextService,
-  ) {}
+  private readonly audioService = inject(AudioService);
+  private readonly collisionService = inject(CollisionService);
+  private readonly cursor = inject(CursorService);
+  private readonly gameFlow = inject(GameFlowService);
+  private readonly gameObjectService = inject(GameObjectService);
+  private readonly gameState = inject(GameStateStore);
+  private readonly mainMenuService = inject(MainMenuService);
+  private readonly nameService = inject(PlayerNameService);
+  private readonly particleService = inject(ParticleService);
+  private readonly powerUpService = inject(PowerUpService);
+  private readonly textStore = inject(GameTextStore);
 
   public draw() {
-    const { mobMode, paused } = this.gameStateService;
+    const paused = this.gameState.paused();
 
-    this.gameObjectService.processGameObjects(paused, this.collisionService, mobMode());
+    this.gameObjectService.processGameObjects(paused, this.collisionService, this.gameState.mobMode());
     this.particleService.draw();
 
-    if (this.difficultyService.level > 0) {
+    if (this.gameState.level() > 0) {
       this.cursor.draw();
     }
 
     if (!paused) {
-      this.gameStateService.checkLevelComplete(mobMode());
+      this.gameFlow.checkLevelComplete();
     }
   }
 
@@ -62,14 +60,13 @@ export class AvoidTheCobService {
 
   public newGame(mobMode: boolean) {
     this.cursor.reset(mobMode);
-    this.gameStateService.reset(mobMode);
+    this.gameState.reset(mobMode);
     this.gameObjectService.reset();
-    this.difficultyService.resetLevel();
     this.powerUpService.shufflePowerUps();
     this.audioService.playMusic();
 
-    this.textService.show(`Level ${this.difficultyService.level}`, '', 2500).then(() => {
-      this.gameStateService.start();
+    this.textStore.show(`Level ${this.gameState.level()}`, '', 2500).then(() => {
+      this.gameFlow.start();
     });
   }
 }

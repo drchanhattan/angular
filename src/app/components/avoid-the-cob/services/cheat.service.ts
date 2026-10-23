@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PowerUpService } from './power-up.service';
 
@@ -6,14 +6,14 @@ import { PowerUpService } from './power-up.service';
   providedIn: 'root',
 })
 export class CheatService {
+  private readonly powerUpService = inject(PowerUpService);
+
   public readonly cheats = new FormGroup({
     invincibility: new FormControl<boolean>(false),
     magnetise: new FormControl<boolean>(false),
     forceField: new FormControl<boolean>(false),
     timeLock: new FormControl<boolean>(false),
   });
-
-  constructor(private readonly powerUpService: PowerUpService) {}
 
   public get cheatsEnabled(): boolean {
     return Object.values(this.cheats.value).some((cheat) => !!cheat);

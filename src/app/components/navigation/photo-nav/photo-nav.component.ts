@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../../utils/icon/icon.directive';
@@ -16,6 +16,9 @@ import { ToolbarService } from '../../toolbar/toolbar.service';
   host: { '[class]': 'hostClasses()' },
 })
 export class PhotoNavComponent implements OnInit {
+  protected readonly galleryService = inject(GalleryService);
+  private readonly toolbarService = inject(ToolbarService);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
@@ -30,11 +33,6 @@ export class PhotoNavComponent implements OnInit {
 
   public readonly sidenav = input.required<MatSidenav>();
   public readonly albums = input.required<Album[]>();
-
-  constructor(
-    protected galleryService: GalleryService,
-    private readonly toolbarService: ToolbarService,
-  ) {}
 
   public ngOnInit() {
     this.toolbarService.setNav(this.sidenav(), NavType.Photos);

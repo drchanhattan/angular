@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -12,19 +12,19 @@ import { Album } from './album';
   providedIn: 'root',
 })
 export class GalleryService {
+  private readonly http = inject(HttpClient);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly toolbarService = inject(ToolbarService);
+
   public readonly albums = signal<Album[]>([]);
   public readonly id = signal<number | null>(null);
   public readonly isSelected = computed(() => this.id() !== null);
   public readonly loading = signal<boolean>(false);
   public readonly urls = signal<SafeUrl[]>([]);
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly sanitizer: DomSanitizer,
-    private readonly toolbarService: ToolbarService,
-  ) {
+  constructor() {
     this.handleRouteParams();
     this.preloadImages();
   }

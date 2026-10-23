@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { GameObjectBehaviour } from '../models/game-object/game-object-behaviour';
 import { AudioService } from './audio.service';
 import { CursorService } from './cursor.service';
@@ -9,6 +9,11 @@ import { GameObjectService } from './game-object.service';
   providedIn: 'root',
 })
 export class PowerUpService {
+  private readonly audioService = inject(AudioService);
+  private readonly cursor = inject(CursorService);
+  private readonly difficultyService = inject(DifficultyService);
+  private readonly gameObjectService = inject(GameObjectService);
+
   public powerUps = [
     this.powerInvincible.bind(this),
     this.powerMagnetise.bind(this),
@@ -17,19 +22,11 @@ export class PowerUpService {
     this.powerBlueCorn.bind(this),
   ];
 
-  constructor(
-    private readonly audioService: AudioService,
-    private readonly cursor: CursorService,
-    private readonly difficultyService: DifficultyService,
-    private readonly gameObjectService: GameObjectService,
-  ) {}
-
   public shufflePowerUps() {
     this.powerUps = this.powerUps.sort(() => Math.random() - 0.5);
   }
 
-  public randomPowerUp() {
-    const level = this.difficultyService.level;
+  public randomPowerUp(level: number) {
     const frequency = this.difficultyService.powerUpFrequency;
 
     const powerUpIndex = (level / frequency - 1) % this.powerUps.length;

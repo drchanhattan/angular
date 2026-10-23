@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { englishDataset, englishRecommendedTransformers, RegExpMatcher } from 'obscenity';
 import { GameObjectDefaults } from '../../models/game-object/game-object-defaults';
-import { OverlayItem, OverlayService } from '../../services/overlay.service';
 import { ParticleService } from '../../services/particle.service';
+import { OverlayStore } from '../../store/overlay.store';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +19,10 @@ export class PlayerNameService {
     this.whitespaceValidator(),
     this.profanityValidator(),
   ]);
+  private readonly overlay = inject(OverlayStore);
+  private readonly particleService = inject(ParticleService);
 
-  constructor(
-    private readonly particleService: ParticleService,
-    private readonly overlayService: OverlayService,
-  ) {
+  constructor() {
     const name = localStorage.getItem('name');
 
     if (name) {
@@ -35,11 +34,11 @@ export class PlayerNameService {
     const settings = GameObjectDefaults.powerUp().settings;
     settings.gravity = -0.015;
     this.particleService.menuParticles('peaSvg', settings, 20);
-    this.overlayService.toggle(OverlayItem.NewPlayer, false);
+    this.overlay.show('playerName');
   }
 
   public hide() {
-    this.overlayService.toggle(OverlayItem.NewPlayer, true);
+    this.overlay.hide('playerName');
   }
 
   public reset() {

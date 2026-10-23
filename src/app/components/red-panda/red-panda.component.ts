@@ -6,6 +6,7 @@ import {
   NgZone,
   ViewChild,
   computed,
+  inject,
 } from '@angular/core';
 import { Panda } from './panda';
 
@@ -23,6 +24,8 @@ enum Sprite {
   host: { '[class]': 'hostClasses()' },
 })
 export class RedPandaComponent {
+  private readonly ngZone = inject(NgZone);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'absolute',
@@ -47,8 +50,6 @@ export class RedPandaComponent {
       this.cursorX = event.clientX;
     }
   }
-
-  constructor(private readonly ngZone: NgZone) {}
 
   public ngAfterViewInit() {
     this.ngZone.runOutsideAngular(() => this.animate());

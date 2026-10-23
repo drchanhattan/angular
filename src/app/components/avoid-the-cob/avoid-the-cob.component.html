@@ -7,37 +7,37 @@
   </div>
 } @else {
   <!-- Text -->
-  @if (overlayService.gameText()) {
+  @if (overlay.gameText()) {
     <app-game-text [@opacityAnimation] class="pointer-events-none"></app-game-text>
   }
 
   <!-- Menu -->
-  @if (overlayService.mainMenu()) {
+  @if (overlay.mainMenu()) {
     <app-main-menu [@opacityAnimation]></app-main-menu>
   }
 
   <!-- Name Prompt -->
-  @if (overlayService.playerName()) {
+  @if (overlay.playerName()) {
     <app-player-name [@opacityAnimation]></app-player-name>
   }
 
   <!-- Help -->
-  @if (overlayService.help()) {
+  @if (overlay.help()) {
     <app-game-help [@opacityAnimation]></app-game-help>
   }
 
   <!-- Leaderboard -->
-  @if (overlayService.leaderboard()) {
+  @if (overlay.leaderboard()) {
     <app-leaderboard [@opacityAnimation]></app-leaderboard>
   }
 
   <!-- Settings -->
-  @if (overlayService.settings()) {
+  @if (overlay.settings()) {
     <app-game-settings [@opacityAnimation]></app-game-settings>
   }
 
   <!-- Name -->
-  @if (!gameStateService.lives() && !overlayService.playerName()) {
+  @if (!gameState.lives() && !overlay.playerName()) {
     <!-- Name -->
     <span class="font-inter text-mat-yellow absolute top-0 right-0 mx-4 my-2 text-xs">
       {{ nameService.name.value?.toUpperCase() }}
@@ -45,35 +45,35 @@
   }
 
   <!-- Lives -->
-  @if (gameStateService.lives() > 0) {
+  @if (gameState.lives() > 0) {
     <div
       [@opacityAnimation]
       class="text-mat-cream pointer-events-none absolute top-0 left-0 m-4 flex items-center font-bold">
-      <span class="text-mat-red size-auto text-5xl" icon="favorite"></span>
-      <span class="ml-2 text-5xl">{{ gameStateService.lives() }}</span>
+      <span class="text-mat-red scale-150" icon="favorite"></span>
+      <span class="ml-3 text-5xl">{{ gameState.lives() }}</span>
     </div>
   }
 
   <!-- Score -->
-  @if (gameStateService.lives() > 0 && !gameStateService.mobMode()) {
+  @if (gameState.lives() > 0 && !gameState.mobMode()) {
     <div
       [@opacityAnimation]
       class="text-mat-cream pointer-events-none absolute top-0 right-0 m-4 flex flex-col text-end text-5xl font-bold">
-      <span>{{ scoreService.score() }}</span>
-      @if (scoreService.comboMultiplier() > 1) {
+      <span>{{ scoreStore.score() }}</span>
+      @if (scoreStore.comboMultiplier() > 1) {
         <span class="text-mat-yellow mr-1 animate-pulse overflow-hidden text-2xl font-bold">
-          x {{ scoreService.comboMultiplier() }}
+          x {{ scoreStore.comboMultiplier() }}
         </span>
       }
     </div>
   }
 
   <!-- Timer -->
-  @if (gameStateService.timer()) {
+  @if (gameState.timer() !== null) {
     <span
       [@opacityAnimation]
       class="text-mat-cream pointer-events-none absolute flex size-40 items-center justify-center text-9xl font-bold opacity-50">
-      {{ gameStateService.timer() }}
+      {{ gameState.timer() }}
     </span>
   }
 }

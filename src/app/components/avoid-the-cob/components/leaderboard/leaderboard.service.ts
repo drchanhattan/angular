@@ -1,7 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { GameScore } from '../../models/game-score/game-score';
 import { FirebaseService } from '../../services/firebase.service';
-import { OverlayItem, OverlayService } from '../../services/overlay.service';
+import { OverlayStore } from '../../store/overlay.store';
 import { MainMenuService } from '../main-menu/main-menu.service';
 
 @Injectable({
@@ -9,21 +9,18 @@ import { MainMenuService } from '../main-menu/main-menu.service';
 })
 export class LeaderboardService {
   public readonly scores = signal<GameScore[]>([]);
-
-  constructor(
-    private readonly firebaseService: FirebaseService,
-    private readonly mainMenuService: MainMenuService,
-    private readonly overlayService: OverlayService,
-  ) {}
+  private readonly firebaseService = inject(FirebaseService);
+  private readonly mainMenuService = inject(MainMenuService);
+  private readonly overlay = inject(OverlayStore);
 
   public async show() {
     this.mainMenuService.hide();
-    this.overlayService.toggle(OverlayItem.Leaderboard, false);
+    this.overlay.show('leaderboard');
     this.scores.set(await this.firebaseService.get());
   }
 
   public hide() {
-    this.overlayService.toggle(OverlayItem.Leaderboard, true);
+    this.overlay.hide('leaderboard');
     this.mainMenuService.show();
   }
 }

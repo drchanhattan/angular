@@ -1,7 +1,18 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit, computed } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IconDirective } from '../../utils/icon/icon.directive';
+import { ToolbarService } from '../toolbar/toolbar.service';
 import { GameHelpComponent } from './components/game-help/game-help.component';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
 import { GameTextComponent } from './components/game-text/game-text.component';
@@ -14,9 +25,9 @@ import { AssetService } from './services/asset.service';
 import { AvoidTheCobService } from './services/avoid-the-cob.service';
 import { CanvasService } from './services/canvas.service';
 import { DeviceService } from './services/device.service';
-import { GameStateService } from './services/game-state.service';
-import { OverlayService } from './services/overlay.service';
-import { ScoreService } from './services/score.service';
+import { GameStateStore } from './store/game-state.store';
+import { OverlayStore } from './store/overlay.store';
+import { ScoreStore } from './store/score.store';
 
 @Component({
   selector: 'app-avoid-the-cob',
@@ -62,29 +73,33 @@ export class AvoidTheCobComponent implements OnInit, OnDestroy {
     'select-none',
   ]);
 
-  constructor(
-    protected assetService: AssetService,
-    private readonly avoidTheCob: AvoidTheCobService,
-    private readonly canvasService: CanvasService,
-    private readonly deviceService: DeviceService,
-    protected gameStateService: GameStateService,
-    private readonly mainMenuService: MainMenuService,
-    protected nameService: PlayerNameService,
-    protected overlayService: OverlayService,
-    protected scoreService: ScoreService,
-  ) {}
+  protected readonly assetService = inject(AssetService);
+  private readonly avoidTheCob = inject(AvoidTheCobService);
+  private readonly canvasService = inject(CanvasService);
+  private readonly deviceService = inject(DeviceService);
+  protected readonly gameState = inject(GameStateStore);
+  private readonly mainMenuService = inject(MainMenuService);
+  protected readonly nameService = inject(PlayerNameService);
+  private readonly ngZone = inject(NgZone);
+  protected readonly overlay = inject(OverlayStore);
+  protected readonly scoreStore = inject(ScoreStore);
+  private readonly toolbarService = inject(ToolbarService);
+
+  constructor() {
+    effect(() => this.toolbarService.hideMenuBtn.set(this.gameState.inGame()));
+  }
 
   @HostListener('window:resize') protected onResize() {
     this.canvasService.init();
     if (!this.deviceService.isTouch) {
-      this.gameStateService.browserResized = true;
+      this.gameState.markBrowserResized();
     }
   }
 
   public ngOnInit() {
     this.canvasService.init();
     this.mainMenuService.show();
-    this.animate();
+    this.ngZone.runOutsideAngular(() => this.animate());
   }
 
   public ngOnDestroy() {

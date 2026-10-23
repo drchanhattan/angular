@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { GameColor } from '../models/game-color/game-color';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectBehaviour } from '../models/game-object/game-object-behaviour';
@@ -16,17 +16,17 @@ import { ParticleService } from './particle.service';
   providedIn: 'root',
 })
 export class GameObjectService {
+  private readonly canvasService = inject(CanvasService);
+  private readonly cursor = inject(CursorService);
+  private readonly particleService = inject(ParticleService);
+
   public readonly peas: GameObjectGroup;
   public readonly corns: GameObjectGroup;
   public readonly powerUps: GameObjectGroup;
   public readonly hearts: GameObjectGroup;
   public readonly mobs: GameObjectGroup;
 
-  constructor(
-    private readonly canvasService: CanvasService,
-    private readonly cursor: CursorService,
-    private readonly particleService: ParticleService,
-  ) {
+  constructor() {
     this.peas = new GameObjectGroup(GameObjectDefaults.pea().count, GameObjectDefaults.pea().settings);
     this.corns = new GameObjectGroup(GameObjectDefaults.corn().count, GameObjectDefaults.corn().settings);
     this.powerUps = new GameObjectGroup(GameObjectDefaults.powerUp().count, GameObjectDefaults.powerUp().settings);

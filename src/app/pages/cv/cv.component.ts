@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
@@ -10,10 +10,10 @@ import { take } from 'rxjs';
   templateUrl: './cv.component.html',
 })
 export class CVComponent {
-  constructor(
-    private readonly http: HttpClient,
-    private readonly router: Router,
-  ) {
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+
+  constructor() {
     this.http
       .get('cv.pdf', { responseType: 'blob' })
       .pipe(take(1))

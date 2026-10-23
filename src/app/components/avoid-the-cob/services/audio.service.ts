@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { GameAudio } from '../models/game-audio/game-audio';
 import { AssetService } from './asset.service';
 
@@ -6,12 +6,14 @@ import { AssetService } from './asset.service';
   providedIn: 'root',
 })
 export class AudioService {
+  private readonly assetService = inject(AssetService);
+
   public readonly sfx = signal<boolean>(true);
   public readonly music = signal<boolean>(false);
   private activeMusic!: HTMLAudioElement;
   public readonly changed = computed(() => !this.sfx() || this.music());
 
-  constructor(private readonly assetService: AssetService) {
+  constructor() {
     const sfx = localStorage.getItem('sfx');
     const music = localStorage.getItem('music');
 

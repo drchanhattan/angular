@@ -1,23 +1,21 @@
-import { Injectable } from '@angular/core';
-import { OverlayItem, OverlayService } from '../../services/overlay.service';
+import { inject, Injectable } from '@angular/core';
+import { OverlayStore } from '../../store/overlay.store';
 import { MainMenuService } from '../main-menu/main-menu.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameHelpService {
-  constructor(
-    private readonly mainMenuService: MainMenuService,
-    private readonly overlayService: OverlayService,
-  ) {}
+  private readonly mainMenuService = inject(MainMenuService);
+  private readonly overlay = inject(OverlayStore);
 
   public show() {
     this.mainMenuService.hide();
-    this.overlayService.toggle(OverlayItem.Help, false);
+    this.overlay.show('help');
   }
 
   public hide() {
-    this.overlayService.toggle(OverlayItem.Help, true);
+    this.overlay.hide('help');
     this.mainMenuService.show();
   }
 }

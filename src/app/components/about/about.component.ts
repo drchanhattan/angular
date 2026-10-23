@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -17,6 +17,9 @@ import { FooterComponent } from '../footer/footer.component';
   host: { '[class]': 'hostClasses()' },
 })
 export class AboutComponent {
+  private readonly http = inject(HttpClient);
+  private readonly sanitizer = inject(DomSanitizer);
+
   protected readonly hostClasses = computed(() => [
     // Layout
     'flex',
@@ -56,9 +59,4 @@ export class AboutComponent {
     { icon: 'c-sharp', label: 'C#' },
     { icon: 'selenium', label: 'Selenium' },
   ];
-
-  constructor(
-    private readonly http: HttpClient,
-    private readonly sanitizer: DomSanitizer,
-  ) {}
 }

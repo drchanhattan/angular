@@ -28,6 +28,7 @@
     "@angular/platform-browser": "^22.0.5",
     "@angular/platform-browser-dynamic": "^22.0.5",
     "@angular/router": "^22.0.5",
+    "@ngrx/signals": "^22.0.1",
     "aos": "^2.3.4",
     "firebase": "^12.15.0",
     "obscenity": "^0.4.6",

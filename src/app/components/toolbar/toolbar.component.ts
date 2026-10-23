@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, computed, inject, signal } from '@angular/core';
 import { IconDirective } from '../../utils/icon/icon.directive';
 import { ToolbarService } from './toolbar.service';
 
@@ -10,6 +10,8 @@ import { ToolbarService } from './toolbar.service';
   templateUrl: './toolbar.component.html',
 })
 export class ToolbarComponent {
+  public readonly toolbarService = inject(ToolbarService);
+
   private readonly scrollTop = signal(window.scrollY < 64);
 
   protected readonly darkToolbar = computed(
@@ -20,6 +22,4 @@ export class ToolbarComponent {
   protected onScroll() {
     this.scrollTop.set(window.scrollY < 64);
   }
-
-  constructor(public toolbarService: ToolbarService) {}
 }

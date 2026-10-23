@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { GameObject } from '../models/game-object/game-object';
 import { GameObjectSettings } from '../models/game-object/game-object-setttings';
@@ -9,11 +9,13 @@ import { CanvasService } from './canvas.service';
   providedIn: 'root',
 })
 export class ParticleService {
+  private readonly canvasService = inject(CanvasService);
+
   public particles: GameObject[] = [];
   public readonly default = 2000;
   public readonly maxCount = new FormControl<number>(this.default);
 
-  constructor(private readonly canvasService: CanvasService) {
+  constructor() {
     const max = localStorage.getItem('particles');
 
     if (max) {
