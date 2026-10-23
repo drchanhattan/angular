@@ -89,7 +89,6 @@ export class CollisionService {
       this.audioService.playSfx(GameAudio.Heart);
       this.cursor.blink(heart.color, 2, 100);
       this.gameState.gainLife();
-      this.particleService.create(heart, 8);
       heart.destroy();
     }
   }

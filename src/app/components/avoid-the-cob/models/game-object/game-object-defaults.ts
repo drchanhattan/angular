@@ -62,7 +62,7 @@ export class GameObjectDefaults {
 
     return {
       count: 1,
-      settings: new GameObjectSettings(GameObjectType.Heart, GameColor.Red, size, GameObjectShape.Circle, speed, 0),
+      settings: new GameObjectSettings(GameObjectType.Heart, GameColor.Red, size, GameObjectShape.Heart, speed, 0, 1),
     };
   }
 

@@ -7,6 +7,9 @@ import { GameObjectShape } from '../models/game-object/game-object-shape';
 })
 export class CanvasService {
   public context!: CanvasRenderingContext2D;
+  private readonly heartPath = new Path2D(
+    'm480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z',
+  );
 
   public init() {
     const canvas = document.querySelector('canvas') as HTMLCanvasElement;
@@ -21,9 +24,16 @@ export class CanvasService {
     this.context.fillStyle = object.color;
     this.context.beginPath();
 
-    object.shape === GameObjectShape.Square
-      ? this.drawSquare(object, scale, object.rotation)
-      : this.drawCircle(object, scale, object.shape !== GameObjectShape.Donut);
+    switch (object.shape) {
+      case GameObjectShape.Square:
+        this.drawSquare(object, scale, object.rotation);
+        break;
+      case GameObjectShape.Heart:
+        this.drawHeart(object, scale);
+        break;
+      default:
+        this.drawCircle(object, scale, object.shape !== GameObjectShape.Donut);
+    }
 
     this.context.closePath();
   }
@@ -70,6 +80,22 @@ export class CanvasService {
     this.context.quadraticCurveTo(drawX, drawY, drawX + cornerRadius, drawY);
     this.context.fill();
     this.context.restore();
+  }
+
+  private drawHeart(object: GameObject, scale: number) {
+    const ratio = (object.size * scale * 2) / 800;
+
+    if (ratio) {
+      this.context.save();
+      this.context.translate(object.x, object.y);
+      if (object.rotation) {
+        this.context.rotate(object.rotation / 180);
+      }
+      this.context.scale(ratio, ratio);
+      this.context.translate(-480, 487);
+      this.context.fill(this.heartPath);
+      this.context.restore();
+    }
   }
 
   private drawCircle(object: GameObject, scale: number, filled: boolean) {

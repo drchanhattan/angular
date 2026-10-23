@@ -178,7 +178,9 @@ export class GameObjectService {
       obj.applyForce('y', -5);
     } else {
       this.applyMagnetism(obj, 500, 7, false, false);
-      this.particleService.create(obj, 1, 0.2);
+      if (!obj.isHeart) {
+        this.particleService.create(obj, 1, 0.2);
+      }
     }
   }
 }
